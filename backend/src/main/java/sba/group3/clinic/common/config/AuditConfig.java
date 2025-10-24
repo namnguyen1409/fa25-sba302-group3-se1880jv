@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.context.SecurityContextHolder;
-import sba.group3.clinic.security.JwtAuthenticationToken;
+import sba.group3.clinic.auth.security.CustomUserDetails;
 
 import java.util.Optional;
 
@@ -16,11 +16,13 @@ public class AuditConfig {
     @Bean
     public AuditorAware<String> auditorProvider() {
         return () -> {
-            var authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication instanceof JwtAuthenticationToken jwtAuth && jwtAuth.isAuthenticated()) {
-                return Optional.of(jwtAuth.getPrincipal().toString());
+            try {
+                var userDetail = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                return Optional.of(userDetail.getUser().getId().toString());
+            } catch (Exception ex) {
+                return Optional.of("SYSTEM");
             }
-            return Optional.of("SYSTEM");
+
         };
     }
 

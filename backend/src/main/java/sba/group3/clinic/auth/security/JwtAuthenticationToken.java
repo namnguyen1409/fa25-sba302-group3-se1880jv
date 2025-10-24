@@ -1,4 +1,4 @@
-package sba.group3.clinic.security;
+package sba.group3.clinic.auth.security;
 
 import lombok.AccessLevel;
 import lombok.Getter;

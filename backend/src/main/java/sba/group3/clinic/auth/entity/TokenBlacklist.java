@@ -17,7 +17,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "token_blacklist", indexes = {
+@Table(name = "token_blacklist", schema = "authentication", indexes = {
         @Index(name = "idx_tokenblacklist_jti_unq", columnList = "jti", unique = true)
 })
 @FieldDefaults(level = AccessLevel.PRIVATE)

@@ -12,7 +12,10 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "mfa_config")
+@Table(
+        name = "mfa_config",
+        schema = "authentication"
+)
 public class MfaConfig extends BaseEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -20,13 +23,13 @@ public class MfaConfig extends BaseEntity {
 
     /**
      * Loại phương thức xác thực đa yếu tố ({@link MfaType}) được sử dụng.
-     *  <ul>
-     *      <li>{@link MfaType#TOTP} - Mã xác thực dựa trên thời gian (Time-based One-Time Password)</li>
-     *      <li>{@link MfaType#SMS} - Xác thực qua tin nhắn SMS</li>
-     *      <li>{@link MfaType#EMAIL} - Xác thực qua email</li>
-     *      <li>{@link MfaType#PUSH_NOTIFICATION} - Xác thực qua thông báo đẩy (Push Notification)</li>
-     *      <li>{@link MfaType#PASSKEY} - Xác thực qua khóa bảo mật (Passkey)</li>
-     *  </ul>
+     * <ul>
+     *     <li>{@link MfaType#TOTP} - Mã xác thực dựa trên thời gian (Time-based One-Time Password)</li>
+     *     <li>{@link MfaType#SMS} - Xác thực qua tin nhắn SMS</li>
+     *     <li>{@link MfaType#EMAIL} - Xác thực qua email</li>
+     *     <li>{@link MfaType#PUSH_NOTIFICATION} - Xác thực qua thông báo đẩy (Push Notification)</li>
+     *     <li>{@link MfaType#PASSKEY} - Xác thực qua khóa bảo mật (Passkey)</li>
+     * </ul>
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "mfa_type", nullable = false, length = 32)
@@ -50,7 +53,7 @@ public class MfaConfig extends BaseEntity {
      * Chỉ định cấu hình MFA chính (primary) hay phụ (secondary).
      * Cấu hình chính sẽ được ưu tiên sử dụng khi xác thực.
      */
-    @Column(name = "primary", nullable = false)
+    @Column(name = "is_primary", nullable = false)
     private Boolean primary = false;
 
     /**

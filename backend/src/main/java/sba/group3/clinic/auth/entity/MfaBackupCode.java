@@ -15,17 +15,14 @@ import sba.group3.clinic.user.entity.User;
         indexes = {
                 @Index(name = "idx_mfa_backup_code_user_id", columnList = "user_id")
         }
-
 )
 public class MfaBackupCode extends BaseEntity {
+    @Column(name = "used", nullable = false)
+    Boolean used = false;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @Column(name = "code_hash", nullable = false)
     private String codeHash;
-
-    @Column(name = "used", nullable = false)
-    Boolean used = false;
 
 }
