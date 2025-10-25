@@ -13,7 +13,7 @@ public enum CacheKey {
     USER_PROFILE("user:profile:%s"),
     SYSTEM_CONFIG("system:config"),
     PASSKEY_REGISTRATION_OPTIONS("user:passkey:registration-options:%s"),
-    ;
+    PASSKEY_AUTHENTICATION_OPTIONS("user:passkey:authentication-options:%s");
 
     String template;
 

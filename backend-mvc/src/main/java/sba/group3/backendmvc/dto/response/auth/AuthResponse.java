@@ -24,4 +24,8 @@ public class AuthResponse {
     String tokenType;
     String accessToken;
     Instant expiresIn;
+
+    Boolean trustDevice;
+    Boolean rememberMe;
+    String deviceId;
 }

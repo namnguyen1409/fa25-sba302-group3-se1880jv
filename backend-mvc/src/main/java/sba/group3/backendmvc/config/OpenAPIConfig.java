@@ -24,12 +24,12 @@ public class OpenAPIConfig {
                         )
                 )
                 .servers(
-                        List.of(new io.swagger.v3.oas.models.servers.Server().url("https://backend.telecomic.top/"))
+                        List.of(new io.swagger.v3.oas.models.servers.Server().url("http://localhost:9999/"))
                 )
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .info(new Info()
-                        .title("User Management API")
+                        .title("Clinic Management API")
                         .version("v1")
-                        .description("API documentation for the User Management system"));
+                        .description("API documentation for the Clinic Management system"));
     }
 }

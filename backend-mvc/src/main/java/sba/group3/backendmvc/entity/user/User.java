@@ -55,6 +55,7 @@ public class User extends BaseEntity {
     @Column(name = "first_login", nullable = false)
     boolean firstLogin = true;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

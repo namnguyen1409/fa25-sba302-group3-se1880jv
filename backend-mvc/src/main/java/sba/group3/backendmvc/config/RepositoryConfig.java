@@ -2,6 +2,7 @@ package sba.group3.backendmvc.config;
 
 import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import sba.group3.backendmvc.repository.impl.BaseRepositoryImpl;
@@ -13,5 +14,6 @@ import sba.group3.backendmvc.repository.impl.BaseRepositoryImpl;
         repositoryBaseClass = BaseRepositoryImpl.class,
         repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class
 )
+@EnableJpaAuditing
 public class RepositoryConfig {
 }

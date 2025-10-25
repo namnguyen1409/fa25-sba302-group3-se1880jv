@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
+import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 
 import java.util.LinkedHashSet;
@@ -22,6 +23,7 @@ import java.util.Set;
         })
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @FieldNameConstants
+@SuperBuilder
 public class Role extends BaseEntity {
 
     @Column(name = "name", nullable = false, unique = true, length = 50)
@@ -30,6 +32,7 @@ public class Role extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "role_permissions",

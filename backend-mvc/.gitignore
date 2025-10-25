@@ -39,3 +39,4 @@ build/
 /src/main/resources/private.pem
 /src/main/resources/public.pem
 /.mvn/
+/lucene/indexes/

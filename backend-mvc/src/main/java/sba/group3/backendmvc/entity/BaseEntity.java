@@ -53,6 +53,7 @@ public abstract class BaseEntity {
     @Column(name = "version")
     Integer version;
 
+    @Builder.Default
     @Column(nullable = false)
     Boolean deleted = false;
 

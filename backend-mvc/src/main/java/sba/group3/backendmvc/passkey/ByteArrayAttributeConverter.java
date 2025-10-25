@@ -4,7 +4,6 @@ import com.yubico.webauthn.data.ByteArray;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Converter(autoApply = true)

@@ -32,7 +32,7 @@
         <hibernate-search-version>7.2.4.Final</hibernate-search-version>
         <lucene-analysis-icu-version>9.10.0</lucene-analysis-icu-version>
         <spring-data-jpa-entity-graph.version>3.5.0</spring-data-jpa-entity-graph.version>
-        <spring-doc-version>3.0.0-M1</spring-doc-version>
+        <spring-doc-version>2.8.5</spring-doc-version>
     </properties>
     <dependencies>
         <dependency>
@@ -162,6 +162,21 @@
             <groupId>com.yubico</groupId>
             <artifactId>webauthn-server-core</artifactId>
             <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.samstevens.totp</groupId>
+            <artifactId>totp-spring-boot-starter</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.16.1</version>
         </dependency>
 
     </dependencies>

@@ -33,6 +33,11 @@ public class CustomApiResponseAdvice implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
 
+        // check if swagger ui request
+        if (request.getURI().getPath().contains("/v3/api-docs")) {
+            return body;
+        }
+
         if (body instanceof ResponseEntity<?> entity) {
             Object innerBody = entity.getBody();
             if (innerBody instanceof CustomApiResponse<?> apiResponse) {

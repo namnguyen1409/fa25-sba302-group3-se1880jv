@@ -44,11 +44,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<CustomApiResponse<Object>> handlingAppException(AppException exception) {
+        log.warn(exception.getMessage());
         ErrorCode errorCode = exception.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatus())
                 .body(CustomApiResponse.builder()
                         .code(errorCode.getCode())
-                        .message(exception.getMessage())
+                        .message(errorCode.getMessage())
                         .build());
     }
 

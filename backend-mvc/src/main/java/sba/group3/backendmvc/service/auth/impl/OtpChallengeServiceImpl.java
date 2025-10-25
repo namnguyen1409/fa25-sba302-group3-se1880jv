@@ -1,5 +1,6 @@
 package sba.group3.backendmvc.service.auth.impl;
 
+import dev.samstevens.totp.code.CodeVerifier;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import sba.group3.backendmvc.service.infrastructure.EmailSender;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -23,8 +25,9 @@ import java.time.temporal.ChronoUnit;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OtpChallengeServiceImpl implements OtpChallengeService {
 
-    private final OtpChallengeRepository otpChallengeRepository;
-    private final EmailSender emailSender;
+    OtpChallengeRepository otpChallengeRepository;
+    EmailSender emailSender;
+    CodeVerifier codeVerifier;
 
     @Transactional
     @Override
@@ -40,23 +43,67 @@ public class OtpChallengeServiceImpl implements OtpChallengeService {
                 .user(user)
                 .mfaType(config.getMfaType())
                 .code(otp)
-                .expiresAt(Instant.now().plus(5, ChronoUnit.MILLIS)) // 5 minutes expiry
+                .expiresAt(Instant.now().plus(5, ChronoUnit.MINUTES)) // 5 minutes expiry
                 .verified(false)
+                .attemptCount(0)
                 .build();
 
         switch (config.getMfaType()) {
             case EMAIL -> emailSender.sendOtp(config.getContact(), otp);
             case SMS -> log.info("Sending SMS OTP to {}: {}", config.getContact(), otp);
             case TOTP -> {
+                // TOTP does not require sending OTP, user generates it via authenticator app
             }
             case PUSH_NOTIFICATION -> {
+                // use push notification service to send OTP
             }
             case PASSKEY -> {
+                // redirect to passkey flow
             }
             default -> throw new IllegalArgumentException("Invalid MFA Type");
         }
 
         return otpChallengeRepository.save(challenge);
+    }
+
+    @Override
+    public void verify(User user, MfaConfig config, UUID challengeId, String inputCode) {
+        switch (config.getMfaType()) {
+            case EMAIL, SMS, PUSH_NOTIFICATION -> verifyOtpChallenge(challengeId, inputCode);
+            case TOTP -> verifyTotpChallenge(config, inputCode);
+            default -> throw new IllegalArgumentException("Invalid MFA Type");
+        }
+        // after success -> delete or invalidate the challenge
+        otpChallengeRepository.deleteById(challengeId);
+    }
+
+    private void verifyOtpChallenge(UUID challengeId, String inputCode) {
+        var challenge = otpChallengeRepository.findById(challengeId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid challenge ID"));
+
+        if (Boolean.TRUE.equals(challenge.getDeleted()) || challenge.getExpiresAt().isBefore(Instant.now())) {
+            throw new IllegalArgumentException("OTP challenge is expired or deleted");
+        }
+
+        if (challenge.getAttemptCount() >= 5) {
+            throw new IllegalArgumentException("Maximum verification attempts exceeded");
+        }
+
+        if (!challenge.getCode().equals(inputCode)) {
+            challenge.setAttemptCount(challenge.getAttemptCount() + 1);
+            otpChallengeRepository.save(challenge);
+            throw new IllegalArgumentException("Invalid OTP code");
+        }
+
+        challenge.setVerified(true);
+        challenge.setExpiresAt(Instant.now()); // Invalidate after successful verification
+        otpChallengeRepository.save(challenge);
+    }
+
+    private void verifyTotpChallenge(MfaConfig config, String inputCode) {
+        if (!codeVerifier.isValidCode(config.getSecret(), inputCode))
+            throw new IllegalArgumentException("Invalid TOTP code");
+
     }
 
 

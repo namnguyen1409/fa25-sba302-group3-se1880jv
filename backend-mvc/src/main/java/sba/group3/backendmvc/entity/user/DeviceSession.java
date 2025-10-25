@@ -31,7 +31,7 @@ public class DeviceSession extends BaseEntity {
     @JoinColumn(name = "user_id")
     User user;
 
-    @Column(name = "device_id", nullable = false, length = 100, unique = true)
+    @Column(name = "device_id", nullable = false, length = 100)
     String deviceId;
 
     @Column(name = "device_name")

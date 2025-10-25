@@ -38,6 +38,9 @@ public class OtpChallenge extends BaseEntity {
     @Column(name = "expires_at", nullable = false)
     Instant expiresAt;
 
+    @Column(name = "attempt_count", nullable = false)
+    Integer attemptCount;
+
     @Builder.Default
     @Column(name = "verified", nullable = false)
     boolean verified = false;
