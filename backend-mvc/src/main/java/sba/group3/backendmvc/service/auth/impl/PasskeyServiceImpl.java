@@ -8,10 +8,10 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import sba.group3.backendmvc.dto.request.auth.passkey.FinishLoginRequest;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
+import sba.group3.backendmvc.dto.response.auth.passkey.StartPasskeyLoginResponse;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
-import sba.group3.backendmvc.entity.user.DeviceSession;
-import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.enums.CacheKey;
 import sba.group3.backendmvc.enums.MfaType;
 import sba.group3.backendmvc.exception.AppException;
@@ -21,13 +21,13 @@ import sba.group3.backendmvc.repository.user.DeviceSessionRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.auth.JwtService;
 import sba.group3.backendmvc.service.auth.PasskeyService;
+import sba.group3.backendmvc.service.auth.TokenIssuerService;
 import sba.group3.backendmvc.service.infrastructure.CacheService;
 import sba.group3.backendmvc.service.infrastructure.CookieService;
+import sba.group3.backendmvc.service.user.DeviceSessionService;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,9 +39,8 @@ public class PasskeyServiceImpl implements PasskeyService {
     MfaConfigRepository mfaConfigRepository;
     CacheService cacheService;
     UserRepository userRepository;
-    DeviceSessionRepository deviceSessionRepository;
-    JwtService jwtService;
-    CookieService cookieService;
+    TokenIssuerService tokenIssuerService;
+    DeviceSessionService deviceSessionService;
 
     @NonFinal
     @Value("${security.jwt.refresh-token.expiration}")
@@ -104,30 +103,31 @@ public class PasskeyServiceImpl implements PasskeyService {
 
 
     @Override
-    public PublicKeyCredentialRequestOptions startLogin(String username) {
+    public StartPasskeyLoginResponse startLogin() {
         var start = relyingParty.startAssertion(StartAssertionOptions.builder()
-                .username(username)
                 .timeout(Optional.of(6000L))
                 .build()
         );
+        String requestId = UUID.randomUUID().toString();
         cacheService.put(
-                CacheKey.PASSKEY_AUTHENTICATION_OPTIONS.of(username),
+                CacheKey.PASSKEY_AUTHENTICATION_OPTIONS.of(requestId),
                 start,
                 Duration.ofMinutes(10)
         );
-        return start.getPublicKeyCredentialRequestOptions();
+        return new StartPasskeyLoginResponse(requestId, start.getPublicKeyCredentialRequestOptions());
     }
 
-    public AuthResponse finishLogin(String username, String deviceId, boolean rememberMe, String credential) {
+    @Override
+    public AuthResponse finishLogin(FinishLoginRequest request) {
         try {
             var requestOptions = cacheService.get(
-                    CacheKey.PASSKEY_AUTHENTICATION_OPTIONS.of(username),
+                    CacheKey.PASSKEY_AUTHENTICATION_OPTIONS.of(request.requestId()),
                     AssertionRequest.class
             );
             if (requestOptions == null) {
-                throw new IllegalStateException("No authentication options found for user " + username);
+                throw new IllegalStateException("No authentication options found for request " + request.requestId());
             }
-            var response = PublicKeyCredential.parseAssertionResponseJson(credential);
+            var response = PublicKeyCredential.parseAssertionResponseJson(request.responseJson());
             var result = relyingParty.finishAssertion(
                     FinishAssertionOptions.builder()
                             .request(requestOptions)
@@ -138,51 +138,27 @@ public class PasskeyServiceImpl implements PasskeyService {
             if (!result.isSuccess()) {
                 throw new AppException(ErrorCode.PASSKEY_AUTHENTICATION_FAILED);
             }
-            var user = userRepository.findByUsername(username)
+            UUID userId = UUID.fromString(
+                    new String(result.getCredential().getCredentialId().getBytes(), StandardCharsets.UTF_8)
+            );
+            var user = userRepository.findById(userId)
                     .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
             var credId = result.getCredential().getCredentialId().getBase64Url();
             mfaConfigRepository.updateSignCount(user.getId(), MfaType.PASSKEY, credId, result.getSignatureCount());
 
-            var session = deviceSessionRepository.findByUserIdAndDeviceId(user.getId(), deviceId)
-                    .orElseGet(() -> DeviceSession.builder()
-                            .user(user)
-                            .deviceId(deviceId)
-                            .trusted(true)
-                            .rememberMe(rememberMe)
-                            .build());
-            session.setTrusted(true);
-            deviceSessionRepository.save(session);
-
-            return issueTokens(user, session, deviceId);
+            var session = deviceSessionService.ensureDeviceSession(
+                    user,
+                    request.deviceId(),
+                    request.rememberMe(),
+                    true
+            );
+            return tokenIssuerService.issue(user, session, request.deviceId());
 
         } catch (Exception e) {
             throw new AppException(ErrorCode.UNCATEGORIZED);
         }
     }
 
-    private AuthResponse issueTokens(User user, DeviceSession deviceSession, String deviceId) {
-        var accessTokenId = UUID.randomUUID().toString();
-        var refreshTokenId = UUID.randomUUID().toString();
-        deviceSession.setAccessTokenId(accessTokenId);
-        deviceSession.setRefreshTokenId(refreshTokenId);
-        deviceSessionRepository.save(deviceSession);
-
-        var expiresIn = deviceSession.isRememberMe()
-                ? Instant.now().plus(refreshTokenExpiration)
-                : Instant.now().plus(1, ChronoUnit.DAYS);
-
-        var accessToken = jwtService.generateAccessToken(user, accessTokenId, deviceId);
-        var refreshToken = jwtService.generateRefreshToken(user, refreshTokenId, deviceId, expiresIn);
-
-        cookieService.addRefreshTokenCookie(refreshToken, refreshTokenExpiration);
-
-        return AuthResponse.builder()
-                .requires2FA(false)
-                .accessToken(accessToken)
-                .tokenType("Bearer")
-                .expiresIn(expiresIn)
-                .build();
-    }
 
 
 }

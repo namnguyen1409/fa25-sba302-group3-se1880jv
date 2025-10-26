@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { ensureDeviceId } from "@/utils/device";
+import { toast } from "sonner";
 
 export interface CustomApiResponse<T> {
   code: number;
@@ -57,6 +58,17 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
+function isCustomApiResponse(obj: any): obj is CustomApiResponse<any> {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    "code" in obj &&
+    "message" in obj &&
+    "path" in obj
+  );
+}
+
+
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<CustomApiResponse<any>>) => {
     console.log("API response:", response);
@@ -76,6 +88,14 @@ axiosInstance.interceptors.response.use(
 
   async (error: AxiosError | any) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+
+    const responseData = error.response?.data;
+    console.error("API error response:", responseData);
+    // if (isCustomApiResponse(responseData)) {
+    //   toast.error(responseData.message || "An error occurred");
+    // } else {
+    //   toast.error(error.message || "An unexpected error occurred");
+    // }
 
     if (error.isTokenExpired && !originalRequest._retry) {
       if (isRefreshing) {

@@ -27,7 +27,7 @@ interface LoginFormValues {
 }
 
 const schema = yup.object({
-  username: yup.string().email("Please enter a valid email").required(),
+  username: yup.string().required(),
   password: yup.string().required("Password is required"),
 });
 
@@ -46,7 +46,6 @@ export function LoginForm({
     resolver: yupResolver(schema),
   });
 
-  // ====== Login thường ======
   const onSubmit = async (values: LoginFormValues) => {
     try {
       setLoading(true);
@@ -62,7 +61,7 @@ export function LoginForm({
 
       localStorage.setItem("accessToken", res.accessToken || "");
       toast.success("Login successful!");
-      navigate("/dashboard");
+      navigate("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Login failed");
     } finally {
@@ -70,7 +69,6 @@ export function LoginForm({
     }
   };
 
-  // ====== Login với OAuth ======
   const handleOAuthLogin = async (
     provider: "GOOGLE" | "FACEBOOK" | "GITHUB",
     accessToken: string
@@ -87,7 +85,7 @@ export function LoginForm({
       console.log("OAuth login response:", res);
       localStorage.setItem("accessToken", res.accessToken || "");
       toast.success(`Logged in with ${provider}`);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err: any) {
       console.error(err);
       toast.error(err?.response?.data?.message || "OAuth login failed");
@@ -95,7 +93,6 @@ export function LoginForm({
     }
   };
 
-  // ====== GitHub login popup ======
   const handleGitHubLogin = () => {
     const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
     const redirectUri = import.meta.env.VITE_GITHUB_REDIRECT_URI;
@@ -122,11 +119,9 @@ export function LoginForm({
 
           {/* Username */}
           <Field>
-            <FieldLabel htmlFor="username">Email</FieldLabel>
+            <FieldLabel htmlFor="username">Username</FieldLabel>
             <Input
-              id="username"
-              type="email"
-              placeholder="m@example.com"
+              placeholder="username"
               {...register("username")}
               disabled={loading}
             />

@@ -42,4 +42,7 @@ public class Role extends BaseEntity {
     )
     private Set<Permission> permissions = new LinkedHashSet<>();
 
+    @Builder.Default
+    @Column(name = "is_default")
+    private Boolean isDefault = false;
 }

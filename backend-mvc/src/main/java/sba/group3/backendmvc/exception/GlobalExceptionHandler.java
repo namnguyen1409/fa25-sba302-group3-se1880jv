@@ -1,5 +1,8 @@
 package sba.group3.backendmvc.exception;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +11,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 
 import java.util.HashMap;
@@ -15,13 +19,17 @@ import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+
+    private final HttpServletRequest httpServletRequest;
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ResponseEntity<CustomApiResponse<Void>> handlingRuntimeException(
             Exception exception
     ) {
+        exception.printStackTrace();
         CustomApiResponse<Void> customApiResponse = new CustomApiResponse<>();
 
         customApiResponse.setCode(ErrorCode.UNCATEGORIZED.getCode());
@@ -73,4 +81,16 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<CustomApiResponse<Object>> handleNoResourceFoundException(NoResourceFoundException e) {
+        CustomApiResponse<Object> response = CustomApiResponse.builder()
+                .code(HttpStatus.NOT_FOUND.value())
+                .message("Cannot find the requested resource" + httpServletRequest.getServletPath())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+
 }

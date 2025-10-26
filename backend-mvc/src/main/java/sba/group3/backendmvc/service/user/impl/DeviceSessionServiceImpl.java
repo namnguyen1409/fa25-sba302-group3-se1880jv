@@ -26,10 +26,9 @@ public class DeviceSessionServiceImpl implements DeviceSessionService {
                 .orElseGet(() -> DeviceSession.builder()
                         .user(user)
                         .deviceId(deviceId)
-                        .rememberMe(rememberMe)
-                        .revoked(false)
                         .build());
         session.setTrusted(trusted);
+        session.setRememberMe(rememberMe);
         return deviceSessionRepository.save(session);
     }
 

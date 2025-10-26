@@ -1,12 +1,25 @@
-export interface UserProfile {
+export interface MeResponse {
   id: string;
   username: string;
-  fullName?: string;
-  email?: string;
-  roles: ("ADMIN" | "DOCTOR" | "NURSE" | "RECEPTIONIST" | "PATIENT")[];
-  permissions?: string[];
-  mfaEnabled?: boolean;
-  trustedDevice?: boolean;
+  email: string;
+  phone?: string | null;
+  active: boolean;
+  locked: boolean;
+  mfaEnabled: boolean;
+  firstLogin: boolean;
+  userProfile: {
+    fullName: string;
+    avatarUrl?: string | null;
+  };
+  roles: {
+    name: string;
+    permissions: { name: string }[];
+  }[];
+  device?: {
+    deviceId: string;
+    trusted: boolean;
+    lastLoginAt?: string;
+  };
 }
 
 export interface AuthResponse {

@@ -22,7 +22,12 @@ public enum ErrorCode {
     UNSUPPORTED_OAUTH_PROVIDER(4003, "Unsupported OAuth provider", HttpStatus.BAD_REQUEST),
     DEVICE_SESSION_NOT_FOUND(4004, "Device session not found", HttpStatus.NOT_FOUND),
     REFRESH_TOKEN_INVALID(5003, "Refresh token is invalid", HttpStatus.UNAUTHORIZED),
-    TOKEN_EXPIRED(5001, "Token has expired", HttpStatus.UNAUTHORIZED);
+    INVALID_UPLOAD_ENTITY_TYPE(6001, "Invalid upload entity type", HttpStatus.BAD_REQUEST),
+    TOKEN_EXPIRED(5001, "Token has expired", HttpStatus.UNAUTHORIZED),
+    INVALID_FILE_UPLOAD(6002, "Invalid file upload", HttpStatus.BAD_REQUEST),
+    FILE_SIZE_EXCEEDED(6003, "File size exceeded the maximum limit", HttpStatus.BAD_REQUEST),
+    UPLOAD_NOT_ALLOWED(6004, "Upload not allowed for this entity type", HttpStatus.FORBIDDEN)
+    ;
     int code;
     String message;
     HttpStatus httpStatus;

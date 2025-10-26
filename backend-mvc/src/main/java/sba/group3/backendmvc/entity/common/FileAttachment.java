@@ -23,24 +23,22 @@ public class FileAttachment extends BaseEntity {
     @Column(name = "file_name", nullable = false)
     String fileName;
 
-
     @Column(name = "content_type", nullable = false)
     String contentType;
 
-
     @Column(name = "size", nullable = false)
-    private Long size;
-
+    Long size;
 
     @Column(name = "url", nullable = false)
-    private String url;
+    String url;
 
+    @Column(name = "entity_type")
+    String entityType;
 
-    @Column(name = "entity_type", nullable = false)
-    private String entityType;
+    @Column(name = "entity_id")
+    String entityId;
 
-
-    @Column(name = "entity_id", nullable = false)
-    private String entityId;
+    @Column(name = "upload_purpose")
+    String uploadPurpose;
 
 }

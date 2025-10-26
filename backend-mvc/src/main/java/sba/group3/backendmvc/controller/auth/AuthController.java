@@ -5,16 +5,18 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
+import sba.group3.backendmvc.dto.response.user.MeResponse;
 import sba.group3.backendmvc.service.auth.AuthService;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -47,6 +49,17 @@ public class AuthController {
                         CustomApiResponse.<AuthResponse>builder()
                                 .data(authService.loginWithOAuth(oAuthLoginRequest))
                                 .message("OAuth login successful")
+                                .build()
+                );
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<CustomApiResponse<MeResponse>> getCurrentUser(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity
+                .ok(
+                        CustomApiResponse.<MeResponse>builder()
+                                .data(authService.getCurrentUser(UUID.fromString(jwt.getSubject())))
+                                .message("Fetched current user successfully")
                                 .build()
                 );
     }

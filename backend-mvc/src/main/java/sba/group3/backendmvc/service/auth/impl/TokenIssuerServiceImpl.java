@@ -48,7 +48,6 @@ public class TokenIssuerServiceImpl implements TokenIssuerService {
         deviceSession.setAccessTokenId(accessTokenId);
         deviceSession.setRefreshTokenId(refreshTokenId);
 
-
         var expiresIn = deviceSession.isRememberMe()
                 ? Instant.now().plus(refreshTokenExpiration)
                 : Instant.now().plus(1, ChronoUnit.DAYS);
@@ -56,6 +55,7 @@ public class TokenIssuerServiceImpl implements TokenIssuerService {
         deviceSession.setExpiresIn(expiresIn);
         deviceSession.setLastLoginAt(Instant.now());
         deviceSession.setLastRefreshedAt(Instant.now());
+        deviceSession.setRevoked(false);
 
         var accessToken = jwtService.generateAccessToken(user, accessTokenId, deviceId);
         var refreshToken = jwtService.generateRefreshToken(user, refreshTokenId, deviceId, expiresIn);

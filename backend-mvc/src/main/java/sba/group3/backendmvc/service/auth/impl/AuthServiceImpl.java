@@ -24,30 +24,38 @@ import org.springframework.web.client.RestTemplate;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
+import sba.group3.backendmvc.dto.response.user.MeResponse;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
 import sba.group3.backendmvc.entity.auth.OAuthAccount;
+import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
+import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.enums.LoginStatus;
 import sba.group3.backendmvc.enums.OAuthProvider;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
+import sba.group3.backendmvc.mapper.user.DeviceSessionMapper;
+import sba.group3.backendmvc.mapper.user.UserMapper;
 import sba.group3.backendmvc.repository.auth.OAuthAccountRepository;
 import sba.group3.backendmvc.repository.user.DeviceSessionRepository;
+import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.auth.*;
 import sba.group3.backendmvc.service.infrastructure.CookieService;
 import sba.group3.backendmvc.service.user.DeviceSessionService;
+import sba.group3.backendmvc.service.user.RoleService;
 
 import java.time.Duration;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
+    DeviceSessionMapper deviceSessionMapper;
+    UserMapper userMapper;
 
     MfaConfigService mfaConfigService;
     UserRepository userRepository;
@@ -61,9 +69,11 @@ public class AuthServiceImpl implements AuthService {
     DeviceSessionService deviceSessionService;
     ObjectMapper objectMapper;
     OAuthAccountRepository oAuthAccountRepository;
-    private final CookieService cookieService;
-    private final JwtService jwtService;
-    private final JwtDecoder jwtDecoder;
+    CookieService cookieService;
+    JwtDecoder jwtDecoder;
+    private final RoleService roleService;
+    private final UserProfileRepository userProfileRepository;
+
     @NonFinal
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     String githubClientId;
@@ -171,6 +181,7 @@ public class AuthServiceImpl implements AuthService {
                         .password(passwordEncoder.encode(UUID.randomUUID().toString()))
                         .active(true)
                         .firstLogin(true)
+                        .roles(new HashSet<>(roleService.findDefaultRoles()))
                         .build();
                 return userRepository.save(newUser);
             });
@@ -183,6 +194,13 @@ public class AuthServiceImpl implements AuthService {
                     .avatarUrl(avatar)
                     .build();
             oAuthAccountRepository.save(oauthAccount);
+
+            var profile = UserProfile.builder()
+                    .avatarUrl(avatar)
+                    .fullName(name)
+                    .user(user)
+                    .build();
+            userProfileRepository.save(profile);
         }
         var deviceSession = deviceSessionService.ensureDeviceSession(
                 user,
@@ -223,6 +241,21 @@ public class AuthServiceImpl implements AuthService {
         } catch (Exception e) {
             throw new AppException(ErrorCode.REFRESH_TOKEN_INVALID);
         }
+    }
+
+
+    @Transactional(readOnly = true)
+    @Override
+    public MeResponse getCurrentUser(UUID userId) {
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        var headerDeviceId = headerOrEmpty(httpServletRequest, "X-Device-ID");
+        var dto = userMapper.toDto(user);
+        deviceSessionRepository.findByUserIdAndDeviceId(userId, headerDeviceId)
+                .ifPresent(
+                        deviceSession -> dto.setDevice(deviceSessionMapper.toDto(deviceSession))
+                );
+        return dto;
     }
 
     private JsonNode verifyToken(OAuthProvider provider, String accessToken) {

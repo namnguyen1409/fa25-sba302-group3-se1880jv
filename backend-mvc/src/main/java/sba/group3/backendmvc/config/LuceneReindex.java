@@ -5,9 +5,11 @@ import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -21,10 +23,17 @@ public class LuceneReindex {
 
     EntityManager entityManager;
 
+    @NonFinal
+    @Value("${app.reindex}")
+    boolean reindex;
+
     @Async
     @Transactional
     @EventListener(ApplicationReadyEvent.class)
     public void init() {
+        if (!reindex) {
+            return;
+        }
         try {
             log.info("Starting Lucene mass index...");
             SearchSession searchSession = Search.session(entityManager);

@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import type { UserProfile, LoginRequest, AuthResponse } from "@/types/auth";
+import type { MeResponse, LoginRequest } from "@/types/auth";
 import { authApi } from "@/api/authApi";
 import { toast } from "sonner";
 
 interface AuthContextType {
-  user: UserProfile | null;
+  user: MeResponse | null;
+  setUser?: React.Dispatch<React.SetStateAction<MeResponse | null>>;
   accessToken: string | null;
   isAuthenticated: boolean;
   loading: boolean;
@@ -16,7 +17,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<MeResponse | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(
     localStorage.getItem("accessToken")
   );
@@ -63,6 +64,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         accessToken,
         isAuthenticated: !!user,
         loading,

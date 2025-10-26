@@ -74,7 +74,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**", "/endpoints/all").permitAll()
                         .requestMatchers("/sse", "/sse/**").permitAll()
                         .anyRequest().authenticated())
-                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/"))
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwtConfigurer -> jwtConfigurer
                                 .decoder(jwtDecoder)

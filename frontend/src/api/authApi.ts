@@ -1,7 +1,5 @@
-import type { CustomApiResponse } from "@/types/base.dto";
-import axiosInstance from "./axiosInstance";
 import { apiClient } from "./client";
-import type { UserProfile } from "@/types/auth";
+import type { MeResponse } from "@/types/auth";
 
 export interface LoginRequest {
     username: string;
@@ -39,6 +37,6 @@ export const authApi = {
     oauthLogin: (payload: OAuthLoginRequest) =>
         apiClient.post<AuthResponse>("/auth/oauth", payload),
     refresh: () => apiClient.post<AuthResponse>("/auth/refresh"),
-    me: () => apiClient.get<UserProfile>("/auth/me"),
+    me: () => apiClient.get<MeResponse>("/auth/me"),
     logout: () => apiClient.post("/auth/logout"),
 };

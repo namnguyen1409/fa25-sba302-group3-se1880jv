@@ -2,6 +2,9 @@ package sba.group3.backendmvc.service.auth;
 
 import com.yubico.webauthn.data.PublicKeyCredentialCreationOptions;
 import com.yubico.webauthn.data.PublicKeyCredentialRequestOptions;
+import sba.group3.backendmvc.dto.request.auth.passkey.FinishLoginRequest;
+import sba.group3.backendmvc.dto.response.auth.AuthResponse;
+import sba.group3.backendmvc.dto.response.auth.passkey.StartPasskeyLoginResponse;
 
 import java.util.UUID;
 
@@ -11,5 +14,7 @@ public interface PasskeyService {
 
     void finishRegistration(UUID userId, String credential);
 
-    PublicKeyCredentialRequestOptions startLogin(String username);
+    StartPasskeyLoginResponse startLogin();
+
+    AuthResponse finishLogin(FinishLoginRequest request);
 }
