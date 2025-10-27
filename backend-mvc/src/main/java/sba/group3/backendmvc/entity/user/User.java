@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.auth.OAuthAccount;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -33,9 +34,6 @@ public class User extends BaseEntity {
     @Column(name = "email", unique = true)
     String email;
 
-    @Column(name = "phone", length = 15, unique = true)
-    String phone;
-
     @Builder.Default
     @Column(name = "active", nullable = false)
     boolean active = true;
@@ -61,5 +59,8 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<OAuthAccount> OAuthAccounts = new LinkedHashSet<>();
 
 }

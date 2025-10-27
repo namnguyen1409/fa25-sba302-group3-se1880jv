@@ -4,6 +4,7 @@ import dev.samstevens.totp.code.*;
 import dev.samstevens.totp.secret.DefaultSecretGenerator;
 import dev.samstevens.totp.secret.SecretGenerator;
 import dev.samstevens.totp.time.NtpTimeProvider;
+import dev.samstevens.totp.time.SystemTimeProvider;
 import dev.samstevens.totp.time.TimeProvider;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -22,7 +23,8 @@ public class TOTPConfig {
 
     @Bean
     TimeProvider timeProvider() throws Exception {
-        return new NtpTimeProvider("pool.ntp.org");
+//        return new NtpTimeProvider("pool.ntp.org");
+        return new SystemTimeProvider();
     }
 
     @Bean

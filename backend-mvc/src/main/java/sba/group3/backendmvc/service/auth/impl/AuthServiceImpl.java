@@ -169,10 +169,13 @@ public class AuthServiceImpl implements AuthService {
         String name = userInfo.has("name") ? userInfo.get("name").asText() : "Unknown";
         String providerUserId = userInfo.has("sub") ? userInfo.get("sub").asText() : userInfo.get("id").asText();
         String avatar = userInfo.has("picture") ? userInfo.get("picture").asText() : null;
-        Optional<OAuthAccount> existing = oAuthAccountRepository.findByProviderAndProviderUserId(oAuthLoginRequest.getProvider(), providerUserId);
+
+        Optional<OAuthAccount> existingOAuth = oAuthAccountRepository.findByProviderAndProviderUserId(
+                oAuthLoginRequest.getProvider(), providerUserId);
+
         User user;
-        if (existing.isPresent()) {
-            user = existing.get().getUser();
+        if (existingOAuth.isPresent()) {
+            user = existingOAuth.get().getUser();
         } else {
             user = userRepository.findByEmail(email).orElseGet(() -> {
                 User newUser = User.builder()
@@ -185,31 +188,43 @@ public class AuthServiceImpl implements AuthService {
                         .build();
                 return userRepository.save(newUser);
             });
-            OAuthAccount oauthAccount = OAuthAccount.builder()
-                    .user(user)
-                    .provider(oAuthLoginRequest.getProvider())
-                    .providerUserId(providerUserId)
-                    .email(email)
-                    .name(name)
-                    .avatarUrl(avatar)
-                    .build();
-            oAuthAccountRepository.save(oauthAccount);
 
-            var profile = UserProfile.builder()
-                    .avatarUrl(avatar)
-                    .fullName(name)
-                    .user(user)
-                    .build();
+            // create OAuth account if missing
+            if (!oAuthAccountRepository.existsByProviderAndProviderUserId(
+                    oAuthLoginRequest.getProvider(), providerUserId)) {
+                OAuthAccount oauthAccount = OAuthAccount.builder()
+                        .user(user)
+                        .provider(oAuthLoginRequest.getProvider())
+                        .providerUserId(providerUserId)
+                        .email(email)
+                        .name(name)
+                        .avatarUrl(avatar)
+                        .build();
+                oAuthAccountRepository.save(oauthAccount);
+            }
+
+            // find or update profile
+            var profile = userProfileRepository.findByUser_Id(user.getId())
+                    .orElseGet(() -> UserProfile.builder()
+                            .user(user)
+                            .build());
+
+            if (name != null) profile.setFullName(name);
+            if (avatar != null) profile.setAvatarUrl(avatar);
+
             userProfileRepository.save(profile);
         }
+
         var deviceSession = deviceSessionService.ensureDeviceSession(
                 user,
                 oAuthLoginRequest.getDeviceId(),
                 oAuthLoginRequest.getRememberMe(),
                 true
         );
+
         return tokenIssuerService.issue(user, deviceSession, oAuthLoginRequest.getDeviceId());
     }
+
 
 
     @Transactional

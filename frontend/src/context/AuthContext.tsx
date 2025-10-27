@@ -5,18 +5,21 @@ import { toast } from "sonner";
 
 interface AuthContextType {
   user: MeResponse | null;
-  setUser?: React.Dispatch<React.SetStateAction<MeResponse | null>>;
+  setUser: React.Dispatch<React.SetStateAction<MeResponse | null>>;
   accessToken: string | null;
   isAuthenticated: boolean;
   loading: boolean;
   login: (data: LoginRequest) => Promise<void>;
+  loginSuccess: () => Promise<void>;
   logout: () => void;
   setAccessToken: (token: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const AuthProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   const [user, setUser] = useState<MeResponse | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(
     localStorage.getItem("accessToken")
@@ -53,11 +56,31 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     }
   };
 
+  const loginSuccess = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        setAccessToken(accessToken);
+        const me = await authApi.me();
+        setUser(me);
+      }
+    } catch (err) {
+      console.error("Error during login success:", err);
+    }
+  };
+
   const logout = () => {
-    localStorage.removeItem("accessToken");
-    setAccessToken(null);
-    setUser(null);
-    toast.info("Logged out");
+    try {
+      authApi.logout();
+      localStorage.removeItem("accessToken");
+      setAccessToken(null);
+      setUser(null);
+      window.location.href = "/";
+    } catch (err) {
+      console.error("Logout error:", err);
+      toast.error("Error during logout");
+      return;
+    }
   };
 
   return (
@@ -69,6 +92,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
         isAuthenticated: !!user,
         loading,
         login,
+        loginSuccess,
         logout,
         setAccessToken,
       }}

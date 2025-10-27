@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { ensureDeviceId } from "@/utils/device";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 export interface CustomApiResponse<T> {
   code: number;
@@ -18,7 +18,7 @@ export interface TokenResponse {
 const getAccessToken = () => localStorage.getItem("accessToken");
 
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9999/api";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9999/api";
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -58,15 +58,15 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-function isCustomApiResponse(obj: any): obj is CustomApiResponse<any> {
-  return (
-    obj &&
-    typeof obj === "object" &&
-    "code" in obj &&
-    "message" in obj &&
-    "path" in obj
-  );
-}
+// function isCustomApiResponse(obj: any): obj is CustomApiResponse<any> {
+//   return (
+//     obj &&
+//     typeof obj === "object" &&
+//     "code" in obj &&
+//     "message" in obj &&
+//     "path" in obj
+//   );
+// }
 
 
 axiosInstance.interceptors.response.use(

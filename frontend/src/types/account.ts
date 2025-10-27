@@ -4,14 +4,29 @@ export interface UserProfileResponse {
   lastModifiedDate: string;
   userUsername: string;
   userEmail: string;
-  userPhone: string;
+  phone: string;
   fullName: string;
   dateOfBirth: string;
   address: {
     street: string;
     wardName: string;
-    districtName: string;
     city: string;
   };
   avatarUrl: string;
+}
+
+export interface AccountSettingResponse {
+  username: string; 
+  email: string;
+  active: boolean;
+  mfaEnabled: boolean;
+  firstLogin: boolean;
+  OAuthAccounts?: {
+    createdDate: string;
+    provider: "GOOGLE" | "FACEBOOK" | "GITHUB";
+    email: string;
+    name: string;
+    avatarUrl?: string;
+    isRevoke: boolean;
+  }[];
 }

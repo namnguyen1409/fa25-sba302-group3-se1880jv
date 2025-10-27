@@ -48,6 +48,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useTheme } from "@/components/theme-provider";
 import { useAuth } from "@/context/AuthContext";
+import { useImageLink } from "@/hooks/useImageLink";
 
 export const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -143,7 +144,11 @@ export const Header: React.FC = () => {
             to="/"
             className="text-primary font-bold text-xl flex items-center gap-2"
           >
-            🏥 <span className="hidden sm:inline">ClinicCare</span>
+            <image
+              href="https://cdn-icons-png.freepik.com/512/7922/7922906.png"
+              className="h-8 w-8"
+              />
+            <span className="hidden sm:inline">ClinicCare</span>
           </Link>
           {!isMobile && (
             <NavigationMenu>
@@ -198,8 +203,8 @@ export const Header: React.FC = () => {
                     <AvatarImage
                       src={
                         user.userProfile?.avatarUrl
-                          ? user.userProfile.avatarUrl
-                          : "/default-avatar.png"
+                          ? useImageLink(user.userProfile.avatarUrl)
+                          : undefined
                       }
                     />
                     <AvatarFallback>
@@ -216,12 +221,6 @@ export const Header: React.FC = () => {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem onClick={() => navigate("/account")}>
-                  Hồ sơ
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/account/settings")}>
-                  Cài đặt
-                </DropdownMenuItem> */}
                 {settingItems.map((item) => (
                   <DropdownMenuItem
                     key={item.path}

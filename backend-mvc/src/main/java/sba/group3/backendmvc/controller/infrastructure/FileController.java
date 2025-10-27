@@ -10,17 +10,11 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.entity.common.FileAttachment;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.repository.common.FileAttachmentRepository;
-import sba.group3.backendmvc.service.infrastructure.FileUploadService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,6 +48,7 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(file.getContentType()))
                 .body(new InputStreamResource(stream));
     }
+
 
 
 }

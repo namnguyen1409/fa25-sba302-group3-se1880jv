@@ -15,7 +15,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user_profile", indexes = {
+@Table(name = "user_profile",
+        schema = "user_management",
+        indexes = {
         @Index(name = "idx_userprofile_full_name", columnList = "full_name")
 })
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -27,6 +29,9 @@ public class UserProfile extends BaseEntity {
 
     @Column(name = "full_name", nullable = false, length = 100)
     String fullName;
+
+    @Column(name = "phone", length = 15, unique = true)
+    String phone;
 
     @Column(name = "date_of_birth")
     LocalDate dateOfBirth;

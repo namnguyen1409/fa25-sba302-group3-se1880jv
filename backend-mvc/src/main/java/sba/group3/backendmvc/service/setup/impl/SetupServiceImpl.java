@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
+import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.repository.user.RoleRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.setup.SetupService;
 import sba.group3.backendmvc.service.user.RoleService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -64,9 +66,16 @@ public class SetupServiceImpl implements SetupService {
                     .roles(
                             Set.of(roleService.findByName("ROLE_ADMIN"))
                     )
-                    .phone("0123456789")
+                    .userProfile(
+                            UserProfile.builder()
+                                    .phone("0123456789")
+                                    .fullName("System Administrator")
+                                    .dateOfBirth(LocalDate.of(2004, 9, 14))
+                                    .build()
+                    )
                     .build();
             userRepository.save(admin);
+
         }
     }
 

@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface OAuthAccountRepository extends BaseRepository<OAuthAccount, UUID> {
     Optional<OAuthAccount> findByProviderAndProviderUserId(OAuthProvider provider, String providerUserId);
+
+    boolean existsByProviderAndProviderUserId(OAuthProvider provider, String providerUserId);
 }

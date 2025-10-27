@@ -22,7 +22,7 @@ public class UserProfileResponse {
     Instant lastModifiedDate;
     String userUsername;
     String userEmail;
-    String userPhone;
+    String phone;
     String fullName;
     LocalDate dateOfBirth;
     AddressResponse address;

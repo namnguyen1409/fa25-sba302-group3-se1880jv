@@ -27,7 +27,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     SecurityFileValidator securityValidator;
 
     @Override
-    public FileAttachment upload(MultipartFile file, String entityType, String entityId) throws Exception {
+    public String upload(MultipartFile file, String entityType, String entityId) throws Exception {
         var rule = uploadProps.getRules().get(entityType);
         if (rule == null) throw new AppException(ErrorCode.UPLOAD_NOT_ALLOWED, "Upload not allowed for entity type: " + entityType);
 
@@ -46,7 +46,8 @@ public class FileUploadServiceImpl implements FileUploadService {
                 .uploadPurpose(rule.getPurpose())
                 .build();
 
-        return fileAttachmentRepository.save(attachment);
+        var id = fileAttachmentRepository.save(attachment).getId();
+        return "/api/files/view/" + id;
     }
 
 }

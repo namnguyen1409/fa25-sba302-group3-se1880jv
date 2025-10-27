@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { authApi } from "@/api/authApi";
 import { toast } from "sonner";
 import { ensureDeviceId } from "@/utils/device";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function OAuthCallback() {
   const [searchParams] = useSearchParams();
@@ -41,7 +42,9 @@ export default function OAuthCallback() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <p className="text-lg text-muted-foreground">Authenticating...</p>
+      <Spinner
+        
+      />
     </div>
   );
 }

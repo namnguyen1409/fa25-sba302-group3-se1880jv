@@ -20,6 +20,7 @@ import { ensureDeviceId } from "@/utils/device";
 import { toast } from "sonner";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "@greatsumini/react-facebook-login";
+import { useAuth } from "@/context/AuthContext";
 
 interface LoginFormValues {
   username: string;
@@ -37,6 +38,8 @@ export function LoginForm({
 }: React.ComponentProps<"form">) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  
+  const {loginSuccess} = useAuth(); 
 
   const {
     register,
@@ -60,6 +63,7 @@ export function LoginForm({
       console.log("Login response:", res);
 
       localStorage.setItem("accessToken", res.accessToken || "");
+      await loginSuccess();
       toast.success("Login successful!");
       navigate("/");
     } catch (err: any) {
@@ -85,6 +89,7 @@ export function LoginForm({
       console.log("OAuth login response:", res);
       localStorage.setItem("accessToken", res.accessToken || "");
       toast.success(`Logged in with ${provider}`);
+      await loginSuccess();
       navigate("/");
     } catch (err: any) {
       console.error(err);

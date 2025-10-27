@@ -19,7 +19,10 @@ import java.util.Objects;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "icd_code")
+@Table(
+        name = "icd_code",
+        schema = "common"
+)
 public class IcdCode extends BaseEntity {
     @Column(name = "code", nullable = false, unique = true, length = 10)
     private String code;

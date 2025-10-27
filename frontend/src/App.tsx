@@ -7,6 +7,7 @@ import { PublicLayout } from "./layouts/PublicLayout";
 import NotFound from "./pages/error/NotFound";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProfilePage from "./pages/account/Profile";
+import AccountSettingsPage from "./pages/account/Setting";
 function App() {
  
   return (
@@ -25,7 +26,7 @@ function App() {
             >
               <Route index element={<div>Account Overview</div>} />
               <Route path="profile" element={<ProfilePage />} />
-              <Route path="settings" element={<div>Account Settings</div>} />
+              <Route path="settings" element={<AccountSettingsPage/>} />
             </Route>
           </Route>
 
