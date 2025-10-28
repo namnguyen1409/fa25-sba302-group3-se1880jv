@@ -23,9 +23,8 @@ import java.util.UUID;
 public class AccountDeviceController {
 
 
-     AccountSecurityService accountSecurityService;
-   AccountDeviceService accountDeviceService;
-
+    AccountSecurityService accountSecurityService;
+    AccountDeviceService accountDeviceService;
 
 
     @GetMapping

@@ -14,6 +14,14 @@ import java.util.Map;
 public class UploadProperties {
     private Map<String, UploadRule> rules = new HashMap<>();
 
+    public long parseSize(String size) {
+        if (size == null) return 10 * 1024 * 1024L;
+        size = size.toUpperCase();
+        if (size.endsWith("MB")) return Long.parseLong(size.replace("MB", "")) * 1024 * 1024;
+        if (size.endsWith("KB")) return Long.parseLong(size.replace("KB", "")) * 1024;
+        return Long.parseLong(size);
+    }
+
     @Data
     public static class UploadRule {
         private String maxSize;
@@ -21,13 +29,5 @@ public class UploadProperties {
         private String purpose;
         private List<String> rolesAllowed;
         private Boolean checkOwner = false;
-    }
-
-    public long parseSize(String size) {
-        if (size == null) return 10 * 1024 * 1024L;
-        size = size.toUpperCase();
-        if (size.endsWith("MB")) return Long.parseLong(size.replace("MB", "")) * 1024 * 1024;
-        if (size.endsWith("KB")) return Long.parseLong(size.replace("KB", "")) * 1024;
-        return Long.parseLong(size);
     }
 }

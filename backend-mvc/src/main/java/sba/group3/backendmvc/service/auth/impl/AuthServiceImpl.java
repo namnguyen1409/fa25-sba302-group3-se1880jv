@@ -28,7 +28,6 @@ import sba.group3.backendmvc.dto.response.auth.AuthResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
 import sba.group3.backendmvc.entity.auth.OAuthAccount;
-import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.enums.CacheKey;
@@ -52,8 +51,10 @@ import sba.group3.backendmvc.service.user.DeviceSessionService;
 import sba.group3.backendmvc.service.user.RoleService;
 
 import java.time.Duration;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -246,7 +247,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-
     @Transactional
     @Override
     public AuthResponse refreshToken() {
@@ -319,11 +319,11 @@ public class AuthServiceImpl implements AuthService {
                 user.getEmail(),
                 "Đặt lại mật khẩu",
                 """
-                <p>Xin chào %s,</p>
-                <p>Nhấn vào liên kết để đặt lại mật khẩu:</p>
-                <p><a href="%s">%s</a></p>
-                <p>Liên kết có hiệu lực trong 15 phút.</p>
-                """.formatted(user.getUsername(), resetLink, resetLink)
+                        <p>Xin chào %s,</p>
+                        <p>Nhấn vào liên kết để đặt lại mật khẩu:</p>
+                        <p><a href="%s">%s</a></p>
+                        <p>Liên kết có hiệu lực trong 15 phút.</p>
+                        """.formatted(user.getUsername(), resetLink, resetLink)
         );
 
     }
@@ -365,6 +365,31 @@ public class AuthServiceImpl implements AuthService {
         return tokenIssuerService.issue(challenge.getUser(), deviceSession, request.deviceId());
     }
 
+    @Transactional
+    @Override
+    public AuthResponse switchMfa(AuthController.SwitchMfaRequest request) {
+        var challenge = otpChallengeRepository.findById(request.challengeId())
+                .orElseThrow(() -> new AppException(ErrorCode.OTP_CHALLENGE_NOT_FOUND));
+
+        var user = challenge.getUser();
+
+        // find new config
+        var config = mfaConfigRepository.findByUserIdAndMfaTypeAndRevokedFalse(user.getId(), request.mfaType())
+                .orElseThrow(() -> new AppException(ErrorCode.MFA_TYPE_NOT_FOUND));
+
+        // create new challenge
+        var newChallenge = otpChallengeService.create(user, config);
+
+        return AuthResponse.builder()
+                .requires2FA(true)
+                .mfaTypes(
+                        mfaConfigService.findAllByUserId(user.getId())
+                                .stream().map(MfaConfig::getMfaType).toList()
+                )
+                .defaultMfaType(config.getMfaType())
+                .challengeId(newChallenge.getId())
+                .build();
+    }
 
 
     private JsonNode verifyToken(OAuthProvider provider, String accessToken) {

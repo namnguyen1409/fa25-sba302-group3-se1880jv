@@ -1,11 +1,8 @@
 package sba.group3.backendmvc.service.user;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.controller.user.AccountSecurityController;
 import sba.group3.backendmvc.dto.response.auth.MfaConfigResponse;
-import sba.group3.backendmvc.dto.response.user.DeviceSessionResponse;
 
 import java.util.List;
 import java.util.UUID;

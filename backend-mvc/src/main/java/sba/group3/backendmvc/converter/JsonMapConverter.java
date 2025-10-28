@@ -27,7 +27,8 @@ public class JsonMapConverter implements AttributeConverter<Map<String, Object>,
     public Map<String, Object> convertToEntityAttribute(String dbData) {
         if (dbData == null || dbData.isBlank()) return new HashMap<>();
         try {
-            return mapper.readValue(dbData, new TypeReference<>() {});
+            return mapper.readValue(dbData, new TypeReference<>() {
+            });
         } catch (Exception e) {
             throw new IllegalArgumentException("Error deserializing metadata", e);
         }

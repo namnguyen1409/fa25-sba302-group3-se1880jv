@@ -1,6 +1,5 @@
 package sba.group3.backendmvc.service.auth;
 
-import jakarta.transaction.Transactional;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
 import sba.group3.backendmvc.entity.auth.OtpChallenge;
 import sba.group3.backendmvc.entity.user.User;

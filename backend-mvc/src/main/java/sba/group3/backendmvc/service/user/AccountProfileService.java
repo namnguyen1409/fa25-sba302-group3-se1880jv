@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface AccountProfileService {
     UserProfileResponse getProfile(UUID userId);
+
     UserProfileResponse updateProfile(UUID userId, UserProfileRequest userProfileRequest);
-    UserProfileResponse updateAvatar(UUID userId,  MultipartFile file) throws Exception;
+
+    UserProfileResponse updateAvatar(UUID userId, MultipartFile file) throws Exception;
 }

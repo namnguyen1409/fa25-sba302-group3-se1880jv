@@ -3,7 +3,6 @@ package sba.group3.backendmvc.dto.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import sba.group3.backendmvc.dto.response.auth.passkey.StartPasskeyLoginResponse;
 
 import java.time.Instant;
 

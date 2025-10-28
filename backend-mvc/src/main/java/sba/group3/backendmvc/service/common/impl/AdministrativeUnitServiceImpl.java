@@ -3,7 +3,6 @@ package sba.group3.backendmvc.service.common.impl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.response.common.AdministrativeUnitResponse;
 import sba.group3.backendmvc.entity.common.AdministrativeUnit;
@@ -23,7 +22,7 @@ public class AdministrativeUnitServiceImpl implements AdministrativeUnitService 
 
     AdministrativeUnitRepository administrativeUnitRepository;
     AdministrativeUnitMapper administrativeUnitMapper;
-    
+
     @Override
     public List<AdministrativeUnitResponse> getUnit(AdministrativeUnitLevel level, String parentCode) {
         List<AdministrativeUnit> units;

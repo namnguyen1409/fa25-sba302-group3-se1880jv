@@ -7,7 +7,6 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import sba.group3.backendmvc.converter.JsonMapConverter;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.enums.MfaType;

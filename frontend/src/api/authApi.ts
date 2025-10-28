@@ -50,7 +50,14 @@ export interface TokenRefreshResponse {
     accessToken: string;
     refreshToken?: string;
 }
-
+/**
+ *     public record MfaVerifyRequest(
+            @NotNull UUID challengeId,
+            @NotBlank String code,
+            @NotBlank String deviceId,
+            Boolean rememberMe
+    ) {}
+ */
 export const authApi = {
     login: (payload: LoginRequest) =>
         apiClient.post<AuthResponse>("/auth/login", payload),
@@ -66,6 +73,10 @@ export const authApi = {
         apiClient.post<{ message: string }>("/auth/password/reset/request", { email }),
     confirmResetPassword: (token: string, newPassword: string) =>
         apiClient.post<{ message: string }>("/auth/password/reset/confirm", { token, newPassword }),
-    verifyMfa: (challengeId: string, mfaType: string, code: string, trustDevice: boolean) =>
-        apiClient.post<AuthResponse>("/auth/mfa/verify", { challengeId, mfaType, code, trustDevice }),
+    verifyMfa: (challengeId: string, code: String, deviceId: string, trustDevice: boolean) =>
+        apiClient.post<AuthResponse>("/auth/mfa/verify", { challengeId, code, deviceId, trustDevice }),
+    switchMfa: (payload: { mfaType: string; challengeId: string }) =>
+        apiClient.post<AuthResponse>("/auth/mfa/switch", payload),
+    resendMfa: (payload: { challengeId: string }) =>
+        apiClient.post<AuthResponse>("/auth/mfa/resend", payload),
 };

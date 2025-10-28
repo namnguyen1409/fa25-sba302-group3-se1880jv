@@ -3,7 +3,6 @@ package sba.group3.backendmvc.entity.auth;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.proxy.HibernateProxy;

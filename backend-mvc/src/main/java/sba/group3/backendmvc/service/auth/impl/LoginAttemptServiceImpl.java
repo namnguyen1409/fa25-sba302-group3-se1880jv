@@ -3,9 +3,13 @@ package sba.group3.backendmvc.service.auth.impl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sba.group3.backendmvc.dto.filter.SearchFilter;
+import sba.group3.backendmvc.dto.response.auth.LoginAttemptResponse;
 import sba.group3.backendmvc.entity.auth.LoginAttempt;
+import sba.group3.backendmvc.entity.auth.LoginAttemptMapper;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.enums.LoginStatus;
 import sba.group3.backendmvc.repository.auth.LoginAttemptRepository;
@@ -20,6 +24,7 @@ import java.time.Instant;
 public class LoginAttemptServiceImpl implements LoginAttemptService {
 
     LoginAttemptRepository loginAttemptRepository;
+    private final LoginAttemptMapper loginAttemptMapper;
 
     @Transactional
     @Override
@@ -42,6 +47,11 @@ public class LoginAttemptServiceImpl implements LoginAttemptService {
                 LoginStatus.FAILURE,
                 cutoff
         );
+    }
+
+    @Override
+    public Page<LoginAttemptResponse> filter(SearchFilter filter) {
+        return loginAttemptRepository.search(filter).map(loginAttemptMapper::toDto);
     }
 
 }

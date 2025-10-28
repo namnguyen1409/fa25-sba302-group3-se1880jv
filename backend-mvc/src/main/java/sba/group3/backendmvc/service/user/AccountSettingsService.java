@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface AccountSettingsService {
     AccountSettingResponse getAccountSettings(UUID userId);
+
     AccountSettingResponse updateUsername(UUID userId, AccountSettingsController.UpdateUsernameRequest newUsername);
 
     void requestEmailChange(UUID uuid, AccountSettingsController.UpdateEmailRequest updateEmailRequest);

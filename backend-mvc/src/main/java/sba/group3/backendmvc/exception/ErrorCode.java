@@ -33,8 +33,7 @@ public enum ErrorCode {
     MFA_CONFIG_NOT_FOUND(7001, "MFA configuration not found", HttpStatus.NOT_FOUND),
     RESET_PASSWORD_TOKEN_INVALID_OR_EXPIRED(8001, "Reset password token is invalid or expired", HttpStatus.BAD_REQUEST),
     OTP_CHALLENGE_NOT_FOUND(9001, "OTP challenge not found", HttpStatus.NOT_FOUND),
-    MFA_TYPE_NOT_FOUND(7002, "MFA type not found", HttpStatus.NOT_FOUND)
-    ;
+    MFA_TYPE_NOT_FOUND(7002, "MFA type not found", HttpStatus.NOT_FOUND);
     int code;
     String message;
     HttpStatus httpStatus;

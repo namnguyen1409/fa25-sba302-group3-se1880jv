@@ -25,4 +25,6 @@ public interface AuthService {
     void confirmPasswordReset(AuthController.PasswordResetConfirmRequest request);
 
     AuthResponse verifyMfa(AuthController.MfaVerifyRequest request);
+
+    AuthResponse switchMfa(AuthController.SwitchMfaRequest request);
 }

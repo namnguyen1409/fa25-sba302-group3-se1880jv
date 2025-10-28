@@ -23,18 +23,14 @@ import sba.group3.backendmvc.enums.MfaType;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.repository.auth.MfaConfigRepository;
-import sba.group3.backendmvc.repository.user.DeviceSessionRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
-import sba.group3.backendmvc.service.auth.JwtService;
 import sba.group3.backendmvc.service.auth.LoginAttemptService;
 import sba.group3.backendmvc.service.auth.PasskeyService;
 import sba.group3.backendmvc.service.auth.TokenIssuerService;
 import sba.group3.backendmvc.service.infrastructure.CacheService;
-import sba.group3.backendmvc.service.infrastructure.CookieService;
 import sba.group3.backendmvc.service.user.DeviceSessionService;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Optional;
@@ -62,13 +58,6 @@ public class PasskeyServiceImpl implements PasskeyService {
     @Value("${security.webauthn.hostname}")
     String hostname;
 
-    private ByteArray uuidToByteArray(UUID uuid) {
-        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
-        bb.putLong(uuid.getMostSignificantBits());
-        bb.putLong(uuid.getLeastSignificantBits());
-        return new ByteArray(bb.array());
-    }
-
     @NotNull
     private static String headerOrEmpty(@NotNull HttpServletRequest req, String name) {
         return AuthServiceImpl.headerOrEmpty(req, name);
@@ -77,6 +66,14 @@ public class PasskeyServiceImpl implements PasskeyService {
     private static String clientIp(@NotNull HttpServletRequest req) {
         return AuthServiceImpl.clientIp(req);
     }
+
+    private ByteArray uuidToByteArray(UUID uuid) {
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        return new ByteArray(bb.array());
+    }
+
     @Override
     public PublicKeyCredentialCreationOptions startRegistration(UUID userId, String username, String displayName) {
         byte[] userHandle = new byte[32];
@@ -92,7 +89,7 @@ public class PasskeyServiceImpl implements PasskeyService {
                         .user(user)
                         .timeout(Optional.of(6000L))
                         .build());
-        try{
+        try {
             cacheService.put(
                     CacheKey.PASSKEY_REGISTRATION_OPTIONS.of(userId.toString()),
                     options.toJson(),
@@ -147,11 +144,11 @@ public class PasskeyServiceImpl implements PasskeyService {
     public StartPasskeyLoginResponse startLogin() {
         var start = relyingParty.startAssertion(StartAssertionOptions.builder()
                 .timeout(Optional.of(6000L))
-                        .userVerification(UserVerificationRequirement.PREFERRED)
+                .userVerification(UserVerificationRequirement.PREFERRED)
                 .build()
         );
         String requestId = UUID.randomUUID().toString();
-        try{
+        try {
             cacheService.put(
                     CacheKey.PASSKEY_AUTHENTICATION_OPTIONS.of(requestId),
                     start.toJson(),
@@ -216,7 +213,6 @@ public class PasskeyServiceImpl implements PasskeyService {
             throw new AppException(ErrorCode.UNCATEGORIZED);
         }
     }
-
 
 
 }

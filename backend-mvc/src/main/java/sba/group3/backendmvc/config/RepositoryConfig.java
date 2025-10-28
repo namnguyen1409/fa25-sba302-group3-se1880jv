@@ -14,6 +14,6 @@ import sba.group3.backendmvc.repository.impl.BaseRepositoryImpl;
         repositoryBaseClass = BaseRepositoryImpl.class,
         repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class
 )
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorAwareImpl")
 public class RepositoryConfig {
 }

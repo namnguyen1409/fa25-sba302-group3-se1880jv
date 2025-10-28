@@ -94,12 +94,18 @@ public class BaseRepositoryImpl<T, ID extends Serializable>
     }
 
     protected SearchEngine<T, ID> getEngine(SearchMode mode) {
+        if (jpaEngine == null) {
+            log.warn("[SearchRepository] Engines not initialized for {}, initializing JPA only", entityClass.getSimpleName());
+            initEngines(); // tự động build lại engine nếu chưa có
+        }
+
         return switch (mode) {
-            case LUCENE -> luceneEngine;
+            case LUCENE -> luceneEngine != null ? luceneEngine : jpaEngine;
             case JPA -> jpaEngine;
-            case HYBRID -> hybridEngine;
+            case HYBRID -> hybridEngine != null ? hybridEngine : jpaEngine;
         };
     }
+
 
     protected Specification<T> getBaseSpecification() {
         return null;

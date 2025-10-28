@@ -64,7 +64,7 @@ export interface DeviceSessionResponse {
   createdBy: string;
   deviceName: string;
   ipAddress: string;
-  userAgent: string;
+  userAgent?: string;
   trusted: boolean;
   expiresIn: string;
   revoked: boolean;

@@ -14,8 +14,7 @@ public enum CacheKey {
     SYSTEM_CONFIG("system:config"),
     PASSKEY_REGISTRATION_OPTIONS("user:passkey:registration-options:%s"),
     PASSKEY_AUTHENTICATION_OPTIONS("user:passkey:authentication-options:%s"),
-    RESET_PASSWORD_TOKEN("reset-password:token:%s")
-    ;
+    RESET_PASSWORD_TOKEN("reset-password:token:%s");
 
 
     String template;

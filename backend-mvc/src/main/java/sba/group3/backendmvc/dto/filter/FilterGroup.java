@@ -25,4 +25,5 @@ public class FilterGroup {
         return (filters == null || filters.isEmpty())
                 && (subGroups == null || subGroups.isEmpty());
     }
+
 }

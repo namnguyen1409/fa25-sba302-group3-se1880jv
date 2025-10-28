@@ -14,6 +14,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import AccountDevicesPage from "./pages/account/Device";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import LoginActivityPage from "./pages/account/loginAction";
 function App() {
   return (
     <AppProvider>
@@ -53,6 +54,7 @@ function App() {
                 <Route path="settings" element={<AccountSettingsPage />} />
                 <Route path="security" element={<AccountSecurityPage />} />
                 <Route path="devices" element={<AccountDevicesPage />} />
+                <Route path="login-activity" element={<LoginActivityPage />} />
               </Route>
             </Route>
 

@@ -1,5 +1,7 @@
 import { type AccountSettingResponse, type DeviceSessionResponse, type MfaConfigResponse, type TOTPSetupResponse, type UserProfileResponse } from "@/types/account";
 import { apiClient } from "../client";
+import type { Filter, FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
+import type { LoginAttemptResponse } from "@/pages/account/loginAction";
 
 export const AccountApi = {
     getUserProfile: () => apiClient.get<UserProfileResponse>("/account/profile"),
@@ -56,4 +58,19 @@ export const AccountApi = {
         apiClient.post<{ message: string }>(`/account/devices/logout/${deviceId}`),
     revokeAllDevices: () =>
         apiClient.post<{ message: string }>("/account/devices/logout-all"),
+
+    getLoginHistory: (
+        page: number,
+        size: number,
+        filterGroup?: FilterGroup,
+        sorts?: SortRequest[],
+        searchMode: string = "JPA"
+
+    ) => apiClient.post<PageResponse<LoginAttemptResponse>>("/account/login-activity/filter", {
+        page,
+        size,
+        filterGroup,
+        sorts,
+        searchMode
+    }),
 };

@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.apache.commons.codec.binary.Base32;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.dto.request.auth.TOTPConfirmRequest;
@@ -93,10 +92,10 @@ public class MfaConfigServiceImpl implements MfaConfigService {
         );
         var totpConfig = mfaConfigRepository.findByUserIdAndMfaTypeAndRevokedFalse(user.getId(), MfaType.TOTP)
                 .orElseThrow(() -> new AppException(ErrorCode.MFA_CONFIG_NOT_FOUND));
-        try{
+        try {
             otpChallengeService.verify(user, totpConfig, null, code);
             return true;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }

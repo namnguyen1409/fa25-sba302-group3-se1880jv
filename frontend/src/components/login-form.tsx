@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -19,7 +21,7 @@ import { ensureDeviceId } from "@/utils/device";
 import { useAuth } from "@/context/AuthContext";
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "@greatsumini/react-facebook-login";
-import { Github, Lock, FacebookIcon, KeyRound, Mail } from "lucide-react";
+import { Github, Lock, FacebookIcon, KeyRound, Mail, Phone, RefreshCcw } from "lucide-react";
 import { startAuthentication } from "@simplewebauthn/browser";
 
 interface LoginFormValues {
@@ -32,16 +34,20 @@ const schema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
+type MfaType = "EMAIL" | "SMS" | "TOTP" | "PASSKEY";
+
 export function LoginForm({ className }: { className?: string }) {
   const navigate = useNavigate();
   const { loginSuccess } = useAuth();
   const [loadingType, setLoadingType] = useState<
-    "login" | "oauth" | "passkey" | "mfa" | null
+    "login" | "oauth" | "passkey" | "mfa" | "switch" | "resend" | null
   >(null);
 
+  // --- MFA states ---
   const [mfaChallenge, setMfaChallenge] = useState<any>(null);
+  const [selectedMfaType, setSelectedMfaType] = useState<MfaType | undefined>(undefined);
   const [mfaCode, setMfaCode] = useState("");
-  const [selectedMfaType, setSelectedMfaType] = useState<string | undefined>(undefined);
+  const [trustDevice, setTrustDevice] = useState(true); // mặc định trust cho UX tốt
 
   const {
     register,
@@ -63,7 +69,7 @@ export function LoginForm({ className }: { className?: string }) {
 
       if (res.requires2FA) {
         setMfaChallenge(res);
-        setSelectedMfaType(res.defaultMfaType);
+        setSelectedMfaType(res.defaultMfaType as MfaType);
         toast.info(`Xác minh ${res.defaultMfaType} MFA`);
         return;
       }
@@ -79,10 +85,52 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- MFA VERIFY STEP ----------- **/
+  /** ----------- MFA: SWITCH METHOD ----------- **/
+  const handleSwitchMfa = async (type: MfaType) => {
+    if (!mfaChallenge?.challengeId) return;
+    try {
+      setLoadingType("switch");
+      const res = await authApi.switchMfa({
+        mfaType: type,
+        challengeId: mfaChallenge.challengeId,
+      });
+      setMfaChallenge(res);
+      setSelectedMfaType(res.defaultMfaType as MfaType);
+      setMfaCode("");
+      toast.success(`Đã chuyển sang ${type}`);
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Không thể chuyển phương thức");
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
+  /** ----------- MFA: RESEND OTP ----------- **/
+  const handleResendOtp = async () => {
+    if (!mfaChallenge?.challengeId) return;
+    try {
+      setLoadingType("resend");
+      await authApi.resendMfa({ challengeId: mfaChallenge.challengeId });
+      toast.success("Đã gửi lại mã");
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Không thể gửi lại mã");
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
+  /** ----------- MFA: VERIFY (EMAIL/SMS/TOTP) ----------- **/
   const handleVerifyMfa = async () => {
-    if (!mfaCode.trim()) {
-      toast.error("Vui lòng nhập mã xác thực");
+    if (!mfaChallenge?.challengeId || !selectedMfaType) return;
+
+    // PASSKEY không nhập code → dùng flow riêng
+    if (selectedMfaType === "PASSKEY") {
+      return handlePasskeyInMfa();
+    }
+
+    // validate 6 digits cho EMAIL/SMS/TOTP
+    if (!/^\d{6}$/.test(mfaCode)) {
+      toast.error("Mã phải gồm 6 chữ số");
       return;
     }
 
@@ -90,9 +138,9 @@ export function LoginForm({ className }: { className?: string }) {
       setLoadingType("mfa");
       const res = await authApi.verifyMfa(
         mfaChallenge.challengeId,
-        selectedMfaType || "",
         mfaCode,
-        false
+        ensureDeviceId(),
+        trustDevice // ghi nhớ thiết bị nếu true
       );
 
       localStorage.setItem("accessToken", res.accessToken || "");
@@ -106,13 +154,34 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  const handleSwitchMfa = (type: string) => {
-    setSelectedMfaType(type);
-    toast.info(`Chuyển sang xác minh bằng ${type}`);
-    // Backend có thể tự động gửi mã OTP mới tương ứng loại này
+  /** ----------- MFA: PASSKEY FLOW ----------- **/
+  const handlePasskeyInMfa = async () => {
+    try {
+      setLoadingType("mfa");
+      const start = await authApi.loginPasskeyStart();
+      const options = start.requestOptions;
+      options.extensions = {};
+
+      const assertion = await startAuthentication({ optionsJSON: options });
+      const res = await authApi.loginPasskeyFinish({
+        requestId: start.requestId,
+        responseJson: JSON.stringify(assertion),
+        deviceId: ensureDeviceId(),
+        rememberMe: true
+      });
+
+      localStorage.setItem("accessToken", res.accessToken || "");
+      await loginSuccess();
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Passkey thất bại");
+    } finally {
+      setLoadingType(null);
+    }
   };
 
-  /** ----------- OAUTH & PASSKEY ----------- **/
+  /** ----------- OAUTH ----------- **/
   const handleOAuthLogin = async (
     provider: "GOOGLE" | "FACEBOOK" | "GITHUB",
     accessToken: string
@@ -128,7 +197,7 @@ export function LoginForm({ className }: { className?: string }) {
 
       if (res.requires2FA) {
         setMfaChallenge(res);
-        setSelectedMfaType(res.defaultMfaType);
+        setSelectedMfaType(res.defaultMfaType as MfaType);
         return;
       }
 
@@ -156,13 +225,13 @@ export function LoginForm({ className }: { className?: string }) {
     )}`;
   };
 
+  /** ----------- PASSKEY (đăng nhập trực tiếp) ----------- **/
   const handlePasskeyLogin = async () => {
     try {
       setLoadingType("passkey");
       const deviceId = ensureDeviceId();
 
       const startRes = await authApi.loginPasskeyStart();
-
       const options = startRes.requestOptions;
       options.extensions = {};
 
@@ -174,58 +243,114 @@ export function LoginForm({ className }: { className?: string }) {
         requestId: startRes.requestId,
       });
 
+      // nếu backend có policy: có thể vẫn trả requires2FA (ví dụ passkey = 1 yếu tố)
+      if (finishRes.requires2FA) {
+        setMfaChallenge(finishRes);
+        setSelectedMfaType(finishRes.defaultMfaType as MfaType);
+        return;
+      }
+
       localStorage.setItem("accessToken", finishRes.accessToken || "");
       await loginSuccess();
       toast.success("Login successful!");
       navigate("/");
     } catch (err: any) {
-      toast.error("Passkey not supported or failed");
+      toast.error(err?.response?.data?.message || "Passkey not supported or failed");
     } finally {
       setLoadingType(null);
     }
   };
 
-  /** ----------- RENDER ----------- **/
+  /** ----------- RENDER: MFA STEP ----------- **/
   if (mfaChallenge) {
+    const methods: MfaType[] = (mfaChallenge.mfaTypes || []) as MfaType[];
+    const isCodeBased = selectedMfaType === "EMAIL" || selectedMfaType === "SMS" || selectedMfaType === "TOTP";
+    const methodIcon = (t: MfaType) =>
+      t === "EMAIL" ? <Mail className="w-4 h-4 mr-1" /> :
+      t === "SMS" ? <Phone className="w-4 h-4 mr-1" /> :
+      t === "TOTP" ? <KeyRound className="w-4 h-4 mr-1" /> :
+      <Lock className="w-4 h-4 mr-1" />;
+
     return (
       <div className="w-full max-w-md mx-auto space-y-4">
         <h2 className="text-xl font-bold text-center">Xác minh bảo mật</h2>
         <p className="text-sm text-muted-foreground text-center">
-          Vui lòng nhập mã MFA được gửi qua{" "}
-          <span className="font-medium">{selectedMfaType}</span>.
+          Chọn phương thức và hoàn tất xác thực.
         </p>
 
-        <div className="flex justify-center gap-2">
-          {mfaChallenge.mfaTypes?.map((t: string) => (
+        {/* switch buttons */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {methods.map((t) => (
             <Button
               key={t}
               size="sm"
               variant={selectedMfaType === t ? "default" : "outline"}
               onClick={() => handleSwitchMfa(t)}
+              disabled={loadingType === "switch"}
             >
-              {t === "EMAIL" && <Mail className="w-4 h-4 mr-1" />}
-              {t === "TOTP" && <KeyRound className="w-4 h-4 mr-1" />}
-              {t === "PASSKEY" && <Lock className="w-4 h-4 mr-1" />}
-              {t}
+              {methodIcon(t)} {t}
             </Button>
           ))}
         </div>
 
-        <Input
-          placeholder="Nhập mã 6 chữ số"
-          value={mfaCode}
-          onChange={(e) => setMfaCode(e.target.value)}
-          maxLength={6}
-          className="text-center tracking-widest text-lg font-semibold"
-        />
+        {/* code input (EMAIL/SMS/TOTP) */}
+        {isCodeBased && (
+          <>
+            <Input
+              placeholder="Nhập mã 6 chữ số"
+              value={mfaCode}
+              onChange={(e) => setMfaCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+              maxLength={6}
+              className="text-center tracking-widest text-lg font-semibold"
+            />
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2 select-none cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={trustDevice}
+                  onChange={(e) => setTrustDevice(e.target.checked)}
+                />
+                Trust this device
+              </label>
 
-        <Button className="w-full" onClick={handleVerifyMfa} disabled={!!loadingType}>
-          {loadingType === "mfa" ? "Đang xác minh..." : "Xác nhận"}
-        </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleResendOtp}
+                disabled={loadingType === "resend"}
+              >
+                <RefreshCcw className="w-4 h-4 mr-1" />
+                Gửi lại mã
+              </Button>
+            </div>
+
+            <Button className="w-full" onClick={handleVerifyMfa} disabled={loadingType === "mfa"}>
+              {loadingType === "mfa" ? "Đang xác minh..." : "Xác nhận"}
+            </Button>
+          </>
+        )}
+
+        {/* passkey action */}
+        {selectedMfaType === "PASSKEY" && (
+          <>
+            <label className="flex items-center gap-2 text-sm select-none">
+              <input
+                type="checkbox"
+                checked={trustDevice}
+                onChange={(e) => setTrustDevice(e.target.checked)}
+              />
+              Trust this device
+            </label>
+            <Button className="w-full" onClick={handlePasskeyInMfa} disabled={loadingType === "mfa"}>
+              {loadingType === "mfa" ? "Đang xác minh..." : "Xác thực bằng Passkey"}
+            </Button>
+          </>
+        )}
       </div>
     );
   }
 
+  /** ----------- RENDER: LOGIN STEP ----------- **/
   return (
     <div className="w-full max-w-md mx-auto">
       <form
@@ -246,6 +371,7 @@ export function LoginForm({ className }: { className?: string }) {
               placeholder="Enter your username"
               {...register("username")}
               disabled={!!loadingType}
+              autoComplete="username"
             />
             {errors.username && (
               <p className="text-sm text-red-500">{errors.username.message}</p>
@@ -266,6 +392,7 @@ export function LoginForm({ className }: { className?: string }) {
               type="password"
               {...register("password")}
               disabled={!!loadingType}
+              autoComplete="current-password"
             />
             {errors.password && (
               <p className="text-sm text-red-500">{errors.password.message}</p>

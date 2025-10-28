@@ -165,16 +165,15 @@ public class OtpChallengeServiceImpl implements OtpChallengeService {
                 newEmail,
                 "Xác nhận đổi địa chỉ email",
                 """
-                <p>Xin chào %s,</p>
-                <p>Vui lòng nhấn vào liên kết dưới đây để xác nhận đổi email:</p>
-                <p><a href="%s">%s</a></p>
-                <p>Liên kết này có hiệu lực trong 1 giờ.</p>
-                """.formatted(user.getUsername(), verifyLink, verifyLink)
+                        <p>Xin chào %s,</p>
+                        <p>Vui lòng nhấn vào liên kết dưới đây để xác nhận đổi email:</p>
+                        <p><a href="%s">%s</a></p>
+                        <p>Liên kết này có hiệu lực trong 1 giờ.</p>
+                        """.formatted(user.getUsername(), verifyLink, verifyLink)
         );
 
         return challenge;
     }
-
 
 
     @Transactional

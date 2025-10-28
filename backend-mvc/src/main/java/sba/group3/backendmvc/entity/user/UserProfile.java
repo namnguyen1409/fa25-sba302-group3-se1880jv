@@ -18,8 +18,8 @@ import java.time.LocalDate;
 @Table(name = "user_profile",
         schema = "user_management",
         indexes = {
-        @Index(name = "idx_userprofile_full_name", columnList = "full_name")
-})
+                @Index(name = "idx_userprofile_full_name", columnList = "full_name")
+        })
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @FieldNameConstants
 public class UserProfile extends BaseEntity {

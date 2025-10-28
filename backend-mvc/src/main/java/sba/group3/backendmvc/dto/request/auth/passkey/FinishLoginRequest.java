@@ -5,4 +5,5 @@ public record FinishLoginRequest(
         String deviceId,
         boolean rememberMe,
         String responseJson
-) {}
+) {
+}

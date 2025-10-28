@@ -3,7 +3,6 @@ package sba.group3.backendmvc.config;
 import dev.samstevens.totp.code.*;
 import dev.samstevens.totp.secret.DefaultSecretGenerator;
 import dev.samstevens.totp.secret.SecretGenerator;
-import dev.samstevens.totp.time.NtpTimeProvider;
 import dev.samstevens.totp.time.SystemTimeProvider;
 import dev.samstevens.totp.time.TimeProvider;
 import lombok.AccessLevel;

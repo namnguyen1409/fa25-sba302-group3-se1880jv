@@ -4,7 +4,6 @@ import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.repository.BaseRepository;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface RoleRepository extends BaseRepository<Role, UUID> {

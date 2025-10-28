@@ -15,7 +15,9 @@ import sba.group3.backendmvc.repository.auth.MfaBackupCodeRepository;
 import sba.group3.backendmvc.repository.auth.MfaConfigRepository;
 import sba.group3.backendmvc.repository.auth.OtpChallengeRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
-import sba.group3.backendmvc.service.auth.*;
+import sba.group3.backendmvc.service.auth.MfaBackupCodeService;
+import sba.group3.backendmvc.service.auth.MfaConfigService;
+import sba.group3.backendmvc.service.auth.OtpChallengeService;
 import sba.group3.backendmvc.service.infrastructure.EmailSender;
 import sba.group3.backendmvc.service.user.AccountSecurityService;
 

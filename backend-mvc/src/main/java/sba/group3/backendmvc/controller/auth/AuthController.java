@@ -16,6 +16,7 @@ import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
+import sba.group3.backendmvc.enums.MfaType;
 import sba.group3.backendmvc.service.auth.AuthService;
 
 import java.util.UUID;
@@ -100,10 +101,6 @@ public class AuthController {
         );
     }
 
-    public record PasswordResetRequest(
-            String email
-    ) {}
-
     @PostMapping("/password/reset/confirm")
     public ResponseEntity<CustomApiResponse<Void>> confirmPasswordReset(
             @RequestBody @Validated PasswordResetConfirmRequest request
@@ -115,12 +112,6 @@ public class AuthController {
                         .build()
         );
     }
-
-    public record PasswordResetConfirmRequest(
-            String token,
-            String newPassword
-    ) {}
-
 
     @PostMapping("/mfa/verify")
     public ResponseEntity<CustomApiResponse<AuthResponse>> verifyMfa(
@@ -134,11 +125,44 @@ public class AuthController {
         );
     }
 
+    @PostMapping("/mfa/switch")
+    public ResponseEntity<CustomApiResponse<AuthResponse>> switchMfa(
+            @RequestBody @Validated SwitchMfaRequest request
+    ) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<AuthResponse>builder()
+                        .message("MFA switched successfully")
+                        .data(authService.switchMfa(
+                                request
+                        ))
+                        .build()
+        );
+    }
+
+    public record PasswordResetRequest(
+            String email
+    ) {
+    }
+
+    public record PasswordResetConfirmRequest(
+            String token,
+            String newPassword
+    ) {
+    }
+
     public record MfaVerifyRequest(
             @NotNull UUID challengeId,
             @NotBlank String code,
             @NotBlank String deviceId,
             Boolean rememberMe
-    ) {}
+    ) {
+    }
+
+    public record SwitchMfaRequest(
+            @NotNull MfaType mfaType,
+            @NotNull UUID challengeId
+    ) {
+    }
+
 
 }

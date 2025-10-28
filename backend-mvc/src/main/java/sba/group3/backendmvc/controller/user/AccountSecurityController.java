@@ -46,13 +46,6 @@ public class AccountSecurityController {
                 .build());
     }
 
-
-    public record ChangePasswordRequest(
-            @NotBlank String currentPassword,
-            @NotBlank String newPassword
-    ) {}
-
-
     @PostMapping("/mfa/enable")
     public ResponseEntity<CustomApiResponse<Void>> enableMfa(
             @AuthenticationPrincipal Jwt jwt
@@ -78,12 +71,6 @@ public class AccountSecurityController {
         );
     }
 
-    public record MfaDisableRequest(
-            @NotBlank String verificationMethod,
-            @NotBlank String code
-    ) {}
-
-
     @GetMapping("/mfa")
     public ResponseEntity<CustomApiResponse<List<MfaConfigResponse>>> getMfaConfig(
             @AuthenticationPrincipal Jwt jwt
@@ -95,7 +82,6 @@ public class AccountSecurityController {
                         .build()
         );
     }
-
 
     @PostMapping("/mfa/delete")
     public ResponseEntity<CustomApiResponse<Void>> deleteMfaConfig(
@@ -110,13 +96,6 @@ public class AccountSecurityController {
         );
     }
 
-    public record MfaDeleteRequest(
-            @NotNull UUID configId,
-            @NotBlank String verificationMethod, // PASSWORD | TOTP | BACKUP_CODE
-            @NotBlank String code
-    ) {}
-
-
     @GetMapping("/mfa/backup-codes")
     public ResponseEntity<CustomApiResponse<List<String>>> generateMfaBackupCodes(
             @AuthenticationPrincipal Jwt jwt
@@ -128,7 +107,6 @@ public class AccountSecurityController {
                         .build()
         );
     }
-
 
     @GetMapping("/mfa/totp")
     public ResponseEntity<CustomApiResponse<MfaSetupResponse>> requestTOTP(
@@ -157,7 +135,6 @@ public class AccountSecurityController {
                         .build()
         );
     }
-
 
     @PostMapping("/mfa/passkey/registration/start")
     public ResponseEntity<CustomApiResponse<PublicKeyCredentialCreationOptions>> startRegistration(
@@ -193,12 +170,6 @@ public class AccountSecurityController {
         );
     }
 
-    public record FinishPasskeyRegistrationRequest(
-            String credential
-    ) {
-    }
-
-
     @PostMapping("/mfa/email/init")
     public ResponseEntity<CustomApiResponse<MfaInitResponse>> initEmailMfa(
             @AuthenticationPrincipal Jwt jwt,
@@ -231,22 +202,49 @@ public class AccountSecurityController {
         );
     }
 
+    public record ChangePasswordRequest(
+            @NotBlank String currentPassword,
+            @NotBlank String newPassword
+    ) {
+    }
+
+    public record MfaDisableRequest(
+            @NotBlank String verificationMethod,
+            @NotBlank String code
+    ) {
+    }
+
+    public record MfaDeleteRequest(
+            @NotNull UUID configId,
+            @NotBlank String verificationMethod, // PASSWORD | TOTP | BACKUP_CODE
+            @NotBlank String code
+    ) {
+    }
+
+    public record FinishPasskeyRegistrationRequest(
+            String credential
+    ) {
+    }
+
     public record MfaConfirmRequest(
             @NotNull(message = "Challenge ID cannot be null")
             UUID challengeId,
             @NotBlank(message = "Code cannot be blank")
             String code
-    ) {}
+    ) {
+    }
 
     public record MfaEmailInitRequest(
             @NotBlank(message = "Contact cannot be blank")
             @Email(message = "Invalid email format")
             String email
-    ){}
+    ) {
+    }
 
 
     public record MfaInitResponse(
             UUID challengeId
-    ){}
+    ) {
+    }
 
 }

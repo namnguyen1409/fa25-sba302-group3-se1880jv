@@ -26,8 +26,8 @@ public class AccountProfileServiceImpl implements AccountProfileService {
 
     @Override
     public UserProfileResponse getProfile(UUID userId) {
-         return userProfileMapper.toDto1(userProfileRepository.findByUser_Id(userId)
-                 .orElseThrow(() -> new RuntimeException("User profile not found")));
+        return userProfileMapper.toDto1(userProfileRepository.findByUser_Id(userId)
+                .orElseThrow(() -> new RuntimeException("User profile not found")));
 
     }
 

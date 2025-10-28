@@ -56,7 +56,7 @@ public class AccountSettingsServiceImpl implements AccountSettingsService {
         var user = userRepository.findById(uuid)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         String newEmail = updateEmailRequest.newEmail();
-        if (userRepository.existsByEmail(newEmail)){
+        if (userRepository.existsByEmail(newEmail)) {
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
         otpChallengeService.createEmailVerification(user, newEmail);

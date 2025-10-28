@@ -10,21 +10,11 @@ import { Laptop, Smartphone, ShieldCheck, Trash } from "lucide-react";
 import { AccountApi } from "@/api/user/accountApi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import type { DeviceSessionResponse } from "@/types/account";
 
-interface DeviceSession {
-  id: string;
-  deviceName: string;
-  ipAddress: string;
-  userAgent: string;
-  trusted: boolean;
-  revoked: boolean;
-  rememberMe: boolean;
-  expiresIn: string;
-  lastLoginAt: string;
-}
 
 export default function AccountDevicesPage() {
-  const [devices, setDevices] = useState<DeviceSession[]>([]);
+  const [devices, setDevices] = useState<DeviceSessionResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [revoking, setRevoking] = useState<string | null>(null);
   const navigator = useNavigate();
@@ -98,7 +88,7 @@ export default function AccountDevicesPage() {
                 className="flex justify-between items-start border p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition"
               >
                 <div className="flex items-start gap-3">
-                  {device.userAgent.toLowerCase().includes("mobile") ? (
+                  {device.userAgent?.toLowerCase().includes("mobile") ? (
                     <Smartphone className="text-primary w-5 h-5 mt-1" />
                   ) : (
                     <Laptop className="text-primary w-5 h-5 mt-1" />
@@ -108,7 +98,7 @@ export default function AccountDevicesPage() {
                     <p className="font-medium">{device.deviceName || "Thiết bị không xác định"}</p>
                     <p className="text-xs text-muted-foreground">
                       IP: {device.ipAddress || "—"} <br />
-                      Agent: {device.userAgent.slice(0, 50)}...
+                      Agent: {device.userAgent?.slice(0, 50)}...
                     </p>
 
                     <div className="flex flex-wrap gap-2 mt-2">
