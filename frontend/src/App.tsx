@@ -8,41 +8,67 @@ import NotFound from "./pages/error/NotFound";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProfilePage from "./pages/account/Profile";
 import AccountSettingsPage from "./pages/account/Setting";
+import VerifyEmailPage from "./pages/account/verify-email";
+import AccountSecurityPage from "./pages/account/Security";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import AccountDevicesPage from "./pages/account/Device";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 function App() {
- 
   return (
     <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/oauth/callback/:provider" element={<OAuthCallback />} />
-          <Route path="/dashboard" element={<div>Dashboard Page</div>} />
-          <Route path="/" element={<PublicLayout />}>
-            <Route index element={<div>Home Page</div>} />
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/verify-email"
+              element={
+                <ProtectedRoute>
+                  <VerifyEmailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-            <Route path = "account" element={<ProtectedRoute>
-                <Outlet />
-            </ProtectedRoute>}
-            >
-              <Route index element={<div>Account Overview</div>} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="settings" element={<AccountSettingsPage/>} />
+            <Route
+              path="/oauth/callback/:provider"
+              element={<OAuthCallback />}
+            />
+            <Route path="/dashboard" element={<div>Dashboard Page</div>} />
+            <Route path="/" element={<PublicLayout />}>
+              <Route index element={<div>Home Page</div>} />
+
+              <Route
+                path="account"
+                element={
+                  <ProtectedRoute>
+                    <Outlet />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<div>Account Overview</div>} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="settings" element={<AccountSettingsPage />} />
+                <Route path="security" element={<AccountSecurityPage />} />
+                <Route path="devices" element={<AccountDevicesPage />} />
+              </Route>
             </Route>
-          </Route>
 
-
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-      <Toaster 
-        position="top-right"
-        toastOptions={{
-          duration: 3000,
-        }}
-        closeButton
-      />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+          }}
+          closeButton
+        />
+      </GoogleOAuthProvider>
     </AppProvider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -38,4 +38,7 @@ public class LoginAttempt extends BaseEntity {
     @Column(name = "status", nullable = false, length = 20)
     LoginStatus status;
 
+    @Column(name = "login_method")
+    String loginMethod;
+
 }

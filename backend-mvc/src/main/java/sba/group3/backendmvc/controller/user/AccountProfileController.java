@@ -1,5 +1,8 @@
 package sba.group3.backendmvc.controller.user;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -8,22 +11,18 @@ import org.springframework.web.multipart.MultipartFile;
 import sba.group3.backendmvc.dto.request.user.UserProfileRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.user.UserProfileResponse;
-import sba.group3.backendmvc.service.infrastructure.FileUploadService;
 import sba.group3.backendmvc.service.user.AccountProfileService;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/account/profile")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AccountProfileController {
 
-    private final AccountProfileService accountProfileService;
-    private final FileUploadService fileUploadService;
+    AccountProfileService accountProfileService;
 
-    public AccountProfileController(AccountProfileService accountProfileService, FileUploadService fileUploadService) {
-        this.accountProfileService = accountProfileService;
-        this.fileUploadService = fileUploadService;
-    }
 
     @GetMapping
     public ResponseEntity<CustomApiResponse<UserProfileResponse>> getProfile(@AuthenticationPrincipal Jwt jwt) {
@@ -37,13 +36,13 @@ public class AccountProfileController {
 
     @PutMapping
     public ResponseEntity<CustomApiResponse<UserProfileResponse>> updateProfile(@AuthenticationPrincipal Jwt jwt,
-                                                                                 @RequestBody UserProfileRequest profileRequest
+                                                                                @RequestBody UserProfileRequest profileRequest
     ) {
         return ResponseEntity.ok(
-                        CustomApiResponse.<UserProfileResponse>builder()
-                                .data(accountProfileService.updateProfile(UUID.fromString(jwt.getSubject()), profileRequest))
-                                .message("User profile updated successfully")
-                                .build()
+                CustomApiResponse.<UserProfileResponse>builder()
+                        .data(accountProfileService.updateProfile(UUID.fromString(jwt.getSubject()), profileRequest))
+                        .message("User profile updated successfully")
+                        .build()
 
         );
     }
@@ -61,7 +60,6 @@ public class AccountProfileController {
                         .message("User avatar updated successfully")
                         .build()
         );
-
     }
 
 }

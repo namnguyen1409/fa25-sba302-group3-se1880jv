@@ -1,4 +1,4 @@
-import type { AccountSettingResponse, UserProfileResponse } from "@/types/account";
+import { type AccountSettingResponse, type DeviceSessionResponse, type MfaConfigResponse, type TOTPSetupResponse, type UserProfileResponse } from "@/types/account";
 import { apiClient } from "../client";
 
 export const AccountApi = {
@@ -21,6 +21,39 @@ export const AccountApi = {
         return response;
     },
     getAccountSettings: () => apiClient.get<AccountSettingResponse>("/account/settings"),
-    updateAccountSettings: (data: any) =>
-        apiClient.put("/account/settings", data),
-}
+    updateUsername: (username: string) =>
+        apiClient.patch<AccountSettingResponse>("/account/settings/username", { newUsername: username }),
+    requestEmailChange: (newEmail: string) =>
+        apiClient.patch<{ message: string }>("/account/settings/email/request-change", { newEmail }),
+    confirmEmailChange: (token: string) =>
+        apiClient.get<{ message: string }>("/account/settings/email/verify-change", { params: { token } }),
+    getMfaMethods: () => apiClient.get<MfaConfigResponse[]>("/account/security/mfa"),
+    requestTOTP: () => apiClient.get<TOTPSetupResponse>("/account/security/mfa/totp"),
+    confirmTOTP: (code: string, secret: string) =>
+        apiClient.post<MfaConfigResponse>("/account/security/mfa/totp", { code, secret }),
+    resetPassword: () =>
+        apiClient.post<{ message: string }>("/account/security/password/reset"),
+    disableMFA: (verificationMethod: string, code: string) =>
+        apiClient.delete<{ message: string }>(`/account/security/mfa/disable`, { verificationMethod, code }),
+    enableMFA: () =>
+        apiClient.post<{ message: string }>("/account/security/mfa/enable"),
+    startRegistration: () =>
+        apiClient.post<any>("/account/security/mfa/passkey/registration/start"),
+    finishRegistration: (credentialJson: string) =>
+        apiClient.post<void>("/account/security/mfa/passkey/registration/finish", { credential: credentialJson }),
+    initEmailMfa: (email: string) =>
+        apiClient.post<{ challengeId: string }>("/account/security/mfa/email/init", { email }),
+    confirmEmailMfa: (challengeId: string, code: string) =>
+        apiClient.post("/account/security/mfa/email/confirm", { challengeId, code }),
+    deleteMfaConfig: (configId: string, verificationMethod: string, code: string) =>
+        apiClient.post("/account/security/mfa/delete", { configId, verificationMethod, code }),
+    generateBackupCodes: () =>
+        apiClient.get<string[]>("/account/security/mfa/backup-codes"),
+    changePassword: (currentPassword: string, newPassword: string) =>
+        apiClient.post("/account/security/password/change", { currentPassword, newPassword }),
+    getDevices: () => apiClient.get<DeviceSessionResponse[]>("/account/devices"),
+    revokeDevice: (deviceId: string) =>
+        apiClient.post<{ message: string }>(`/account/devices/logout/${deviceId}`),
+    revokeAllDevices: () =>
+        apiClient.post<{ message: string }>("/account/devices/logout-all"),
+};

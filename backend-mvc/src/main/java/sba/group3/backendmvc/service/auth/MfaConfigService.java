@@ -13,4 +13,6 @@ public interface MfaConfigService {
     MfaSetupResponse setupTotpMfa(UUID userId);
 
     void confirmTotpMfa(UUID userId, TOTPConfirmRequest request);
+
+    boolean verifyTotpMfa(UUID userId, String code);
 }

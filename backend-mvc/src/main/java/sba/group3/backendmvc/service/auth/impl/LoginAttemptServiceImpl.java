@@ -23,12 +23,13 @@ public class LoginAttemptServiceImpl implements LoginAttemptService {
 
     @Transactional
     @Override
-    public void recordAttempt(User user, String ip, String userAgent, LoginStatus status) {
+    public void recordAttempt(User user, String ip, String userAgent, LoginStatus status, String loginMethod) {
         LoginAttempt attempt = LoginAttempt.builder()
                 .user(user)
                 .ipAddress(ip)
                 .userAgent(userAgent)
                 .status(status)
+                .loginMethod(loginMethod)
                 .build();
         loginAttemptRepository.save(attempt);
     }

@@ -15,4 +15,6 @@ public interface EmailSender {
             String attachmentFilename,
             InputStream inputStream
     );
+
+    void sendSecurityAlert(String to, String content);
 }

@@ -8,5 +8,7 @@ public enum MfaType {
     SMS,
     EMAIL,
     PUSH_NOTIFICATION,
-    PASSKEY
+    PASSKEY,
+    EMAIL_VERIFICATION,
+
 }

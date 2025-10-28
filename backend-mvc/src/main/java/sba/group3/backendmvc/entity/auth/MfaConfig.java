@@ -46,8 +46,7 @@ public class MfaConfig extends BaseEntity {
     @Column(name = "credential_id", length = 200, unique = true)
     private String credentialId;
 
-    @Lob
-    @Column(name = "public_key", nullable = false)
+    @Column(name = "public_key", columnDefinition = "bytea")
     private byte[] publicKey;
 
     @Column(name = "sign_count")

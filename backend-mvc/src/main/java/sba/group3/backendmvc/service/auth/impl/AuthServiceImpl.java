@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import sba.group3.backendmvc.controller.auth.AuthController;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
@@ -30,18 +31,23 @@ import sba.group3.backendmvc.entity.auth.OAuthAccount;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
+import sba.group3.backendmvc.enums.CacheKey;
 import sba.group3.backendmvc.enums.LoginStatus;
 import sba.group3.backendmvc.enums.OAuthProvider;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.user.DeviceSessionMapper;
 import sba.group3.backendmvc.mapper.user.UserMapper;
+import sba.group3.backendmvc.repository.auth.MfaConfigRepository;
 import sba.group3.backendmvc.repository.auth.OAuthAccountRepository;
+import sba.group3.backendmvc.repository.auth.OtpChallengeRepository;
 import sba.group3.backendmvc.repository.user.DeviceSessionRepository;
 import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.auth.*;
+import sba.group3.backendmvc.service.infrastructure.CacheService;
 import sba.group3.backendmvc.service.infrastructure.CookieService;
+import sba.group3.backendmvc.service.infrastructure.EmailSender;
 import sba.group3.backendmvc.service.user.DeviceSessionService;
 import sba.group3.backendmvc.service.user.RoleService;
 
@@ -73,6 +79,10 @@ public class AuthServiceImpl implements AuthService {
     JwtDecoder jwtDecoder;
     private final RoleService roleService;
     private final UserProfileRepository userProfileRepository;
+    private final CacheService cacheService;
+    private final EmailSender emailSender;
+    private final OtpChallengeRepository otpChallengeRepository;
+    private final MfaConfigRepository mfaConfigRepository;
 
     @NonFinal
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
@@ -82,13 +92,17 @@ public class AuthServiceImpl implements AuthService {
     @Value("${spring.security.oauth2.client.registration.github.client-secret}")
     String githubClientSecret;
 
+    @NonFinal
+    @Value("${app.frontend.url}")
+    String frontendUrl;
+
     @NotNull
-    private static String headerOrEmpty(@NotNull HttpServletRequest req, String name) {
+    public static String headerOrEmpty(@NotNull HttpServletRequest req, String name) {
         String v = req.getHeader(name);
         return v == null ? "" : v;
     }
 
-    private static String clientIp(@NotNull HttpServletRequest req) {
+    public static String clientIp(@NotNull HttpServletRequest req) {
         String xff = req.getHeader("X-Forwarded-For");
         if (xff != null && !xff.isBlank()) {
             int comma = xff.indexOf(',');
@@ -101,7 +115,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse login(LoginRequest loginRequest) {
         String ip = clientIp(httpServletRequest);
-        String userAgent = headerOrEmpty(httpServletRequest, "User-Agent");
+        String userAgent = headerOrEmpty(httpServletRequest, "user-agent");
         var user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.AUTH_INVALID_CREDENTIALS));
         LoginStatus status = null;
@@ -135,7 +149,7 @@ public class AuthServiceImpl implements AuthService {
                             .filter(MfaConfig::getPrimary).findFirst()
                             .orElseGet(configs::getFirst);
                     var challenge = otpChallengeService.create(user, primary);
-                    loginAttemptService.recordAttempt(user, ip, userAgent, LoginStatus.MFA_PENDING);
+                    loginAttemptService.recordAttempt(user, ip, userAgent, LoginStatus.MFA_PENDING, "PASSWORD");
                     return AuthResponse.builder()
                             .requires2FA(true)
                             .mfaTypes(configs.stream().map(MfaConfig::getMfaType).toList())
@@ -152,11 +166,13 @@ public class AuthServiceImpl implements AuthService {
                     loginRequest.getRememberMe(),
                     true
             );
+            deviceSession.setIpAddress(ip);
+            deviceSession.setUserAgent(userAgent);
             status = LoginStatus.SUCCESS;
             return tokenIssuerService.issue(user, deviceSession, loginRequest.getDeviceId());
         } finally {
             if (status != null) {
-                loginAttemptService.recordAttempt(user, ip, userAgent, status);
+                loginAttemptService.recordAttempt(user, ip, userAgent, status, "PASSWORD");
             }
         }
     }
@@ -164,6 +180,8 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public AuthResponse loginWithOAuth(OAuthLoginRequest oAuthLoginRequest) {
+        String ip = clientIp(httpServletRequest);
+        String userAgent = headerOrEmpty(httpServletRequest, "user-agent");
         var userInfo = verifyToken(oAuthLoginRequest.getProvider(), oAuthLoginRequest.getAccessToken());
         String email = userInfo.get("email").asText();
         String name = userInfo.has("name") ? userInfo.get("name").asText() : "Unknown";
@@ -221,7 +239,9 @@ public class AuthServiceImpl implements AuthService {
                 oAuthLoginRequest.getRememberMe(),
                 true
         );
-
+        deviceSession.setIpAddress(ip);
+        deviceSession.setUserAgent(userAgent);
+        loginAttemptService.recordAttempt(user, ip, userAgent, LoginStatus.SUCCESS, "OAUTH_" + oAuthLoginRequest.getProvider().name());
         return tokenIssuerService.issue(user, deviceSession, oAuthLoginRequest.getDeviceId());
     }
 
@@ -273,6 +293,80 @@ public class AuthServiceImpl implements AuthService {
         return dto;
     }
 
+    @Override
+    public void logout(UUID userId) {
+        var headerDeviceId = headerOrEmpty(httpServletRequest, "X-Device-ID");
+        var deviceSession = deviceSessionRepository.findByUserIdAndDeviceId(userId, headerDeviceId)
+                .orElseThrow(() -> new AppException(ErrorCode.DEVICE_SESSION_NOT_FOUND));
+        tokenIssuerService.revokeTokens(deviceSession);
+        deviceSession.setRevoked(true);
+        deviceSession.setTrusted(false);
+        deviceSessionRepository.save(deviceSession);
+        cookieService.clearRefreshTokenCookie();
+    }
+
+    @Override
+    public void requestPasswordReset(AuthController.PasswordResetRequest request) {
+        var user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        String token = UUID.randomUUID().toString();
+
+        // TTL 15 phút
+        cacheService.put(CacheKey.RESET_PASSWORD_TOKEN.of(token), user.getId().toString(), Duration.ofMinutes(15));
+
+        String resetLink = frontendUrl + "/reset-password?token=" + token;
+        emailSender.send(
+                user.getEmail(),
+                "Đặt lại mật khẩu",
+                """
+                <p>Xin chào %s,</p>
+                <p>Nhấn vào liên kết để đặt lại mật khẩu:</p>
+                <p><a href="%s">%s</a></p>
+                <p>Liên kết có hiệu lực trong 15 phút.</p>
+                """.formatted(user.getUsername(), resetLink, resetLink)
+        );
+
+    }
+
+    @Transactional
+    @Override
+    public void confirmPasswordReset(AuthController.PasswordResetConfirmRequest request) {
+        String userId = cacheService.get(CacheKey.RESET_PASSWORD_TOKEN.of(request.token()), String.class);
+        if (userId == null) {
+            throw new AppException(ErrorCode.RESET_PASSWORD_TOKEN_INVALID_OR_EXPIRED);
+        }
+
+        var user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
+    public AuthResponse verifyMfa(AuthController.MfaVerifyRequest request) {
+        var challenge = otpChallengeRepository.findById(request.challengeId())
+                .orElseThrow(() -> new AppException(ErrorCode.OTP_CHALLENGE_NOT_FOUND));
+
+        var config = mfaConfigRepository.findByUserIdAndMfaTypeAndRevokedFalse(challenge.getUser().getId(), challenge.getMfaType())
+                .orElseThrow(() -> new AppException(ErrorCode.MFA_TYPE_NOT_FOUND));
+
+        otpChallengeService.verify(challenge.getUser(), config, challenge.getId(), request.code());
+
+        // Sau khi verify thành công
+        var deviceSession = deviceSessionService.ensureDeviceSession(
+                challenge.getUser(),
+                request.deviceId(),
+                Boolean.TRUE.equals(request.rememberMe()),
+                true
+        );
+        deviceSession.setTrusted(true);
+
+        return tokenIssuerService.issue(challenge.getUser(), deviceSession, request.deviceId());
+    }
+
+
+
     private JsonNode verifyToken(OAuthProvider provider, String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -280,7 +374,7 @@ public class AuthServiceImpl implements AuthService {
         try {
             switch (provider) {
                 case GOOGLE -> {
-                    String url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + accessToken;
+                    String url = "https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=" + accessToken;
                     String response = restTemplate.getForObject(url, String.class);
                     return objectMapper.readTree(response);
                 }

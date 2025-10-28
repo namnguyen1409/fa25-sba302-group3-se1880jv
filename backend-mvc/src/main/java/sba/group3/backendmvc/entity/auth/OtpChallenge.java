@@ -5,11 +5,16 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import sba.group3.backendmvc.converter.JsonMapConverter;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.enums.MfaType;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -32,7 +37,7 @@ public class OtpChallenge extends BaseEntity {
     @Column(name = "mfa_type", nullable = false, length = 30)
     MfaType mfaType;
 
-    @Column(name = "code", nullable = false, length = 10)
+    @Column(name = "code", nullable = false)
     String code;
 
     @Column(name = "expires_at", nullable = false)
@@ -44,5 +49,9 @@ public class OtpChallenge extends BaseEntity {
     @Builder.Default
     @Column(name = "verified", nullable = false)
     boolean verified = false;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> metadata = new HashMap<>();
 
 }

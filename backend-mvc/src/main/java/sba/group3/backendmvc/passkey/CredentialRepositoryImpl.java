@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 import sba.group3.backendmvc.enums.MfaType;
 import sba.group3.backendmvc.repository.auth.MfaConfigRepository;
 
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -62,14 +60,27 @@ public class CredentialRepositoryImpl implements CredentialRepository {
 
     @Override
     public Set<RegisteredCredential> lookupAll(ByteArray credentialId) {
-        var userId = UUID.fromString(new String(credentialId.getBytes(), StandardCharsets.UTF_8));
-        return mfaConfigRepository.findAllByUserIdAndMfaType(userId, MfaType.PASSKEY).stream()
-                .map(config -> RegisteredCredential.builder()
-                        .credentialId(new ByteArray(Base64.getUrlDecoder().decode(config.getCredentialId())))
-                        .userHandle(new ByteArray(userId.toString().getBytes(StandardCharsets.UTF_8)))
-                        .publicKeyCose(new ByteArray(config.getPublicKey()))
-                        .signatureCount(config.getSignCount())
-                        .build()
-                ).collect(Collectors.toSet());
+        // Tìm trong DB credential có id = credentialId
+        String credIdB64 = credentialId.getBase64Url();
+        return mfaConfigRepository.findByCredentialId(credIdB64)
+                .map(config -> {
+                    UUID userId = config.getUser().getId();
+                    // convert UUID → 16-byte userHandle
+                    ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+                    bb.putLong(userId.getMostSignificantBits());
+                    bb.putLong(userId.getLeastSignificantBits());
+                    ByteArray userHandle = new ByteArray(bb.array());
+
+                    return Set.of(
+                            RegisteredCredential.builder()
+                                    .credentialId(credentialId)
+                                    .userHandle(userHandle)
+                                    .publicKeyCose(new ByteArray(config.getPublicKey()))
+                                    .signatureCount(config.getSignCount())
+                                    .build()
+                    );
+                })
+                .orElse(Collections.emptySet());
     }
+
 }

@@ -51,5 +51,13 @@ public class EmailSenderImpl implements EmailSender {
         asyncMailExecutor.send(from, to, subject, htmlContent, attachmentFilename, inputStream);
     }
 
+    @Async("taskExecutor")
+    @Override
+    public void sendSecurityAlert(String to, String content) {
+        String subject = "Security Alert";
+        String htmlContent = "<p>" + content + "</p>";
+        asyncMailExecutor.send(from, to, subject, htmlContent, null, null);
+    }
+
 
 }

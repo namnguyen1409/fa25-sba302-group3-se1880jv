@@ -25,7 +25,10 @@ public class CacheConfig {
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         ObjectMapper mapper = new ObjectMapper()
                 .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
+                .registerModule(new JavaTimeModule())
+                .disable(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .disable(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofHours(1))
                 .serializeKeysWith(
@@ -48,7 +51,9 @@ public class CacheConfig {
 
         ObjectMapper mapper = new ObjectMapper()
                 .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
+                .registerModule(new JavaTimeModule())
+                .disable(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .disable(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(mapper);
         template.setValueSerializer(serializer);
@@ -56,5 +61,6 @@ public class CacheConfig {
         template.afterPropertiesSet();
         return template;
     }
+
 
 }

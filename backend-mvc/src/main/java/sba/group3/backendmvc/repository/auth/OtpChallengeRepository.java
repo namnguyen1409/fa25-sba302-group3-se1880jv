@@ -19,4 +19,6 @@ public interface OtpChallengeRepository extends BaseRepository<OtpChallenge, UUI
                         and o.expiresAt > current_timestamp
             """)
     Optional<OtpChallenge> findActiveByUserAndType(UUID userId, MfaType mfaType);
+
+    Optional<OtpChallenge> findByCodeAndMfaType(String code, MfaType mfaType);
 }

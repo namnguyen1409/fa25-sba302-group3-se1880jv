@@ -26,7 +26,14 @@ public enum ErrorCode {
     TOKEN_EXPIRED(5001, "Token has expired", HttpStatus.UNAUTHORIZED),
     INVALID_FILE_UPLOAD(6002, "Invalid file upload", HttpStatus.BAD_REQUEST),
     FILE_SIZE_EXCEEDED(6003, "File size exceeded the maximum limit", HttpStatus.BAD_REQUEST),
-    UPLOAD_NOT_ALLOWED(6004, "Upload not allowed for this entity type", HttpStatus.FORBIDDEN)
+    UPLOAD_NOT_ALLOWED(6004, "Upload not allowed for this entity type", HttpStatus.FORBIDDEN),
+    USERNAME_CANNOT_BE_CHANGED(4005, "Username cannot be changed after first login", HttpStatus.FORBIDDEN),
+    USERNAME_ALREADY_EXISTS(4006, "Username already exists", HttpStatus.CONFLICT),
+    EMAIL_ALREADY_EXISTS(4007, "Email already exists", HttpStatus.CONFLICT),
+    MFA_CONFIG_NOT_FOUND(7001, "MFA configuration not found", HttpStatus.NOT_FOUND),
+    RESET_PASSWORD_TOKEN_INVALID_OR_EXPIRED(8001, "Reset password token is invalid or expired", HttpStatus.BAD_REQUEST),
+    OTP_CHALLENGE_NOT_FOUND(9001, "OTP challenge not found", HttpStatus.NOT_FOUND),
+    MFA_TYPE_NOT_FOUND(7002, "MFA type not found", HttpStatus.NOT_FOUND)
     ;
     int code;
     String message;

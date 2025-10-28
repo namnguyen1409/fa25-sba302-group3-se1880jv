@@ -109,4 +109,20 @@ public class TokenIssuerServiceImpl implements TokenIssuerService {
                 .build();
     }
 
+    @Transactional
+    @Override
+    public void revokeTokens(DeviceSession deviceSession) {
+        authTokenBlacklistService.addToBlackList(
+                deviceSession.getAccessTokenId(),
+                deviceSession.getLastRefreshedAt().plus(accessTokenExpiration),
+                "Access token revoked"
+        );
+        authTokenBlacklistService.addToBlackList(
+                deviceSession.getRefreshTokenId(),
+                deviceSession.getLastRefreshedAt().plus(refreshTokenExpiration),
+                "Refresh token revoked"
+        );
+    }
+
+
 }

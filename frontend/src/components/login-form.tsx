@@ -1,26 +1,26 @@
-"use client";
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
+  FieldDescription,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { authApi } from "@/api/authApi";
 import { ensureDeviceId } from "@/utils/device";
-import { toast } from "sonner";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import FacebookLogin from "@greatsumini/react-facebook-login";
 import { useAuth } from "@/context/AuthContext";
+import { useGoogleLogin } from "@react-oauth/google";
+import FacebookLogin from "@greatsumini/react-facebook-login";
+import { Github, Lock, FacebookIcon, KeyRound, Mail } from "lucide-react";
+import { startAuthentication } from "@simplewebauthn/browser";
 
 interface LoginFormValues {
   username: string;
@@ -28,18 +28,20 @@ interface LoginFormValues {
 }
 
 const schema = yup.object({
-  username: yup.string().required(),
+  username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
 });
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"form">) {
+export function LoginForm({ className }: { className?: string }) {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  
-  const {loginSuccess} = useAuth(); 
+  const { loginSuccess } = useAuth();
+  const [loadingType, setLoadingType] = useState<
+    "login" | "oauth" | "passkey" | "mfa" | null
+  >(null);
+
+  const [mfaChallenge, setMfaChallenge] = useState<any>(null);
+  const [mfaCode, setMfaCode] = useState("");
+  const [selectedMfaType, setSelectedMfaType] = useState<string | undefined>(undefined);
 
   const {
     register,
@@ -49,18 +51,22 @@ export function LoginForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (values: LoginFormValues) => {
+  /** ----------- LOGIN STEP ----------- **/
+  const handleLogin = async (values: LoginFormValues) => {
     try {
-      setLoading(true);
-      const deviceId = ensureDeviceId();
+      setLoadingType("login");
       const res = await authApi.login({
-        username: values.username,
-        password: values.password,
-        deviceId,
+        ...values,
+        deviceId: ensureDeviceId(),
         rememberMe: true,
       });
 
-      console.log("Login response:", res);
+      if (res.requires2FA) {
+        setMfaChallenge(res);
+        setSelectedMfaType(res.defaultMfaType);
+        toast.info(`Xác minh ${res.defaultMfaType} MFA`);
+        return;
+      }
 
       localStorage.setItem("accessToken", res.accessToken || "");
       await loginSuccess();
@@ -69,152 +75,255 @@ export function LoginForm({
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Login failed");
     } finally {
-      setLoading(false);
+      setLoadingType(null);
     }
   };
 
+  /** ----------- MFA VERIFY STEP ----------- **/
+  const handleVerifyMfa = async () => {
+    if (!mfaCode.trim()) {
+      toast.error("Vui lòng nhập mã xác thực");
+      return;
+    }
+
+    try {
+      setLoadingType("mfa");
+      const res = await authApi.verifyMfa(
+        mfaChallenge.challengeId,
+        selectedMfaType || "",
+        mfaCode,
+        false
+      );
+
+      localStorage.setItem("accessToken", res.accessToken || "");
+      await loginSuccess();
+      toast.success("Xác thực thành công!");
+      navigate("/");
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Mã không đúng");
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
+  const handleSwitchMfa = (type: string) => {
+    setSelectedMfaType(type);
+    toast.info(`Chuyển sang xác minh bằng ${type}`);
+    // Backend có thể tự động gửi mã OTP mới tương ứng loại này
+  };
+
+  /** ----------- OAUTH & PASSKEY ----------- **/
   const handleOAuthLogin = async (
     provider: "GOOGLE" | "FACEBOOK" | "GITHUB",
     accessToken: string
   ) => {
     try {
-      const deviceId = ensureDeviceId();
+      setLoadingType("oauth");
       const res = await authApi.oauthLogin({
         provider,
         accessToken,
-        deviceId,
+        deviceId: ensureDeviceId(),
         rememberMe: true,
       });
 
-      console.log("OAuth login response:", res);
+      if (res.requires2FA) {
+        setMfaChallenge(res);
+        setSelectedMfaType(res.defaultMfaType);
+        return;
+      }
+
       localStorage.setItem("accessToken", res.accessToken || "");
-      toast.success(`Logged in with ${provider}`);
       await loginSuccess();
+      toast.success(`Logged in with ${provider}`);
       navigate("/");
     } catch (err: any) {
-      console.error(err);
       toast.error(err?.response?.data?.message || "OAuth login failed");
-      console.log("OAuth login failed", err);
+    } finally {
+      setLoadingType(null);
     }
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (token) => handleOAuthLogin("GOOGLE", token.access_token),
+    onError: () => toast.error("Google login failed"),
+  });
 
   const handleGitHubLogin = () => {
     const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
     const redirectUri = import.meta.env.VITE_GITHUB_REDIRECT_URI;
-    const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user:email&redirect_uri=${encodeURIComponent(
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user:email&redirect_uri=${encodeURIComponent(
       redirectUri
     )}`;
-    window.location.href = githubUrl;
   };
 
+  const handlePasskeyLogin = async () => {
+    try {
+      setLoadingType("passkey");
+      const deviceId = ensureDeviceId();
+
+      const startRes = await authApi.loginPasskeyStart();
+
+      const options = startRes.requestOptions;
+      options.extensions = {};
+
+      const assertion = await startAuthentication({ optionsJSON: options });
+      const finishRes = await authApi.loginPasskeyFinish({
+        responseJson: JSON.stringify(assertion),
+        deviceId,
+        rememberMe: true,
+        requestId: startRes.requestId,
+      });
+
+      localStorage.setItem("accessToken", finishRes.accessToken || "");
+      await loginSuccess();
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (err: any) {
+      toast.error("Passkey not supported or failed");
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
+  /** ----------- RENDER ----------- **/
+  if (mfaChallenge) {
+    return (
+      <div className="w-full max-w-md mx-auto space-y-4">
+        <h2 className="text-xl font-bold text-center">Xác minh bảo mật</h2>
+        <p className="text-sm text-muted-foreground text-center">
+          Vui lòng nhập mã MFA được gửi qua{" "}
+          <span className="font-medium">{selectedMfaType}</span>.
+        </p>
+
+        <div className="flex justify-center gap-2">
+          {mfaChallenge.mfaTypes?.map((t: string) => (
+            <Button
+              key={t}
+              size="sm"
+              variant={selectedMfaType === t ? "default" : "outline"}
+              onClick={() => handleSwitchMfa(t)}
+            >
+              {t === "EMAIL" && <Mail className="w-4 h-4 mr-1" />}
+              {t === "TOTP" && <KeyRound className="w-4 h-4 mr-1" />}
+              {t === "PASSKEY" && <Lock className="w-4 h-4 mr-1" />}
+              {t}
+            </Button>
+          ))}
+        </div>
+
+        <Input
+          placeholder="Nhập mã 6 chữ số"
+          value={mfaCode}
+          onChange={(e) => setMfaCode(e.target.value)}
+          maxLength={6}
+          className="text-center tracking-widest text-lg font-semibold"
+        />
+
+        <Button className="w-full" onClick={handleVerifyMfa} disabled={!!loadingType}>
+          {loadingType === "mfa" ? "Đang xác minh..." : "Xác nhận"}
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <div className="w-full max-w-md mx-auto">
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleLogin)}
         className={cn("flex flex-col gap-6", className)}
-        {...props}
       >
         <FieldGroup>
-          <div className="flex flex-col items-center gap-1 text-center">
+          <div className="flex flex-col items-center text-center gap-1">
             <h1 className="text-2xl font-bold">Login to your account</h1>
-            <p className="text-muted-foreground text-sm text-balance">
-              Enter your email below to login to your account
+            <p className="text-sm text-muted-foreground">
+              Enter your credentials below
             </p>
           </div>
 
-          {/* Username */}
           <Field>
-            <FieldLabel htmlFor="username">Username</FieldLabel>
+            <FieldLabel>Username</FieldLabel>
             <Input
-              placeholder="username"
+              placeholder="Enter your username"
               {...register("username")}
-              disabled={loading}
+              disabled={!!loadingType}
             />
             {errors.username && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.username.message}
-              </p>
+              <p className="text-sm text-red-500">{errors.username.message}</p>
             )}
           </Field>
 
-          {/* Password */}
           <Field>
-            <div className="flex items-center">
-              <FieldLabel htmlFor="password">Password</FieldLabel>
-              <a
-                href="#"
-                className="ml-auto text-sm underline-offset-4 hover:underline"
+            <div className="flex items-center justify-between">
+              <FieldLabel>Password</FieldLabel>
+              <Link
+                to="/forgot-password"
+                className="text-sm underline-offset-4 hover:underline"
               >
-                Forgot your password?
-              </a>
+                Forgot password?
+              </Link>
             </div>
             <Input
-              id="password"
               type="password"
               {...register("password")}
-              disabled={loading}
+              disabled={!!loadingType}
             />
             {errors.password && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.password.message}
-              </p>
+              <p className="text-sm text-red-500">{errors.password.message}</p>
             )}
           </Field>
 
-          {/* Submit */}
-          <Field>
-            <Button type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
-            </Button>
-          </Field>
+          <Button type="submit" disabled={!!loadingType}>
+            {loadingType === "login" ? "Logging in..." : "Login"}
+          </Button>
 
           <FieldSeparator>Or continue with</FieldSeparator>
 
-          {/* OAuth Buttons */}
           <div className="flex flex-col gap-2">
-            {/* GOOGLE */}
-            <GoogleLogin
-              onSuccess={(credentialResponse) =>
-                handleOAuthLogin("GOOGLE", credentialResponse.credential!)
-              }
-              onError={() => toast.error("Google login failed")}
-            />
+            <Button
+              variant="outline"
+              onClick={() => googleLogin()}
+              disabled={!!loadingType}
+            >
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                className="h-4 w-4 mr-2"
+              />
+              Login with Google
+            </Button>
 
-            {/* FACEBOOK */}
             <FacebookLogin
               appId={import.meta.env.VITE_FACEBOOK_APP_ID}
-              onSuccess={(response) => {
-                handleOAuthLogin("FACEBOOK", response.accessToken);
-              }}
-              onFail={(error) => {
-                console.error("Facebook login failed:", error);
-              }}
+              onSuccess={(res) => handleOAuthLogin("FACEBOOK", res.accessToken)}
+              onFail={(err) => console.error(err)}
               render={({ onClick }) => (
-                <Button variant="outline" type="button" onClick={onClick}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="mr-2 h-4 w-4"
-                  >
-                    <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.406.593 24 1.325 24H12v-9.294H9.294V11.41H12V8.863c0-2.675 1.633-4.131 4.017-4.131 1.144 0 2.126.085 2.414.123v2.8h-1.659c-1.3 0-1.55.617-1.55 1.518v1.985h3.1l-.404 3.296H15.22V24h7.455c.732 0 1.325-.594 1.325-1.324V1.325C24 .593 23.406 0 22.675 0z" />
-                  </svg>
+                <Button
+                  variant="outline"
+                  onClick={onClick}
+                  disabled={!!loadingType}
+                >
+                  <FacebookIcon className="mr-2 h-4 w-4" />
                   Login with Facebook
                 </Button>
               )}
             />
 
-            {/* GITHUB */}
-            <Button variant="outline" type="button" onClick={handleGitHubLogin}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="mr-2 h-4 w-4"
-                fill="currentColor"
-              >
-                <path d="M12 .297C5.373.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z" />
-              </svg>
+            <Button
+              variant="outline"
+              onClick={handleGitHubLogin}
+              disabled={!!loadingType}
+            >
+              <Github className="mr-2 h-4 w-4" />
               Login with GitHub
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={handlePasskeyLogin}
+              disabled={!!loadingType}
+            >
+              <Lock className="mr-2 h-4 w-4" />
+              Login with Passkey
             </Button>
           </div>
 
@@ -226,6 +335,6 @@ export function LoginForm({
           </FieldDescription>
         </FieldGroup>
       </form>
-    </GoogleOAuthProvider>
+    </div>
   );
 }

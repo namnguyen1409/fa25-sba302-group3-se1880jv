@@ -1,9 +1,11 @@
 package sba.group3.backendmvc.controller.auth;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -63,5 +65,80 @@ public class AuthController {
                                 .build()
                 );
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<CustomApiResponse<AuthResponse>> refreshToken() {
+        return ResponseEntity
+                .ok(
+                        CustomApiResponse.<AuthResponse>builder()
+                                .data(authService.refreshToken())
+                                .message("Token refreshed successfully")
+                                .build()
+                );
+    }
+
+
+    @PostMapping("/logout")
+    public ResponseEntity<CustomApiResponse<Void>> logout(@AuthenticationPrincipal Jwt jwt) {
+        authService.logout(UUID.fromString(jwt.getSubject()));
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("Logout successful")
+                        .build()
+        );
+    }
+
+    @PostMapping("/password/reset/request")
+    public ResponseEntity<CustomApiResponse<Void>> requestPasswordReset(
+            @RequestBody @Validated PasswordResetRequest request
+    ) {
+        authService.requestPasswordReset(request);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("Password reset request sent successfully")
+                        .build()
+        );
+    }
+
+    public record PasswordResetRequest(
+            String email
+    ) {}
+
+    @PostMapping("/password/reset/confirm")
+    public ResponseEntity<CustomApiResponse<Void>> confirmPasswordReset(
+            @RequestBody @Validated PasswordResetConfirmRequest request
+    ) {
+        authService.confirmPasswordReset(request);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("Password reset confirmed successfully")
+                        .build()
+        );
+    }
+
+    public record PasswordResetConfirmRequest(
+            String token,
+            String newPassword
+    ) {}
+
+
+    @PostMapping("/mfa/verify")
+    public ResponseEntity<CustomApiResponse<AuthResponse>> verifyMfa(
+            @RequestBody @Validated MfaVerifyRequest request
+    ) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<AuthResponse>builder()
+                        .data(authService.verifyMfa(request))
+                        .message("MFA verification successful")
+                        .build()
+        );
+    }
+
+    public record MfaVerifyRequest(
+            @NotNull UUID challengeId,
+            @NotBlank String code,
+            @NotBlank String deviceId,
+            Boolean rememberMe
+    ) {}
 
 }

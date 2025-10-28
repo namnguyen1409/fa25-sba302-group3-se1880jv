@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public interface LoginAttemptService {
 
-    void recordAttempt(User user, String ip, String userAgent, LoginStatus status);
+    void recordAttempt(User user, String ip, String userAgent, LoginStatus status, String loginMethod);
 
     long countFailures(User user, Duration window);
 }

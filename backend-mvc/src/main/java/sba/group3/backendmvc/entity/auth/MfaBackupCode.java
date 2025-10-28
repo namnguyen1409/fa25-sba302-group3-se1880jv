@@ -1,10 +1,7 @@
 package sba.group3.backendmvc.entity.auth;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.user.User;
@@ -23,8 +20,9 @@ import sba.group3.backendmvc.entity.user.User;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MfaBackupCode extends BaseEntity {
+    @Builder.Default
     @Column(name = "used", nullable = false)
-    Boolean used = false;
+    boolean used = false;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

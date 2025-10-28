@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { ensureDeviceId } from "@/utils/device";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 
 export interface CustomApiResponse<T> {
   code: number;
@@ -22,7 +22,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localho
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 15000,
+  timeout: 99999999,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });
@@ -58,15 +58,15 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-// function isCustomApiResponse(obj: any): obj is CustomApiResponse<any> {
-//   return (
-//     obj &&
-//     typeof obj === "object" &&
-//     "code" in obj &&
-//     "message" in obj &&
-//     "path" in obj
-//   );
-// }
+function isCustomApiResponse(obj: any): obj is CustomApiResponse<any> {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    "code" in obj &&
+    "message" in obj &&
+    "path" in obj
+  );
+}
 
 
 axiosInstance.interceptors.response.use(
@@ -91,11 +91,11 @@ axiosInstance.interceptors.response.use(
 
     const responseData = error.response?.data;
     console.error("API error response:", responseData);
-    // if (isCustomApiResponse(responseData)) {
-    //   toast.error(responseData.message || "An error occurred");
-    // } else {
-    //   toast.error(error.message || "An unexpected error occurred");
-    // }
+    if (isCustomApiResponse(responseData)) {
+      toast.error(responseData.message || "An error occurred");
+    } else {
+      toast.error(error.message || "An unexpected error occurred");
+    }
 
     if (error.isTokenExpired && !originalRequest._retry) {
       if (isRefreshing) {

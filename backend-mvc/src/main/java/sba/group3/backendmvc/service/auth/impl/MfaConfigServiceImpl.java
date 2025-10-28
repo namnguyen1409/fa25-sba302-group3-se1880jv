@@ -10,6 +10,7 @@ import org.apache.commons.codec.binary.Base32;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.dto.request.auth.TOTPConfirmRequest;
 import sba.group3.backendmvc.dto.response.auth.MfaSetupResponse;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
@@ -36,9 +37,8 @@ public class MfaConfigServiceImpl implements MfaConfigService {
     UserRepository userRepository;
     @NonFinal
     @Value("${security.jwt.token.issuer}")
-    String iusser;
+    String issuer;
 
-    @Cacheable(value = "mfaConfigs", key = "#userId")
     @Override
     public List<MfaConfig> findAllByUserId(UUID userId) {
         return mfaConfigRepository.findAllByUserId(userId);
@@ -49,13 +49,17 @@ public class MfaConfigServiceImpl implements MfaConfigService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_FOUND)
         );
+        boolean alreadyHasTotp = mfaConfigRepository.existsByUserIdAndMfaType(user.getId(), MfaType.TOTP);
+        if (alreadyHasTotp) {
+            throw new IllegalStateException("Bạn đã bật TOTP trước đó. Vui lòng tắt trước khi thêm mới.");
+        }
         var secretBytes = new byte[20];
         new SecureRandom().nextBytes(secretBytes);
         var secret = new Base32().encodeToString(secretBytes);
         var qrUri = new QrData.Builder()
                 .label(user.getEmail())
                 .secret(secret)
-                .issuer(iusser)
+                .issuer(issuer)
                 .digits(6)
                 .period(30)
                 .algorithm(HashingAlgorithm.SHA1)
@@ -64,6 +68,7 @@ public class MfaConfigServiceImpl implements MfaConfigService {
         return new MfaSetupResponse(secret, qrUri);
     }
 
+    @Transactional
     @Override
     public void confirmTotpMfa(UUID userId, TOTPConfirmRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
@@ -73,9 +78,27 @@ public class MfaConfigServiceImpl implements MfaConfigService {
                 .user(user)
                 .mfaType(MfaType.TOTP)
                 .secret(request.getSecret())
+                .primary(true)
+                .revoked(false)
                 .build();
         otpChallengeService.verify(user, tempConfig, null, request.getCode());
         mfaConfigRepository.save(tempConfig);
+    }
+
+    @Transactional
+    @Override
+    public boolean verifyTotpMfa(UUID userId, String code) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_FOUND)
+        );
+        var totpConfig = mfaConfigRepository.findByUserIdAndMfaTypeAndRevokedFalse(user.getId(), MfaType.TOTP)
+                .orElseThrow(() -> new AppException(ErrorCode.MFA_CONFIG_NOT_FOUND));
+        try{
+            otpChallengeService.verify(user, totpConfig, null, code);
+            return true;
+        } catch (Exception ex){
+            return false;
+        }
     }
 
 

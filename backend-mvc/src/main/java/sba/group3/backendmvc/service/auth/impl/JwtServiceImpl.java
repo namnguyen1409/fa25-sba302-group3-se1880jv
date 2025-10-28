@@ -58,6 +58,7 @@ public class JwtServiceImpl implements JwtService {
                 .expiresAt(customExpiration)
                 .claim("scope", scope)
                 .claim("deviceId", deviceId)
+                .claim("username", user.getUsername())
                 .notBefore(Instant.now().minusSeconds(5))
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();
