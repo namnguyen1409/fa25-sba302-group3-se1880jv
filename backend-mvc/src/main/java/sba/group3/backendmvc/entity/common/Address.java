@@ -14,9 +14,9 @@ import sba.group3.backendmvc.entity.BaseEntity;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "address", schema = "common")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @FieldNameConstants
+@Table(name = "address", schema = "common")
 public class Address extends BaseEntity {
     @Column(name = "street")
     String street;

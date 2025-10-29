@@ -8,7 +8,6 @@ import sba.group3.clinic.common.entity.BaseEntity;
 import sba.group3.clinic.common.entity.IcdCode;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

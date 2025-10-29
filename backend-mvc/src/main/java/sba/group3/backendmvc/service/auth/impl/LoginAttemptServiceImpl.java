@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.response.auth.LoginAttemptResponse;
 import sba.group3.backendmvc.entity.auth.LoginAttempt;
-import sba.group3.backendmvc.entity.auth.LoginAttemptMapper;
+import sba.group3.backendmvc.mapper.auth.LoginAttemptMapper;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.enums.LoginStatus;
 import sba.group3.backendmvc.repository.auth.LoginAttemptRepository;

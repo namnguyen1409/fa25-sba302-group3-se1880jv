@@ -8,12 +8,10 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogFooter,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, Filter, X, PlusCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Loader2, Filter } from "lucide-react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -86,8 +84,6 @@ interface EntityTableWrapperProps<T> {
   pageSize?: number;
   getRowId?: (row: T) => string | number;
 }
-
-/* ----------------------- Component ----------------------- */
 
 export function EntityTableWrapper<T extends Record<string, any>>({
   title,

@@ -6,7 +6,6 @@ import { EntityTableWrapper, type FilterGroup, type PageResponse, type SortReque
 import { AccountApi } from "@/api/user/accountApi";
 import { toast } from "sonner";
 
-/* ------------------ Types ------------------ */
 export interface LoginAttemptResponse {
     id: string;
     createdDate: string;
@@ -16,7 +15,6 @@ export interface LoginAttemptResponse {
     loginMethod: string;
 }
 
-/* ------------------ API ------------------ */
 const loginActivityApi = {
   async search(page: number, size: number, filterGroup?: FilterGroup, sorts?: SortRequest[]): Promise<{ data: PageResponse<LoginAttemptResponse> }> {
     try {
@@ -30,7 +28,6 @@ const loginActivityApi = {
   },
 };
 
-/* ------------------ Page ------------------ */
 export default function LoginActivityPage() {
 const fetchData = useCallback(
   (page: number, size: number, filterGroup?: FilterGroup | null, sorts?: SortRequest[]) =>

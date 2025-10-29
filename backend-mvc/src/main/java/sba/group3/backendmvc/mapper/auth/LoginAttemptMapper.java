@@ -1,7 +1,8 @@
-package sba.group3.backendmvc.entity.auth;
+package sba.group3.backendmvc.mapper.auth;
 
 import org.mapstruct.*;
 import sba.group3.backendmvc.dto.response.auth.LoginAttemptResponse;
+import sba.group3.backendmvc.entity.auth.LoginAttempt;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface LoginAttemptMapper {
