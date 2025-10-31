@@ -16,6 +16,7 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginActivityPage from "./pages/account/loginAction";
 import StaffLayout from "./layouts/StaffLayout";
+import UserManagementPage from "./pages/user/UserManagerPage";
 function App() {
   return (
     <AppProvider>
@@ -60,6 +61,7 @@ function App() {
 
             <Route path="/staff" element={<StaffLayout />}>
               <Route index element={<div>Staff Dashboard</div>} />
+              <Route path="users" element={<UserManagementPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

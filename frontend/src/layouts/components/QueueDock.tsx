@@ -7,6 +7,10 @@ export const QueueDock = () => {
   // TODO: subscribe WS event "queue:update"
   useEffect(() => {}, []);
 
+  if (queue.length === 0) {
+    return null;
+  }
+
   return (
     <Card className="h-16 border-t bg-white dark:bg-gray-800 flex items-center px-4 gap-4">
       <span className="font-medium">Queue:</span>
