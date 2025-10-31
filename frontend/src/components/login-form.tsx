@@ -37,13 +37,11 @@ const schema = yup.object({
 type MfaType = "EMAIL" | "SMS" | "TOTP" | "PASSKEY";
 
 export function LoginForm({ className }: { className?: string }) {
-  const navigate = useNavigate();
   const { loginSuccess } = useAuth();
   const [loadingType, setLoadingType] = useState<
     "login" | "oauth" | "passkey" | "mfa" | "switch" | "resend" | null
   >(null);
 
-  // --- MFA states ---
   const [mfaChallenge, setMfaChallenge] = useState<any>(null);
   const [selectedMfaType, setSelectedMfaType] = useState<MfaType | undefined>(undefined);
   const [mfaCode, setMfaCode] = useState("");
@@ -57,7 +55,6 @@ export function LoginForm({ className }: { className?: string }) {
     resolver: yupResolver(schema),
   });
 
-  /** ----------- LOGIN STEP ----------- **/
   const handleLogin = async (values: LoginFormValues) => {
     try {
       setLoadingType("login");
@@ -77,7 +74,6 @@ export function LoginForm({ className }: { className?: string }) {
       localStorage.setItem("accessToken", res.accessToken || "");
       await loginSuccess();
       toast.success("Login successful!");
-      navigate("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Login failed");
     } finally {
@@ -85,7 +81,6 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- MFA: SWITCH METHOD ----------- **/
   const handleSwitchMfa = async (type: MfaType) => {
     if (!mfaChallenge?.challengeId) return;
     try {
@@ -105,7 +100,6 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- MFA: RESEND OTP ----------- **/
   const handleResendOtp = async () => {
     if (!mfaChallenge?.challengeId) return;
     try {
@@ -119,16 +113,13 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- MFA: VERIFY (EMAIL/SMS/TOTP) ----------- **/
   const handleVerifyMfa = async () => {
     if (!mfaChallenge?.challengeId || !selectedMfaType) return;
 
-    // PASSKEY không nhập code → dùng flow riêng
     if (selectedMfaType === "PASSKEY") {
       return handlePasskeyInMfa();
     }
 
-    // validate 6 digits cho EMAIL/SMS/TOTP
     if (!/^\d{6}$/.test(mfaCode)) {
       toast.error("Mã phải gồm 6 chữ số");
       return;
@@ -140,13 +131,12 @@ export function LoginForm({ className }: { className?: string }) {
         mfaChallenge.challengeId,
         mfaCode,
         ensureDeviceId(),
-        trustDevice // ghi nhớ thiết bị nếu true
+        trustDevice
       );
 
       localStorage.setItem("accessToken", res.accessToken || "");
       await loginSuccess();
       toast.success("Xác thực thành công!");
-      navigate("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Mã không đúng");
     } finally {
@@ -154,7 +144,6 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- MFA: PASSKEY FLOW ----------- **/
   const handlePasskeyInMfa = async () => {
     try {
       setLoadingType("mfa");
@@ -173,7 +162,6 @@ export function LoginForm({ className }: { className?: string }) {
       localStorage.setItem("accessToken", res.accessToken || "");
       await loginSuccess();
       toast.success("Login successful!");
-      navigate("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Passkey thất bại");
     } finally {
@@ -181,7 +169,6 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- OAUTH ----------- **/
   const handleOAuthLogin = async (
     provider: "GOOGLE" | "FACEBOOK" | "GITHUB",
     accessToken: string
@@ -204,7 +191,6 @@ export function LoginForm({ className }: { className?: string }) {
       localStorage.setItem("accessToken", res.accessToken || "");
       await loginSuccess();
       toast.success(`Logged in with ${provider}`);
-      navigate("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "OAuth login failed");
     } finally {
@@ -225,7 +211,6 @@ export function LoginForm({ className }: { className?: string }) {
     )}`;
   };
 
-  /** ----------- PASSKEY (đăng nhập trực tiếp) ----------- **/
   const handlePasskeyLogin = async () => {
     try {
       setLoadingType("passkey");
@@ -243,7 +228,6 @@ export function LoginForm({ className }: { className?: string }) {
         requestId: startRes.requestId,
       });
 
-      // nếu backend có policy: có thể vẫn trả requires2FA (ví dụ passkey = 1 yếu tố)
       if (finishRes.requires2FA) {
         setMfaChallenge(finishRes);
         setSelectedMfaType(finishRes.defaultMfaType as MfaType);
@@ -253,7 +237,6 @@ export function LoginForm({ className }: { className?: string }) {
       localStorage.setItem("accessToken", finishRes.accessToken || "");
       await loginSuccess();
       toast.success("Login successful!");
-      navigate("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Passkey not supported or failed");
     } finally {
@@ -261,7 +244,6 @@ export function LoginForm({ className }: { className?: string }) {
     }
   };
 
-  /** ----------- RENDER: MFA STEP ----------- **/
   if (mfaChallenge) {
     const methods: MfaType[] = (mfaChallenge.mfaTypes || []) as MfaType[];
     const isCodeBased = selectedMfaType === "EMAIL" || selectedMfaType === "SMS" || selectedMfaType === "TOTP";

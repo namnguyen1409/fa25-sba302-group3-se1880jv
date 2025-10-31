@@ -63,6 +63,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
         setAccessToken(accessToken);
         const me = await authApi.me();
         setUser(me);
+        if (me.roles.some(role => role.name !== "ROLE_PATIENT")) {
+          window.location.href = "/staff";
+        } else {
+          window.location.href = "/";
+        }
       }
     } catch (err) {
       console.error("Error during login success:", err);

@@ -4,15 +4,17 @@ import { authApi } from "@/api/authApi";
 import { toast } from "sonner";
 import { ensureDeviceId } from "@/utils/device";
 import { Spinner } from "@/components/ui/spinner";
+import { useAuth } from "@/context/AuthContext";
 
 export default function OAuthCallback() {
   const [searchParams] = useSearchParams();
+  const {loginSuccess} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const code = searchParams.get("code");
     const pathParts = window.location.pathname.split("/");
-    const provider = pathParts[pathParts.length - 1].toUpperCase(); // github/google/facebook
+    const provider = pathParts[pathParts.length - 1].toUpperCase();
 
     if (!code || !provider) {
       toast.error("Invalid OAuth callback");
@@ -31,7 +33,7 @@ export default function OAuthCallback() {
         console.log("OAuth login response:", res);
         localStorage.setItem("accessToken", res.accessToken);
         toast.success("Login successful!");
-        navigate("/dashboard");
+        await loginSuccess();
       } catch (err) {
         console.error("OAuth login failed:", err);
         toast.error("OAuth login failed!");

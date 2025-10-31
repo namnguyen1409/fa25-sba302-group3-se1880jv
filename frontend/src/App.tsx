@@ -15,6 +15,7 @@ import AccountDevicesPage from "./pages/account/Device";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import LoginActivityPage from "./pages/account/loginAction";
+import StaffLayout from "./layouts/StaffLayout";
 function App() {
   return (
     <AppProvider>
@@ -37,7 +38,6 @@ function App() {
               path="/oauth/callback/:provider"
               element={<OAuthCallback />}
             />
-            <Route path="/dashboard" element={<div>Dashboard Page</div>} />
             <Route path="/" element={<PublicLayout />}>
               <Route index element={<div>Home Page</div>} />
 
@@ -56,6 +56,10 @@ function App() {
                 <Route path="devices" element={<AccountDevicesPage />} />
                 <Route path="login-activity" element={<LoginActivityPage />} />
               </Route>
+            </Route>
+
+            <Route path="/staff" element={<StaffLayout />}>
+              <Route index element={<div>Staff Dashboard</div>} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
