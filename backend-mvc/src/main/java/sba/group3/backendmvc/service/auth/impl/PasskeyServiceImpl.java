@@ -186,15 +186,13 @@ public class PasskeyServiceImpl implements PasskeyService {
             if (!result.isSuccess()) {
                 throw new AppException(ErrorCode.PASSKEY_AUTHENTICATION_FAILED);
             }
-//            UUID userId = UUID.fromString(
-//                    new String(result.getCredential().getCredentialId().getBytes(), StandardCharsets.UTF_8)
-//            );
-//            var user = userRepository.findById(userId)
-//                    .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
             var credId = result.getCredential().getCredentialId().getBase64Url();
             var mfaConfig = mfaConfigRepository.findByCredentialId(credId)
                     .orElseThrow(() -> new AppException(ErrorCode.PASSKEY_AUTHENTICATION_FAILED));
             var user = mfaConfig.getUser();
+            if (user.isLocked()) {
+                throw new AppException(ErrorCode.ACCOUNT_LOCKED);
+            }
             mfaConfigRepository.updateSignCount(user.getId(), MfaType.PASSKEY, credId, result.getSignatureCount());
 
             var session = deviceSessionService.ensureDeviceSession(

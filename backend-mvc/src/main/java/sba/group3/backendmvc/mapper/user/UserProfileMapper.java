@@ -22,4 +22,9 @@ public interface UserProfileMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     UserProfile partialUpdate(UserProfileRequest userProfileRequest, @MappingTarget UserProfile userProfile);
+
+    UserProfile toEntity(SimpleProfileResponse simpleProfileResponse);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    UserProfile partialUpdate(SimpleProfileResponse simpleProfileResponse, @MappingTarget UserProfile userProfile);
 }

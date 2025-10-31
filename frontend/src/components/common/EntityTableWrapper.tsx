@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useImperativeHandle, useState } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, Filter } from "lucide-react";
@@ -45,12 +45,24 @@ export interface SortRequest {
 
 export interface PageResponse<T> {
   content: T[];
-  page: {
-    totalElements: number;
-    number: number;
-    size: number;
-    totalPages: number;
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    sort: {
+      sorted: boolean;
+      unsorted: boolean;
+      empty: boolean;
+    };
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
   };
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  first: boolean;
+  size: number;
+  number: number;
 }
 
 export interface FieldOption {
@@ -83,6 +95,8 @@ interface EntityTableWrapperProps<T> {
   onDelete?: (id: any) => Promise<void>;
   pageSize?: number;
   getRowId?: (row: T) => string | number;
+  renderRowActions?: (row: T) => React.ReactNode;
+  ref?: React.Ref<any>;
 }
 
 export function EntityTableWrapper<T extends Record<string, any>>({
@@ -95,14 +109,17 @@ export function EntityTableWrapper<T extends Record<string, any>>({
   onDelete,
   pageSize = 10,
   getRowId = (r) => r.id || r.uuid || r.key,
+  renderRowActions,
+  ref
 }: EntityTableWrapperProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [_, setTotal] = useState(0);
   const [filterGroup, setFilterGroup] = useState<FilterGroup | null>(null);
   const [sorts, setSorts] = useState<SortRequest[]>([]);
   const [searchText, setSearchText] = useState("");
+  const [totalPages, setTotalPages] = useState(0);
 
   // CRUD modal
   const [showModal, setShowModal] = useState(false);
@@ -116,7 +133,8 @@ export function EntityTableWrapper<T extends Record<string, any>>({
     try {
       const res = await fetchData(page, pageSize, filterGroup, sorts);
       setData(res?.data?.content || []);
-      setTotal(res?.data?.page?.totalElements || 0);
+      setTotal(res?.data?.totalElements || 0);
+      setTotalPages(res?.data?.totalPages || 0);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load data");
@@ -124,6 +142,16 @@ export function EntityTableWrapper<T extends Record<string, any>>({
       setLoading(false);
     }
   };
+
+   useImperativeHandle(ref, () => ({
+    reload: () => loadData(),
+    resetFilters: () => {
+      setFilterGroup(null);
+      setSorts([]);
+      setPage(0);
+      loadData();
+    }
+  }));
 
   useEffect(() => {
     loadData();
@@ -166,7 +194,11 @@ export function EntityTableWrapper<T extends Record<string, any>>({
           )}
 
           {fieldOptions.length > 0 && (
-            <Button variant="outline" size="sm" onClick={() => setShowAdvanced(true)}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowAdvanced(true)}
+            >
               <Filter className="h-4 w-4 mr-1" /> Advanced
             </Button>
           )}
@@ -195,14 +227,16 @@ export function EntityTableWrapper<T extends Record<string, any>>({
             : undefined
         }
         onDelete={onDelete ? (id) => handleDelete(id) : undefined}
+
         pagination={{
           page,
           size: pageSize,
-          total,
+          total: totalPages * pageSize,
           onPageChange: (p) => setPage(p),
         }}
         activeSorts={sorts}
         onSortChange={setSorts}
+        renderRowActions={renderRowActions}
       />
 
       {/* CRUD Form Modal */}
@@ -210,7 +244,9 @@ export function EntityTableWrapper<T extends Record<string, any>>({
         <Dialog open={showModal} onOpenChange={setShowModal}>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>{editingRow ? "Edit Record" : "Add Record"}</DialogTitle>
+              <DialogTitle>
+                {editingRow ? "Edit Record" : "Add Record"}
+              </DialogTitle>
             </DialogHeader>
             <FormModalContent
               formConfig={formConfig}
@@ -255,7 +291,12 @@ interface FormModalContentProps {
   reload: () => Promise<void>;
 }
 
-function FormModalContent({ formConfig, editingRow, onClose, reload }: FormModalContentProps) {
+function FormModalContent({
+  formConfig,
+  editingRow,
+  onClose,
+  reload,
+}: FormModalContentProps) {
   const { fields, schema, onSubmit } = formConfig;
 
   const {
@@ -303,7 +344,11 @@ function FormModalContent({ formConfig, editingRow, onClose, reload }: FormModal
               </SelectContent>
             </Select>
           ) : (
-            <Input type={f.type || "text"} placeholder={f.label} {...register(f.name)} />
+            <Input
+              type={f.type || "text"}
+              placeholder={f.label}
+              {...register(f.name)}
+            />
           )}
           {errors[f.name] && (
             <p className="text-xs text-red-500 mt-1">
@@ -314,7 +359,12 @@ function FormModalContent({ formConfig, editingRow, onClose, reload }: FormModal
       ))}
       <Separator className="my-3" />
       <div className="flex justify-end gap-2">
-        <Button variant="outline" type="button" onClick={onClose} disabled={isSubmitting}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={onClose}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
         <Button type="submit" disabled={isSubmitting}>
@@ -325,4 +375,3 @@ function FormModalContent({ formConfig, editingRow, onClose, reload }: FormModal
     </form>
   );
 }
-

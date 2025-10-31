@@ -28,6 +28,7 @@ import sba.group3.backendmvc.dto.response.auth.AuthResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
 import sba.group3.backendmvc.entity.auth.OAuthAccount;
+import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.enums.CacheKey;
@@ -40,6 +41,7 @@ import sba.group3.backendmvc.mapper.user.UserMapper;
 import sba.group3.backendmvc.repository.auth.MfaConfigRepository;
 import sba.group3.backendmvc.repository.auth.OAuthAccountRepository;
 import sba.group3.backendmvc.repository.auth.OtpChallengeRepository;
+import sba.group3.backendmvc.repository.patient.PatientRepository;
 import sba.group3.backendmvc.repository.user.DeviceSessionRepository;
 import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
@@ -78,12 +80,13 @@ public class AuthServiceImpl implements AuthService {
     OAuthAccountRepository oAuthAccountRepository;
     CookieService cookieService;
     JwtDecoder jwtDecoder;
-    private final RoleService roleService;
-    private final UserProfileRepository userProfileRepository;
-    private final CacheService cacheService;
-    private final EmailSender emailSender;
-    private final OtpChallengeRepository otpChallengeRepository;
-    private final MfaConfigRepository mfaConfigRepository;
+    RoleService roleService;
+    UserProfileRepository userProfileRepository;
+    CacheService cacheService;
+    EmailSender emailSender;
+    OtpChallengeRepository otpChallengeRepository;
+    MfaConfigRepository mfaConfigRepository;
+    private final PatientRepository patientRepository;
 
     @NonFinal
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
@@ -195,6 +198,9 @@ public class AuthServiceImpl implements AuthService {
         User user;
         if (existingOAuth.isPresent()) {
             user = existingOAuth.get().getUser();
+            if (user.isLocked()) {
+                throw new AppException(ErrorCode.ACCOUNT_LOCKED);
+            }
         } else {
             user = userRepository.findByEmail(email).orElseGet(() -> {
                 User newUser = User.builder()
@@ -232,6 +238,15 @@ public class AuthServiceImpl implements AuthService {
             if (avatar != null) profile.setAvatarUrl(avatar);
 
             userProfileRepository.save(profile);
+
+            // create patient
+            var patent = Patient.builder()
+                    .user(user)
+                    .patientCode(generateCode())
+                    .fullName(name)
+                    .email(email)
+                    .build();
+            patientRepository.save(patent);
         }
 
         var deviceSession = deviceSessionService.ensureDeviceSession(
@@ -244,6 +259,10 @@ public class AuthServiceImpl implements AuthService {
         deviceSession.setUserAgent(userAgent);
         loginAttemptService.recordAttempt(user, ip, userAgent, LoginStatus.SUCCESS, "OAUTH_" + oAuthLoginRequest.getProvider().name());
         return tokenIssuerService.issue(user, deviceSession, oAuthLoginRequest.getDeviceId());
+    }
+
+    public String generateCode() {
+        return "PT" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 
 

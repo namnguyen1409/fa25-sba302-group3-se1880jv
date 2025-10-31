@@ -3,11 +3,12 @@ package sba.group3.backendmvc.mapper.user;
 import org.mapstruct.*;
 import sba.group3.backendmvc.dto.response.user.AccountSettingResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
+import sba.group3.backendmvc.dto.response.user.UserResponse;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.mapper.auth.OAuthAccountMapper;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {UserProfileMapper.class, OAuthAccountMapper.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {UserProfileMapper.class, OAuthAccountMapper.class, RoleMapper.class})
 public interface UserMapper {
     User toEntity(MeResponse meResponse);
 
@@ -36,4 +37,11 @@ public interface UserMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     User partialUpdate(AccountSettingResponse accountSettingResponse, @MappingTarget User user);
+
+    User toEntity(UserResponse userResponse);
+
+    UserResponse toDto2(User user);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    User partialUpdate(UserResponse userResponse, @MappingTarget User user);
 }

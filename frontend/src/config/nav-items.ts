@@ -2,7 +2,7 @@ import { Stethoscope, FlaskRound, Pill, Receipt, Users } from "lucide-react";
 
 export const staffNavItems = (roles: string[]) => {
   const base = [
-    { label: "Dashboard", to: "/staff", icon: Users },
+    { label: "Dashboard", to: "/staff/dashboard", icon: Users },
     { label: "Queue", to: "/staff/queue", icon: Users },
     { label: "Patients", to: "/staff/patients", icon: Users },
   ];
@@ -26,13 +26,19 @@ export const staffNavItems = (roles: string[]) => {
     { label: "Billing", to: "/staff/billing", icon: Receipt },
   ];
 
+
+  const admin = [
+    { label: "User Management", to: "/staff/users", icon: Users },
+    { label: "Staff Management", to: "/staff/staffs", icon: Users },
+  ];
+
   const byRole: Record<string, any[]> = {
     DOCTOR: doctor,
     NURSE: doctor, // nurses share core functions
     LAB: lab,
     PHARMACY: pharmacy,
     CASHIER: billing,
-    ROLE_ADMIN: [...doctor, ...lab, ...pharmacy, ...billing],
+    ROLE_ADMIN: [...doctor, ...lab, ...pharmacy, ...billing, ...admin],
   };
 
   return [...base, ...(roles.flatMap(role => byRole[role] || []))];
