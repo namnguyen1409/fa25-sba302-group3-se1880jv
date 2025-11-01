@@ -135,7 +135,7 @@ export function ReusableTable<T>({
             ))}
           </div>
         ) : (
-          <div className="w-full overflow-x-auto overflow-y-hidden">
+          <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/50 rounded-md">
             <div className="min-w-max">
               <Table>
                 <TableHeader>
