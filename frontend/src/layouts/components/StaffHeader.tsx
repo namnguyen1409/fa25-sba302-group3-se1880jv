@@ -14,14 +14,17 @@ import {
   ActivitySquareIcon,
   Bell,
   LogOutIcon,
+  Menu,
   MonitorCheckIcon,
+  PanelLeftClose,
+  PanelLeftOpen,
   SettingsIcon,
   ShieldCheckIcon,
-  UserCircle
+  UserCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export function StaffHeader() {
+export function StaffHeader({ toggleMobile, toggleCollapse, collapsed }: { toggleMobile: () => void; toggleCollapse: () => void; collapsed: boolean }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const settingItems = [
@@ -58,6 +61,22 @@ export function StaffHeader() {
 
   return (
     <header className="w-full h-14 border-b flex items-center justify-between px-4 bg-background">
+ 
+      {/* mobile hamburger */}
+      <button
+        className="lg:hidden p-2 rounded-md hover:bg-muted"
+        onClick={toggleMobile}
+      >
+        <Menu className="h-6 w-6" />
+      </button>
+
+      {/* desktop collapse icon */}
+      <button
+        className="hidden lg:block p-2 rounded-md hover:bg-muted"
+        onClick={toggleCollapse}
+      >
+        {collapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
+      </button>
       <div className="font-semibold text-lg">Clinic Panel</div>
       <div className="flex items-center gap-4">
         <Bell className="w-5 h-5" />
