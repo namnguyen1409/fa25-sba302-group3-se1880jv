@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   Table,
@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import {
   Plus,
@@ -57,6 +56,7 @@ interface ReusableTableProps<T> {
   onSortChange?: (sorts: SortRequest[]) => void;
   activeSorts?: SortRequest[];
   className?: string;
+  footerExtra?: React.ReactNode;
 }
 
 export function ReusableTable<T>({
@@ -74,6 +74,7 @@ export function ReusableTable<T>({
   onSortChange,
   activeSorts = [],
   className,
+  footerExtra,
 }: ReusableTableProps<T>) {
   const idKey = getRowId
     ? getRowId
@@ -238,36 +239,43 @@ export function ReusableTable<T>({
             </div>
           </div>
         )}
-
-        {/* Pagination */}
-        {pagination && (
-          <div className="flex justify-end items-center mt-4 gap-2 text-sm">
-            <span>
-              Page {pagination.page + 1} of{" "}
-              {Math.ceil(pagination.total / pagination.size)}
-            </span>
-            <div className="flex gap-1">
-              <Button
-                size="sm"
-                variant="outline"
-                disabled={pagination.page === 0}
-                onClick={() => pagination.onPageChange(pagination.page - 1)}
-              >
-                Prev
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                disabled={
-                  (pagination.page + 1) * pagination.size >= pagination.total
-                }
-                onClick={() => pagination.onPageChange(pagination.page + 1)}
-              >
-                Next
-              </Button>
+        <div className="flex justify-end items-center mt-4 gap-2 text-sm">
+          {footerExtra && (
+            <div className="mr-auto">
+              {footerExtra}
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Pagination */}
+          {pagination && (
+            <>
+              <span>
+                Page {pagination.page + 1} of{" "}
+                {Math.ceil(pagination.total / pagination.size)}
+              </span>
+              <div className="flex gap-1">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  disabled={pagination.page === 0}
+                  onClick={() => pagination.onPageChange(pagination.page - 1)}
+                >
+                  Prev
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  disabled={
+                    (pagination.page + 1) * pagination.size >= pagination.total
+                  }
+                  onClick={() => pagination.onPageChange(pagination.page + 1)}
+                >
+                  Next
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
