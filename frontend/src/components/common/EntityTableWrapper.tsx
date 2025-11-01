@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useEffect, useImperativeHandle, useState } from "react";
 import { toast } from "sonner";
@@ -97,6 +97,14 @@ interface EntityTableWrapperProps<T> {
   getRowId?: (row: T) => string | number;
   renderRowActions?: (row: T) => React.ReactNode;
   ref?: React.Ref<any>;
+  footerExtra?:
+    | React.ReactNode
+    | ((ctx: {
+        data: T[];
+        page: number;
+        totalPages: number;
+        totalElements: number;
+      }) => React.ReactNode);
 }
 
 export function EntityTableWrapper<T extends Record<string, any>>({
@@ -111,6 +119,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
   getRowId = (r) => r.id || r.uuid || r.key,
   renderRowActions,
   ref,
+  footerExtra,
 }: EntityTableWrapperProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
@@ -237,6 +246,16 @@ export function EntityTableWrapper<T extends Record<string, any>>({
           activeSorts={sorts}
           onSortChange={setSorts}
           renderRowActions={renderRowActions}
+          footerExtra={
+            typeof footerExtra === "function"
+              ? footerExtra({
+                  data,
+                  page,
+                  totalPages,
+                  totalElements: totalPages * pageSize,
+                })
+              : footerExtra
+          }
         />
       </div>
 

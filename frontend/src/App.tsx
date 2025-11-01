@@ -1,4 +1,5 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import "./App.css"
 import Login from "./pages/auth/Login";
 import { Toaster } from "./components/ui/sonner";
 import OAuthCallback from "./pages/auth/OAuthCallback";

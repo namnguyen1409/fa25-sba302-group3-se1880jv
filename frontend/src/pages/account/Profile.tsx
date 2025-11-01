@@ -1,4 +1,4 @@
-"use client";
+
 
 import type { UserProfileResponse } from "@/types/account";
 import { useEffect, useState, useRef } from "react";

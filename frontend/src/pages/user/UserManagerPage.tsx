@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -185,6 +185,12 @@ const unlockAccount = async (userId: string) => {
                 </Button>
             )}
           </>
+        )}
+    
+        footerExtra={(ctx) => (
+          <div>
+            <strong>Total Users: </strong> {ctx.totalElements}
+          </div>
         )}
       />
 
