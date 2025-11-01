@@ -14,7 +14,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { Plus, Pencil, Trash2, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown,
+} from "lucide-react";
 
 interface Column<T> {
   title: string;
@@ -72,7 +79,6 @@ export function ReusableTable<T>({
     ? getRowId
     : (row: any) => row?.id || row?.uuid || row?.key || Math.random();
 
-  /** 🔄 handle sort toggle logic */
   const toggleSort = (field: string) => {
     if (!onSortChange) return;
 
@@ -129,102 +135,108 @@ export function ReusableTable<T>({
             ))}
           </div>
         ) : (
-          <ScrollArea className="w-full overflow-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  {columns.map(
-                    (col, i) =>
-                      col.show !== false && (
-                        <TableHead
-                          key={i}
-                          className={cn(
-                            "font-semibold select-none cursor-pointer",
-                            col.sortable && "hover:bg-muted/40 transition-colors",
-                            col.className
-                          )}
-                          onClick={() =>
-                            col.sortable ? toggleSort(col.dataIndex.toString()) : undefined
-                          }
-                        >
-                          <div className="flex items-center gap-1">
-                            {col.title}
-                            {col.sortable && getSortIcon(col.dataIndex.toString())}
-                          </div>
-                        </TableHead>
-                      )
-                  )}
-                  {(onEdit || onDelete || renderRowActions) && (
-                    <TableHead className="text-center">Actions</TableHead>
-                  )}
-                </TableRow>
-              </TableHeader>
-
-              <TableBody>
-                {data.length > 0 ? (
-                  data.map((row, i) => (
-                    <TableRow key={idKey(row) ?? i}>
-                      {columns.map(
-                        (col, j) =>
-                          col.show !== false && (
-                            <TableCell key={j}>
-                              {col.render
-                                ? col.render(
-                                    (row as any)[col.dataIndex],
-                                    row,
-                                    i
-                                  )
-                                : (row as any)[col.dataIndex]}
-                            </TableCell>
-                          )
-                      )}
-                      {(onEdit || onDelete || renderRowActions) && (
-                        <TableCell className="text-center">
-                          {renderRowActions ? (
-                            renderRowActions(row)
-                          ) : (
-                            <div className="flex justify-center gap-2">
-                              {onEdit && (
-                                <Button
-                                  size="icon"
-                                  variant="outline"
-                                  onClick={() => onEdit(row)}
-                                >
-                                  <Pencil className="h-4 w-4" />
-                                </Button>
-                              )}
-                              {onDelete && (
-                                <Button
-                                  size="icon"
-                                  variant="destructive"
-                                  onClick={() => onDelete(idKey(row))}
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              )}
-                            </div>
-                          )}
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  ))
-                ) : (
+          <div className="w-full overflow-x-auto overflow-y-hidden">
+            <div className="min-w-max">
+              <Table>
+                <TableHeader>
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length + 1}
-                      className="text-center py-6 text-muted-foreground"
-                    >
-                      No data available
-                    </TableCell>
+                    {columns.map(
+                      (col, i) =>
+                        col.show !== false && (
+                          <TableHead
+                            key={i}
+                            className={cn(
+                              "font-semibold select-none cursor-pointer",
+                              col.sortable &&
+                                "hover:bg-muted/40 transition-colors",
+                              col.className
+                            )}
+                            onClick={() =>
+                              col.sortable
+                                ? toggleSort(col.dataIndex.toString())
+                                : undefined
+                            }
+                          >
+                            <div className="flex items-center gap-1">
+                              {col.title}
+                              {col.sortable &&
+                                getSortIcon(col.dataIndex.toString())}
+                            </div>
+                          </TableHead>
+                        )
+                    )}
+                    {(onEdit || onDelete || renderRowActions) && (
+                      <TableHead className="text-center">Actions</TableHead>
+                    )}
                   </TableRow>
-                )}
-              </TableBody>
+                </TableHeader>
 
-              {!data.length && (
-                <TableCaption>No data found for this entity</TableCaption>
-              )}
-            </Table>
-          </ScrollArea>
+                <TableBody>
+                  {data.length > 0 ? (
+                    data.map((row, i) => (
+                      <TableRow key={idKey(row) ?? i}>
+                        {columns.map(
+                          (col, j) =>
+                            col.show !== false && (
+                              <TableCell key={j}>
+                                {col.render
+                                  ? col.render(
+                                      (row as any)[col.dataIndex],
+                                      row,
+                                      i
+                                    )
+                                  : (row as any)[col.dataIndex]}
+                              </TableCell>
+                            )
+                        )}
+                        {(onEdit || onDelete || renderRowActions) && (
+                          <TableCell className="text-center">
+                            {renderRowActions ? (
+                              renderRowActions(row)
+                            ) : (
+                              <div className="flex justify-center gap-2">
+                                {onEdit && (
+                                  <Button
+                                    size="icon"
+                                    variant="outline"
+                                    onClick={() => onEdit(row)}
+                                  >
+                                    <Pencil className="h-4 w-4" />
+                                  </Button>
+                                )}
+                                {onDelete && (
+                                  <Button
+                                    size="icon"
+                                    variant="destructive"
+                                    onClick={() => onDelete(idKey(row))}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                )}
+                              </div>
+                            )}
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length + 1}
+                        className="text-center py-6 text-muted-foreground"
+                      >
+                        No data available
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+
+                {!data.length && (
+                  <TableCaption>No data found for this entity</TableCaption>
+                )}
+              </Table>
+            </div>
+          </div>
         )}
 
         {/* Pagination */}

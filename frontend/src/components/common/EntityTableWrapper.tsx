@@ -110,7 +110,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
   pageSize = 10,
   getRowId = (r) => r.id || r.uuid || r.key,
   renderRowActions,
-  ref
+  ref,
 }: EntityTableWrapperProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
@@ -143,14 +143,14 @@ export function EntityTableWrapper<T extends Record<string, any>>({
     }
   };
 
-   useImperativeHandle(ref, () => ({
+  useImperativeHandle(ref, () => ({
     reload: () => loadData(),
     resetFilters: () => {
       setFilterGroup(null);
       setSorts([]);
       setPage(0);
       loadData();
-    }
+    },
   }));
 
   useEffect(() => {
@@ -211,33 +211,34 @@ export function EntityTableWrapper<T extends Record<string, any>>({
         </div>
       </div>
 
-      {/* Table */}
-      <ReusableTable
-        title=""
-        columns={columns}
-        data={data}
-        loading={loading}
-        getRowId={getRowId}
-        onEdit={
-          formConfig
-            ? (row) => {
-                setEditingRow(row);
-                setShowModal(true);
-              }
-            : undefined
-        }
-        onDelete={onDelete ? (id) => handleDelete(id) : undefined}
-
-        pagination={{
-          page,
-          size: pageSize,
-          total: totalPages * pageSize,
-          onPageChange: (p) => setPage(p),
-        }}
-        activeSorts={sorts}
-        onSortChange={setSorts}
-        renderRowActions={renderRowActions}
-      />
+      <div className="w-full overflow-x-auto">
+        {/* Table */}
+        <ReusableTable
+          title=""
+          columns={columns}
+          data={data}
+          loading={loading}
+          getRowId={getRowId}
+          onEdit={
+            formConfig
+              ? (row) => {
+                  setEditingRow(row);
+                  setShowModal(true);
+                }
+              : undefined
+          }
+          onDelete={onDelete ? (id) => handleDelete(id) : undefined}
+          pagination={{
+            page,
+            size: pageSize,
+            total: totalPages * pageSize,
+            onPageChange: (p) => setPage(p),
+          }}
+          activeSorts={sorts}
+          onSortChange={setSorts}
+          renderRowActions={renderRowActions}
+        />
+      </div>
 
       {/* CRUD Form Modal */}
       {formConfig && (
