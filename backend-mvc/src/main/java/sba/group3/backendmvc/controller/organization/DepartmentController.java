@@ -9,11 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import sba.group3.backendmvc.dto.filter.Filter;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.organization.DepartmentRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
+import sba.group3.backendmvc.dto.response.organization.RoomResponse;
 import sba.group3.backendmvc.service.organization.DepartmentService;
+import sba.group3.backendmvc.service.organization.RoomService;
 
 @Slf4j
 @RestController
@@ -23,6 +26,7 @@ import sba.group3.backendmvc.service.organization.DepartmentService;
 @Tag(name = "Department Management", description = "APIs for managing departments")
 public class DepartmentController {
     DepartmentService departmentService;
+    RoomService roomService;
 
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<DepartmentResponse>>> filter(
@@ -43,6 +47,21 @@ public class DepartmentController {
                 CustomApiResponse.<DepartmentResponse>builder()
                         .data(departmentService.getDepartmentById(id))
                         .message("Department fetched successfully")
+                        .build()
+        );
+    }
+
+    @PostMapping("/{deptId}/rooms")
+    public ResponseEntity<CustomApiResponse<Page<RoomResponse>>> filterRoomsByDepartment(
+            @PathVariable String deptId,
+            @RequestBody SearchFilter filter) {
+        log.info("Filtering rooms for department ID {}: {}", deptId, filter);
+        filter.addMandatoryCondition(
+                new Filter("department.id", null, "eq", deptId)
+        );
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<RoomResponse>>builder()
+                        .data(roomService.filterRoomsByDepartment(filter))
                         .build()
         );
     }
