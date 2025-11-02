@@ -39,14 +39,14 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public ClinicResponse updateClinic(String id, ClinicRequest request) {
-        Clinic existingClinic = clinicRepository.findById(UUID.fromString(id)).orElseThrow(()-> new RuntimeException("Clinic not found"));
+        Clinic existingClinic = clinicRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Clinic not found"));
         clinicMapper.partialUpdate(request, existingClinic);
         return clinicMapper.toDto(clinicRepository.save(existingClinic));
     }
 
     @Override
     public void deleteClinic(String id) {
-        Clinic existingClinic = clinicRepository.findById(UUID.fromString(id)).orElseThrow(()-> new RuntimeException("Clinic not found"));
+        Clinic existingClinic = clinicRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Clinic not found"));
         existingClinic.setDeleted(true);
         clinicRepository.save(existingClinic);
     }

@@ -9,11 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import sba.group3.backendmvc.dto.filter.Filter;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.organization.ClinicRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.organization.ClinicResponse;
+import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
 import sba.group3.backendmvc.service.organization.ClinicService;
+import sba.group3.backendmvc.service.organization.DepartmentService;
 
 @Slf4j
 @RestController
@@ -23,6 +26,7 @@ import sba.group3.backendmvc.service.organization.ClinicService;
 @Tag(name = "Clinic Management", description = "APIs for managing clinics")
 public class ClinicController {
     ClinicService clinicService;
+    DepartmentService departmentService;
 
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<ClinicResponse>>> filter(
@@ -47,6 +51,22 @@ public class ClinicController {
         );
     }
 
+    @PostMapping("/{clinicId}/departments/filter")
+    public ResponseEntity<CustomApiResponse<Page<DepartmentResponse>>> filterDepartmentsByClinic(
+            @PathVariable String clinicId,
+            @RequestBody SearchFilter filter) {
+        log.info("Filtering departments for clinic ID {}: {}", clinicId, filter);
+        filter.addMandatoryCondition(
+                new Filter("clinic.id", null, "eq", clinicId)
+        );
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<DepartmentResponse>>builder()
+                        .data(departmentService.filterDepartmentsByClinic(filter))
+                        .build()
+        );
+    }
+
+
     @PostMapping
     public ResponseEntity<CustomApiResponse<ClinicResponse>> create(@RequestBody @Validated ClinicRequest clinicRequest) {
         log.info("Creating clinic {}", clinicRequest);
@@ -70,6 +90,7 @@ public class ClinicController {
                         .build()
         );
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<CustomApiResponse<Void>> delete(@PathVariable String id) {
         log.info("Deleting clinic with ID: {}", id);
