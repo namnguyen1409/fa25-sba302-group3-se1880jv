@@ -6,6 +6,6 @@ import java.math.BigDecimal;
 /**
  * DTO for {@link sba.group3.backendmvc.entity.examination.ServiceCatalog}
  */
-public record ServiceCatalogRequest(String code, String name, String category, BigDecimal price,
+public record ServiceCatalogRequest(String name, String category, BigDecimal price,
                                     String description) implements Serializable {
 }
