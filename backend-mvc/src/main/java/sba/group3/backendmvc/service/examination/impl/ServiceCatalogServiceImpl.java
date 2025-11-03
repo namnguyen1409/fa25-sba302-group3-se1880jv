@@ -37,16 +37,8 @@ public class ServiceCatalogServiceImpl implements ServiceCatalogService {
 
     @Override
     public ServiceCatalogResponse create(ServiceCatalogRequest serviceCatalogRequest) {
-        ServiceCatalog existed = serviceCatalogRepository.findByCode(serviceCatalogRequest.code());
-        if (existed != null) {
-            throw new IllegalArgumentException("Service Catalog with code " + serviceCatalogRequest.code() + " already exists.");
-        }
-        ServiceCatalog serviceCatalog = new ServiceCatalog();
-        serviceCatalog.setCode(serviceCatalogRequest.code() != null ? serviceCatalogRequest.code():generatePositionCode());
-        serviceCatalog.setName(serviceCatalogRequest.name());
-        serviceCatalog.setCategory(serviceCatalogRequest.category());
-        serviceCatalog.setPrice(serviceCatalogRequest.price());
-        serviceCatalog.setDescription(serviceCatalogRequest.description());
+        ServiceCatalog serviceCatalog = serviceCatalogMapper.toEntity(serviceCatalogRequest);
+        serviceCatalog.setCode(generatePositionCode());
         return serviceCatalogMapper.toDto(serviceCatalogRepository.save(serviceCatalog));
     }
 
