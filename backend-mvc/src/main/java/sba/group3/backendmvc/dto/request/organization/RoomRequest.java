@@ -3,6 +3,7 @@ package sba.group3.backendmvc.dto.request.organization;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * DTO for {@link sba.group3.backendmvc.entity.organization.Room}
@@ -23,5 +24,8 @@ public record RoomRequest(
         @Max(value = 1000, message = "Capacity must not exceed 1000")
         Integer capacity,
 
-        String description) implements Serializable {
+        String description,
+
+        @NotNull(message = "Department ID is required")
+        UUID departmentId) implements Serializable {
 }
