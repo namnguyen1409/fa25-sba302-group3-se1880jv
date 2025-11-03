@@ -43,7 +43,7 @@ public class Patient extends BaseEntity {
     Gender gender;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "blood_type", length = 5)
+    @Column(name = "blood_type", length = 10)
     BloodType bloodType;
 
     @Enumerated(EnumType.STRING)
