@@ -11,5 +11,5 @@ import java.util.UUID;
  */
 public record StaffRequest(UUID departmentId, UUID specialtyId, StaffType staffType, UUID positionId,
                            String licenseNumber, Integer experienceYears, String education, String bio,
-                           LocalDate joinedDate) implements Serializable {
+                           LocalDate joinedDate, String email) implements Serializable {
 }
