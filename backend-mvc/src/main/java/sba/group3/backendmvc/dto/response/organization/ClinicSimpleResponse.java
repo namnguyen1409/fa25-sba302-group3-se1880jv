@@ -7,4 +7,4 @@ import java.util.UUID;
  * DTO for {@link sba.group3.backendmvc.entity.organization.Clinic}
  */
 public record ClinicSimpleResponse(UUID id, String name) implements Serializable {
-  }
+}
