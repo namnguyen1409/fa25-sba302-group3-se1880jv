@@ -5,12 +5,14 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.proxy.HibernateProxy;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -45,4 +47,20 @@ public class LabOrder extends BaseEntity {
 
     @OneToMany(mappedBy = "labOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<LabTestResult> results = new HashSet<>();
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        LabOrder labOrder = (LabOrder) o;
+        return getId() != null && Objects.equals(getId(), labOrder.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }

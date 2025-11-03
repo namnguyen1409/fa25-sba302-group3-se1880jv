@@ -17,6 +17,7 @@ import sba.group3.backendmvc.entity.BaseEntity;
 @FieldNameConstants
 @Table(name = "vital_sign", schema = "examination")
 public class VitalSign extends BaseEntity {
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "examination_id")
     Examination examination;
@@ -26,4 +27,16 @@ public class VitalSign extends BaseEntity {
 
     @Column(name = "blood_pressure", length = 20)
     String bloodPressure;
+
+    @Column(name = "pulse")
+    Integer pulse;
+
+    @Column(name = "respiration_rate")
+    Integer respirationRate;
+
+    @Column(name = "height")
+    Double height;
+
+    @Column(name = "weight")
+    Double weight;
 }

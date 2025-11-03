@@ -6,11 +6,13 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.laboratory.LabOrder;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
@@ -56,4 +58,11 @@ public class Examination extends BaseEntity {
 
     @OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<VitalSign> vitalSigns = new HashSet<>();
+
+    @OneToMany(mappedBy = "examination", orphanRemoval = true)
+    Set<Diagnosis> diagnoses = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "examination", orphanRemoval = true)
+    private Set<LabOrder> labOrders = new LinkedHashSet<>();
+
 }
