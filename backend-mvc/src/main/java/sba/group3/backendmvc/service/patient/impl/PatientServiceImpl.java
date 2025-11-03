@@ -23,7 +23,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Page<PatientResponse> filter(SearchFilter filter) {
-
         return patientRepository.search(filter).map(patientMapper::toDto);
     }
 
@@ -43,7 +42,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientResponse create(PatientRequest request) {
 
         var patient = patientMapper.toEntity(request);
-        patient.setPatientCode(generatePatientCode());
+        patient.setPatientCode(generateCode());
         patient.setInitPassword(generateRandomPassword());
         var savedPatient = patientRepository.save(patient);
         return patientMapper.toDto(savedPatient);
@@ -66,9 +65,9 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(existingPatient);
     }
 
-    private String generatePatientCode() {
-
-        return "P-" + System.currentTimeMillis();
+    public String generateCode() {
+        long count = patientRepository.count();
+        return "PT-" + String.format("%06d", count + 1);
     }
 
     private String generateRandomPassword() {

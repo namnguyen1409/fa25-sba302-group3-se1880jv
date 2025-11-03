@@ -86,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
     EmailSender emailSender;
     OtpChallengeRepository otpChallengeRepository;
     MfaConfigRepository mfaConfigRepository;
-    private final PatientRepository patientRepository;
+    PatientRepository patientRepository;
 
     @NonFinal
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
@@ -262,7 +262,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public String generateCode() {
-        return "PT" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        long count = patientRepository.count();
+        return "PT-" + String.format("%06d", count + 1);
     }
 
 
