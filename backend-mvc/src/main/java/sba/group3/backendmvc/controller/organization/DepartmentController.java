@@ -1,0 +1,106 @@
+package sba.group3.backendmvc.controller.organization;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import sba.group3.backendmvc.dto.filter.Filter;
+import sba.group3.backendmvc.dto.filter.SearchFilter;
+import sba.group3.backendmvc.dto.request.organization.DepartmentRequest;
+import sba.group3.backendmvc.dto.response.CustomApiResponse;
+import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
+import sba.group3.backendmvc.dto.response.organization.RoomResponse;
+import sba.group3.backendmvc.service.organization.DepartmentService;
+import sba.group3.backendmvc.service.organization.RoomService;
+
+@Slf4j
+@RestController
+@RequestMapping("/api/organization/departments")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Tag(name = "Department Management", description = "APIs for managing departments")
+public class DepartmentController {
+    DepartmentService departmentService;
+    RoomService roomService;
+
+    @PostMapping("/filter")
+    public ResponseEntity<CustomApiResponse<Page<DepartmentResponse>>> filter(
+            @RequestBody SearchFilter filter) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<DepartmentResponse>>builder()
+                        .data(departmentService.filter(filter))
+                        .build()
+        );
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<DepartmentResponse>> getDepartmentById(
+            @PathVariable String id
+    ) {
+        log.info("Fetching department with ID: {}", id);
+        return ResponseEntity.ok(
+                CustomApiResponse.<DepartmentResponse>builder()
+                        .data(departmentService.getDepartmentById(id))
+                        .message("Department fetched successfully")
+                        .build()
+        );
+    }
+
+    @PostMapping("/{deptId}/rooms")
+    public ResponseEntity<CustomApiResponse<Page<RoomResponse>>> filterRoomsByDepartment(
+            @PathVariable String deptId,
+            @RequestBody SearchFilter filter) {
+        log.info("Filtering rooms for department ID {}: {}", deptId, filter);
+        filter.addMandatoryCondition(
+                new Filter("department.id", null, "eq", deptId)
+        );
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<RoomResponse>>builder()
+                        .data(roomService.filterRoomsByDepartment(filter))
+                        .build()
+        );
+    }
+
+
+    @PostMapping
+    public ResponseEntity<CustomApiResponse<DepartmentResponse>> create(@RequestBody @Validated DepartmentRequest departmentRequest) {
+        log.info("Creating department {}", departmentRequest);
+        return ResponseEntity.ok(
+                CustomApiResponse.<DepartmentResponse>builder()
+                        .data(departmentService.createDepartment(departmentRequest))
+                        .message("Department create successful")
+                        .build()
+        );
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<DepartmentResponse>> update(
+            @PathVariable String id,
+            @RequestBody @Validated DepartmentRequest departmentRequest) {
+        log.info("Updating department with ID: {}", id);
+        return ResponseEntity.ok(
+                CustomApiResponse.<DepartmentResponse>builder()
+                        .data(departmentService.updateDepartment(id, departmentRequest))
+                        .message("Department update successful")
+                        .build()
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomApiResponse<Void>> delete(@PathVariable String id) {
+        log.info("Deleting department with ID: {}", id);
+        departmentService.deleteDepartment(id);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("Department delete successful")
+                        .build()
+        );
+    }
+
+
+}
