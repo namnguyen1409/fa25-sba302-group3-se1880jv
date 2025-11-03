@@ -4,26 +4,11 @@ import { useEffect, useImperativeHandle, useState } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
-import { Loader2, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ReusableTable } from "./ReuseAbleTable";
 import { AdvancedFilterModal } from "./AdvancedFilterModal";
+import { FormModal, type FormModalProps } from "./FormModal";
 
 /* ----------------------- Types ----------------------- */
 
@@ -96,7 +81,9 @@ interface EntityTableWrapperProps<T> {
   pageSize?: number;
   getRowId?: (row: T) => string | number;
   renderRowActions?: (row: T) => React.ReactNode;
+  formModalProps?: FormModalProps;
   ref?: React.Ref<any>;
+  headerExtra?: React.ReactNode;
   footerExtra?:
     | React.ReactNode
     | ((ctx: {
@@ -113,12 +100,13 @@ export function EntityTableWrapper<T extends Record<string, any>>({
   columns,
   smartSearchFields = [],
   fieldOptions = [],
-  formConfig,
   onDelete,
   pageSize = 10,
   getRowId = (r) => r.id || r.uuid || r.key,
   renderRowActions,
+  formModalProps,
   ref,
+  headerExtra,
   footerExtra,
 }: EntityTableWrapperProps<T>) {
   const [data, setData] = useState<T[]>([]);
@@ -129,10 +117,6 @@ export function EntityTableWrapper<T extends Record<string, any>>({
   const [sorts, setSorts] = useState<SortRequest[]>([]);
   const [searchText, setSearchText] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-
-  // CRUD modal
-  const [showModal, setShowModal] = useState(false);
-  const [editingRow, setEditingRow] = useState<T | null>(null);
 
   // Advanced filter modal
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -212,10 +196,8 @@ export function EntityTableWrapper<T extends Record<string, any>>({
             </Button>
           )}
 
-          {formConfig && (
-            <Button size="sm" onClick={() => setShowModal(true)}>
-              Add
-            </Button>
+          {headerExtra && (
+            <>{headerExtra}</>
           )}
         </div>
       </div>
@@ -228,14 +210,6 @@ export function EntityTableWrapper<T extends Record<string, any>>({
           data={data}
           loading={loading}
           getRowId={getRowId}
-          onEdit={
-            formConfig
-              ? (row) => {
-                  setEditingRow(row);
-                  setShowModal(true);
-                }
-              : undefined
-          }
           onDelete={onDelete ? (id) => handleDelete(id) : undefined}
           pagination={{
             page,
@@ -260,25 +234,10 @@ export function EntityTableWrapper<T extends Record<string, any>>({
       </div>
 
       {/* CRUD Form Modal */}
-      {formConfig && (
-        <Dialog open={showModal} onOpenChange={setShowModal}>
-          <DialogContent className="max-w-lg">
-            <DialogHeader>
-              <DialogTitle>
-                {editingRow ? "Edit Record" : "Add Record"}
-              </DialogTitle>
-            </DialogHeader>
-            <FormModalContent
-              formConfig={formConfig}
-              editingRow={editingRow}
-              onClose={() => {
-                setShowModal(false);
-                setEditingRow(null);
-              }}
-              reload={loadData}
-            />
-          </DialogContent>
-        </Dialog>
+      {formModalProps && (
+        <FormModal
+          {...formModalProps}
+        />
       )}
 
       {/* Advanced Filter */}
@@ -295,103 +254,5 @@ export function EntityTableWrapper<T extends Record<string, any>>({
         />
       )}
     </div>
-  );
-}
-
-/* ----------------------- Form Modal ----------------------- */
-
-interface FormModalContentProps {
-  formConfig: {
-    fields: FormField[];
-    schema: yup.AnyObjectSchema;
-    onSubmit: (values: any, editing?: any) => Promise<void>;
-  };
-  editingRow: Record<string, any> | null;
-  onClose: () => void;
-  reload: () => Promise<void>;
-}
-
-function FormModalContent({
-  formConfig,
-  editingRow,
-  onClose,
-  reload,
-}: FormModalContentProps) {
-  const { fields, schema, onSubmit } = formConfig;
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: editingRow || {},
-  });
-
-  const submit = async (values: any) => {
-    try {
-      await onSubmit(values, editingRow);
-      toast.success("Saved successfully!");
-      onClose();
-      await reload();
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to save record");
-    }
-  };
-
-  useEffect(() => {
-    reset(editingRow || {});
-  }, [editingRow, reset]);
-
-  return (
-    <form onSubmit={handleSubmit(submit)} className="space-y-3">
-      {fields.map((f) => (
-        <div key={f.name}>
-          <label className="text-sm font-medium mb-1 block">{f.label}</label>
-          {f.type === "select" && f.options ? (
-            <Select {...register(f.name)}>
-              <SelectTrigger>
-                <SelectValue placeholder={`Select ${f.label}`} />
-              </SelectTrigger>
-              <SelectContent>
-                {f.options.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value.toString()}>
-                    {opt.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          ) : (
-            <Input
-              type={f.type || "text"}
-              placeholder={f.label}
-              {...register(f.name)}
-            />
-          )}
-          {errors[f.name] && (
-            <p className="text-xs text-red-500 mt-1">
-              {(errors[f.name]?.message as string) || ""}
-            </p>
-          )}
-        </div>
-      ))}
-      <Separator className="my-3" />
-      <div className="flex justify-end gap-2">
-        <Button
-          variant="outline"
-          type="button"
-          onClick={onClose}
-          disabled={isSubmitting}
-        >
-          Cancel
-        </Button>
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Loader2 className="h-4 w-4 mr-1 animate-spin" />}
-          Save
-        </Button>
-      </div>
-    </form>
   );
 }

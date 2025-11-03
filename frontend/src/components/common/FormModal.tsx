@@ -47,7 +47,7 @@ export interface FormFieldConfig {
   }) => React.ReactNode;
 }
 
-interface FormModalProps {
+export interface FormModalProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: any) => void;
