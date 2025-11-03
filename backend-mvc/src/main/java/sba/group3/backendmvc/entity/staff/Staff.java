@@ -58,4 +58,8 @@ public class Staff extends BaseEntity {
 
     @Column(name = "joined_date")
     LocalDate joinedDate;
+
+    @Column(name = "email", unique = true)
+    private String email;
+
 }
