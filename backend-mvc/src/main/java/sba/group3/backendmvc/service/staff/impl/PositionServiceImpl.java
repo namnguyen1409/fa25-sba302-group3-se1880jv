@@ -1,6 +1,7 @@
 package sba.group3.backendmvc.service.staff.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class PositionServiceImpl implements PositionService {
 
 
@@ -32,13 +34,13 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public PositionResponse create(PositionRequest request) {
-        Position position = new Position(generatePositionCode(), request.title(), request.description());
+        var position = new Position(generatePositionCode(), request.title(), request.description());
         return positionMapper.toDto(positionRepository.save(position));
     }
 
     @Override
-    public PositionResponse update(String id, PositionRequest request) {
-        Position position = positionRepository.findById(UUID.fromString(id))
+    public PositionResponse update(UUID id, PositionRequest request) {
+        var position = positionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Position not found"));
         position.setTitle(request.title());
         position.setDescription(request.description());
@@ -46,10 +48,17 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public void delete(String id) {
-        Position position = positionRepository.findById(UUID.fromString(id))
+    public void delete(UUID id) {
+        var position = positionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Position not found"));
         position.setDeleted(true);
         positionRepository.save(position);
+    }
+
+    @Override
+    public PositionResponse getById(UUID id) {
+        var position = positionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Position not found"));
+        return positionMapper.toDto(position);
     }
 }
