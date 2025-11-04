@@ -2,6 +2,7 @@ package sba.group3.backendmvc.service.patient.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import sba.group3.backendmvc.service.patient.PatientService;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
@@ -65,7 +67,7 @@ public class PatientServiceImpl implements PatientService {
             user = existingUserOpt.get();
 
             if (patientRepository.existsByUser_Id(user.getId())) {
-                throw new AppException(ErrorCode.UNCATEGORIZED);
+                throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
             }
 
         } else {
@@ -96,7 +98,9 @@ public class PatientServiceImpl implements PatientService {
         var patient = patientMapper.toEntity(request);
         patient.setUser(user);
         patient.setPatientCode(generateCode());
+        patient.setInitPassword(rawPassword);
         if (isNewUser) {
+            log.info("New user created: {}", user.getEmail());
             emailSender.send(
                     user.getEmail(),
                     "Your Account Credentials",

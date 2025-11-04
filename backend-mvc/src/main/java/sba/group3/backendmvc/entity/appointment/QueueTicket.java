@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.entity.staff.Staff;
 
@@ -42,4 +43,8 @@ public class QueueTicket extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", length = 20)
     QueuePriority priority = QueuePriority.NORMAL;
+
+    @OneToOne
+    @JoinColumn(name = "examination_id")
+    Examination examination;
 }
