@@ -48,11 +48,11 @@ public class Appointment extends BaseEntity {
     @Column(name = "source", length = 30)
     AppointmentSource source = AppointmentSource.SYSTEM;
 
-    @Column(name = "scheduled_start", nullable = false)
-    LocalDateTime scheduledStart;
-
-    @Column(name = "scheduled_end")
-    LocalDateTime scheduledEnd;
+//    @Column(name = "scheduled_start", nullable = false)
+//    LocalDateTime scheduledStart;
+//
+//    @Column(name = "scheduled_end")
+//    LocalDateTime scheduledEnd;
 
     @Column(name = "note", columnDefinition = "TEXT")
     String note;

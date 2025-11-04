@@ -35,6 +35,26 @@ public class AccountSecurityController {
     MfaConfigService mfaConfigService;
     PasskeyService passkeyService;
 
+
+    @PostMapping("/first-login")
+    public ResponseEntity<CustomApiResponse<Void>> firstLogin(
+            @AuthenticationPrincipal Jwt jwt,
+            @RequestBody @Validated FirstLoginRequest request
+    ) {
+        accountSecurityService.firstLogin(UUID.fromString(jwt.getSubject()), request);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("First login completed successfully")
+                        .build()
+        );
+    }
+
+    public record FirstLoginRequest(
+            @NotBlank String username,
+            @NotBlank String newPassword
+    ) {
+    }
+
     @PostMapping("/password/change")
     public ResponseEntity<CustomApiResponse<Void>> changePassword(
             @AuthenticationPrincipal Jwt jwt,

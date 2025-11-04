@@ -25,4 +25,6 @@ public interface AccountSecurityService {
 
 
     List<String> generateBackupCodes(UUID userId);
+
+    void firstLogin(UUID uuid, AccountSecurityController.FirstLoginRequest request);
 }

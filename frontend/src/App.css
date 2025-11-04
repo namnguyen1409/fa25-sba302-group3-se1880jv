@@ -1,3 +1,33 @@
+/* ===== Global Scrollbar (WebKit) ===== */
+:root {
+  --sb-size: 6px;
+  --sb-track: transparent;
+  --sb-thumb: rgba(255,255,255,0.15);
+  --sb-thumb-hover: rgba(255,255,255,0.35);
+}
+
+/* WebKit: Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+*::-webkit-scrollbar-track {
+  background: var(--sb-track);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb);
+  border-radius: 9999px;
+}
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-hover);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) var(--sb-track);
+}
+
 /* chrome, edge, safari */
 .scrollbar-thin::-webkit-scrollbar {
   height: 6px;
@@ -18,3 +48,4 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.25) transparent;
 }
+

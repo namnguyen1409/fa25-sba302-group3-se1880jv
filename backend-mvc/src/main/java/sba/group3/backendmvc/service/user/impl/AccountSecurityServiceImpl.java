@@ -24,6 +24,7 @@ import sba.group3.backendmvc.service.user.AccountSecurityService;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -180,14 +181,27 @@ public class AccountSecurityServiceImpl implements AccountSecurityService {
         return mfaConfigMapper.toDto(mfaConfigRepository.save(mfaConfig));
     }
 
-    // ==========================
-    // 🔑 Backup codes
-    // ==========================
-
     @Transactional
     @Override
     public List<String> generateBackupCodes(UUID userId) {
         return mfaBackupCodeService.generateBackupCodes(userId);
+    }
+
+    @Override
+    public void firstLogin(UUID uuid, AccountSecurityController.FirstLoginRequest request) {
+        var user = userRepository.findById(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!user.isFirstLogin())
+            throw new IllegalStateException("Not the first login.");
+        if (!Objects.equals(user.getUsername(), request.username()) && userRepository.existsByUsername(request.username()))
+            throw new IllegalArgumentException("Username already taken.");
+
+        user.setFirstLogin(false);
+        user.setUsername(request.username());
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
+
     }
 
     // ==========================

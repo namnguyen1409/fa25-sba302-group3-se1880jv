@@ -9,5 +9,5 @@ import java.util.UUID;
  * DTO for {@link sba.group3.backendmvc.entity.staff.StaffSchedule}
  */
 public record StaffScheduleRequest(UUID staffId, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime,
-                                   boolean available) implements Serializable {
+                                   boolean available, UUID roomId) implements Serializable {
 }

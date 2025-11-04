@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.organization.Room;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -39,4 +40,8 @@ public class StaffSchedule extends BaseEntity {
 
     @Column(name = "available", nullable = false)
     boolean available;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "room_id")
+    Room room;
 }

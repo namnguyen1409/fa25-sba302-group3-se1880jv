@@ -14,5 +14,5 @@ import java.util.UUID;
 public record StaffScheduleTemplateRequest(UUID staffId, StaffType staffStaffType, String staffLicenseNumber,
                                            Integer staffExperienceYears, String staffEducation, String staffBio,
                                            LocalDate staffJoinedDate, DayOfWeek dayOfWeek, LocalTime startTime,
-                                           LocalTime endTime, boolean active) implements Serializable {
+                                           LocalTime endTime, boolean active, UUID roomId) implements Serializable {
 }
