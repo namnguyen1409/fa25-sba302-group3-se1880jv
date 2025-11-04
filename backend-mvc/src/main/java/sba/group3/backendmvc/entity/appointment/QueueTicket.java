@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.organization.Room;
+import sba.group3.backendmvc.entity.staff.Staff;
 
 @Getter
 @Setter
@@ -22,17 +24,22 @@ public class QueueTicket extends BaseEntity {
     @JoinColumn(name = "appointment_id", nullable = false, unique = true)
     Appointment appointment;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "doctor_id", nullable = false)
+    Staff assignedDoctor;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "room_id", nullable = false)
+    Room assignedRoom;
+
     @Column(name = "queue_number", nullable = false, unique = true, length = 10)
     String queueNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20)
+    @Column(name = "status", length = 30)
     QueueStatus status = QueueStatus.WAITING;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", length = 20)
     QueuePriority priority = QueuePriority.NORMAL;
-
-    @Column(name = "counter", length = 50)
-    String counter; // quầy hoặc phòng đang phục vụ
 }

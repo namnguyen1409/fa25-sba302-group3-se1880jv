@@ -6,12 +6,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
-import sba.group3.backendmvc.entity.examination.Examination;
-import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.entity.patient.Patient;
-import sba.group3.backendmvc.entity.staff.Staff;
-
-import java.time.LocalDateTime;
+import sba.group3.backendmvc.entity.staff.Specialty;
 
 @Getter
 @Setter
@@ -29,12 +25,8 @@ public class Appointment extends BaseEntity {
     Patient patient;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "staff_id", nullable = false)
-    Staff staff;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    Room room;
+    @JoinColumn(name = "specialty_id", nullable = false)
+    Specialty specialty;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", length = 30)
@@ -46,18 +38,11 @@ public class Appointment extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "source", length = 30)
-    AppointmentSource source = AppointmentSource.SYSTEM;
-
-//    @Column(name = "scheduled_start", nullable = false)
-//    LocalDateTime scheduledStart;
-//
-//    @Column(name = "scheduled_end")
-//    LocalDateTime scheduledEnd;
+    AppointmentSource source = AppointmentSource.WALK_IN;
 
     @Column(name = "note", columnDefinition = "TEXT")
     String note;
 
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     QueueTicket queueTicket;
-
 }
