@@ -3,12 +3,23 @@ package sba.group3.backendmvc.service.patient.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.patient.PatientRequest;
 import sba.group3.backendmvc.dto.response.patient.PatientResponse;
+import sba.group3.backendmvc.entity.organization.Department;
+import sba.group3.backendmvc.entity.user.Role;
+import sba.group3.backendmvc.entity.user.User;
+import sba.group3.backendmvc.entity.user.UserProfile;
+import sba.group3.backendmvc.exception.AppException;
+import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.patient.PatientMapper;
 import sba.group3.backendmvc.repository.patient.PatientRepository;
+import sba.group3.backendmvc.repository.user.RoleRepository;
+import sba.group3.backendmvc.repository.user.UserProfileRepository;
+import sba.group3.backendmvc.repository.user.UserRepository;
+import sba.group3.backendmvc.service.infrastructure.EmailSender;
 import sba.group3.backendmvc.service.patient.PatientService;
 
 import java.util.UUID;
@@ -20,6 +31,11 @@ public class PatientServiceImpl implements PatientService {
 
     PatientRepository patientRepository;
     PatientMapper patientMapper;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserProfileRepository userProfileRepository;
+    private final RoleRepository roleRepository;
+    private final EmailSender emailSender;
 
     @Override
     public Page<PatientResponse> filter(SearchFilter filter) {
@@ -40,10 +56,59 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientResponse create(PatientRequest request) {
+        var existingUserOpt = userRepository.findByEmail(request.email());
+
+        User user;
+        boolean isNewUser = false;
+        String rawPassword = generateRandomPassword(10);
+        if (existingUserOpt.isPresent()) {
+            user = existingUserOpt.get();
+
+            if (patientRepository.existsByUser_Id(user.getId())) {
+                throw new AppException(ErrorCode.UNCATEGORIZED);
+            }
+
+        } else {
+            user = User.builder()
+                    .username(request.email())
+                    .email(request.email())
+                    .password(passwordEncoder.encode(rawPassword))
+                    .active(true)
+                    .firstLogin(true)
+                    .build();
+
+            user = userRepository.save(user);
+
+            UserProfile profile = UserProfile.builder()
+                    .user(user)
+                    .fullName(request.fullName())
+                    .phone(request.phone())
+                    .build();
+            userProfileRepository.save(profile);
+            isNewUser = true;
+        }
+
+        var roleName = "ROLE_PATIENT";
+        Role role = roleRepository.findByName(roleName);
+        user.getRoles().add(role);
+        userRepository.save(user);
 
         var patient = patientMapper.toEntity(request);
+        patient.setUser(user);
         patient.setPatientCode(generateCode());
-        patient.setInitPassword(generateRandomPassword());
+        if (isNewUser) {
+            emailSender.send(
+                    user.getEmail(),
+                    "Your Account Credentials",
+                    "Dear " + request.fullName() + ",\n\n" +
+                            "An account has been created for you.\n" +
+                            "Username: " + user.getUsername() + "\n" +
+                            "Password: " + rawPassword + "\n\n" +
+                            "Please change your password upon first login.\n\n" +
+                            "Best regards,\n" +
+                            "Medical Staff Management Team"
+            );
+        }
         var savedPatient = patientRepository.save(patient);
         return patientMapper.toDto(savedPatient);
     }
@@ -70,11 +135,11 @@ public class PatientServiceImpl implements PatientService {
         return "PT-" + String.format("%06d", count + 1);
     }
 
-    private String generateRandomPassword() {
+    private String generateRandomPassword(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
 
         StringBuilder password = new StringBuilder();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < length; i++) {
             int index = (int) (Math.random() * chars.length());
             password.append(chars.charAt(index));
         }

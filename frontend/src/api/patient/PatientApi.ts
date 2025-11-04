@@ -1,6 +1,7 @@
 
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
+import type { AllergyResponse, EmergencyContactResponse } from "../models";
 
 
 /**
@@ -33,18 +34,6 @@ export interface PatientResponse {
     initPassword: string;
 }
 
-/**
- * "fullName": "string",
-  "dateOfBirth": "2025-11-01",
-  "gender": "MALE",
-  "bloodType": "A_POSITIVE",
-  "status": "ACTIVE",
-  "phone": "+84526875839",
-  "email": "string",
-  "address": "string",
-  "insuranceNumber": "string"
- */
-
 export interface PatientRequest {
     fullName: string;
     dateOfBirth: string;
@@ -56,8 +45,6 @@ export interface PatientRequest {
     address: string;
     insuranceNumber: string;
 }
-
-
 
 export const PatientApi = {
     getPatient : (
@@ -74,7 +61,6 @@ export const PatientApi = {
         sorts,
         searchMode
     }),
-
     createPatient: (data: PatientRequest) =>
         apiClient.post<PatientResponse>("/patients", data),
 
@@ -83,4 +69,55 @@ export const PatientApi = {
 
     deletePatient: (patientId: string) =>
         apiClient.delete<{ message: string }>(`/patients/${patientId}`),
-}
+    getPatientById: (patientId: string) =>
+        apiClient.get<PatientResponse>(`/patients/${patientId}`),
+
+    getEmergencyContactByPatientId: (patientId: string,
+        page: number,
+        size: number,
+        filterGroup?: FilterGroup,
+        sorts?: SortRequest[],
+        searchMode: string = "JPA"
+    ) => apiClient.post<PageResponse<EmergencyContactResponse>>(`/patients/${patientId}/emergency-contacts/filter`, {
+        page,
+        size,
+        filterGroup,
+        sorts,
+        searchMode
+    }),
+    getEmergencyContactById: (patientId: string, contactId: string) =>
+        apiClient.get<EmergencyContactResponse>(`/patients/${patientId}/emergency-contacts/${contactId}`),
+
+    createEmergencyContact: (patientId: string, data: EmergencyContactResponse) =>
+        apiClient.post<EmergencyContactResponse>(`/patients/${patientId}/emergency-contacts`, data),
+
+    updateEmergencyContact: (patientId: string, contactId: string, data: EmergencyContactResponse) =>
+        apiClient.put<EmergencyContactResponse>(`/patients/${patientId}/emergency-contacts/${contactId}`, data),
+
+    deleteEmergencyContact: (patientId: string, contactId: string) =>
+        apiClient.delete<{ message: string }>(`/patients/${patientId}/emergency-contacts/${contactId}`),
+    getAllergiesByPatientId: (patientId: string,
+        page: number,
+        size: number,
+        filterGroup?: FilterGroup,
+        sorts?: SortRequest[],
+        searchMode: string = "JPA"
+    ) => apiClient.post<PageResponse<AllergyResponse>>(`/patients/${patientId}/allergies/filter`, {
+        page,
+        size,
+        filterGroup,
+        sorts,
+        searchMode
+    }),
+    getAllergyById: (patientId: string, allergyId: string) =>
+        apiClient.get<AllergyResponse>(`/patients/${patientId}/allergies/${allergyId}`),
+
+    createAllergy: (patientId: string, data: AllergyResponse) =>
+        apiClient.post<AllergyResponse>(`/patients/${patientId}/allergies`, data),
+
+    updateAllergy: (allergyId: string, data: AllergyResponse) =>
+        apiClient.put<AllergyResponse>(`/patients/allergies/${allergyId}`, data),
+
+    deleteAllergy: (allergyId: string) =>
+        apiClient.delete<{ message: string }>(`/patients/allergies/${allergyId}`),
+};

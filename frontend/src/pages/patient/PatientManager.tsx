@@ -4,20 +4,16 @@ import {
   type FilterGroup,
   type SortRequest,
   type PageResponse,
-  type FormField,
 } from "@/components/common/EntityTableWrapper";
 import { toast } from "sonner";
-import DynamicInfo from "@/components/common/DynamicInfo";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { PatientApi, type PatientResponse } from "@/api/patient/PatientApi";
-import { Eye } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
 import * as yup from "yup";
+import type { FormFieldConfig } from "@/components/common/FormModal";
+import type { Column } from "@/components/common/ReuseAbleTable";
+import { useNavigate } from "react-router-dom";
+
 
 const fetchPatient = async (
   page: number,
@@ -41,22 +37,15 @@ const fetchPatient = async (
 };
 
 export default function PatientManagementPage() {
-  const [selectRow, setSelectRow] = React.useState<PatientResponse | null>(
-    null
-  );
+
+  const navigate = useNavigate();
+
   const [selectForForm, setSelectForForm] =
     React.useState<PatientResponse | null>(null);
   const [formType, setFormType] = React.useState<
     "create" | "update" | "hidden"
   >("hidden");
-  const [showViewModal, setShowViewModal] = React.useState(false);
   const tableRef = React.useRef<any>(null);
-
-  const handleViewDetails = (row: PatientResponse) => {
-    setSelectRow(row);
-    setShowViewModal(true);
-  };
-
   const handleUpdate = (row: PatientResponse) => {
     setSelectForForm(row);
     setFormType("update");
@@ -64,12 +53,14 @@ export default function PatientManagementPage() {
 
   const fetchData = useCallback(fetchPatient, []);
 
-  const columns = [
+  const columns: Column<PatientResponse>[] = [
     { title: "Patient Code", dataIndex: "patientCode", sortable: true },
     { title: "Full Name", dataIndex: "fullName", sortable: true },
     { title: "Date of Birth", dataIndex: "dateOfBirth", sortable: true },
     { title: "Gender", dataIndex: "gender", sortable: true },
-    { title: "Blood Type", dataIndex: "bloodType", sortable: true },
+    { title: "Blood Type", dataIndex: "bloodType", sortable: true, render: (value:String) => {
+      return value ? value.replace("_", " ").replace("POSITIVE", "+").replace("NEGATIVE", "-") : "";
+    }},
     { title: "Status", dataIndex: "status", sortable: true },
     { title: "Phone", dataIndex: "phone", sortable: true },
     { title: "Email", dataIndex: "email", sortable: true },
@@ -77,7 +68,7 @@ export default function PatientManagementPage() {
     { title: "Insurance Number", dataIndex: "insuranceNumber", sortable: true },
   ];
 
-  const formFieldConfigs: FormField[] = [
+  const formFieldConfigs: FormFieldConfig[] = [
     { name: "fullName", label: "Full Name", type: "text", required: true },
     {
       name: "dateOfBirth",
@@ -195,12 +186,15 @@ export default function PatientManagementPage() {
             <Button
               variant="outline"
               className="mr-2"
-              onClick={() => handleViewDetails(row)}
+              onClick={() => navigate(`/staff/patients/${row.id}`)}
             >
               <Eye className="w-4 h-4" />
             </Button>
-            <Button variant="outline" onClick={() => handleUpdate(row)}>
-              Edit
+            <Button
+              variant="outline"
+              onClick={() => handleUpdate(row)}
+            >
+              <Pencil className="w-4 h-4" />
             </Button>
           </>
         )}
@@ -221,33 +215,6 @@ export default function PatientManagementPage() {
           </div>
         )}
       />
-
-      <Dialog open={showViewModal} onOpenChange={setShowViewModal}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Patient Details</DialogTitle>
-          </DialogHeader>
-
-          {selectRow && (
-            <DynamicInfo
-              data={selectRow}
-              config={[
-                { label: "Patient Code", name: "patientCode" },
-                { label: "Email", name: "email" },
-                { label: "Full Name", name: "fullName" },
-                { label: "Date of Birth", name: "dateOfBirth" },
-                { label: "Gender", name: "gender" },
-                { label: "Blood Type", name: "bloodType" },
-                { label: "Status", name: "status" },
-                { label: "Phone", name: "phone" },
-                { label: "Address", name: "address" },
-                { label: "Insurance Number", name: "insuranceNumber" },
-              ]}
-              columns={2}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
     </>
   );
 }

@@ -19,11 +19,13 @@ import LoginActivityPage from "./pages/account/loginAction";
 import StaffLayout from "./layouts/StaffLayout";
 import UserManagementPage from "./pages/user/UserManagerPage";
 import PatientManagementPage from "./pages/patient/PatientManager";
+import PatientDetailPage from "./pages/patient/PatientDetail";
 function App() {
   return (
     <AppProvider>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <BrowserRouter>
+
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
@@ -65,6 +67,7 @@ function App() {
               <Route index element={<div>Staff Dashboard</div>} />
               <Route path="users" element={<UserManagementPage />} />
               <Route path="patients" element={<PatientManagementPage />} />
+              <Route path="patients/:id" element={<PatientDetailPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
