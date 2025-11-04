@@ -9,7 +9,18 @@ import java.util.UUID;
 /**
  * DTO for {@link sba.group3.backendmvc.entity.staff.Staff}
  */
-public record StaffRequest(UUID departmentId, UUID specialtyId, StaffType staffType, UUID positionId,
-                           String licenseNumber, Integer experienceYears, String education, String bio,
-                           LocalDate joinedDate, String email) implements Serializable {
+public record StaffRequest(
+        String phone,
+        String fullName,
+        UUID departmentId,
+        UUID specialtyId,
+        StaffType staffType,
+        UUID positionId,
+        String licenseNumber,
+        Integer experienceYears,
+        String education,
+        String bio,
+        LocalDate joinedDate,
+        String email
+) implements Serializable {
 }
