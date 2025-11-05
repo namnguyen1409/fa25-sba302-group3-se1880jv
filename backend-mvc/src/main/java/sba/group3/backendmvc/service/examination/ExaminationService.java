@@ -1,0 +1,19 @@
+package sba.group3.backendmvc.service.examination;
+
+import org.springframework.data.domain.Page;
+import sba.group3.backendmvc.dto.filter.SearchFilter;
+import sba.group3.backendmvc.dto.request.examination.ExaminationRequest;
+import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
+
+import java.util.List;
+
+public interface ExaminationService {
+    Page<ExaminationResponse> filter(SearchFilter filter);
+
+    ExaminationResponse create(ExaminationRequest request);
+    ExaminationResponse getExaminationDetail(String id);
+
+    ExaminationResponse update(String id, ExaminationRequest request);
+
+    void delete(String id);
+}
