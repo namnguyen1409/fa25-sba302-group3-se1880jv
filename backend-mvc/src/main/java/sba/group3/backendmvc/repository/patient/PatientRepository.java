@@ -6,4 +6,7 @@ import sba.group3.backendmvc.repository.BaseRepository;
 import java.util.UUID;
 
 public interface PatientRepository extends BaseRepository<Patient, UUID> {
+    Boolean existsByPhoneOrEmail(String phone, String email);
+
+    boolean existsByUser_Id(UUID userId);
 }

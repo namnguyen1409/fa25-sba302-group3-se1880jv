@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer";
 
 export const PublicLayout = () => {
   const { theme } = useTheme();
+  
 
   return (
     <div className={cn("min-h-screen flex flex-col", theme === "dark" && "bg-gray-900 text-white")}>

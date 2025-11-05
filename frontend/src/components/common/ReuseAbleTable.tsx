@@ -22,7 +22,7 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 
-interface Column<T> {
+export interface Column<T> {
   title: string;
   dataIndex: keyof T | string;
   render?: (value: any, record: T, index: number) => React.ReactNode;
