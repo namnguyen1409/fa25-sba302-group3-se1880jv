@@ -62,7 +62,7 @@ public class ServiceOrderServiceImpl implements ServiceOrderService {
     public ServiceOrderResponse getServiceOrdersByExaminationId(String examinationId) {
         Examination examination = examinationRepository.findById(UUID.fromString(examinationId)).orElseThrow(()->
                 new IllegalArgumentException("Examination with id " + examinationId + " not found."));
-        ServiceOrder serviceOrder = serviceOrderRepository.findByExamination(((examination));
+        ServiceOrder serviceOrder = serviceOrderRepository.findByExamination((examination));
         if(serviceOrder == null) {
             throw new IllegalArgumentException("ServiceOrder for Examination id " + examinationId + " not found.");
         }
