@@ -21,6 +21,11 @@ import UserManagementPage from "./pages/user/UserManagerPage";
 import PatientManagementPage from "./pages/patient/PatientManager";
 import PatientDetailPage from "./pages/patient/PatientDetail";
 import IcdManagementPage from "./pages/icd-code/IcdCodeManagement";
+import StaffManagementPage from "./pages/staff/StaffManagement";
+import DepartmentManagementPage from "./pages/department/DepartmentManagement";
+import RoomManagementPage from "./pages/room/RoomManagement";
+import MedicineManagementPage from "./pages/medicine/MedicineManagement";
+import SpecialtyManagementPage from "./pages/staff/specialties/SpecialtyManagement";
 function App() {
   return (
     <AppProvider>
@@ -69,6 +74,11 @@ function App() {
               <Route path="patients" element={<PatientManagementPage />} />
               <Route path="patients/:id" element={<PatientDetailPage />} />
               <Route path="icd" element={<IcdManagementPage />} />
+              <Route path="staffs" element={<StaffManagementPage />} />
+              <Route path="departments" element={<DepartmentManagementPage />} />
+              <Route path="rooms" element={<RoomManagementPage />} />
+              <Route path="medications" element={<MedicineManagementPage />} />
+              <Route path="specialties" element={<SpecialtyManagementPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

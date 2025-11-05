@@ -1,5 +1,3 @@
-
-
 import { useEffect, useImperativeHandle, useState } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -28,14 +26,6 @@ export interface SortRequest {
   direction: "ASC" | "DESC";
 }
 
-/**
- *         "page": {
-            "size": 20,
-            "number": 0,
-            "totalElements": 12326,
-            "totalPages": 617
-        }
- */
 export interface PageResponse<T> {
   content: T[];
   page: {
@@ -43,7 +33,7 @@ export interface PageResponse<T> {
     number: number;
     totalElements: number;
     totalPages: number;
-  }
+  };
 }
 
 export interface FieldOption {
@@ -108,11 +98,14 @@ export function EntityTableWrapper<T extends Record<string, any>>({
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
-  const [_, setTotal] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
   const [filterGroup, setFilterGroup] = useState<FilterGroup | null>(null);
   const [sorts, setSorts] = useState<SortRequest[]>([]);
   const [searchText, setSearchText] = useState("");
   const [totalPages, setTotalPages] = useState(0);
+  const [searchDebounceTimer, setSearchDebounceTimer] = useState<
+    number | undefined
+  >(undefined);
 
   // Advanced filter modal
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -123,7 +116,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
       const res = await fetchData(page, pageSize, filterGroup, sorts);
       console.log("Fetched data:", res);
       setData(res?.data?.content || []);
-      setTotal(res?.data?.page?.totalElements || 0);
+      setTotalElements(res?.data?.page?.totalElements || 0);
       setTotalPages(res?.data?.page?.totalPages || 0);
     } catch (err) {
       console.error(err);
@@ -149,16 +142,27 @@ export function EntityTableWrapper<T extends Record<string, any>>({
 
   const handleSmartSearch = (text: string) => {
     setSearchText(text);
-    if (!text.trim()) {
-      setFilterGroup(null);
-      return;
+
+    if (searchDebounceTimer) {
+      clearTimeout(searchDebounceTimer);
     }
-    const filters: Filter[] = smartSearchFields.map((f) => ({
-      field: f,
-      operator: "containsIgnoreCase",
-      value: text.trim(),
-    }));
-    setFilterGroup({ operator: "OR", filters });
+
+    const timer = window.setTimeout(() => {
+      if (!text.trim()) {
+        setFilterGroup(null);
+        return;
+      }
+
+      const filters: Filter[] = smartSearchFields.map((f) => ({
+        field: f,
+        operator: "containsIgnoreCase",
+        value: text.trim(),
+      }));
+
+      setFilterGroup({ operator: "OR", filters });
+    }, 250);
+
+    setSearchDebounceTimer(timer);
   };
 
   const handleDelete = async (id: any) => {
@@ -193,9 +197,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
             </Button>
           )}
 
-          {headerExtra && (
-            <>{headerExtra}</>
-          )}
+          {headerExtra && <>{headerExtra}</>}
         </div>
       </div>
 
@@ -223,7 +225,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
                   data,
                   page,
                   totalPages,
-                  totalElements: totalPages * pageSize,
+                  totalElements: totalElements,
                 })
               : footerExtra
           }
@@ -231,11 +233,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
       </div>
 
       {/* CRUD Form Modal */}
-      {formModalProps && (
-        <FormModal
-          {...formModalProps}
-        />
-      )}
+      {formModalProps && <FormModal {...formModalProps} />}
 
       {/* Advanced Filter */}
       {showAdvanced && (
@@ -243,6 +241,7 @@ export function EntityTableWrapper<T extends Record<string, any>>({
           open={showAdvanced}
           onClose={() => setShowAdvanced(false)}
           fieldOptions={fieldOptions}
+          initialFilter={filterGroup}
           onApply={(group) => {
             setFilterGroup(group);
             setShowAdvanced(false);

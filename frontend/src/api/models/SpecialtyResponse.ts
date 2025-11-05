@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { DepartmentResponse } from './DepartmentResponse';
+import {
+    DepartmentResponseFromJSON,
+    DepartmentResponseFromJSONTyped,
+    DepartmentResponseToJSON,
+    DepartmentResponseToJSONTyped,
+} from './DepartmentResponse';
+
 /**
  * 
  * @export
@@ -37,6 +45,12 @@ export interface SpecialtyResponse {
      * @memberof SpecialtyResponse
      */
     description?: string;
+    /**
+     * 
+     * @type {DepartmentResponse}
+     * @memberof SpecialtyResponse
+     */
+    department?: DepartmentResponse;
 }
 
 /**
@@ -59,6 +73,7 @@ export function SpecialtyResponseFromJSONTyped(json: any, ignoreDiscriminator: b
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] == null ? undefined : json['name'],
         'description': json['description'] == null ? undefined : json['description'],
+        'department': json['department'] == null ? undefined : DepartmentResponseFromJSON(json['department']),
     };
 }
 
@@ -76,6 +91,7 @@ export function SpecialtyResponseToJSONTyped(value?: SpecialtyResponse | null, i
         'id': value['id'],
         'name': value['name'],
         'description': value['description'],
+        'department': DepartmentResponseToJSON(value['department']),
     };
 }
 

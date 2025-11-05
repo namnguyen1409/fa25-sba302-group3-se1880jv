@@ -12,6 +12,6 @@ public record RoomResponse(UUID id,
                            Integer floorNumber,
                            Integer capacity,
                            String description,
-                            DepartmentSimpleResponse department
+                           DepartmentSimpleResponse department
 ) implements Serializable {
 }

@@ -23,7 +23,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/staff")
+@RequestMapping("/api/admin/staffs")
 @Tag(name = "Staff Management", description = "APIs for managing staff by admin")
 public class StaffController {
 

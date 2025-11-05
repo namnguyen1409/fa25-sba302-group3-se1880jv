@@ -1,5 +1,3 @@
-
-
 import {
   Table,
   TableBody,
@@ -136,7 +134,7 @@ export function ReusableTable<T>({
             ))}
           </div>
         ) : (
-          <div className="w-full overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/50 rounded-md">
+          <div className="w-full overflow-x-auto overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/50 rounded-md max-h-[600px]">
             <div className="min-w-max">
               <Table>
                 <TableHeader>
@@ -240,12 +238,33 @@ export function ReusableTable<T>({
           </div>
         )}
         <div className="flex justify-end items-center mt-4 gap-2 text-sm">
-          {footerExtra && (
-            <div className="mr-auto">
-              {footerExtra}
+          {footerExtra && <div className="mr-auto">{footerExtra}</div>}
+
+          {pagination && (
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground text-sm">Go to:</span>
+              <input
+                type="number"
+                min={1}
+                max={Math.ceil(pagination.total / pagination.size)}
+                className="w-16 border rounded px-2 py-1 text-sm"
+                placeholder="Page"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    const target = Number(e.currentTarget.value) - 1;
+                    const maxPage =
+                      Math.ceil(pagination.total / pagination.size) - 1;
+
+                    if (isNaN(target) || target < 0 || target > maxPage) {
+                      return; // you can toast error here
+                    }
+
+                    pagination.onPageChange(target);
+                  }
+                }}
+              />
             </div>
           )}
-
           {/* Pagination */}
           {pagination && (
             <>

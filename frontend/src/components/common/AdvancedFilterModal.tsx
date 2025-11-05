@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,12 +19,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { FieldOption, Filter, FilterGroup } from "./EntityTableWrapper";
+import { operatorLabels, operatorsByType } from "@/config/filterOperators";
 
 interface AdvancedFilterModalProps {
   open: boolean;
   onClose: () => void;
   fieldOptions: FieldOption[];
   onApply: (group: FilterGroup) => void;
+  initialFilter?: FilterGroup | null;
 }
 
 export function AdvancedFilterModal({
@@ -32,18 +34,24 @@ export function AdvancedFilterModal({
   onClose,
   fieldOptions,
   onApply,
+  initialFilter,
 }: AdvancedFilterModalProps) {
   const [conditions, setConditions] = useState<Filter[]>([]);
   const [groupOperator, setGroupOperator] = useState<"AND" | "OR">("AND");
 
   const addCondition = () =>
-    setConditions((prev) => [...prev, { field: "", operator: "eq", value: "" }]);
+    setConditions((prev) => [
+      ...prev,
+      { field: "", operator: "eq", value: "" },
+    ]);
 
   const removeCondition = (i: number) =>
     setConditions((prev) => prev.filter((_, idx) => idx !== i));
 
   const updateCondition = (i: number, key: keyof Filter, value: any) =>
-    setConditions((prev) => prev.map((c, idx) => (idx === i ? { ...c, [key]: value } : c)));
+    setConditions((prev) =>
+      prev.map((c, idx) => (idx === i ? { ...c, [key]: value } : c))
+    );
 
   const handleApply = () => {
     const valid = conditions.filter((c) => c.field && c.operator);
@@ -51,55 +59,42 @@ export function AdvancedFilterModal({
       toast.warning("Please add at least one valid filter");
       return;
     }
-    onApply({ operator: groupOperator, filters: valid });
+    const newFilter = {
+      operator: groupOperator,
+      filters: valid,
+    };
+
+    onApply(newFilter);
+    onClose();
   };
 
-  const getOperatorsForType = (type?: string): { value: string; label: string }[] => {
-    switch (type) {
-      case "number":
-      case "date":
-        return [
-          { value: "eq", label: "= Equals" },
-          { value: "ne", label: "≠ Not Equals" },
-          { value: "gt", label: "> Greater" },
-          { value: "lt", label: "< Less" },
-          { value: "ge", label: "≥ Greater or Equal" },
-          { value: "le", label: "≤ Less or Equal" },
-          { value: "isNull", label: "Is Null" },
-          { value: "isNotNull", label: "Is Not Null" },
-        ];
-      case "boolean":
-        return [
-          { value: "eq", label: "= Equals" },
-          { value: "ne", label: "≠ Not Equals" },
-        ];
-      case "select":
-        return [
-          { value: "eq", label: "= Equals" },
-          { value: "ne", label: "≠ Not Equals" },
-          { value: "in", label: "In List" },
-        ];
-      case "text":
-      default:
-        return [
-          { value: "contains", label: "Contains" },
-          { value: "startsWith", label: "Starts With" },
-          { value: "endsWith", label: "Ends With" },
-          { value: "eq", label: "= Equals" },
-          { value: "ne", label: "≠ Not Equals" },
-          { value: "isNull", label: "Is Null" },
-          { value: "isNotNull", label: "Is Not Null" },
-        ];
+  useEffect(() => {
+    if (open && initialFilter) {
+      setConditions(initialFilter.filters ?? []);
+      setGroupOperator(initialFilter.operator ?? "AND");
     }
+  }, [open, initialFilter]);
+
+  const getOperatorsForType = (type?: string) => {
+    const ops =
+      operatorsByType[type as keyof typeof operatorsByType] ??
+      operatorsByType.text;
+    return ops.map((o) => ({ value: o, label: operatorLabels[o] }));
   };
 
-  const renderValueInput = (cond: Filter, fieldType?: string, options?: any[]) => {
+  const renderValueInput = (
+    cond: Filter,
+    fieldType?: string,
+    options?: any[]
+  ) => {
     switch (fieldType) {
       case "boolean":
         return (
           <Select
             value={cond.value?.toString() ?? ""}
-            onValueChange={(v) => updateCondition(conditions.indexOf(cond), "value", v === "true")}
+            onValueChange={(v) =>
+              updateCondition(conditions.indexOf(cond), "value", v === "true")
+            }
           >
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Select" />
@@ -115,7 +110,9 @@ export function AdvancedFilterModal({
         return (
           <Select
             value={cond.value ?? ""}
-            onValueChange={(v) => updateCondition(conditions.indexOf(cond), "value", v)}
+            onValueChange={(v) =>
+              updateCondition(conditions.indexOf(cond), "value", v)
+            }
           >
             <SelectTrigger className="min-w-[150px]">
               <SelectValue placeholder="Select" />
@@ -135,7 +132,9 @@ export function AdvancedFilterModal({
           <Input
             type="date"
             value={cond.value ?? ""}
-            onChange={(e) => updateCondition(conditions.indexOf(cond), "value", e.target.value)}
+            onChange={(e) =>
+              updateCondition(conditions.indexOf(cond), "value", e.target.value)
+            }
             className="w-40"
           />
         );
@@ -145,7 +144,9 @@ export function AdvancedFilterModal({
           <Input
             placeholder="Value"
             value={cond.value ?? ""}
-            onChange={(e) => updateCondition(conditions.indexOf(cond), "value", e.target.value)}
+            onChange={(e) =>
+              updateCondition(conditions.indexOf(cond), "value", e.target.value)
+            }
             className="flex-1"
           />
         );
@@ -154,7 +155,7 @@ export function AdvancedFilterModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl w-lg">
+      <DialogContent className="min-w-[90vw] max-h-[90vh] overflow-auto">
         <DialogHeader>
           <DialogTitle>Advanced Filters</DialogTitle>
         </DialogHeader>
@@ -175,7 +176,9 @@ export function AdvancedFilterModal({
                 <SelectItem value="OR">ANY</SelectItem>
               </SelectContent>
             </Select>
-            <span className="text-sm text-muted-foreground">of the conditions:</span>
+            <span className="text-sm text-muted-foreground">
+              of the conditions:
+            </span>
           </div>
 
           {/* Conditions */}
@@ -185,7 +188,9 @@ export function AdvancedFilterModal({
             return (
               <div
                 key={i}
-                className={cn("flex items-center gap-2 border p-2 rounded-md bg-muted/40")}
+                className={cn(
+                  "flex items-center gap-2 border p-2 rounded-md bg-muted/40"
+                )}
               >
                 {/* Field */}
                 <Select

@@ -81,6 +81,10 @@ export const staffNavItems = (roles: string[]) => {
     { label: "Device Access Logs", to: "/staff/devices", icon: MonitorCheck },
   ];
 
+  const specialty = [
+    { label: "Specialties", to: "/staff/specialties", icon: Stethoscope },
+  ];
+
   const map = {
     ROLE_RECEPTIONIST: receptionist,
     ROLE_NURSE: nurse,
@@ -88,7 +92,12 @@ export const staffNavItems = (roles: string[]) => {
     ROLE_TECHNICIAN: technician,
     ROLE_PHARMACIST: pharmacist,
     ROLE_CASHIER: cashier,
-    ROLE_SYSTEM_ADMIN: [...manager, ...catalog, ...sysadmin],
+    ROLE_MANAGER: [
+      ...manager,
+      ...specialty,
+      ...catalog,
+    ],
+    ROLE_SYSTEM_ADMIN: [...manager, ...catalog, ...sysadmin, ...specialty],
   };
 
   return [

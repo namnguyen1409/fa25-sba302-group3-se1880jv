@@ -15,7 +15,6 @@ public record DepartmentRequest(
         String name,
         @Size(max = 500, message = "Description cannot exceed 500 characters")
         String description,
-
         @NotNull(message = "Clinic ID is required")
         UUID clinicId) implements Serializable {
 }

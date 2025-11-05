@@ -27,5 +27,6 @@ public record RoomRequest(
         String description,
 
         @NotNull(message = "Department ID is required")
-        UUID departmentId) implements Serializable {
+        UUID departmentId
+) implements Serializable {
 }
