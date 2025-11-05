@@ -10,12 +10,14 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.entity.organization.Department;
+import sba.group3.backendmvc.entity.staff.Staff;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.staff.StaffMapper;
+import sba.group3.backendmvc.repository.appointment.QueueTicketRepository;
 import sba.group3.backendmvc.repository.organization.DepartmentRepository;
 import sba.group3.backendmvc.repository.staff.PositionRepository;
 import sba.group3.backendmvc.repository.staff.StaffRepository;
@@ -25,7 +27,13 @@ import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.infrastructure.EmailSender;
 import sba.group3.backendmvc.service.staff.StaffService;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +48,7 @@ public class StaffServiceImpl implements StaffService {
     UserProfileRepository userProfileRepository;
     RoleRepository roleRepository;
     EmailSender emailSender;
+    private final QueueTicketRepository queueTicketRepository;
 
     @Override
     public Page<StaffResponse> filter(SearchFilter filter) {
@@ -134,6 +143,72 @@ public class StaffServiceImpl implements StaffService {
         var entity = staffRepository.findById(id).orElseThrow();
         return staffMapper.toDto1(entity);
     }
+
+    @Override
+    public List<StaffResponse> findDoctorsBySpecialty(UUID specialtyId) {
+        var doctors = staffRepository.findBySpecialty_IdAndStaffType(specialtyId, sba.group3.backendmvc.entity.staff.StaffType.DOCTOR);
+        return doctors.stream().map(staffMapper::toDto1).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StaffResponse> findAvailableDoctors(UUID specialtyId, DayOfWeek day, LocalTime time) {
+        // Nếu trong giờ → lấy bác sĩ đang trực
+        var activeDoctors = staffRepository.findAvailableDoctors(specialtyId, day, time);
+
+        if (!activeDoctors.isEmpty()) {
+            return activeDoctors.stream()
+                    .map(staffMapper::toDto1)
+                    .toList();
+        }
+
+        // Nếu đến sớm → lấy bác sĩ có lịch hôm nay, không check giờ
+        var scheduledDoctors = staffRepository.findDoctorsScheduledToday(specialtyId, day);
+        return scheduledDoctors.stream()
+                .map(staffMapper::toDto1)
+                .toList();
+    }
+
+    @Override
+    public StaffResponse autoPickDoctor(UUID specialtyId) {
+        var day = LocalDate.now().getDayOfWeek();
+        var now = LocalTime.now();
+
+        // 1) Thử lấy bác sĩ đang trực ngay lúc này
+        var activeDoctors = staffRepository.findAvailableDoctors(specialtyId, day, now);
+
+        List<Staff> candidates;
+
+        if (!activeDoctors.isEmpty()) {
+            candidates = activeDoctors;
+        } else {
+            // 2) Không có bác sĩ đang trực → có thể bệnh nhân đến sớm
+            var scheduledDoctors = staffRepository.findDoctorsScheduledToday(specialtyId, day);
+
+            if (scheduledDoctors.isEmpty()) {
+                throw new AppException(ErrorCode.RESOURCE_NOT_FOUND,
+                        "Không có bác sĩ trực cho chuyên khoa này hôm nay");
+            }
+
+            // Lọc bác sĩ còn ca (không lấy người đã hết giờ)
+            candidates = scheduledDoctors.stream()
+                    .filter(doc -> staffRepository.isDoctorStillWorkingToday(doc.getId(), day, now))
+                    .toList();
+
+            if (candidates.isEmpty()) {
+                throw new AppException(ErrorCode.BAD_REQUEST,
+                        "Tất cả bác sĩ đã kết thúc ca trực. Vui lòng chọn ca khác.");
+            }
+
+        }
+
+        // 3) Pick bác sĩ có ít bệnh nhân nhất hôm nay
+        var selected = candidates.stream()
+                .min(Comparator.comparing(doc -> queueTicketRepository.countWaitingTodayByDoctor(doc.getId())))
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+
+        return staffMapper.toDto1(selected);
+    }
+
 
     private String generateRandomPassword(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!";

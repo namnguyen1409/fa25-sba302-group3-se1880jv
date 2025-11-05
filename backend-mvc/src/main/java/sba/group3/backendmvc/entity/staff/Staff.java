@@ -10,6 +10,8 @@ import sba.group3.backendmvc.entity.organization.Department;
 import sba.group3.backendmvc.entity.user.User;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -61,5 +63,8 @@ public class Staff extends BaseEntity {
 
     @Column(name = "email", unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "staff", orphanRemoval = true)
+    private Set<StaffSchedule> staffSchedules = new LinkedHashSet<>();
 
 }

@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { RoomResponse } from './RoomResponse';
+import {
+    RoomResponseFromJSON,
+    RoomResponseFromJSONTyped,
+    RoomResponseToJSON,
+    RoomResponseToJSONTyped,
+} from './RoomResponse';
 import type { LocalTime } from './LocalTime';
 import {
     LocalTimeFromJSON,
@@ -20,6 +27,13 @@ import {
     LocalTimeToJSON,
     LocalTimeToJSONTyped,
 } from './LocalTime';
+import type { StaffResponse } from './StaffResponse';
+import {
+    StaffResponseFromJSON,
+    StaffResponseFromJSONTyped,
+    StaffResponseToJSON,
+    StaffResponseToJSONTyped,
+} from './StaffResponse';
 
 /**
  * 
@@ -57,6 +71,18 @@ export interface StaffScheduleResponse {
      * @memberof StaffScheduleResponse
      */
     available?: boolean;
+    /**
+     * 
+     * @type {StaffResponse}
+     * @memberof StaffScheduleResponse
+     */
+    staff?: StaffResponse;
+    /**
+     * 
+     * @type {RoomResponse}
+     * @memberof StaffScheduleResponse
+     */
+    room?: RoomResponse;
 }
 
 
@@ -97,6 +123,8 @@ export function StaffScheduleResponseFromJSONTyped(json: any, ignoreDiscriminato
         'startTime': json['startTime'] == null ? undefined : LocalTimeFromJSON(json['startTime']),
         'endTime': json['endTime'] == null ? undefined : LocalTimeFromJSON(json['endTime']),
         'available': json['available'] == null ? undefined : json['available'],
+        'staff': json['staff'] == null ? undefined : StaffResponseFromJSON(json['staff']),
+        'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
     };
 }
 
@@ -116,6 +144,8 @@ export function StaffScheduleResponseToJSONTyped(value?: StaffScheduleResponse |
         'startTime': LocalTimeToJSON(value['startTime']),
         'endTime': LocalTimeToJSON(value['endTime']),
         'available': value['available'],
+        'staff': StaffResponseToJSON(value['staff']),
+        'room': RoomResponseToJSON(value['room']),
     };
 }
 

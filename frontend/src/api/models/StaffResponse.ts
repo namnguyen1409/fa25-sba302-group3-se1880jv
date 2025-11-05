@@ -101,6 +101,12 @@ export interface StaffResponse {
      * @memberof StaffResponse
      */
     department?: DepartmentResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof StaffResponse
+     */
+    id?: string;
 }
 
 
@@ -147,6 +153,7 @@ export function StaffResponseFromJSONTyped(json: any, ignoreDiscriminator: boole
         'joinedDate': json['joinedDate'] == null ? undefined : (new Date(json['joinedDate'])),
         'email': json['email'] == null ? undefined : json['email'],
         'department': json['department'] == null ? undefined : DepartmentResponseFromJSON(json['department']),
+        'id': json['id'] == null ? undefined : json['id'],
     };
 }
 
@@ -171,6 +178,7 @@ export function StaffResponseToJSONTyped(value?: StaffResponse | null, ignoreDis
         'joinedDate': value['joinedDate'] == null ? value['joinedDate'] : value['joinedDate'].toISOString().substring(0,10),
         'email': value['email'],
         'department': DepartmentResponseToJSON(value['department']),
+        'id': value['id'],
     };
 }
 

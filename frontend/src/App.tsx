@@ -20,6 +20,7 @@ import StaffLayout from "./layouts/StaffLayout";
 import UserManagementPage from "./pages/user/UserManagerPage";
 import PatientManagementPage from "./pages/patient/PatientManager";
 import PatientDetailPage from "./pages/patient/PatientDetail";
+import IcdManagementPage from "./pages/icd-code/IcdCodeManagement";
 function App() {
   return (
     <AppProvider>
@@ -67,6 +68,7 @@ function App() {
               <Route path="users" element={<UserManagementPage />} />
               <Route path="patients" element={<PatientManagementPage />} />
               <Route path="patients/:id" element={<PatientDetailPage />} />
+              <Route path="icd" element={<IcdManagementPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

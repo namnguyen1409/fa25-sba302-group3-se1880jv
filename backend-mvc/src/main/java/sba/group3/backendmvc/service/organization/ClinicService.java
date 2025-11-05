@@ -13,4 +13,6 @@ public interface ClinicService {
     ClinicResponse createClinic(ClinicRequest clinic);
     ClinicResponse updateClinic(String id, ClinicRequest clinic);
     void deleteClinic(String id);
+
+    ClinicResponse getDefaultClinic();
 }

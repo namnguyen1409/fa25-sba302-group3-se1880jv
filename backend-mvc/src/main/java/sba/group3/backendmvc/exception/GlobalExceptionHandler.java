@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     ResponseEntity<CustomApiResponse<Object>> handlingAccessDeniedException() {
         ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
 
-        return ResponseEntity.status(errorCode.getCode())
+        return ResponseEntity.status(errorCode.getHttpStatus())
                 .body(CustomApiResponse.builder()
                         .code(errorCode.getCode())
                         .message(errorCode.getMessage())

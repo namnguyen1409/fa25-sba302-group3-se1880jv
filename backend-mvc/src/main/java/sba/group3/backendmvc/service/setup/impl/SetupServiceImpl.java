@@ -7,9 +7,12 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sba.group3.backendmvc.entity.common.Address;
+import sba.group3.backendmvc.entity.organization.Clinic;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
+import sba.group3.backendmvc.repository.organization.ClinicRepository;
 import sba.group3.backendmvc.repository.user.RoleRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.setup.SetupService;
@@ -25,34 +28,23 @@ import java.util.Set;
 public class SetupServiceImpl implements SetupService {
 
     List<Role> roles = List.of(
-            Role.builder()
-                    .name("ROLE_ADMIN")
-                    .build(),
-            Role.builder()
-                    .name("ROLE_PATIENT")
-                    .isDefault(true)
-                    .build(),
-            Role.builder()
-                    .name("ROLE_DOCTOR")
-                    .build(),
-            Role.builder()
-                    .name("ROLE_NURSE")
-                    .build(),
-            Role.builder()
-                    .name("ROLE_RECEPTIONIST")
-                    .build(),
-            Role.builder()
-                    .name("ROLE_PHARMACY")
-                    .build(),
-            Role.builder()
-                    .name("ROLE_LAB")
-                    .build()
+            Role.builder().name("ROLE_SYSTEM_ADMIN").build(),
+            Role.builder().name("ROLE_PATIENT").isDefault(true).build(),
+            Role.builder().name("ROLE_DOCTOR").build(),
+            Role.builder().name("ROLE_NURSE").build(),
+            Role.builder().name("ROLE_TECHNICIAN").build(),
+            Role.builder().name("ROLE_PHARMACIST").build(),
+            Role.builder().name("ROLE_RECEPTIONIST").build(),
+            Role.builder().name("ROLE_CASHIER").build(),
+            Role.builder().name("ROLE_MANAGER").build()
     );
+
 
     RoleRepository roleRepository;
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
     RoleService roleService;
+    private final ClinicRepository clinicRepository;
 
     @Transactional
     @PostConstruct
@@ -75,7 +67,7 @@ public class SetupServiceImpl implements SetupService {
                     .active(true)
                     .locked(false)
                     .mfaEnabled(false)
-                    .roles(Set.of(roleService.findByName("ROLE_ADMIN")))
+                    .roles(Set.of(roleService.findByName("ROLE_SYSTEM_ADMIN")))
                     .userProfile(profile)
                     .build();
 
@@ -83,6 +75,22 @@ public class SetupServiceImpl implements SetupService {
 
             userRepository.save(admin);
 
+        }
+        if (clinicRepository.count() == 0) {
+            clinicRepository.save(
+                    Clinic.builder()
+                            .name("Group 3 Clinic")
+                            .address(
+                                    Address.builder()
+                                            .street("123 Main St")
+                                            .wardName("Ward 1")
+                                            .city("Anytown")
+                                            .build()
+                            )
+                            .phone("0123456789")
+                            .email("group3clinic@gmail.com")
+                            .build()
+            );
         }
     }
 

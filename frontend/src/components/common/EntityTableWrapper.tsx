@@ -28,26 +28,22 @@ export interface SortRequest {
   direction: "ASC" | "DESC";
 }
 
+/**
+ *         "page": {
+            "size": 20,
+            "number": 0,
+            "totalElements": 12326,
+            "totalPages": 617
+        }
+ */
 export interface PageResponse<T> {
   content: T[];
-  pageable: {
-    pageNumber: number;
-    pageSize: number;
-    sort: {
-      sorted: boolean;
-      unsorted: boolean;
-      empty: boolean;
-    };
-    offset: number;
-    paged: boolean;
-    unpaged: boolean;
-  };
-  totalElements: number;
-  totalPages: number;
-  last: boolean;
-  first: boolean;
-  size: number;
-  number: number;
+  page: {
+    size: number;
+    number: number;
+    totalElements: number;
+    totalPages: number;
+  }
 }
 
 export interface FieldOption {
@@ -125,9 +121,10 @@ export function EntityTableWrapper<T extends Record<string, any>>({
     setLoading(true);
     try {
       const res = await fetchData(page, pageSize, filterGroup, sorts);
+      console.log("Fetched data:", res);
       setData(res?.data?.content || []);
-      setTotal(res?.data?.totalElements || 0);
-      setTotalPages(res?.data?.totalPages || 0);
+      setTotal(res?.data?.page?.totalElements || 0);
+      setTotalPages(res?.data?.page?.totalPages || 0);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load data");

@@ -28,6 +28,17 @@ public class ClinicController {
     ClinicService clinicService;
     DepartmentService departmentService;
 
+    @GetMapping
+    public ResponseEntity<CustomApiResponse<ClinicResponse>> getDefaultClinic() {
+        log.info("Fetching default clinic");
+        return ResponseEntity.ok(
+                CustomApiResponse.<ClinicResponse>builder()
+                        .data(clinicService.getDefaultClinic())
+                        .message("Default clinic fetched successfully")
+                        .build()
+        );
+    }
+
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<ClinicResponse>>> filter(
             @RequestBody SearchFilter filter) {

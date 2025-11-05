@@ -5,12 +5,16 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
+import sba.group3.backendmvc.dto.request.billing.InvoiceRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.billing.InvoiceResponse;
 import sba.group3.backendmvc.service.billing.InvoiceService;
+
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -23,12 +27,12 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @PostMapping("/filter")
-    public ResponseEntity<CustomApiResponse<InvoiceResponse>> filter(
+    public ResponseEntity<CustomApiResponse<Page<InvoiceResponse>>> filter(
             @RequestBody SearchFilter filter
     ) {
         log.info("Filtering invoices with filter: {}", filter);
         return ResponseEntity.ok(
-                CustomApiResponse.<InvoiceResponse>builder()
+                CustomApiResponse.<Page<InvoiceResponse>>builder()
                          .data(invoiceService.filter(filter))
                         .build()
         );
@@ -36,7 +40,7 @@ public class InvoiceController {
 
     @GetMapping("/{invoiceId}")
     public ResponseEntity<CustomApiResponse<InvoiceResponse>> getById(
-            @PathVariable String invoiceId
+            @PathVariable UUID invoiceId
     ) {
         log.info("Getting invoice by id {}", invoiceId);
         return ResponseEntity.ok(
@@ -48,7 +52,7 @@ public class InvoiceController {
 
     @PostMapping
     public ResponseEntity<CustomApiResponse<InvoiceResponse>> create(
-            @RequestBody InvoiceResponse invoiceRequest
+            @RequestBody InvoiceRequest invoiceRequest
     ) {
         log.info("Creating invoice with data: {}", invoiceRequest);
         return ResponseEntity.ok(
@@ -60,8 +64,8 @@ public class InvoiceController {
 
     @PutMapping("/{invoiceId}")
     public ResponseEntity<CustomApiResponse<InvoiceResponse>> update(
-            @PathVariable String invoiceId,
-            @RequestBody InvoiceResponse invoiceRequest
+            @PathVariable UUID invoiceId,
+            @RequestBody InvoiceRequest invoiceRequest
     ) {
         log.info("Updating invoice with id {} and data: {}", invoiceId, invoiceRequest);
         return ResponseEntity.ok(
@@ -73,7 +77,7 @@ public class InvoiceController {
 
     @DeleteMapping("/{invoiceId}")
     public ResponseEntity<CustomApiResponse<Void>> delete(
-            @PathVariable String invoiceId
+            @PathVariable UUID invoiceId
     ) {
         log.info("Deleting invoice with id {}", invoiceId);
         invoiceService.delete(invoiceId);

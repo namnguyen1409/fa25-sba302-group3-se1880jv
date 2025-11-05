@@ -50,4 +50,10 @@ public class ClinicServiceImpl implements ClinicService {
         existingClinic.setDeleted(true);
         clinicRepository.save(existingClinic);
     }
+
+    @Override
+    public ClinicResponse getDefaultClinic() {
+        var entity = clinicRepository.findAll().stream().findFirst().orElseThrow(() -> new RuntimeException("Default clinic not found"));
+        return clinicMapper.toDto(entity);
+    }
 }

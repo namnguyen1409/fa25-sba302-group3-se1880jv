@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "\"users\"", schema = "user_management", indexes = {
+@Table(name = "users", schema = "user_management", indexes = {
         @Index(name = "idx_user_username_unq", columnList = "username", unique = true),
         @Index(name = "idx_user_email_unq", columnList = "email", unique = true),
         @Index(name = "idx_user_phone_unq", columnList = "phone", unique = true)

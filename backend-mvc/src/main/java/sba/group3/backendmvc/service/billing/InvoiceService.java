@@ -1,16 +1,20 @@
 package sba.group3.backendmvc.service.billing;
 
+import org.springframework.data.domain.Page;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
+import sba.group3.backendmvc.dto.request.billing.InvoiceRequest;
 import sba.group3.backendmvc.dto.response.billing.InvoiceResponse;
 
+import java.util.UUID;
+
 public interface InvoiceService {
-    InvoiceResponse filter(SearchFilter filter);
+    Page<InvoiceResponse> filter(SearchFilter filter);
 
-    InvoiceResponse getById(String invoiceId);
+    InvoiceResponse getById(UUID invoiceId);
 
-    InvoiceResponse create(InvoiceResponse invoiceRequest);
+    InvoiceResponse create(InvoiceRequest invoiceRequest);
 
-    InvoiceResponse update(String invoiceId, InvoiceResponse invoiceRequest);
+    InvoiceResponse update(UUID invoiceId, InvoiceRequest invoiceRequest);
 
-    void delete(String invoiceId);
+    void delete(UUID invoiceId);
 }
