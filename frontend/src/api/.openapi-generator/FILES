@@ -223,7 +223,9 @@ docs/SpecialtyResponse.md
 docs/StaffManagementApi.md
 docs/StaffRequest.md
 docs/StaffResponse.md
+docs/StaffScheduleRequest.md
 docs/StaffScheduleResponse.md
+docs/StaffScheduleTemplateRequest.md
 docs/StaffScheduleTemplateResponse.md
 docs/StartPasskeyLoginResponse.md
 docs/SwitchMfaRequest.md
@@ -402,7 +404,9 @@ models/SpecialtyRequest.ts
 models/SpecialtyResponse.ts
 models/StaffRequest.ts
 models/StaffResponse.ts
+models/StaffScheduleRequest.ts
 models/StaffScheduleResponse.ts
+models/StaffScheduleTemplateRequest.ts
 models/StaffScheduleTemplateResponse.ts
 models/StartPasskeyLoginResponse.ts
 models/SwitchMfaRequest.ts

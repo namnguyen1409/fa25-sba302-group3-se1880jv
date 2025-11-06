@@ -3,6 +3,26 @@ import { apiClient } from "../client";
 import type { RoomRequest, RoomResponse } from "../models";
 
 export const RoomApi = {
+    search: (keyword: string) => apiClient.post<PageResponse<RoomResponse>>("/organization/rooms/filter", {
+        page: 0,
+        size: 10,
+        filterGroup: {
+            operator: "AND",
+            filters: [
+                {
+                    field: "name",
+                    operator: "containsIgnoreCase",
+                    value: keyword
+                }
+            ]
+        },
+        sorts: [
+            {
+                field: "name",
+                direction: "ASC"
+            }
+        ]
+    }),
     getRooms: (
         page: number,
         size: number,

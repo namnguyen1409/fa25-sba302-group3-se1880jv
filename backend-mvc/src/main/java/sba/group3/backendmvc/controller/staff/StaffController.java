@@ -10,6 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
+import sba.group3.backendmvc.dto.request.staff.StaffScheduleRequest;
+import sba.group3.backendmvc.dto.request.staff.StaffScheduleTemplateRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleResponse;
@@ -116,7 +118,7 @@ public class StaffController {
     @PostMapping("/{staffId}/schedule")
     public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> createStaffSchedule(
             @PathVariable UUID staffId,
-            @RequestBody @Validated StaffScheduleResponse request
+            @RequestBody @Validated StaffScheduleRequest request
     ) {
         log.info("Creating staff schedule for staffId {}: {}", staffId, request);
         StaffScheduleResponse response = staffScheduleService.create(staffId, request);
@@ -131,7 +133,7 @@ public class StaffController {
     @PutMapping("/schedule/{scheduleId}")
     public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> updateStaffSchedule(
             @PathVariable UUID scheduleId,
-            @RequestBody @Validated StaffScheduleResponse request
+            @RequestBody @Validated StaffScheduleRequest request
     ) {
         log.info("Updating staff schedule with id {}: {}", scheduleId, request);
         StaffScheduleResponse response = staffScheduleService.update(scheduleId, request);
@@ -176,7 +178,7 @@ public class StaffController {
     @PostMapping("/{staffId}/schedule-template")
     public ResponseEntity<CustomApiResponse<StaffScheduleTemplateResponse>> createStaffScheduleTemplate(
             @PathVariable UUID staffId,
-            @RequestBody @Validated StaffScheduleTemplateResponse request
+            @RequestBody @Validated StaffScheduleTemplateRequest request
     ) {
         log.info("Creating staff schedule template for staffId {}: {}", staffId, request);
         StaffScheduleTemplateResponse response = staffScheduleTemplateService.create(staffId, request);
@@ -191,7 +193,7 @@ public class StaffController {
     @PutMapping("/schedule-template/{templateId}")
     public ResponseEntity<CustomApiResponse<StaffScheduleTemplateResponse>> updateStaffScheduleTemplate(
             @PathVariable UUID templateId,
-            @RequestBody @Validated StaffScheduleTemplateResponse request
+            @RequestBody @Validated StaffScheduleTemplateRequest request
     ) {
         log.info("Updating staff schedule template with id {}: {}", templateId, request);
         StaffScheduleTemplateResponse response = staffScheduleTemplateService.update(templateId, request);

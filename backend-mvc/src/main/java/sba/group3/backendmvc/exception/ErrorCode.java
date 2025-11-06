@@ -35,7 +35,9 @@ public enum ErrorCode {
     OTP_CHALLENGE_NOT_FOUND(9001, "OTP challenge not found", HttpStatus.NOT_FOUND),
     MFA_TYPE_NOT_FOUND(7002, "MFA type not found", HttpStatus.NOT_FOUND),
     RESOURCE_NOT_FOUND(4008, "Resource not found", HttpStatus.NOT_FOUND),
-    BAD_REQUEST(4009, "Bad request", HttpStatus.BAD_REQUEST);
+    BAD_REQUEST(4009, "Bad request", HttpStatus.BAD_REQUEST),
+    ROLE_NOT_FOUND(40010, "Role not found", HttpStatus.NOT_FOUND),
+    STAFF_ALREADY_EXISTS_FOR_USER(40011, "Staff already exists for user", HttpStatus.CONFLICT);
 
     int code;
     String message;

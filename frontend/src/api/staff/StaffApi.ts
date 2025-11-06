@@ -3,7 +3,7 @@ import { apiClient } from "../client";
 import type { StaffRequest, StaffResponse } from "../models";
 
 export const StaffApi = {
-    getStaff : (
+    filter: (
         page: number,
         size: number,
         filterGroup?: FilterGroup,

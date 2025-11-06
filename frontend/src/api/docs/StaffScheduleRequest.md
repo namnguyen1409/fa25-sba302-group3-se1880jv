@@ -1,32 +1,32 @@
 
-# PageableObject
+# StaffScheduleRequest
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`unpaged` | boolean
-`paged` | boolean
-`pageSize` | number
-`pageNumber` | number
-`offset` | number
-`sort` | [SortObject](SortObject.md)
+`staffId` | string
+`dayOfWeek` | string
+`startTime` | [LocalTime](LocalTime.md)
+`endTime` | [LocalTime](LocalTime.md)
+`available` | boolean
+`roomId` | string
 
 ## Example
 
 ```typescript
-import type { PageableObject } from ''
+import type { StaffScheduleRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "unpaged": null,
-  "paged": null,
-  "pageSize": null,
-  "pageNumber": null,
-  "offset": null,
-  "sort": null,
-} satisfies PageableObject
+  "staffId": null,
+  "dayOfWeek": null,
+  "startTime": null,
+  "endTime": null,
+  "available": null,
+  "roomId": null,
+} satisfies StaffScheduleRequest
 
 console.log(example)
 
@@ -35,7 +35,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as PageableObject
+const exampleParsed = JSON.parse(exampleJSON) as StaffScheduleRequest
 console.log(exampleParsed)
 ```
 

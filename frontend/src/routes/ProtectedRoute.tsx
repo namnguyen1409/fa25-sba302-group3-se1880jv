@@ -1,5 +1,6 @@
 import { Spinner } from "@/components/ui/spinner";
 import { useAuth } from "@/context/AuthContext";
+import Unauthorized from "@/pages/error/Unauthorized";
 
 const ProtectedRoute = ({
   children,
@@ -19,10 +20,7 @@ const ProtectedRoute = ({
   }
 
   if (!user) {
-    return <div>
-    You must be logged in to view this page.
-        Code: 401 Unauthorized
-    </div>;
+    return <Unauthorized />;
   }
 
   if (

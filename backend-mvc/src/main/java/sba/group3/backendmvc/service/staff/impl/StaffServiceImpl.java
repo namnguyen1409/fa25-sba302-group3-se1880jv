@@ -3,13 +3,16 @@ package sba.group3.backendmvc.service.staff.impl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
-import sba.group3.backendmvc.entity.organization.Department;
 import sba.group3.backendmvc.entity.staff.Staff;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
@@ -20,11 +23,13 @@ import sba.group3.backendmvc.mapper.staff.StaffMapper;
 import sba.group3.backendmvc.repository.appointment.QueueTicketRepository;
 import sba.group3.backendmvc.repository.organization.DepartmentRepository;
 import sba.group3.backendmvc.repository.staff.PositionRepository;
+import sba.group3.backendmvc.repository.staff.SpecialtyRepository;
 import sba.group3.backendmvc.repository.staff.StaffRepository;
 import sba.group3.backendmvc.repository.user.RoleRepository;
 import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.infrastructure.EmailSender;
+import sba.group3.backendmvc.service.infrastructure.EmailTemplateService;
 import sba.group3.backendmvc.service.staff.StaffService;
 
 import java.time.DayOfWeek;
@@ -32,9 +37,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -49,27 +55,37 @@ public class StaffServiceImpl implements StaffService {
     RoleRepository roleRepository;
     EmailSender emailSender;
     private final QueueTicketRepository queueTicketRepository;
+    private final SpecialtyRepository specialtyRepository;
+    private final EmailTemplateService emailTemplateService;
 
     @Override
     public Page<StaffResponse> filter(SearchFilter filter) {
         return staffRepository.search(filter).map(staffMapper::toDto1);
     }
 
+    @Transactional
     @Override
     public StaffResponse create(StaffRequest request) {
+
+        // 1. Find user by email
         var existingUserOpt = userRepository.findByEmail(request.email());
 
         User user;
         boolean isNewUser = false;
-        String rawPassword = generateRandomPassword(10);
+        String rawPassword = null;
+
         if (existingUserOpt.isPresent()) {
             user = existingUserOpt.get();
 
+            // User đã tồn tại nhưng đã được gán Staff rồi
             if (staffRepository.existsByUser_Id(user.getId())) {
-                throw new AppException(ErrorCode.UNCATEGORIZED);
+                throw new AppException(ErrorCode.STAFF_ALREADY_EXISTS_FOR_USER);
             }
 
         } else {
+            // 2. Tạo user mới
+            rawPassword = generateRandomPassword(10);
+
             user = User.builder()
                     .username(request.email())
                     .email(request.email())
@@ -80,42 +96,77 @@ public class StaffServiceImpl implements StaffService {
 
             user = userRepository.save(user);
 
-            UserProfile profile = UserProfile.builder()
+            // 3. Tạo profile
+            var profile = UserProfile.builder()
                     .user(user)
                     .fullName(request.fullName())
                     .phone(request.phone())
                     .build();
             userProfileRepository.save(profile);
+
             isNewUser = true;
         }
 
-        var roleName = "ROLE_" + request.staffType().name();
+        // 4. Gán role
+        String roleName = "ROLE_" + request.staffType().name();
         Role role = roleRepository.findByName(roleName);
+
+        if (role == null) {
+            throw new AppException(ErrorCode.ROLE_NOT_FOUND);
+        }
+
         user.getRoles().add(role);
         userRepository.save(user);
 
+        // 5. Tạo staff
         var staff = staffMapper.toEntity(request);
         staff.setUser(user);
-        var position = positionRepository.getReferenceById(request.positionId());
-        staff.setPosition(position);
-        Department department = departmentRepository.getReferenceById(request.departmentId());
-        staff.setDepartment(department);
+
+        staff.setPosition(positionRepository.getReferenceById(request.positionId()));
+
+        staff.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
+
+        staff.setSpecialty(specialtyRepository.getReferenceById(request.specialtyId()));
+
         staffRepository.save(staff);
+
+        // 6. Gửi email sau khi transaction commit
         if (isNewUser) {
-            emailSender.send(
-                    user.getEmail(),
-                    "Your Account Credentials",
-                    "Dear " + request.fullName() + ",\n\n" +
-                            "An account has been created for you.\n" +
-                            "Username: " + user.getUsername() + "\n" +
-                            "Password: " + rawPassword + "\n\n" +
-                            "Please change your password upon first login.\n\n" +
-                            "Best regards,\n" +
-                            "Medical Staff Management Team"
+            String email = user.getEmail();
+            String fullName = request.fullName();
+            String pwd = rawPassword;
+
+            TransactionSynchronizationManager.registerSynchronization(
+                    new TransactionSynchronization() {
+                        @Override
+                        public void afterCommit() {
+                            log.info("Sending account credentials email to {}", email);
+
+                            var model = Map.of(
+                                    "fullName", fullName,
+                                    "username", email,
+                                    "password", pwd
+                            );
+
+                            String body = emailTemplateService.render(
+                                    "account-created.ftl",
+                                    model
+                            );
+
+                            emailSender.send(
+                                    email,
+                                    "Your Account Credentials",
+                                    body
+                            );
+                        }
+                    }
             );
+
         }
+
         return staffMapper.toDto1(staff);
     }
+
 
     @Override
     public StaffResponse update(UUID id, StaffRequest request) {
@@ -147,7 +198,7 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List<StaffResponse> findDoctorsBySpecialty(UUID specialtyId) {
         var doctors = staffRepository.findBySpecialty_IdAndStaffType(specialtyId, sba.group3.backendmvc.entity.staff.StaffType.DOCTOR);
-        return doctors.stream().map(staffMapper::toDto1).collect(Collectors.toList());
+        return doctors.stream().map(staffMapper::toDto1).toList();
     }
 
     @Override

@@ -93,7 +93,7 @@ example().catch(console.error);
 
 ## createStaffSchedule
 
-> CustomApiResponseStaffScheduleResponse createStaffSchedule(staffId, staffScheduleResponse)
+> CustomApiResponseStaffScheduleResponse createStaffSchedule(staffId, staffScheduleRequest)
 
 
 
@@ -117,8 +117,8 @@ async function example() {
   const body = {
     // string
     staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // StaffScheduleResponse
-    staffScheduleResponse: ...,
+    // StaffScheduleRequest
+    staffScheduleRequest: ...,
   } satisfies CreateStaffScheduleRequest;
 
   try {
@@ -139,7 +139,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **staffId** | `string` |  | [Defaults to `undefined`] |
-| **staffScheduleResponse** | [StaffScheduleResponse](StaffScheduleResponse.md) |  | |
+| **staffScheduleRequest** | [StaffScheduleRequest](StaffScheduleRequest.md) |  | |
 
 ### Return type
 
@@ -167,7 +167,7 @@ example().catch(console.error);
 
 ## createStaffScheduleTemplate
 
-> CustomApiResponseStaffScheduleTemplateResponse createStaffScheduleTemplate(staffId, staffScheduleTemplateResponse)
+> CustomApiResponseStaffScheduleTemplateResponse createStaffScheduleTemplate(staffId, staffScheduleTemplateRequest)
 
 
 
@@ -191,8 +191,8 @@ async function example() {
   const body = {
     // string
     staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // StaffScheduleTemplateResponse
-    staffScheduleTemplateResponse: ...,
+    // StaffScheduleTemplateRequest
+    staffScheduleTemplateRequest: ...,
   } satisfies CreateStaffScheduleTemplateRequest;
 
   try {
@@ -213,7 +213,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **staffId** | `string` |  | [Defaults to `undefined`] |
-| **staffScheduleTemplateResponse** | [StaffScheduleTemplateResponse](StaffScheduleTemplateResponse.md) |  | |
+| **staffScheduleTemplateRequest** | [StaffScheduleTemplateRequest](StaffScheduleTemplateRequest.md) |  | |
 
 ### Return type
 
@@ -818,7 +818,7 @@ example().catch(console.error);
 
 ## updateStaffSchedule
 
-> CustomApiResponseStaffScheduleResponse updateStaffSchedule(scheduleId, staffScheduleResponse)
+> CustomApiResponseStaffScheduleResponse updateStaffSchedule(scheduleId, staffScheduleRequest)
 
 
 
@@ -842,8 +842,8 @@ async function example() {
   const body = {
     // string
     scheduleId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // StaffScheduleResponse
-    staffScheduleResponse: ...,
+    // StaffScheduleRequest
+    staffScheduleRequest: ...,
   } satisfies UpdateStaffScheduleRequest;
 
   try {
@@ -864,7 +864,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **scheduleId** | `string` |  | [Defaults to `undefined`] |
-| **staffScheduleResponse** | [StaffScheduleResponse](StaffScheduleResponse.md) |  | |
+| **staffScheduleRequest** | [StaffScheduleRequest](StaffScheduleRequest.md) |  | |
 
 ### Return type
 
@@ -892,7 +892,7 @@ example().catch(console.error);
 
 ## updateStaffScheduleTemplate
 
-> CustomApiResponseStaffScheduleTemplateResponse updateStaffScheduleTemplate(templateId, staffScheduleTemplateResponse)
+> CustomApiResponseStaffScheduleTemplateResponse updateStaffScheduleTemplate(templateId, staffScheduleTemplateRequest)
 
 
 
@@ -916,8 +916,8 @@ async function example() {
   const body = {
     // string
     templateId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // StaffScheduleTemplateResponse
-    staffScheduleTemplateResponse: ...,
+    // StaffScheduleTemplateRequest
+    staffScheduleTemplateRequest: ...,
   } satisfies UpdateStaffScheduleTemplateRequest;
 
   try {
@@ -938,7 +938,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **templateId** | `string` |  | [Defaults to `undefined`] |
-| **staffScheduleTemplateResponse** | [StaffScheduleTemplateResponse](StaffScheduleTemplateResponse.md) |  | |
+| **staffScheduleTemplateRequest** | [StaffScheduleTemplateRequest](StaffScheduleTemplateRequest.md) |  | |
 
 ### Return type
 

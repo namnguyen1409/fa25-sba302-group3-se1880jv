@@ -26,8 +26,8 @@ import type {
   GetPatientById400Response,
   SearchFilter,
   StaffRequest,
-  StaffScheduleResponse,
-  StaffScheduleTemplateResponse,
+  StaffScheduleRequest,
+  StaffScheduleTemplateRequest,
 } from '../models/index';
 import {
     CustomApiResponseObjectFromJSON,
@@ -52,10 +52,10 @@ import {
     SearchFilterToJSON,
     StaffRequestFromJSON,
     StaffRequestToJSON,
-    StaffScheduleResponseFromJSON,
-    StaffScheduleResponseToJSON,
-    StaffScheduleTemplateResponseFromJSON,
-    StaffScheduleTemplateResponseToJSON,
+    StaffScheduleRequestFromJSON,
+    StaffScheduleRequestToJSON,
+    StaffScheduleTemplateRequestFromJSON,
+    StaffScheduleTemplateRequestToJSON,
 } from '../models/index';
 
 export interface Create10Request {
@@ -64,12 +64,12 @@ export interface Create10Request {
 
 export interface CreateStaffScheduleRequest {
     staffId: string;
-    staffScheduleResponse: StaffScheduleResponse;
+    staffScheduleRequest: StaffScheduleRequest;
 }
 
 export interface CreateStaffScheduleTemplateRequest {
     staffId: string;
-    staffScheduleTemplateResponse: StaffScheduleTemplateResponse;
+    staffScheduleTemplateRequest: StaffScheduleTemplateRequest;
 }
 
 export interface Delete10Request {
@@ -109,12 +109,12 @@ export interface Update10Request {
 
 export interface UpdateStaffScheduleRequest {
     scheduleId: string;
-    staffScheduleResponse: StaffScheduleResponse;
+    staffScheduleRequest: StaffScheduleRequest;
 }
 
 export interface UpdateStaffScheduleTemplateRequest {
     templateId: string;
-    staffScheduleTemplateResponse: StaffScheduleTemplateResponse;
+    staffScheduleTemplateRequest: StaffScheduleTemplateRequest;
 }
 
 /**
@@ -177,10 +177,10 @@ export class StaffManagementApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['staffScheduleResponse'] == null) {
+        if (requestParameters['staffScheduleRequest'] == null) {
             throw new runtime.RequiredError(
-                'staffScheduleResponse',
-                'Required parameter "staffScheduleResponse" was null or undefined when calling createStaffSchedule().'
+                'staffScheduleRequest',
+                'Required parameter "staffScheduleRequest" was null or undefined when calling createStaffSchedule().'
             );
         }
 
@@ -207,7 +207,7 @@ export class StaffManagementApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: StaffScheduleResponseToJSON(requestParameters['staffScheduleResponse']),
+            body: StaffScheduleRequestToJSON(requestParameters['staffScheduleRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseStaffScheduleResponseFromJSON(jsonValue));
@@ -230,10 +230,10 @@ export class StaffManagementApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['staffScheduleTemplateResponse'] == null) {
+        if (requestParameters['staffScheduleTemplateRequest'] == null) {
             throw new runtime.RequiredError(
-                'staffScheduleTemplateResponse',
-                'Required parameter "staffScheduleTemplateResponse" was null or undefined when calling createStaffScheduleTemplate().'
+                'staffScheduleTemplateRequest',
+                'Required parameter "staffScheduleTemplateRequest" was null or undefined when calling createStaffScheduleTemplate().'
             );
         }
 
@@ -260,7 +260,7 @@ export class StaffManagementApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: StaffScheduleTemplateResponseToJSON(requestParameters['staffScheduleTemplateResponse']),
+            body: StaffScheduleTemplateRequestToJSON(requestParameters['staffScheduleTemplateRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseStaffScheduleTemplateResponseFromJSON(jsonValue));
@@ -659,10 +659,10 @@ export class StaffManagementApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['staffScheduleResponse'] == null) {
+        if (requestParameters['staffScheduleRequest'] == null) {
             throw new runtime.RequiredError(
-                'staffScheduleResponse',
-                'Required parameter "staffScheduleResponse" was null or undefined when calling updateStaffSchedule().'
+                'staffScheduleRequest',
+                'Required parameter "staffScheduleRequest" was null or undefined when calling updateStaffSchedule().'
             );
         }
 
@@ -689,7 +689,7 @@ export class StaffManagementApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: StaffScheduleResponseToJSON(requestParameters['staffScheduleResponse']),
+            body: StaffScheduleRequestToJSON(requestParameters['staffScheduleRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseStaffScheduleResponseFromJSON(jsonValue));
@@ -712,10 +712,10 @@ export class StaffManagementApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['staffScheduleTemplateResponse'] == null) {
+        if (requestParameters['staffScheduleTemplateRequest'] == null) {
             throw new runtime.RequiredError(
-                'staffScheduleTemplateResponse',
-                'Required parameter "staffScheduleTemplateResponse" was null or undefined when calling updateStaffScheduleTemplate().'
+                'staffScheduleTemplateRequest',
+                'Required parameter "staffScheduleTemplateRequest" was null or undefined when calling updateStaffScheduleTemplate().'
             );
         }
 
@@ -742,7 +742,7 @@ export class StaffManagementApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: StaffScheduleTemplateResponseToJSON(requestParameters['staffScheduleTemplateResponse']),
+            body: StaffScheduleTemplateRequestToJSON(requestParameters['staffScheduleTemplateRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseStaffScheduleTemplateResponseFromJSON(jsonValue));

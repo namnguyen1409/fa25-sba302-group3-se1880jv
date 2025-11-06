@@ -6,8 +6,10 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
+import sba.group3.backendmvc.dto.request.staff.StaffScheduleTemplateRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleTemplateResponse;
 import sba.group3.backendmvc.mapper.staff.StaffScheduleTemplateMapper;
+import sba.group3.backendmvc.repository.organization.RoomRepository;
 import sba.group3.backendmvc.repository.staff.StaffRepository;
 import sba.group3.backendmvc.repository.staff.StaffScheduleTemplateRepository;
 import sba.group3.backendmvc.service.staff.StaffScheduleTemplateService;
@@ -21,6 +23,7 @@ public class StaffScheduleTemplateServiceImpl implements StaffScheduleTemplateSe
     private final StaffScheduleTemplateRepository staffScheduleTemplateRepository;
     private final StaffScheduleTemplateMapper staffScheduleTemplateMapper;
     private final StaffRepository staffRepository;
+    private final RoomRepository roomRepository;
 
     @Override
     public Page<StaffScheduleTemplateResponse> filter(SearchFilter filter) {
@@ -28,17 +31,19 @@ public class StaffScheduleTemplateServiceImpl implements StaffScheduleTemplateSe
     }
 
     @Override
-    public StaffScheduleTemplateResponse create(UUID staffId, StaffScheduleTemplateResponse request) {
+    public StaffScheduleTemplateResponse create(UUID staffId, StaffScheduleTemplateRequest request) {
         var entity = staffScheduleTemplateMapper.toEntity(request);
         entity.setStaff(staffRepository.getReferenceById(staffId));
+        entity.setRoom(roomRepository.getReferenceById(request.roomId()));
         var savedEntity = staffScheduleTemplateRepository.save(entity);
         return staffScheduleTemplateMapper.toDto1(savedEntity);
     }
 
     @Override
-    public StaffScheduleTemplateResponse update(UUID templateId, StaffScheduleTemplateResponse request) {
+    public StaffScheduleTemplateResponse update(UUID templateId, StaffScheduleTemplateRequest request) {
         var entity = staffScheduleTemplateRepository.findById(templateId).orElseThrow();
         staffScheduleTemplateMapper.partialUpdate(request, entity);
+        entity.setRoom(roomRepository.getReferenceById(request.roomId()));
         var updatedEntity = staffScheduleTemplateRepository.save(entity);
         return staffScheduleTemplateMapper.toDto1(updatedEntity);
     }

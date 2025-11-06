@@ -17,6 +17,8 @@ Name | Type
 `email` | string
 `department` | [DepartmentResponse](DepartmentResponse.md)
 `id` | string
+`phone` | string
+`fullName` | string
 
 ## Example
 
@@ -36,6 +38,8 @@ const example = {
   "email": null,
   "department": null,
   "id": null,
+  "phone": null,
+  "fullName": null,
 } satisfies StaffResponse
 
 console.log(example)

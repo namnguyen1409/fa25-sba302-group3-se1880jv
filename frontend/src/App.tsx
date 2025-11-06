@@ -28,6 +28,8 @@ import MedicineManagementPage from "./pages/medicine/MedicineManagement";
 import SpecialtyManagementPage from "./pages/staff/specialties/SpecialtyManagement";
 import ServiceCatalogManagementPage from "./pages/examination/service-catalog/ServiceCatalogManagement";
 import LabTestManagementPage from "./pages/laboratory/LabTestManagement";
+import PositionManagementPage from "./pages/staff/positions/PositionManagement";
+import StaffDetailPage from "./pages/staff/StaffDetail";
 function App() {
   return (
     <AppProvider>
@@ -70,13 +72,19 @@ function App() {
               </Route>
             </Route>
 
-            <Route path="/staff" element={<StaffLayout />}>
+            <Route path="/staff" element={
+              <ProtectedRoute>
+                <StaffLayout />
+              </ProtectedRoute>
+              }>
               <Route index element={<div>Staff Dashboard</div>} />
               <Route path="users" element={<UserManagementPage />} />
               <Route path="patients" element={<PatientManagementPage />} />
               <Route path="patients/:id" element={<PatientDetailPage />} />
               <Route path="icd" element={<IcdManagementPage />} />
               <Route path="staffs" element={<StaffManagementPage />} />
+              <Route path="staffs/:id" element={<StaffDetailPage />} />
+              <Route path="positions" element={<PositionManagementPage />} />
               <Route path="departments" element={<DepartmentManagementPage />} />
               <Route path="rooms" element={<RoomManagementPage />} />
               <Route path="medications" element={<MedicineManagementPage />} />

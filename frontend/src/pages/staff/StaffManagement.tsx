@@ -1,208 +1,307 @@
 import React, { useCallback } from "react";
 import {
   EntityTableWrapper,
-  type PageResponse,
   type FilterGroup,
+  type PageResponse,
   type SortRequest,
 } from "@/components/common/EntityTableWrapper";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Eye, Pencil, KeyRound } from "lucide-react";
+import { toast } from "sonner";
+import { Eye, Pencil, Plus } from "lucide-react";
 import * as yup from "yup";
-import type { FormFieldConfig } from "@/components/common/FormModal";
+
 import type { Column } from "@/components/common/ReuseAbleTable";
-import { useNavigate } from "react-router-dom";
-import type { StaffResponse } from "@/api";
+import type { FormFieldConfig } from "@/components/common/FormModal";
+
+import { type StaffRequest, type StaffResponse } from "@/api";
 import { StaffApi } from "@/api/staff/StaffApi";
-
-const fetchStaff = async (
-  page: number,
-  size: number,
-  filterGroup?: FilterGroup | null,
-  sorts?: SortRequest[]
-): Promise<{ data: PageResponse<StaffResponse> }> => {
-  try {
-    const res = await StaffApi.getStaff(
-      page,
-      size,
-      filterGroup ?? undefined,
-      sorts
-    );
-
-    return { data: res };
-  } catch (err) {
-    toast.error("Failed to load staff");
-    throw err;
-  }
-};
+import { SearchSelect } from "@/components/common/SearchSelect";
+import { DepartmentApi } from "@/api/department/DepartmentApi";
+import { SpecialtyApi } from "@/api/specialty/SpecialtyApi";
+import { PositionApi } from "@/api/staff/PositionApi";
+import { useEnumTranslation } from "@/hooks/translations/useEnumTranslation";
+import { useNavigate } from "react-router-dom";
 
 export default function StaffManagementPage() {
-  const navigate = useNavigate();
-
   const [selectForForm, setSelectForForm] =
     React.useState<StaffResponse | null>(null);
+
   const [formType, setFormType] = React.useState<
     "create" | "update" | "hidden"
   >("hidden");
 
+  const navigate = useNavigate();
+
   const tableRef = React.useRef<any>(null);
 
-  const handleUpdate = (row: StaffResponse) => {
-    setSelectForForm(row);
-    setFormType("update");
+  const { translate, toOptions } = useEnumTranslation();
+
+  /* --------------------------- FETCH STAFF --------------------------- */
+  const fetchStaff = async (
+    page: number,
+    size: number,
+    filterGroup?: FilterGroup | null,
+    sorts?: SortRequest[]
+  ): Promise<{ data: PageResponse<StaffResponse> }> => {
+    try {
+      const res = await StaffApi.filter(
+        page,
+        size,
+        filterGroup ?? undefined,
+        sorts
+      );
+      return { data: res };
+    } catch {
+      toast.error("Không tải được danh sách nhân viên");
+      throw new Error();
+    }
   };
 
   const fetchData = useCallback(fetchStaff, []);
 
-  // Table Columns
+  /* --------------------------- TABLE COLUMNS --------------------------- */
   const columns: Column<StaffResponse>[] = [
-    { title: "Code", dataIndex: "staffCode", sortable: true },
-    { title: "Full Name", dataIndex: "fullName", sortable: true },
+    { title: "Họ tên", dataIndex: "fullName", sortable: true },
     { title: "Email", dataIndex: "email", sortable: true },
-    { title: "Phone", dataIndex: "phone", sortable: true },
-    { title: "Role", dataIndex: "staffType", sortable: true },
-    { title: "Department", dataIndex: "departmentName", sortable: true },
+    { title: "SĐT", dataIndex: "phone", sortable: true },
     {
-      title: "Active",
-      dataIndex: "active",
+      title: "Khoa",
+      dataIndex: "department",
+      render: (_, row) => row.department?.name || "",
+    },
+    {
+      title: "Chuyên khoa",
+      dataIndex: "specialty",
+      render: (_, row) => row.specialty?.name || "",
+    },
+    {
+      title: "Chức vụ",
+      dataIndex: "position",
+      render: (_, row) => row.position?.title || "",
+    },
+    {
+      title: "Loại nhân viên",
+      dataIndex: "staffType",
       sortable: true,
-      render: (v: boolean) => (v ? "Yes" : "No"),
+      render: (v: string) => translate("staffType", v),
+    },
+    {
+      title: "Ngày vào làm",
+      dataIndex: "joinedDate",
+      sortable: true,
+      render: (_, row) =>
+        row.joinedDate
+          ? new Date(row.joinedDate).toLocaleDateString("vi-VN")
+          : "",
     },
   ];
 
-  // Form Config
+  /* --------------------------- NORMALIZE FORM VALUES --------------------------- */
+  const normalizeDefaults = (data: any) => ({
+    fullName: data?.fullName ?? "",
+    phone: data?.phone ?? "",
+    email: data?.email ?? "",
+    departmentId: data?.department?.id ?? "",
+    specialtyId: data?.specialty?.id ?? "",
+    positionId: data?.position?.id ?? "",
+    staffType: data?.staffType ?? "",
+    licenseNumber: data?.licenseNumber ?? "",
+    experienceYears: data?.experienceYears ?? 0,
+    education: data?.education ?? "",
+    bio: data?.bio ?? "",
+    joinedDate: data?.joinedDate
+      ? new Date(data.joinedDate).toISOString().substring(0, 10)
+      : "",
+  });
+
+  /* --------------------------- FORM FIELDS --------------------------- */
   const formFieldConfigs: FormFieldConfig[] = [
-    { name: "fullName", label: "Full Name", type: "text", required: true },
+    { name: "fullName", label: "Họ tên", type: "text", required: true },
     { name: "email", label: "Email", type: "text", required: true },
-    { name: "phone", label: "Phone", type: "text", required: true },
+    { name: "phone", label: "Số điện thoại", type: "text", required: true },
+
+    {
+      name: "departmentId",
+      label: "Khoa",
+      type: "select",
+      required: true,
+      renderFormItem: ({ value, onChange }) => (
+        <SearchSelect
+          value={value}
+          onChange={onChange}
+          placeholder="Chọn khoa"
+          fetchOptions={async (keyword) => {
+            const res = await DepartmentApi.search(keyword);
+            return res.content.map((d) => ({
+              value: String(d.id),
+              label: d.name!,
+            }));
+          }}
+          initialOption={
+            selectForForm?.department
+              ? {
+                  label: selectForForm.department.name!,
+                  value: selectForForm.department.id!,
+                }
+              : null
+          }
+        />
+      ),
+    },
+
+    {
+      name: "specialtyId",
+      label: "Chuyên khoa",
+      type: "select",
+      renderFormItem: ({ value, onChange }) => (
+        <SearchSelect
+          value={value}
+          onChange={onChange}
+          placeholder="Chọn chuyên khoa"
+          fetchOptions={async (keyword) => {
+            const res = await SpecialtyApi.search(keyword);
+            return res.content.map((s) => ({
+              value: String(s.id),
+              label: s.name!,
+            }));
+          }}
+          initialOption={
+            selectForForm?.specialty
+              ? {
+                  label: selectForForm.specialty.name!,
+                  value: selectForForm.specialty.id!,
+                }
+              : null
+          }
+        />
+      ),
+    },
+
+    {
+      name: "positionId",
+      label: "Chức vụ",
+      type: "select",
+      renderFormItem: ({ value, onChange }) => (
+        <SearchSelect
+          value={value}
+          onChange={onChange}
+          placeholder="Chọn chức vụ"
+          fetchOptions={async (keyword) => {
+            const res = await PositionApi.search(keyword);
+            return res.content.map((p) => ({
+              value: String(p.id),
+              label: p.title!,
+            }));
+          }}
+          initialOption={
+            selectForForm?.position
+              ? {
+                  label: selectForForm.position.title!,
+                  value: selectForForm.position.id!,
+                }
+              : null
+          }
+        />
+      ),
+    },
+
     {
       name: "staffType",
-      label: "Role",
+      label: "Loại nhân viên",
       type: "select",
       required: true,
-      options: [
-        { value: "DOCTOR", label: "Doctor" },
-        { value: "NURSE", label: "Nurse" },
-        { value: "TECHNICIAN", label: "Technician" },
-        { value: "PHARMACIST", label: "Pharmacist" },
-        { value: "RECEPTIONIST", label: "Receptionist" },
-        { value: "CASHIER", label: "Cashier" },
-        { value: "MANAGER", label: "Manager" },
-      ],
+      options: toOptions("staffType"),
     },
-    {
-      name: "active",
-      label: "Active",
-      type: "select",
-      required: true,
-      options: [
-        { value: "true", label: "Active" },
-        { value: "false", label: "Inactive" },
-      ],
-    },
+
+    { name: "licenseNumber", label: "Mã hành nghề", type: "text" },
+    { name: "experienceYears", label: "Số năm kinh nghiệm", type: "number" },
+    { name: "education", label: "Học vấn", type: "textarea" },
+    { name: "bio", label: "Tiểu sử", type: "textarea" },
+
+    { name: "joinedDate", label: "Ngày vào làm", type: "date" },
   ];
 
-  // Form Submit Schema + actions
+  /* --------------------------- VALIDATION --------------------------- */
+  const schema = yup.object({
+    fullName: yup.string().required("Tên bắt buộc"),
+    phone: yup.string().required("Số điện thoại bắt buộc"),
+    email: yup.string().email("Email không hợp lệ").required("Email bắt buộc"),
+    departmentId: yup.string().required("Khoa bắt buộc"),
+    staffType: yup.string().required("Loại nhân viên bắt buộc"),
+    experienceYears: yup.number().nullable().min(0),
+  });
+
+  /* --------------------------- FORM MODAL --------------------------- */
   const formModalProps = {
     open: formType !== "hidden",
     onClose: () => setFormType("hidden"),
-    title: formType === "create" ? "Create Staff" : "Update Staff",
+    title: formType === "create" ? "Thêm nhân viên" : "Sửa nhân viên",
     formFields: formFieldConfigs,
-    defaultValues: selectForForm || {},
-    big: true,
-
-    schema: yup.object(
-      Object.fromEntries(
-        formFieldConfigs.map((f) => [
-          f.name,
-          f.required
-            ? yup.string().required(`${f.label} is required`)
-            : yup.mixed(),
-        ])
-      )
-    ),
-
-    onSubmit: async (data: any) => {
+    defaultValues: normalizeDefaults(selectForForm),
+    schema,
+    onSubmit: async (data: StaffRequest) => {
       try {
         if (formType === "create") {
           await StaffApi.createStaff(data);
-          toast.success("Staff created successfully");
+          toast.success("Tạo nhân viên thành công");
         } else if (formType === "update" && selectForForm) {
           await StaffApi.updateStaff(selectForForm.id!, data);
-          toast.success("Staff updated successfully");
+          toast.success("Cập nhật nhân viên thành công");
         }
 
         setFormType("hidden");
         tableRef.current?.reload();
       } catch (err) {
-        toast.error("Failed to submit staff data");
+        toast.error("Không thể lưu nhân viên");
       }
     },
-  };
-
-  // Reset Password
-  const handleResetPassword = async (id: string) => {
-    try {
-      await StaffApi.resetPassword(id);
-      toast.success("Password reset successfully");
-    } catch {
-      toast.error("Failed to reset password");
-    }
+    big: true,
   };
 
   return (
-    <>
-      <EntityTableWrapper<StaffResponse>
-        ref={tableRef}
-        title="Staff Management"
-        fetchData={fetchData}
-        columns={columns}
-        smartSearchFields={["fullName", "staffCode", "email", "phone"]}
-        pageSize={10}
-        renderRowActions={(row) => (
-          <>
-            <Button
-              variant="outline"
-              className="mr-2"
-              onClick={() => navigate(`/staff/staffs/${row.id}`)}
-            >
-              <Eye className="w-4 h-4" />
-            </Button>
-
-            <Button
-              variant="outline"
-              className="mr-2"
-              onClick={() => handleUpdate(row)}
-            >
-              <Pencil className="w-4 h-4" />
-            </Button>
-
-            <Button
-              variant="outline"
-              className="mr-2"
-              onClick={() => handleResetPassword(row.id!)}
-            >
-              <KeyRound className="w-4 h-4" />
-            </Button>
-          </>
-        )}
-        formModalProps={formModalProps}
-        headerExtra={
+    <EntityTableWrapper<StaffResponse>
+      ref={tableRef}
+      title="Quản lý nhân viên"
+      fetchData={fetchData}
+      columns={columns}
+      smartSearchFields={["fullName", "email", "phone"]}
+      pageSize={10}
+      renderRowActions={(row) => (
+        <>
           <Button
+            variant="outline"
+            className="mr-2"
+            onClick={() => navigate(`/staff/staffs/${row.id}`)}
+          >
+            <Eye className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => {
-              setSelectForForm(null);
-              setFormType("create");
+              setSelectForForm(row);
+              setFormType("update");
             }}
           >
-            Add Staff
+            <Pencil className="w-4 h-4" />
           </Button>
-        }
-        footerExtra={(ctx) => (
-          <div>
-            <strong>Total Staff: </strong> {ctx.totalElements}
-          </div>
-        )}
-      />
-    </>
+        </>
+      )}
+      formModalProps={formModalProps}
+      headerExtra={
+        <Button
+          onClick={() => {
+            setSelectForForm(null);
+            setFormType("create");
+          }}
+        >
+          <Plus className="w-4 h-4 mr-2" /> Thêm nhân viên
+        </Button>
+      }
+      footerExtra={(ctx) => (
+        <div>
+          <strong>Tổng nhân viên:</strong> {ctx.totalElements}
+        </div>
+      )}
+    />
   );
 }

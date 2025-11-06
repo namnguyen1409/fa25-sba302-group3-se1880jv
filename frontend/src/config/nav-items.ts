@@ -66,10 +66,12 @@ export const staffNavItems = (roles: string[]) => {
 
   const manager = [
     { label: "Staff", to: "/staff/staffs", icon: UserPlus },
+    { label: "Positions", to: "/staff/positions", icon: ClipboardList },
     { label: "Departments", to: "/staff/departments", icon: Building2 },
     { label: "Rooms", to: "/staff/rooms", icon: Building2 },
     { label: "Reports", to: "/staff/reports", icon: Activity },
   ];
+
 
   const catalog = [
     { label: "ICD Codes", to: "/staff/icd", icon: BookOpenCheck },

@@ -110,7 +110,7 @@ export const FormModal: React.FC<FormModalProps> = ({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className={`${
-          big ? "max-w-4xl" : "max-w-lg"
+          big ? "min-w-4xl" : "max-w-lg"
         } max-h-[80vh] overflow-y-auto`}
       >
         <DialogHeader>

@@ -55,4 +55,24 @@ export const ENUM_TRANSLATIONS = {
     UNPAID: "Chưa thanh toán",
     DEBT: "Công nợ",
   },
+  staffType : {
+    DOCTOR: "Bác sĩ",
+    NURSE: "Y tá",
+    TECHNICIAN: "Kỹ thuật viên",
+    PHARMACIST: "Dược sĩ",
+    RECEPTIONIST: "Lễ tân",
+    CASHIER: "Thu ngân",
+    MANAGER: "Quản lý",
+    SYSTEM_ADMIN: "Quản trị hệ thống",
+  },
+  dayOfWeek: {
+    MONDAY: "Thứ Hai",
+    TUESDAY: "Thứ Ba",
+    WEDNESDAY: "Thứ Tư",
+    THURSDAY: "Thứ Năm",
+    FRIDAY: "Thứ Sáu",
+    SATURDAY: "Thứ Bảy",
+    SUNDAY: "Chủ Nhật",
+  },
+
 };

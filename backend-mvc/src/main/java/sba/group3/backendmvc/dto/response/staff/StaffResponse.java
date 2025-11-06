@@ -12,5 +12,6 @@ import java.util.UUID;
  */
 public record StaffResponse(SpecialtyResponse specialty, StaffType staffType, PositionResponse position,
                             String licenseNumber, Integer experienceYears, String education, String bio,
-                            LocalDate joinedDate, String email, DepartmentResponse department, UUID id) implements Serializable {
+                            LocalDate joinedDate, String email, DepartmentResponse department, UUID id, String phone,
+                            String fullName) implements Serializable {
 }
