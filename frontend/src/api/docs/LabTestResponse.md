@@ -14,6 +14,7 @@ Name | Type
 `unit` | string
 `referenceRange` | string
 `description` | string
+`roomType` | string
 
 ## Example
 
@@ -30,6 +31,7 @@ const example = {
   "unit": null,
   "referenceRange": null,
   "description": null,
+  "roomType": null,
 } satisfies LabTestResponse
 
 console.log(example)

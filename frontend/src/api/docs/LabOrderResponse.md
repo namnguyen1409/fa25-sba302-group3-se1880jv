@@ -13,6 +13,8 @@ Name | Type
 `status` | string
 `orderCode` | string
 `results` | [Set&lt;LabTestResultResponse&gt;](LabTestResultResponse.md)
+`room` | [RoomResponse](RoomResponse.md)
+`assignedStaff` | [StaffResponse](StaffResponse.md)
 
 ## Example
 
@@ -28,6 +30,8 @@ const example = {
   "status": null,
   "orderCode": null,
   "results": null,
+  "room": null,
+  "assignedStaff": null,
 } satisfies LabOrderResponse
 
 console.log(example)

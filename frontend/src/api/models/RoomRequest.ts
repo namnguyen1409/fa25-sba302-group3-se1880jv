@@ -30,7 +30,7 @@ export interface RoomRequest {
      * @type {string}
      * @memberof RoomRequest
      */
-    roomType?: string;
+    roomType: RoomRequestRoomTypeEnum;
     /**
      * 
      * @type {number}
@@ -57,11 +57,41 @@ export interface RoomRequest {
     departmentId: string;
 }
 
+
+/**
+ * @export
+ */
+export const RoomRequestRoomTypeEnum = {
+    Consultation: 'CONSULTATION',
+    Xray: 'XRAY',
+    Ultrasound: 'ULTRASOUND',
+    Laboratory: 'LABORATORY',
+    Procedure: 'PROCEDURE',
+    Pharmacy: 'PHARMACY',
+    Cashier: 'CASHIER',
+    Reception: 'RECEPTION',
+    WaitingArea: 'WAITING_AREA',
+    Endoscopy: 'ENDOSCOPY',
+    Ecg: 'ECG',
+    Eeg: 'EEG',
+    Dexa: 'DEXA',
+    CtScan: 'CT_SCAN',
+    Mri: 'MRI',
+    Optometry: 'OPTOMETRY',
+    Vaccination: 'VACCINATION',
+    Physiotherapy: 'PHYSIOTHERAPY',
+    Pft: 'PFT',
+    MinorSurgery: 'MINOR_SURGERY'
+} as const;
+export type RoomRequestRoomTypeEnum = typeof RoomRequestRoomTypeEnum[keyof typeof RoomRequestRoomTypeEnum];
+
+
 /**
  * Check if a given object implements the RoomRequest interface.
  */
 export function instanceOfRoomRequest(value: object): value is RoomRequest {
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('roomType' in value) || value['roomType'] === undefined) return false;
     if (!('departmentId' in value) || value['departmentId'] === undefined) return false;
     return true;
 }
@@ -77,7 +107,7 @@ export function RoomRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'name': json['name'],
-        'roomType': json['roomType'] == null ? undefined : json['roomType'],
+        'roomType': json['roomType'],
         'floorNumber': json['floorNumber'] == null ? undefined : json['floorNumber'],
         'capacity': json['capacity'] == null ? undefined : json['capacity'],
         'description': json['description'] == null ? undefined : json['description'],

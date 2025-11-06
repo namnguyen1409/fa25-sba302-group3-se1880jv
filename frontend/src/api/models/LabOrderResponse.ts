@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { RoomResponse } from './RoomResponse';
+import {
+    RoomResponseFromJSON,
+    RoomResponseFromJSONTyped,
+    RoomResponseToJSON,
+    RoomResponseToJSONTyped,
+} from './RoomResponse';
 import type { LabTestResultResponse } from './LabTestResultResponse';
 import {
     LabTestResultResponseFromJSON,
@@ -83,6 +90,18 @@ export interface LabOrderResponse {
      * @memberof LabOrderResponse
      */
     results?: Set<LabTestResultResponse>;
+    /**
+     * 
+     * @type {RoomResponse}
+     * @memberof LabOrderResponse
+     */
+    room?: RoomResponse;
+    /**
+     * 
+     * @type {StaffResponse}
+     * @memberof LabOrderResponse
+     */
+    assignedStaff?: StaffResponse;
 }
 
 
@@ -123,6 +142,8 @@ export function LabOrderResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'status': json['status'] == null ? undefined : json['status'],
         'orderCode': json['orderCode'] == null ? undefined : json['orderCode'],
         'results': json['results'] == null ? undefined : (new Set((json['results'] as Array<any>).map(LabTestResultResponseFromJSON))),
+        'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
+        'assignedStaff': json['assignedStaff'] == null ? undefined : StaffResponseFromJSON(json['assignedStaff']),
     };
 }
 
@@ -144,6 +165,8 @@ export function LabOrderResponseToJSONTyped(value?: LabOrderResponse | null, ign
         'status': value['status'],
         'orderCode': value['orderCode'],
         'results': value['results'] == null ? undefined : (Array.from(value['results'] as Set<any>).map(LabTestResultResponseToJSON)),
+        'room': RoomResponseToJSON(value['room']),
+        'assignedStaff': StaffResponseToJSON(value['assignedStaff']),
     };
 }
 

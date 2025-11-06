@@ -50,7 +50,9 @@ export const staffNavItems = (roles: string[]) => {
   const technician = [
     { label: "Lab Orders", to: "/staff/lab-orders", icon: FlaskRound },
     { label: "Results Entry", to: "/staff/lab-results", icon: MonitorCheck },
+    { label: "Service Orders", to: "/staff/service-orders", icon: Box },
   ];
+
 
   const pharmacist = [
     { label: "Prescription Queue", to: "/staff/prescriptions", icon: Pill },
@@ -72,8 +74,10 @@ export const staffNavItems = (roles: string[]) => {
   const catalog = [
     { label: "ICD Codes", to: "/staff/icd", icon: BookOpenCheck },
     { label: "Medicines", to: "/staff/medications", icon: Pill },
-    { label: "Services", to: "/staff/services", icon: Box },
+    { label: "Services", to: "/staff/service-catalogs", icon: Box },
+    { label: "Lab Tests", to: "/staff/lab-tests", icon: FlaskRound },
   ];
+
 
   const sysadmin = [
     { label: "User Management", to: "/staff/users", icon: ShieldCheck },

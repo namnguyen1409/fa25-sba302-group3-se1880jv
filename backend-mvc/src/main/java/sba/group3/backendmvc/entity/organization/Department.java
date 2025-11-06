@@ -35,6 +35,7 @@ public class Department extends BaseEntity {
     @JoinColumn(name = "clinic_id", nullable = false)
     Clinic clinic;
 
+    @Builder.Default
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Room> rooms = new HashSet<>();
 

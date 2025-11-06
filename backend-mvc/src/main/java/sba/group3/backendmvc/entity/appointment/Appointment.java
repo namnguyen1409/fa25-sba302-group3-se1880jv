@@ -28,14 +28,17 @@ public class Appointment extends BaseEntity {
     @JoinColumn(name = "specialty_id", nullable = false)
     Specialty specialty;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "type", length = 30)
     AppointmentType type = AppointmentType.CONSULTATION;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30)
     AppointmentStatus status = AppointmentStatus.PENDING;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "source", length = 30)
     AppointmentSource source = AppointmentSource.WALK_IN;

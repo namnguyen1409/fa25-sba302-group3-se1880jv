@@ -1,5 +1,6 @@
 package sba.group3.backendmvc.dto.response.laboratory;
 
+import sba.group3.backendmvc.dto.response.organization.RoomResponse;
 import sba.group3.backendmvc.dto.response.patient.PatientResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.entity.laboratory.LabStatus;
@@ -13,5 +14,5 @@ import java.util.UUID;
  */
 public record LabOrderResponse(UUID id, PatientResponse patient, StaffResponse requestedBy, UUID examinationId,
                                LabStatus status, String orderCode,
-                               Set<LabTestResultResponse> results) implements Serializable {
+                               Set<LabTestResultResponse> results, RoomResponse room, StaffResponse assignedStaff) implements Serializable {
 }

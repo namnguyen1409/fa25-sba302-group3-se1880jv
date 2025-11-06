@@ -26,6 +26,7 @@ public class InvoiceItem extends BaseEntity {
     @Column(name = "description", nullable = false, length = 255)
     String description;
 
+    @Builder.Default
     @Column(name = "quantity", nullable = false)
     Integer quantity = 1;
 

@@ -155,7 +155,7 @@ example().catch(console.error);
 
 ## getListServiceCatalogs
 
-> CustomApiResponseListServiceCatalogResponse getListServiceCatalogs(searchFilter)
+> CustomApiResponsePageServiceCatalogResponse getListServiceCatalogs(searchFilter)
 
 
 
@@ -202,7 +202,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**CustomApiResponseListServiceCatalogResponse**](CustomApiResponseListServiceCatalogResponse.md)
+[**CustomApiResponsePageServiceCatalogResponse**](CustomApiResponsePageServiceCatalogResponse.md)
 
 ### Authorization
 

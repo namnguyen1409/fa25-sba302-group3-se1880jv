@@ -10,6 +10,7 @@ Name | Type
 `category` | string
 `price` | number
 `description` | string
+`roomType` | string
 
 ## Example
 
@@ -22,6 +23,7 @@ const example = {
   "category": null,
   "price": null,
   "description": null,
+  "roomType": null,
 } satisfies ServiceCatalogRequest
 
 console.log(example)

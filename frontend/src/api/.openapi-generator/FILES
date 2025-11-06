@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/AccountDeviceControllerApi.ts
 apis/AccountLoginActivityApi.ts
 apis/AccountProfileControllerApi.ts
@@ -74,7 +73,6 @@ docs/CustomApiResponseLabTestResultResponse.md
 docs/CustomApiResponseListAdministrativeUnitResponse.md
 docs/CustomApiResponseListDeviceSessionResponse.md
 docs/CustomApiResponseListMfaConfigResponse.md
-docs/CustomApiResponseListServiceCatalogResponse.md
 docs/CustomApiResponseListString.md
 docs/CustomApiResponseMeResponse.md
 docs/CustomApiResponseMedicineResponse.md
@@ -99,6 +97,7 @@ docs/CustomApiResponsePageMedicineResponse.md
 docs/CustomApiResponsePagePatientResponse.md
 docs/CustomApiResponsePagePositionResponse.md
 docs/CustomApiResponsePageRoomResponse.md
+docs/CustomApiResponsePageServiceCatalogResponse.md
 docs/CustomApiResponsePageSpecialtyResponse.md
 docs/CustomApiResponsePageStaffResponse.md
 docs/CustomApiResponsePageStaffScheduleResponse.md
@@ -273,7 +272,6 @@ models/CustomApiResponseLabTestResultResponse.ts
 models/CustomApiResponseListAdministrativeUnitResponse.ts
 models/CustomApiResponseListDeviceSessionResponse.ts
 models/CustomApiResponseListMfaConfigResponse.ts
-models/CustomApiResponseListServiceCatalogResponse.ts
 models/CustomApiResponseListString.ts
 models/CustomApiResponseMeResponse.ts
 models/CustomApiResponseMedicineResponse.ts
@@ -298,6 +296,7 @@ models/CustomApiResponsePageMedicineResponse.ts
 models/CustomApiResponsePagePatientResponse.ts
 models/CustomApiResponsePagePositionResponse.ts
 models/CustomApiResponsePageRoomResponse.ts
+models/CustomApiResponsePageServiceCatalogResponse.ts
 models/CustomApiResponsePageSpecialtyResponse.ts
 models/CustomApiResponsePageStaffResponse.ts
 models/CustomApiResponsePageStaffScheduleResponse.ts

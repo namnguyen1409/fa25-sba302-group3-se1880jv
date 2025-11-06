@@ -43,7 +43,42 @@ export interface ServiceCatalogRequest {
      * @memberof ServiceCatalogRequest
      */
     description?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ServiceCatalogRequest
+     */
+    roomType?: ServiceCatalogRequestRoomTypeEnum;
 }
+
+
+/**
+ * @export
+ */
+export const ServiceCatalogRequestRoomTypeEnum = {
+    Consultation: 'CONSULTATION',
+    Xray: 'XRAY',
+    Ultrasound: 'ULTRASOUND',
+    Laboratory: 'LABORATORY',
+    Procedure: 'PROCEDURE',
+    Pharmacy: 'PHARMACY',
+    Cashier: 'CASHIER',
+    Reception: 'RECEPTION',
+    WaitingArea: 'WAITING_AREA',
+    Endoscopy: 'ENDOSCOPY',
+    Ecg: 'ECG',
+    Eeg: 'EEG',
+    Dexa: 'DEXA',
+    CtScan: 'CT_SCAN',
+    Mri: 'MRI',
+    Optometry: 'OPTOMETRY',
+    Vaccination: 'VACCINATION',
+    Physiotherapy: 'PHYSIOTHERAPY',
+    Pft: 'PFT',
+    MinorSurgery: 'MINOR_SURGERY'
+} as const;
+export type ServiceCatalogRequestRoomTypeEnum = typeof ServiceCatalogRequestRoomTypeEnum[keyof typeof ServiceCatalogRequestRoomTypeEnum];
+
 
 /**
  * Check if a given object implements the ServiceCatalogRequest interface.
@@ -66,6 +101,7 @@ export function ServiceCatalogRequestFromJSONTyped(json: any, ignoreDiscriminato
         'category': json['category'] == null ? undefined : json['category'],
         'price': json['price'] == null ? undefined : json['price'],
         'description': json['description'] == null ? undefined : json['description'],
+        'roomType': json['roomType'] == null ? undefined : json['roomType'],
     };
 }
 
@@ -84,6 +120,7 @@ export function ServiceCatalogRequestToJSONTyped(value?: ServiceCatalogRequest |
         'category': value['category'],
         'price': value['price'],
         'description': value['description'],
+        'roomType': value['roomType'],
     };
 }
 

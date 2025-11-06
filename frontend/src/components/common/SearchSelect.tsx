@@ -1,23 +1,25 @@
 import * as React from "react"
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+  Command, CommandEmpty, CommandGroup,
+  CommandInput, CommandItem, CommandList,
 } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import { Loader2, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+interface Option {
+  value: string
+  label: string
+}
+
 interface SearchSelectProps {
   value?: string | null
   onChange: (value: string) => void
-  fetchOptions: (keyword: string) => Promise<Array<{ value: string; label: string }>>
+  fetchOptions: (keyword: string) => Promise<Option[]>
   placeholder?: string
   emptyText?: string
+  initialOption?: Option | null
 }
 
 export function SearchSelect({
@@ -25,37 +27,53 @@ export function SearchSelect({
   onChange,
   fetchOptions,
   placeholder = "Chọn...",
-  emptyText = "Không tìm thấy kết quả"
+  emptyText = "Không tìm thấy kết quả",
+  initialOption = null,
 }: SearchSelectProps) {
+
   const [open, setOpen] = React.useState(false)
-  const [options, setOptions] = React.useState<Array<{ value: string; label: string }>>([])
+  const [options, setOptions] = React.useState<Option[]>([])
   const [loading, setLoading] = React.useState(false)
-  
+
+  React.useEffect(() => {
+    if (value && initialOption && initialOption.value === value) {
+      setOptions(prev => {
+        const exists = prev.some(o => o.value === initialOption.value)
+        return exists ? prev : [initialOption, ...prev]
+      })
+    }
+  }, [value, initialOption])
+
   const handleSearch = async (keyword: string) => {
     setLoading(true)
     const data = await fetchOptions(keyword)
-    setOptions(data)
+    let merged = data
+    if (initialOption && initialOption.value === value) {
+      const exists = data.some(o => o.value === initialOption.value)
+      if (!exists) merged = [initialOption, ...data]
+    }
+
+    setOptions(merged)
     setLoading(false)
   }
 
-  const selectedLabel = options.find(o => o.value === value)?.label || placeholder
+  const selectedLabel =
+    options.find(o => o.value === value)?.label ||
+    initialOption?.label ||
+    placeholder
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button 
-          variant="outline"
-          className="w-full justify-between"
-        >
+        <Button variant="outline" className="w-full justify-between">
           {selectedLabel}
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-[300px] p-0">
-        <Command shouldFilter={false} >
-          <CommandInput 
-            placeholder="Tìm kiếm..." 
-            onValueChange={handleSearch}
-          />
+        <Command shouldFilter={false}>
+          <CommandInput placeholder="Tìm kiếm..." onValueChange={handleSearch} />
+
           <CommandList>
             {loading && (
               <div className="p-3 flex items-center gap-2 text-sm text-muted-foreground">
@@ -78,7 +96,7 @@ export function SearchSelect({
                     setOpen(false)
                   }}
                 >
-                  <Check 
+                  <Check
                     className={cn(
                       "mr-2 h-4 w-4",
                       opt.value === value ? "opacity-100" : "opacity-0"

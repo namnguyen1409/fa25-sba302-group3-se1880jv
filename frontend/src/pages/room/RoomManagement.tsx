@@ -1,4 +1,4 @@
-import React, { useCallback} from "react";
+import React, { useCallback } from "react";
 import {
   EntityTableWrapper,
   type FilterGroup,
@@ -13,7 +13,11 @@ import type { FormFieldConfig } from "@/components/common/FormModal";
 import { DepartmentApi } from "@/api/department/DepartmentApi";
 import { Pencil, Building2 } from "lucide-react";
 import { SearchSelect } from "@/components/common/SearchSelect";
-import type { RoomResponse } from "@/api";
+import {
+  RoomRequestRoomTypeEnum,
+  type RoomRequest,
+  type RoomResponse,
+} from "@/api";
 import { RoomApi } from "@/api/room/RoomApi";
 
 export default function RoomManagementPage() {
@@ -24,7 +28,6 @@ export default function RoomManagementPage() {
     "create" | "update" | "hidden"
   >("hidden");
   const tableRef = React.useRef<any>(null);
-
 
   const fetchRooms = async (
     page: number,
@@ -50,10 +53,43 @@ export default function RoomManagementPage() {
 
   const columns: Column<RoomResponse>[] = [
     { title: "Tên phòng", dataIndex: "name", sortable: true },
-    { title: "Loại phòng", dataIndex: "roomType", sortable: true },
+    {
+      title: "Loại phòng",
+      dataIndex: "roomType",
+      sortable: true,
+      render: (_value, record) => {
+        switch (record.roomType) {
+          case RoomRequestRoomTypeEnum.Consultation:
+            return "Tư vấn";
+          case RoomRequestRoomTypeEnum.Xray:
+            return "X-Quang";
+          case RoomRequestRoomTypeEnum.Ultrasound:
+            return "Siêu âm";
+          case RoomRequestRoomTypeEnum.Laboratory:
+            return "Phòng xét nghiệm";
+          case RoomRequestRoomTypeEnum.Procedure:
+            return "Thủ thuật";
+          case RoomRequestRoomTypeEnum.Pharmacy:
+            return "Nhà thuốc";
+          case RoomRequestRoomTypeEnum.Cashier:
+            return "Quầy thu ngân";
+          case RoomRequestRoomTypeEnum.Reception:
+            return "Lễ tân";
+          case RoomRequestRoomTypeEnum.WaitingArea:
+            return "Khu vực chờ";
+          default:
+            return "";
+        }
+      },
+    },
     { title: "Tầng", dataIndex: "floorNumber", sortable: true },
     { title: "Sức chứa", dataIndex: "capacity", sortable: true },
-    { title: "Khoa", dataIndex: "departmentName", sortable: true, render: (_value, record) => record.department?.name || "" },
+    {
+      title: "Khoa",
+      dataIndex: "departmentName",
+      sortable: true,
+      render: (_value, record) => record.department?.name || "",
+    },
     { title: "Mô tả", dataIndex: "description", sortable: false },
   ];
 
@@ -65,11 +101,18 @@ export default function RoomManagementPage() {
       type: "select",
       required: false,
       options: [
-        { value: "CLINIC", label: "Phòng khám" },
-        { value: "LAB", label: "Xét nghiệm" },
-        { value: "IMAGING", label: "Chẩn đoán hình ảnh" },
-        { value: "WARD", label: "Buồng bệnh" },
-        { value: "OTHER", label: "Khác" },
+        { label: "Tư vấn", value: RoomRequestRoomTypeEnum.Consultation },
+        { label: "X-Quang", value: RoomRequestRoomTypeEnum.Xray },
+        { label: "Siêu âm", value: RoomRequestRoomTypeEnum.Ultrasound },
+        {
+          label: "Phòng xét nghiệm",
+          value: RoomRequestRoomTypeEnum.Laboratory,
+        },
+        { label: "Thủ thuật", value: RoomRequestRoomTypeEnum.Procedure },
+        { label: "Nhà thuốc", value: RoomRequestRoomTypeEnum.Pharmacy },
+        { label: "Quầy thu ngân", value: RoomRequestRoomTypeEnum.Cashier },
+        { label: "Lễ tân", value: RoomRequestRoomTypeEnum.Reception },
+        { label: "Khu vực chờ", value: RoomRequestRoomTypeEnum.WaitingArea },
       ],
     },
     { name: "floorNumber", label: "Tầng", type: "number" },
@@ -94,6 +137,14 @@ export default function RoomManagementPage() {
                 label: String(d.name),
               }));
           }}
+          initialOption={
+            selectForForm?.department
+              ? {
+                  label: selectForForm?.department?.name!,
+                  value: selectForForm?.department?.id!,
+                }
+              : null
+          }
         />
       ),
     },
@@ -115,7 +166,7 @@ export default function RoomManagementPage() {
     formFields: formFieldConfigs,
     defaultValues: selectForForm || {},
     schema,
-    onSubmit: async (data: any) => {
+    onSubmit: async (data: RoomRequest) => {
       try {
         if (formType === "create") {
           await RoomApi.createRoom(data);

@@ -64,6 +64,7 @@ public class Staff extends BaseEntity {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Builder.Default
     @OneToMany(mappedBy = "staff", orphanRemoval = true)
     private Set<StaffSchedule> staffSchedules = new LinkedHashSet<>();
 

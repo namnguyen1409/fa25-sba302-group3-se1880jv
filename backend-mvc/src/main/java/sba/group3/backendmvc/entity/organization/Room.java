@@ -21,8 +21,9 @@ public class Room extends BaseEntity {
     @Column(name = "name", nullable = false, length = 100)
     String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "room_type", length = 50)
-    String roomType;
+    RoomType roomType;
 
     @Column(name = "floor_number")
     Integer floorNumber;

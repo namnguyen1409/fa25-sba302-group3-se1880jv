@@ -31,6 +31,7 @@ public class DispenseRecord extends BaseEntity {
     @JoinColumn(name = "dispensed_by")
     Staff dispensedBy;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30)
     DispenseStatus status = DispenseStatus.PENDING;

@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.examination.Examination;
+import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
 
@@ -38,6 +39,15 @@ public class LabOrder extends BaseEntity {
     @JoinColumn(name = "examination_id")
     Examination examination; // lần khám liên quan
 
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    Room room;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_staff_id")
+    Staff assignedStaff;
+
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30)
     LabStatus status = LabStatus.PENDING;
@@ -45,6 +55,7 @@ public class LabOrder extends BaseEntity {
     @Column(name = "order_code", nullable = false, unique = true, length = 30)
     String orderCode;
 
+    @Builder.Default
     @OneToMany(mappedBy = "labOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<LabTestResult> results = new HashSet<>();
 

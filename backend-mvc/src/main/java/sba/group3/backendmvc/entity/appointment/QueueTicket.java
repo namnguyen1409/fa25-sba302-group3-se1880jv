@@ -36,10 +36,12 @@ public class QueueTicket extends BaseEntity {
     @Column(name = "queue_number", nullable = false, unique = true, length = 10)
     String queueNumber;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30)
     QueueStatus status = QueueStatus.WAITING;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", length = 20)
     QueuePriority priority = QueuePriority.NORMAL;

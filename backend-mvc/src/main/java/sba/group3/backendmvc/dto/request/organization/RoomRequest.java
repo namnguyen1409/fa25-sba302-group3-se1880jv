@@ -1,6 +1,7 @@
 package sba.group3.backendmvc.dto.request.organization;
 
 import jakarta.validation.constraints.*;
+import sba.group3.backendmvc.entity.organization.RoomType;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -13,8 +14,8 @@ public record RoomRequest(
         @Size(max = 100, message = "Name must not exceed 100 characters")
         String name,
 
-        @Size(max = 50, message = "Room type must not exceed 50 characters")
-        String roomType,
+        @NotNull(message = "Room type is required")
+        RoomType roomType,
 
         @Min(value = 1, message = "Floor number must be at least 1")
         @Max(value = 200, message = "Floor number must not exceed 200")

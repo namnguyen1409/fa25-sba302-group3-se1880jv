@@ -2,6 +2,7 @@ package sba.group3.backendmvc.controller.examination;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +24,11 @@ public class ServiceCatalogController {
     private final RestClient.Builder builder;
 
     @PostMapping("/filter")
-    public ResponseEntity<CustomApiResponse<List<ServiceCatalogResponse>>> getListServiceCatalogs(@RequestBody SearchFilter filter) {
+    public ResponseEntity<CustomApiResponse<Page<ServiceCatalogResponse>>> getListServiceCatalogs(@RequestBody SearchFilter filter) {
         log.info("getListServiceCatalogs called with filter: {}", filter);
         return ResponseEntity.ok(
-                CustomApiResponse.<List<ServiceCatalogResponse>>builder()
-                        .data(serviceCatalogService.getListServiceCatalogs(filter))
+                CustomApiResponse.<Page<ServiceCatalogResponse>>builder()
+                        .data(serviceCatalogService.filter(filter))
                         .build()
         );
     }

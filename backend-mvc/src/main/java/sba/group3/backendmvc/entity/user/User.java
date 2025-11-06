@@ -60,6 +60,7 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<OAuthAccount> OAuthAccounts = new LinkedHashSet<>();
 

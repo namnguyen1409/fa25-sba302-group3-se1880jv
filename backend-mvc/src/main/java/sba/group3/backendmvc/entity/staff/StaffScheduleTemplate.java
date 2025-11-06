@@ -38,6 +38,7 @@ public class StaffScheduleTemplate extends BaseEntity {
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
+    @Builder.Default
     @Column(name = "active", nullable = false)
     private boolean active = true;
 

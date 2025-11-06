@@ -27,6 +27,7 @@ public class Prescription extends BaseEntity {
     @Column(name = "note", columnDefinition = "TEXT")
     String note;
 
+    @Builder.Default
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<PrescriptionItem> items = new HashSet<>();
 }

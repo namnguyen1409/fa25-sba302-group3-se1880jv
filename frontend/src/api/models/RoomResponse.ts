@@ -44,7 +44,7 @@ export interface RoomResponse {
      * @type {string}
      * @memberof RoomResponse
      */
-    roomType?: string;
+    roomType?: RoomResponseRoomTypeEnum;
     /**
      * 
      * @type {number}
@@ -70,6 +70,35 @@ export interface RoomResponse {
      */
     department?: DepartmentSimpleResponse;
 }
+
+
+/**
+ * @export
+ */
+export const RoomResponseRoomTypeEnum = {
+    Consultation: 'CONSULTATION',
+    Xray: 'XRAY',
+    Ultrasound: 'ULTRASOUND',
+    Laboratory: 'LABORATORY',
+    Procedure: 'PROCEDURE',
+    Pharmacy: 'PHARMACY',
+    Cashier: 'CASHIER',
+    Reception: 'RECEPTION',
+    WaitingArea: 'WAITING_AREA',
+    Endoscopy: 'ENDOSCOPY',
+    Ecg: 'ECG',
+    Eeg: 'EEG',
+    Dexa: 'DEXA',
+    CtScan: 'CT_SCAN',
+    Mri: 'MRI',
+    Optometry: 'OPTOMETRY',
+    Vaccination: 'VACCINATION',
+    Physiotherapy: 'PHYSIOTHERAPY',
+    Pft: 'PFT',
+    MinorSurgery: 'MINOR_SURGERY'
+} as const;
+export type RoomResponseRoomTypeEnum = typeof RoomResponseRoomTypeEnum[keyof typeof RoomResponseRoomTypeEnum];
+
 
 /**
  * Check if a given object implements the RoomResponse interface.

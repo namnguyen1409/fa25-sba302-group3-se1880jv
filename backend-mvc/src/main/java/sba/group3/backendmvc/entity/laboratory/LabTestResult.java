@@ -29,6 +29,7 @@ public class LabTestResult extends BaseEntity {
     @JoinColumn(name = "lab_test_id")
     LabTest labTest;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30)
     LabStatus status = LabStatus.PENDING;

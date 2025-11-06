@@ -38,6 +38,7 @@ public class Examination extends BaseEntity {
     @Column(name = "type", length = 50)
     ExaminationType type;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 32)
     ExaminationStatus status = ExaminationStatus.ONGOING;
@@ -48,21 +49,26 @@ public class Examination extends BaseEntity {
     @Column(name = "diagnosis_summary", columnDefinition = "TEXT")
     String diagnosisSummary;
 
+    @Builder.Default
     @Column(name = "examination_date", nullable = false)
     LocalDateTime examinationDate = LocalDateTime.now();
 
     @OneToOne(mappedBy = "examination", cascade = CascadeType.ALL)
     Prescription prescription;
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<ServiceOrder> serviceOrders = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<VitalSign> vitalSigns = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", orphanRemoval = true)
     Set<Diagnosis> diagnoses = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", orphanRemoval = true)
     Set<LabOrder> labOrders = new LinkedHashSet<>();
 

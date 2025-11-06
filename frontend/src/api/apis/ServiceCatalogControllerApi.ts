@@ -15,8 +15,8 @@
 
 import * as runtime from '../runtime';
 import type {
-  CustomApiResponseListServiceCatalogResponse,
   CustomApiResponseObject,
+  CustomApiResponsePageServiceCatalogResponse,
   CustomApiResponseServiceCatalogResponse,
   CustomApiResponseVoid,
   GetPatientById400Response,
@@ -24,10 +24,10 @@ import type {
   ServiceCatalogRequest,
 } from '../models/index';
 import {
-    CustomApiResponseListServiceCatalogResponseFromJSON,
-    CustomApiResponseListServiceCatalogResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
+    CustomApiResponsePageServiceCatalogResponseFromJSON,
+    CustomApiResponsePageServiceCatalogResponseToJSON,
     CustomApiResponseServiceCatalogResponseFromJSON,
     CustomApiResponseServiceCatalogResponseToJSON,
     CustomApiResponseVoidFromJSON,
@@ -152,7 +152,7 @@ export class ServiceCatalogControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getListServiceCatalogsRaw(requestParameters: GetListServiceCatalogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListServiceCatalogResponse>> {
+    async getListServiceCatalogsRaw(requestParameters: GetListServiceCatalogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageServiceCatalogResponse>> {
         if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
                 'searchFilter',
@@ -185,12 +185,12 @@ export class ServiceCatalogControllerApi extends runtime.BaseAPI {
             body: SearchFilterToJSON(requestParameters['searchFilter']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListServiceCatalogResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageServiceCatalogResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async getListServiceCatalogs(requestParameters: GetListServiceCatalogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListServiceCatalogResponse> {
+    async getListServiceCatalogs(requestParameters: GetListServiceCatalogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageServiceCatalogResponse> {
         const response = await this.getListServiceCatalogsRaw(requestParameters, initOverrides);
         return await response.value();
     }

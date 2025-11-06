@@ -26,6 +26,8 @@ import DepartmentManagementPage from "./pages/department/DepartmentManagement";
 import RoomManagementPage from "./pages/room/RoomManagement";
 import MedicineManagementPage from "./pages/medicine/MedicineManagement";
 import SpecialtyManagementPage from "./pages/staff/specialties/SpecialtyManagement";
+import ServiceCatalogManagementPage from "./pages/examination/service-catalog/ServiceCatalogManagement";
+import LabTestManagementPage from "./pages/laboratory/LabTestManagement";
 function App() {
   return (
     <AppProvider>
@@ -79,6 +81,8 @@ function App() {
               <Route path="rooms" element={<RoomManagementPage />} />
               <Route path="medications" element={<MedicineManagementPage />} />
               <Route path="specialties" element={<SpecialtyManagementPage />} />
+              <Route path="service-catalogs" element={<ServiceCatalogManagementPage />} />
+              <Route path="lab-tests" element={<LabTestManagementPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

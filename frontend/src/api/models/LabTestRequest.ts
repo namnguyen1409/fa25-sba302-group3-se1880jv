@@ -61,7 +61,42 @@ export interface LabTestRequest {
      * @memberof LabTestRequest
      */
     description?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LabTestRequest
+     */
+    roomType?: LabTestRequestRoomTypeEnum;
 }
+
+
+/**
+ * @export
+ */
+export const LabTestRequestRoomTypeEnum = {
+    Consultation: 'CONSULTATION',
+    Xray: 'XRAY',
+    Ultrasound: 'ULTRASOUND',
+    Laboratory: 'LABORATORY',
+    Procedure: 'PROCEDURE',
+    Pharmacy: 'PHARMACY',
+    Cashier: 'CASHIER',
+    Reception: 'RECEPTION',
+    WaitingArea: 'WAITING_AREA',
+    Endoscopy: 'ENDOSCOPY',
+    Ecg: 'ECG',
+    Eeg: 'EEG',
+    Dexa: 'DEXA',
+    CtScan: 'CT_SCAN',
+    Mri: 'MRI',
+    Optometry: 'OPTOMETRY',
+    Vaccination: 'VACCINATION',
+    Physiotherapy: 'PHYSIOTHERAPY',
+    Pft: 'PFT',
+    MinorSurgery: 'MINOR_SURGERY'
+} as const;
+export type LabTestRequestRoomTypeEnum = typeof LabTestRequestRoomTypeEnum[keyof typeof LabTestRequestRoomTypeEnum];
+
 
 /**
  * Check if a given object implements the LabTestRequest interface.
@@ -87,6 +122,7 @@ export function LabTestRequestFromJSONTyped(json: any, ignoreDiscriminator: bool
         'unit': json['unit'] == null ? undefined : json['unit'],
         'referenceRange': json['referenceRange'] == null ? undefined : json['referenceRange'],
         'description': json['description'] == null ? undefined : json['description'],
+        'roomType': json['roomType'] == null ? undefined : json['roomType'],
     };
 }
 
@@ -108,6 +144,7 @@ export function LabTestRequestToJSONTyped(value?: LabTestRequest | null, ignoreD
         'unit': value['unit'],
         'referenceRange': value['referenceRange'],
         'description': value['description'],
+        'roomType': value['roomType'],
     };
 }
 

@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { RoomResponse } from './RoomResponse';
+import {
+    RoomResponseFromJSON,
+    RoomResponseFromJSONTyped,
+    RoomResponseToJSON,
+    RoomResponseToJSONTyped,
+} from './RoomResponse';
 import type { ServiceOrderItemResponse } from './ServiceOrderItemResponse';
 import {
     ServiceOrderItemResponseFromJSON,
@@ -20,6 +27,13 @@ import {
     ServiceOrderItemResponseToJSON,
     ServiceOrderItemResponseToJSONTyped,
 } from './ServiceOrderItemResponse';
+import type { StaffResponse } from './StaffResponse';
+import {
+    StaffResponseFromJSON,
+    StaffResponseFromJSONTyped,
+    StaffResponseToJSON,
+    StaffResponseToJSONTyped,
+} from './StaffResponse';
 
 /**
  * 
@@ -45,7 +59,39 @@ export interface ServiceOrderResponse {
      * @memberof ServiceOrderResponse
      */
     items?: Set<ServiceOrderItemResponse>;
+    /**
+     * 
+     * @type {RoomResponse}
+     * @memberof ServiceOrderResponse
+     */
+    room?: RoomResponse;
+    /**
+     * 
+     * @type {StaffResponse}
+     * @memberof ServiceOrderResponse
+     */
+    assignedStaff?: StaffResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof ServiceOrderResponse
+     */
+    status?: ServiceOrderResponseStatusEnum;
 }
+
+
+/**
+ * @export
+ */
+export const ServiceOrderResponseStatusEnum = {
+    Pending: 'PENDING',
+    Ready: 'READY',
+    InProgress: 'IN_PROGRESS',
+    Completed: 'COMPLETED',
+    Cancelled: 'CANCELLED'
+} as const;
+export type ServiceOrderResponseStatusEnum = typeof ServiceOrderResponseStatusEnum[keyof typeof ServiceOrderResponseStatusEnum];
+
 
 /**
  * Check if a given object implements the ServiceOrderResponse interface.
@@ -67,6 +113,9 @@ export function ServiceOrderResponseFromJSONTyped(json: any, ignoreDiscriminator
         'id': json['id'] == null ? undefined : json['id'],
         'orderCode': json['orderCode'] == null ? undefined : json['orderCode'],
         'items': json['items'] == null ? undefined : (new Set((json['items'] as Array<any>).map(ServiceOrderItemResponseFromJSON))),
+        'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
+        'assignedStaff': json['assignedStaff'] == null ? undefined : StaffResponseFromJSON(json['assignedStaff']),
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
@@ -84,6 +133,9 @@ export function ServiceOrderResponseToJSONTyped(value?: ServiceOrderResponse | n
         'id': value['id'],
         'orderCode': value['orderCode'],
         'items': value['items'] == null ? undefined : (Array.from(value['items'] as Set<any>).map(ServiceOrderItemResponseToJSON)),
+        'room': RoomResponseToJSON(value['room']),
+        'assignedStaff': StaffResponseToJSON(value['assignedStaff']),
+        'status': value['status'],
     };
 }
 

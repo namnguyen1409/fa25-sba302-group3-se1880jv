@@ -9,6 +9,9 @@ Name | Type
 `id` | string
 `orderCode` | string
 `items` | [Set&lt;ServiceOrderItemResponse&gt;](ServiceOrderItemResponse.md)
+`room` | [RoomResponse](RoomResponse.md)
+`assignedStaff` | [StaffResponse](StaffResponse.md)
+`status` | string
 
 ## Example
 
@@ -20,6 +23,9 @@ const example = {
   "id": null,
   "orderCode": null,
   "items": null,
+  "room": null,
+  "assignedStaff": null,
+  "status": null,
 } satisfies ServiceOrderResponse
 
 console.log(example)

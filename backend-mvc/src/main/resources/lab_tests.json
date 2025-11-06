@@ -1,0 +1,1982 @@
+[
+  {
+    "name": "Đo hoạt độ ACP (Phosphatase Acid)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "Người lớn: 4,8- 13,5 U/L ở 37°C",
+    "description": "Enzym xúc tác phản ứng thủy phân 1-naphthyl phosphat. Tăng cao là chỉ điểm cho carcinoma tiền liệt tuyến, bệnh xương hoặc bệnh của hệ võng nội mô.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng ACTH",
+    "category": "MÁU",
+    "price": 375000,
+    "unit": "pmol/L",
+    "referenceRange": "Buổi sáng: < 18 pmol/L (< 80 pg/mL); Buổi chiều: < 11 pmol/L (<50 pg/mL)",
+    "description": "Định lượng Adrenocorticotropic hormone (ACTH). Sử dụng để chẩn đoán phân biệt bệnh Cushing, bệnh Addison, suy tuyến yên và hội chứng ACTH lạc chỗ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Acid Uric",
+    "category": "MÁU",
+    "price": 45000,
+    "unit": "µmol/l",
+    "referenceRange": "Nam: 202 – 416 µmol/l; Nữ: 143 – 399 µmol/l",
+    "description": "Định lượng Acid Uric, sản phẩm chuyển hóa cuối cùng của base purin. Tăng trong bệnh Goutte, suy thận. Giảm trong bệnh Willson, cơn liệt chu kỳ, Xanthin niệu.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng ADH (Anti Diuretic Hormone)",
+    "category": "MÁU",
+    "price": 1325000,
+    "unit": "pg/ml",
+    "referenceRange": null,
+    "description": "Định lượng hormone peptide ADH (Vasopressin). Sử dụng để chẩn đoán hội chứng tiết ADH không thích hợp (SIADH) và đái tháo nhạt.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Adiponectin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Nam trưởng thành: 8000 – 10000 ng/mL (8 -10 mg/L); Nữ trưởng thành : 10000 – 12000 ng/mL (10 - 12 mg/L)",
+    "description": "Định lượng polypeptide do tế bào mỡ tổng hợp. Giảm nồng độ có nguy cơ mắc bệnh béo phì, xơ vữa động mạch, bệnh động mạch vành, hội chứng chuyển hóa.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Aldosteron",
+    "category": "MÁU",
+    "price": 620000,
+    "unit": "pg/ml",
+    "referenceRange": null,
+    "description": "Định lượng Aldosteron, hormone vỏ thượng thận điều chỉnh cân bằng Natri/Kali. Dùng để phân biệt Aldosteronism tiên phát và thứ phát.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Albumin",
+    "category": "MÁU",
+    "price": 68000,
+    "unit": "g/l",
+    "referenceRange": "34 – 48 g/l",
+    "description": "Định lượng Albumin trong máu. Tăng trong mất nước. Giảm trong bệnh thận (suy thận, hội chứng thận hư), viêm gan nặng, xơ gan, kém hấp thu, ung thư, nhiễm trùng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Alpha1 Antitrypsin",
+    "category": "MÁU",
+    "price": 128000,
+    "unit": "µmol/L",
+    "referenceRange": "16,6 – 36,8 µmol/L (90 – 200 mg/dL hoặc 0,9 – 2,0 g/L)",
+    "description": "Định lượng protein do gan sản xuất. Thiếu hụt AAT có thể liên quan đến bệnh lý về phổi hoặc bệnh gan (hen, khí phế thũng; xơ gan).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ ALP (Alkalin Phosphatase)",
+    "category": "MÁU",
+    "price": 55000,
+    "unit": "U/L",
+    "referenceRange": "Nam: 40 – 129 U/L; Nữ: 35 – 104 U/L",
+    "description": "Đo hoạt độ enzyme Alkaline Phosphatase (ALP). Tăng trong tắc mật, bệnh xương (còi, mềm, xơ cứng, ung thư), bệnh gan, cường cận giáp, thiếu Vitamin D. Giảm trong giảm ALP gia đình, suy giáp, thiếu Vitamin C.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ Amylase",
+    "category": "MÁU",
+    "price": 58000,
+    "unit": "U/L",
+    "referenceRange": "< 100 U/L",
+    "description": "Đo hoạt độ enzyme Amylase. Tăng trong bệnh tụy (viêm tụy cấp và mạn), bệnh đường mật, bệnh ổ bụng không phải bệnh tụy, quai bị, tắc tuyến nước bọt.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Amoniac ( NH3)",
+    "category": "MÁU",
+    "price": 150000,
+    "unit": "µmol/L",
+    "referenceRange": "Nam: 14.7 - 55.3 µmol/L (25-94 µg/dL); Nữ: 11.2 - 48.2 µmol/L (19-82 µg/dL); Trẻ em: 28 – 57 mol/L (40 – 80 mg/L); Trẻ sơ sinh: 64 – 1072 mol/L (90 – 150 mg/L)",
+    "description": "Định lượng Amoniac (NH3) trong máu. Tăng trong xơ gan, hội chứng tăng nitơ máu, xuất huyết tiêu hóa, suy tim, suy gan, bệnh não gan.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng AMH ( Anti- Mullerian Hormone)",
+    "category": "MÁU",
+    "price": 699000,
+    "unit": "ng/mL",
+    "referenceRange": "Khả năng sinh sản tối ưu: 4,0 - 6,8 ng/mL; Khả năng sinh sản tốt: 2,2 – 4,0 ng/mL; Khả năng sinh sản kém: 0,3 – 2,2 ng/mL; Khả năng sinh sản rất kém: 0,0 – 0,3ng/mL",
+    "description": "Định lượng Anti-Mullerian Hormone (AMH). Sử dụng để đánh giá khả năng sinh sản, dự trữ buồng trứng (nữ), chẩn đoán rối loạn giới tính (bé trai) và theo dõi ung thư buồng trứng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Anti CCP",
+    "category": "MÁU",
+    "price": 405000,
+    "unit": "U/ml",
+    "referenceRange": "<17 U/ml",
+    "description": "Định lượng kháng thể Anti cyclic citrullinated peptides (Anti CCP). Tăng trong Viêm khớp dạng thấp, giúp chẩn đoán sớm bệnh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Anti-Tg (Antibody- Thyroglobulin)",
+    "category": "MÁU",
+    "price": 300000,
+    "unit": "IU/mL",
+    "referenceRange": "< 115 IU/mL",
+    "description": "Định lượng kháng thể kháng Thyroglobulin (Anti-TG). Thường được chỉ định trong viêm tuyến giáp Hasimoto, ung thư giáp, Basedow. Giảm nồng độ có giá trị theo dõi hiệu quả điều trị.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Anti - TPO (Anti- thyroid Peroxidase antibodies)",
+    "category": "MÁU",
+    "price": 350000,
+    "unit": "IU/mL",
+    "referenceRange": "<34 IU/mL",
+    "description": "Định lượng kháng thể kháng Thyroid Peroxidase (Anti-TPO). Thường được chỉ định trong viêm tuyến giáp Hasimoto, Basedow.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Apo A1 (Apolipoprotein A1)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "Nam: 105 – 175 mg/dl; Nữ: 105 – 205 mg/dl",
+    "description": "Định lượng Apo A1, thành phần chính của HDL. Giảm là yếu tố dự báo nguy cơ xơ vữa động mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Apo B (Apolipoprotein B)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "Nam: 60 - 140 mg/dl; Nữ: 66 - 130 mg/dl",
+    "description": "Định lượng Apo B, thành phần chính của LDL. Tăng là yếu tố dự báo nguy cơ xơ vữa động mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng AFP (Alpha Fetoproteine)",
+    "category": "MÁU",
+    "price": 190000,
+    "unit": "ng/ml",
+    "referenceRange": "< 7.0 ng/ml",
+    "description": "Định lượng Alpha Fetoproteine (AFP). Tăng trong ung thư gan nguyên phát, u nguyên bào phôi. Phối hợp với βHCG và uE3 để chẩn đoán trước sinh đối với bệnh Down và dị tật bẩm sinh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ ALT (GPT)",
+    "category": "MÁU",
+    "price": 83000,
+    "unit": "U/L",
+    "referenceRange": "Nam: < 41 U/L; Nữ: <31 U/L",
+    "description": "Đo hoạt độ enzyme Alanin transaminase (ALT/GPT). Tăng trong bệnh gan (viêm gan cấp, mạn, xơ gan, ung thư gan), bệnh tim (suy tim sung huyết, viêm màng ngoài tim, nhồi máu cơ tim), viêm túi mật, nhiễm độc rượu cấp, hoại tử thận, cơ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ AST (GOT)",
+    "category": "MÁU",
+    "price": 83000,
+    "unit": "U/L",
+    "referenceRange": "Nam: < 37 U/L; Nữ: < 31 U/L",
+    "description": "Đo hoạt độ enzyme Aspatat transaminase (AST/GOT). Tăng trong bệnh gan (viêm gan virus cấp, xơ gan, viêm gan do rượu, ung thư di căn), bệnh tim (nhồi máu cơ tim, viêm cơ tim), viêm túi mật, nhiễm độc rượu cấp, viêm tụy cấp hoại tử.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng α1 Acid Glycoprotein",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dL",
+    "referenceRange": "50 – 120 mg/dL",
+    "description": "Định lượng protein pha cấp Alpha 1 Acid Glycoprotein. Tăng trong các tình trạng viêm và nhiễm trùng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng β2 microglobulin",
+    "category": "MÁU",
+    "price": 300000,
+    "unit": "mg/L",
+    "referenceRange": "0,8 -2,2 mg/L (68 – 186 nmol/L)",
+    "description": "Định lượng Beta 2 Microglobulin. Tăng trong bệnh suy thận, leucemie mạn, Waldenstron, Kahler, Lupus ban đỏ, viêm gan tiến triển.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Beta Crosslap",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Nam: 30-50 tuổi: 0.3 (300 pg/mL); Nữ (Trước mãn kinh): 0.299 (299 pg/mL); Nữ (Sau mãn kinh): 0.556 (556 pg/mL)",
+    "description": "Định lượng Telopeptides đầu tận C (β-CTx). Đánh giá sự tiêu hủy xương và theo dõi hiệu quả điều trị thuốc chống loãng xương.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng βhCG (Beta human Chorionic gonadotropins)",
+    "category": "MÁU",
+    "price": 250000,
+    "unit": "IU/L",
+    "referenceRange": "Bình thường, ở phụ nữ không mang thai βhCG tự do <0.013 IU/L; Phụ nữ có thai: 12 tuần: 49.9 IU/L; 13 tuần: 40.6 IU/L; 14 tuần: 33.6 IU/L; 15 tuần: 29.8 IU/L",
+    "description": "Định lượng beta hCG tự do. Phát hiện phụ nữ mang thai, chẩn đoán chửa trứng, ung thư rau, chẩn đoán trước sinh (hội chứng Down).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Bilirubin trực tiếp",
+    "category": "MÁU",
+    "price": 30000,
+    "unit": "µmol/l",
+    "referenceRange": "< 5.1 µmol/l",
+    "description": "Định lượng Bilirubin liên hợp (trực tiếp). Tăng trong tắc mật trong gan (viêm gan, xơ gan) và tắc mật ngoài gan (sỏi, ung thư, hạch to).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Bilirubin gián tiếp",
+    "category": "MÁU",
+    "price": 30000,
+    "unit": "µmol/l",
+    "referenceRange": "< 12 µmol/l",
+    "description": "Định lượng Bilirubin tự do (gián tiếp). Tăng trong tắc mật trong gan, tắc mật ngoài gan, tan máu, vàng da sơ sinh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Bilirubin toàn phần",
+    "category": "MÁU",
+    "price": 70000,
+    "unit": "µmol/l",
+    "referenceRange": "<17.1 µmol/l",
+    "description": "Định lượng Bilirubin toàn phần. Tăng trong tắc mật trong gan, tắc mật ngoài gan, vàng da tiêu huyết, vàng da sơ sinh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng BNP (B- Type Natriuretic Peptide)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "Nhóm tuổi < 45: 39 pg/mL; 45-54: 28 pg/mL; 55-64: 21 pg/mL; 65-74: 37 pg/mL; ≥ 75: 47 pg/mL (Giá trị Mean)",
+    "description": "Định lượng B-Type Natriuretic Peptide. Sử dụng để sàng lọc, chẩn đoán và theo dõi suy tim cấp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Calci toàn phần",
+    "category": "MÁU",
+    "price": 70000,
+    "unit": "mmol/l",
+    "referenceRange": "2.15-2.55 mmol/l",
+    "description": "Định lượng Calcium toàn phần. Tăng trong cường cận giáp, dùng nhiều Vitamin D, đa u tủy xương, ung thư. Giảm trong nhược cận giáp, thiếu Vitamin D, viêm thận, viêm tụy.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Calci ion hoá",
+    "category": "MÁU",
+    "price": 165000,
+    "unit": "mmol/l",
+    "referenceRange": "1.17 – 1.29 mmol/l",
+    "description": "Định lượng Canxi ion hóa (tính toán). Dùng để đánh giá tình trạng bệnh lý của cơ thể chính xác hơn Canxi toàn phần vì Canxi ion hóa là phần Canxi lưu hành có tác dụng sinh học.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng canci ion hóa bằng điện cực chọn lọc",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/l",
+    "referenceRange": "> 1.17-1.29 mmol/l",
+    "description": "Định lượng Canxi ion hóa (phương pháp điện cực chọn lọc). Dùng để đánh giá tình trạng bệnh lý của cơ thể chính xác hơn Canxi toàn phần vì Canxi ion hóa là phần Canxi lưu hành có tác dụng sinh học.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CA 125 (cancer antigen 125)",
+    "category": "MÁU",
+    "price": 235000,
+    "unit": "U/ml",
+    "referenceRange": "< 35 U/ml",
+    "description": "Định lượng Kháng nguyên ung thư 125 (CA-125). Tăng cao trong ung thư buồng trứng, nội mạc tử cung, vú, viêm nội mạc, viêm phần phụ, viêm tụy xơ gan. Dùng để chẩn đoán và theo dõi điều trị ung thư buồng trứng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CA 19 - 9 (carbohydrate antigen 19-9)",
+    "category": "MÁU",
+    "price": 260000,
+    "unit": "U/ml",
+    "referenceRange": "<39 U/ml",
+    "description": "Định lượng Carbohydrate antigen 19-9 (CA 19-9). Tăng cao trong ung thư tụy, dạ dày, đường mật, đại tràng và xơ gan, hoại tử tế bào gan, viêm đường mật, viêm tụy cấp/mạn. Có giá trị nhất trong chẩn đoán ung thư tụy.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CA 15 - 3 (cancer antigen 15- 3)",
+    "category": "MÁU",
+    "price": 235000,
+    "unit": "U/ml",
+    "referenceRange": "< 25 U/ml",
+    "description": "Định lượng Cancer antigen 15-3 (CA 15-3). Tăng cao trong ung thư vú, phổi, buồng trứng, tiền liệt tuyến. Có giá trị nhất trong chẩn đoán ung thư vú và theo dõi điều trị.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CA 72 - 4 (cancer antigen 72- 4)",
+    "category": "MÁU",
+    "price": 260000,
+    "unit": "U/ml",
+    "referenceRange": "<6.9 U/ml",
+    "description": "Định lượng Cancer antigen 72-4 (CA 72-4). Tăng cao trong ung thư dạ dày, buồng trứng và một số khối u di căn khác. Phối hợp với CEA làm tăng giá trị chẩn đoán ung thư dạ dày.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Calcitonin",
+    "category": "MÁU",
+    "price": 320000,
+    "unit": "pg/mL",
+    "referenceRange": "Nam: 8,4 pg/mL (2,46 pmol/L) (median); Nữ: 5,0 pg/mL (1,46 pmol/L) (median)",
+    "description": "Định lượng hormone điều hòa canxi. Tăng trong ung thư tuyến giáp thể tủy, tăng sản tuyến cận giáp, xơ gan do rượu, ung thư vú. Giúp chẩn đoán và theo dõi tái phát/di căn của ung thư tuyến giáp thể tủy.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Carbamazepin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "4-12 µg/mL (Liều điều trị)",
+    "description": "Định lượng thuốc chống động kinh Carbamazepine. Dùng để theo dõi nồng độ thuốc trong máu và đánh giá nguy cơ ngộ độc.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Ceruloplasmin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "20 - 60 mg/dl",
+    "description": "Định lượng protein chứa đồng. Sử dụng trong chẩn đoán bệnh Wilson và đánh giá quá trình chuyển hoá đồng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CEA (carcino embryonic antigen)",
+    "category": "MÁU",
+    "price": 260000,
+    "unit": "ng/mL",
+    "referenceRange": "Người không hút thuốc lá: < 3.4 ng/mL; Người hút thuốc lá : < 4.3 ng/mL",
+    "description": "Định lượng Carcinoembryonic antigen (CEA). Tăng cao nhất trong ung thư đại trực tràng, ung thư vú, phổi, buồng trứng. Dùng để theo dõi hiệu quả điều trị.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ Cholinesterase (ChE)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "Trẻ em, nam giới, nữ giới độ tuổi 40: 5300-12900 U/L; Phụ nữ 16-39 tuổi (không thai, không dùng thuốc tránh thai): 4260 - 11250 U/L; Phụ nữ 18-41 tuổi (có thai, dùng thuốc tránh thai): 3650 - 9120 U/L",
+    "description": "Đo hoạt độ Cholinesterase (ChE). Giảm trong ngộ độc thuốc trừ sâu phospho hữu cơ/carbamat, nhiễm trùng cấp, thiếu máu, xơ gan vàng da, tăng bạch cầu đa nhân, ung thư di căn, lao, Hội chứng ure máu cao.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cholesterol toàn phần",
+    "category": "MÁU",
+    "price": 70000,
+    "unit": "mmol/l",
+    "referenceRange": "3.9 - 5.2 mmol/l",
+    "description": "Định lượng Cholesterol toàn phần. Sử dụng để phát hiện nguy cơ xơ vữa động mạch, chẩn đoán và theo dõi điều trị rối loạn lipid.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ CK (Creatine kinase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "Nam: 38-174 U/L-37°C; Nữ: 26 - 140 U/L- 37°C",
+    "description": "Đo hoạt độ Creatine Kinase (CK) toàn phần. Tăng trong bệnh tai biến mạch não cấp, nhồi máu cơ tim, chấn thương não/cơ, sau phẫu thuật tim, viêm da/cơ, tiêu cơ vân, nhồi máu phổi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ CK-MB (Isozym MB of Creatine kinase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "< 24 U/L",
+    "description": "Đo hoạt độ CK-MB. Tăng trong nhồi máu cơ tim cấp. Dùng để tính tỷ lệ CK-MB/CK toàn phần (>6% ủng hộ chẩn đoán NMCT).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CK-MB mass",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Nam: 0.97 ng/mL (Median); Nữ: 1.35 ng/mL (Median)",
+    "description": "Định lượng nồng độ CK-MB mass. Tăng trong nhồi máu cơ tim, viêm cơ tim, sau khử rung tim, suy tim ứ huyết, chấn thương tim.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng C-Peptid",
+    "category": "MÁU",
+    "price": 340000,
+    "unit": "pmol/L",
+    "referenceRange": "17,8 -173 pmol/L (2,6 – 24,9 U/mL)",
+    "description": "Định lượng C-Peptide, peptide được sản xuất cùng insulin. Giúp đánh giá khả năng hoạt động của tế bào beta của tụy nội tiết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cortisol",
+    "category": "MÁU",
+    "price": 220000,
+    "unit": "nmol/L",
+    "referenceRange": "Trước 10 giờ sáng: 101,2 – 535,7 nmol/L; Sau 5 giờ chiều: 79,0 – 477,8 nmol/L",
+    "description": "Định lượng hormone glucocorticoid Cortisol. Giúp đánh giá chức năng tuyến thượng thận (bệnh Cushing, bệnh Addison) và điều hòa đường, điện giải, nước.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cystatine C",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/L",
+    "referenceRange": "0.47 - 1,09 mg/L",
+    "description": "Định lượng Cystatin C. Giúp phát hiện sớm bệnh thận, ít phụ thuộc vào yếu tố khác (tuổi, giới, cân nặng, khối cơ) so với creatinin.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng bổ thể C3",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "90-180 mg/dl",
+    "description": "Định lượng bổ thể C3 (Complement 3). Tăng trong thấp khớp cấp, viêm khớp dạng thấp, Lupus ban đỏ giai đoạn đầu, Ung thư. Giảm trong Lupus ban đỏ toàn thân, viêm cầu thận, thải loại ghép thận cấp, xơ gan, nhiễm khuẩn huyết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng bổ thể C4",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "10.0 – 40.0 mg/dl",
+    "description": "Định lượng bổ thể C4 (Complement 4). Tăng trong viêm khớp dạng thấp thanh niên, Ung thư. Giảm trong Lupus ban đỏ rải rác, Viêm cầu thận, Xơ gan, Viêm màng trong tim nhiễm khuẩn.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng CRP hs (C-reactive protein high sesitivity)",
+    "category": "MÁU",
+    "price": 110000,
+    "unit": "mg/dl",
+    "referenceRange": "< 0.5 mg/dl",
+    "description": "Định lượng C-reactive protein độ nhạy cao. Tăng trong thấp khớp dạng thấp, sốt thấp khớp, nhồi máu cơ tim, nhiễm khuẩn, phế viêm do phế cầu. Dùng để sàng lọc, chẩn đoán và theo dõi suy tim.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Creatinin",
+    "category": "MÁU",
+    "price": 68000,
+    "unit": "µmol/L",
+    "referenceRange": "Nam: 62- 106 μmol/L; Nữ: 44 – 88 μmol/L; Trẻ em: 15 – 77 μmol/L",
+    "description": "Định lượng Creatinin trong máu. Tăng trong suy thận, ngộ độc thủy ngân, lupus ban đỏ, ung thư, bệnh bạch cầu, bệnh tim mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cyfra 21- 1",
+    "category": "MÁU",
+    "price": 240000,
+    "unit": "ng/mL",
+    "referenceRange": "< 3,3 ng/mL",
+    "description": "Định lượng mảnh cytokeratin 19. Tăng cao và có giá trị nhất trong ung thư phổi không phải tế bào nhỏ. Tăng trong ung thư bàng quang, buồng trứng, cổ tử cung. Theo dõi hiệu quả điều trị và tái phát.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng cyclosphorin",
+    "category": "MÁU",
+    "price": null,
+    "unit": null,
+    "referenceRange": null,
+    "description": "Định lượng thuốc ức chế miễn dịch Cyclosporin trong máu toàn phần. Dùng để chống thải ghép ở người bệnh ghép tạng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng D-Dimer",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/L",
+    "referenceRange": "< 50µg/L (0,05mg/L)",
+    "description": "Định lượng sản phẩm thoái giáng của Fibrin. Tăng trong tắc mạch phổi, huyết khối tĩnh mạch sâu, đông máu rải rác trong lòng mạch, nhồi máu cơ tim, sản giật, chấn thương. Giúp chẩn đoán bệnh lý huyết khối.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng 25OH Vitamin D (D3)",
+    "category": "MÁU",
+    "price": 594000,
+    "unit": "nmol/L",
+    "referenceRange": "50 - 80 nmol/L (20-30 ng/mL)",
+    "description": "Định lượng 25-OH vitamin D3. Có chức năng duy trì nồng độ calci và phospho, liên quan đến mật độ xương. Thiếu Vitamin D liên quan đến một số bệnh lý.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Digoxin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "0.9 - 1.2 ng/mL (Khoảng điều trị thông thường)",
+    "description": "Định lượng thuốc trợ tim Digoxin. Dùng để theo dõi nồng độ thuốc trong máu và tránh ngộ độc (> 2.0 ng/mL).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Digitoxin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "10-30 ng/mL (Đủ đảm bảo tác dụng điều trị)",
+    "description": "Định lượng thuốc trợ tim Digitoxin. Dùng để theo dõi nồng độ thuốc trong máu và tránh gây độc (>30 ng/mL).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng các chất điện giải (Na, K, Cl)",
+    "category": "MÁU",
+    "price": 84000,
+    "unit": "mmol/l",
+    "referenceRange": "Na: 133 – 147 mmol/l; K: 3.4 – 4.5 mmol/l; Clo: 94 – 111 mmol/l",
+    "description": "Định lượng các ion quan trọng (Na+, K+, Cl-). Đánh giá rối loạn cân bằng nước, điện giải, toan-kiềm, chức năng thận/thượng thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng FABD (Fatty acid binding protein)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/ml",
+    "referenceRange": "Người lớn: 4,0 - 33,85 IU/mL",
+    "description": "Định lượng Protein gắn với acid béo (H-FABP). Là dấu ấn sinh học tim mạch nhạy cho thiếu máu cục bộ cơ tim. Tăng sớm sau nhồi máu cơ tim (3 giờ) và trở về bình thường trong 12-24 giờ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Ethanol (cồn)",
+    "category": "MÁU",
+    "price": 170000,
+    "unit": "mmol/L",
+    "referenceRange": "<10.9 mmol/L",
+    "description": "Định lượng nồng độ cồn Ethanol trong máu. Dùng để đánh giá mức độ ngộ độc cồn (10.9-21.7 mmol/l: đỏ mặt, nôn mửa; 86.8 mmol/l: nguy hại tính mạng).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Estradiol",
+    "category": "MÁU",
+    "price": 240000,
+    "unit": "pmol/l",
+    "referenceRange": "Nam giới: 28 – 156 pmol/l; Nữ (Pha nang): 46 – 407 pmol/l; Nữ (Rụng trứng): 315 – 1828 pmol/l; Nữ (Thể vàng): 161 – 774 pmol/l; Nữ (Tiền mãn kinh): 18.4 – 201 pmol/l",
+    "description": "Định lượng hormone sinh dục Estradiol (E2). Đánh giá chức năng sinh sản, rối loạn kinh nguyệt. Tăng trong dậy thì sớm, u lớp vỏ/hạt nang trứng. Giảm trong hội chứng buồng trứng không phát triển, dọa sảy thai, HC Sheehan.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng E3 không liên hợp (Unconjugated Estriol)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Giới hạn đo: 0,25 – 30 ng/mL",
+    "description": "Định lượng Estriol không liên hợp (uE3). Giảm trong quý II thai kỳ liên quan đến bất thường nhiễm sắc thể (Hội chứng Down, Edward) hoặc thiếu hụt steroid sulfatase nhau thai. Dùng trong sàng lọc trước sinh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Ferritin",
+    "category": "MÁU",
+    "price": 130000,
+    "unit": "ng/mL",
+    "referenceRange": "Nam: 30 - 400 ng/mL; Nữ: 13 - 150 ng/mL",
+    "description": "Định lượng Ferritin (protein dự trữ sắt). Tăng trong Hodgkin, Lơ xê mi cấp, ung thư gan, tụy, phổi, suy thận mạn. Giảm trong thiếu máu do thiếu sắt.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Fructosamin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µmol/L",
+    "referenceRange": "205p-285 µmol/L",
+    "description": "Định lượng Fructosamin (Albumin gắn Glucose). Kiểm tra mức đường huyết trong khoảng 2-3 tuần trước đó. Tăng ở người đái tháo đường.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng FSH (Follicular stimulating hormone)",
+    "category": "MÁU",
+    "price": 200000,
+    "unit": "mIU/ml",
+    "referenceRange": "Nam: 1.5 – 12.4 mIU/ml; Nữ (Pha nang): 3.5 – 12.5 mIU/ml; Nữ (Pha rụng trứng): 4.7 – 21.5 mIU/ml; Nữ (Thể vàng): 1.7 – 7.7 mIU/ml; Nữ (Tiền mãn kinh): 25.8 – 134.8 mIU/ml",
+    "description": "Định lượng hormone kích thích nang trứng (FSH). Đánh giá chức năng tuyến sinh dục/rối loạn kinh nguyệt. Tăng trong dậy thì sớm, thiểu năng buồng trứng/tinh hoàn. Giảm trong HC mãn kinh, thiểu năng vùng dưới đồi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng free βHCG (Free Beta Human chorionic gonadotropin)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "IU/L",
+    "referenceRange": "Bình thường, ở phụ nữ không mang thai <0.013 IU/L",
+    "description": "Định lượng βhCG tự do. Tăng trong những trường hợp thai phụ có thai mắc hội chứng Down. Dùng trong sàng lọc trước sinh (kết hợp với PAPP-A).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Folate",
+    "category": "MÁU",
+    "price": 350000,
+    "unit": "nmol/L",
+    "referenceRange": "9.5 – 45.2 nmol/L",
+    "description": "Định lượng Vitamin B9 (axít Folic). Giảm trong thiếu máu ác tính, thiếu máu hủy huyết, thiếu máu hồng cầu to, dinh dưỡng kém, xơ gan, cường giáp. Dùng để chẩn đoán thiếu dinh dưỡng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng FT3 (Free Triiodothyronine)",
+    "category": "MÁU",
+    "price": 170000,
+    "unit": "pmol/l",
+    "referenceRange": "3.95 - 6.8 pmol/l",
+    "description": "Định lượng Free Triiodothyronine (FT3). Tăng trong cường giáp, nhiễm độc giáp. Giảm trong thiểu năng vùng dưới đồi yên, suy giáp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng FT4 (Free thyroxine)",
+    "category": "MÁU",
+    "price": 170000,
+    "unit": "pmol/l",
+    "referenceRange": "12 -22 pmol/l",
+    "description": "Định lượng Free thyroxine (FT4). Tăng trong cường giáp, nhiễm độc giáp. Giảm trong thiểu năng vùng dưới đồi yên, suy giáp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Galectin 3",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Chung cho cả nam và nữ: 9.3-25.7 ng/mL",
+    "description": "Định lượng Galectin 3. Tăng trong suy tim, nhồi máu cơ tim. Chủ yếu liên quan đến bệnh lý tim mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Gastrin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "Giá trị trung vị: 32 pg/mL; Giới hạn 95%: 13 – 115 pg/mL",
+    "description": "Định lượng Gastrin, hormone tiêu hóa. Dùng để xác định Hội chứng Zollinger-Ellison (tăng Gastrin) và các trường hợp suy giảm tiết acid dạ dày.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ G6PD (Glucose -6 phosphat dehydrogenase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "IU/gHb",
+    "referenceRange": "> 200 IU/10^12 Hồng cầu hoặc > 6.0 IU/gHb",
+    "description": "Đo hoạt độ enzyme G6PD. Thiếu hụt G6PD là rối loạn di truyền liên quan giới tính, gây thiếu máu hồng cầu hình cầu hiếm gặp và bệnh huyết tán không do miễn dịch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng GH (Growth Hormone)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/ml",
+    "referenceRange": "Người trưởng thành (sau một đêm nhịn đói) < 7ng/mL hoặc thấp hơn",
+    "description": "Định lượng hormone tăng trưởng (GH). Dùng để chẩn đoán rối loạn phát triển ở trẻ em (lùn tuyến yên, khổng lồ) và to đầu chi (người trưởng thành).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ GLDH (Glutamat dehydrogenase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "Nam: ≤ 5.0 U/L; Nữ : ≤ 7.0 U/L",
+    "description": "Đo hoạt độ enzyme GLDH. Dùng trong chẩn đoán phân biệt bệnh gan, đặc biệt khi kết hợp với aminotransferase. Tăng trong hoại tử tế bào gan nặng (gan thiếu oxy, nhiễm độc).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Glucose",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/l",
+    "referenceRange": "Người lớn: 3.9 – 6.4 mmol/l; Trẻ em: 3.3 – 5.6 mmol/l; Trẻ sơ sinh: 2.2 – 4.4 mmol/l",
+    "description": "Định lượng Glucose trong máu. Tăng trong đái tháo đường, viêm/ung thư tụy, u tủy thượng thận, cường giáp. Giảm trong suy tuyến yên/giáp, bệnh Insulinoma, thiếu dinh dưỡng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Globulin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "g/l",
+    "referenceRange": "34 – 48 g/l (Tính toán từ Protein toàn phần - Albumin)",
+    "description": "Định lượng Globulin trong máu (tính toán). Tăng trong viêm cấp/mạn, đa u tủy xương. Giảm trong suy giảm miễn dịch, bỏng nặng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ GGT (Gama Glutamyl Transferase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "Nam: 8 – 61 U/L; Nữ: 5 – 36 U/L",
+    "description": "Đo hoạt độ enzyme Gama Glutamyl Transferase (GGT). Tăng trong bệnh lý gan, mật (viêm gan, xơ gan, tắc mật), nhiễm độc rượu cấp, viêm tụy cấp/mạn. Dùng để phát hiện người nghiện rượu và theo dõi tắc mật.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng GLP-1",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pmol/L",
+    "referenceRange": "Khi đói: 0,3 - 18,5 pmol/L (nhịn tối thiểu 12h); Khi ăn bình thường: 2,1 - 24,7 pmol/L",
+    "description": "Định lượng Total Glucagon-like peptid-1 (GLP-1). Ứng dụng trong điều trị và theo dõi bệnh đái tháo đường vì có tác dụng hạ đường huyết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Gentamicin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "5- 10 µg/mL (Liều điều trị thường có nồng độ)",
+    "description": "Định lượng kháng sinh Gentamicin. Dùng để theo dõi nồng độ thuốc trong máu. Nồng độ >10 µg/mL kéo dài gây ngộ độc thần kinh và thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Haptoglobulin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µmol/L",
+    "referenceRange": "3.0 - 20.0 µmol/L",
+    "description": "Định lượng protein gắn Hemoglobin. Giảm trong thiếu máu tan máu, không có Haptoglobin bẩm sinh, bệnh hồng cầu hình liềm. Tăng trong nhiễm trùng cấp/mạn, thấp khớp cấp, viêm phổi, nhồi máu cơ tim, có thai.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng HBsAg (HBsAg Quantitative) ( CMIA / ECLIA)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "IU/mL",
+    "referenceRange": "< 0,05 IU/mL (Không có phản ứng)",
+    "description": "Định lượng Kháng nguyên bề mặt virus viêm gan B (HBsAg). Ngoài xác định tình trạng nhiễm HBsAg, còn quan trọng trong việc theo dõi điều trị viêm gan siêu vi B (kết hợp với PCR DNA định lượng).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ HBDH (Hydroxy butyrat dehydrogenase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "90- 180 U/L",
+    "description": "Đo hoạt độ enzyme Hydroxybutyrat dehydrogenase (HBDH). Dùng để đánh giá các isoenzym của LDH (tỷ lệ LDH/HBDH). Giảm tỷ lệ trong nhồi máu cơ tim.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng HbA1c",
+    "category": "MÁU",
+    "price": null,
+    "unit": "%",
+    "referenceRange": "4- 6 % (tăng khi > 6,5% )",
+    "description": "Định lượng Hemoglobin A1c. Đánh giá mức đường huyết trung bình trong suốt đời sống hồng cầu (khoảng 2-3 tháng). Dùng để theo dõi và chẩn đoán đái tháo đường.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng HDL-C (High density lipoprotein Cholesterol)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/L",
+    "referenceRange": "≥ 0,9 mmol/L",
+    "description": "Định lượng High Density Lipoprotein cholesterol (HDL-C). Giảm là yếu tố dự báo nguy cơ xơ vữa động mạch, bệnh tim mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng HE4",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pmol/L",
+    "referenceRange": "<40 tuổi: <60.5 pmol/L; 40 – 49 tuổi: <76.2 pmol/L; 50 – 59 tuổi: <74.3 pmol/L; 60 -69 tuổi: < 82.9 pmol/L; >70 tuổi: < 104 pmol/L",
+    "description": "Định lượng Human Epydidymal protein 4 (HE4). Tăng trong ung thư buồng trứng và tăng sớm hơn CA 125. Dùng để theo dõi điều trị và tính chỉ số ROMA (Xác suất tiên đoán) để phân tầng nguy cơ cho người bệnh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Homocystein",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µmol/L",
+    "referenceRange": "Nam: 7,4 – 15,7 mol/L (1-2,12mg/L); Nữ: 3,9 – 14,8 mol/L (0,53 – 2mg/L)",
+    "description": "Định lượng acid amin Homocystein (Hcy). Tăng là yếu tố nguy cơ mắc bệnh tim mạch, đái Hcy bẩm sinh, thiếu vitamin B6, B12, acid folic.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IL-1α (Interleukin 1α)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/ml",
+    "referenceRange": null,
+    "description": "Định lượng Interleukin-1α. Thường ít được phát hiện ngoại trừ bệnh nghiêm trọng khi các cytokine được giải phóng từ tế bào chết. Mức độ IL-1α tương quan đến mức độ trầm trọng của các bệnh viêm đường ruột, nhiễm trùng huyết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IL -1β (Interleukin 1β)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/ml",
+    "referenceRange": null,
+    "description": "Định lượng Interleukin-1β. Được chứng minh ngăn cản việc tiết insulin và giảm hàm lượng insulin, glucagon. Đóng vai trò quan trọng trong phát triển bệnh tiểu đường type I.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IL-6 ( Interleukin 6)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "Khoảng giá trị tham chiếu đến 7 pg/mL (bách phân vị 95%)",
+    "description": "Định lượng Interleukin 6. Nguồn gốc từ các tế bào T, đại thực bào, tổ chức cơ, nguyên bào xương, mạch máu. Có chức năng tiền viêm và chống viêm. Tăng trong nhiễm trùng huyết (SIRS, sepsis, sốc nhiễm trùng).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IL-8 (Interleukin 8)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "<62 pg/mL",
+    "description": "Định lượng Interleukin-8 (một chemokine). Tăng trong các quá trình viêm như Bệnh vảy nến, xơ hóa phổi, bệnh màng phổi, viêm khớp dạng thấp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IL-10 (Interleukin 10)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "Bình thường Interleukin- 10 <9.1 pg/mL",
+    "description": "Định lượng Interleukin-10 (một cytokine). Tăng trong nhiễm trùng huyết, bệnh vảy nến, viêm khớp dạng thấp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IgE (bằng phương pháp ELISA)",
+    "category": "MÁU",
+    "price": 300000,
+    "unit": "IU/mL",
+    "referenceRange": "< 100 IU/L (Người khỏe mạnh không bị dị ứng)",
+    "description": "Định lượng Immunoglobulin E (IgE). Tăng trong các trạng thái dị ứng (hen phế quản, viêm mũi dị ứng, eczema), nhiễm ký sinh trùng, nấm phổi. Giảm trong ung thư giai đoạn cuối không điều trị, chứng mất điều hòa giãn mao mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IgE (Immunoglobuline E)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "< 100 U/L",
+    "description": "Định lượng Immunoglobulin E (IgE). Tăng trong các trạng thái dị ứng, hen phế quản, viêm mũi dị ứng, eczema, Nhiễm ký sinh trùng, nấm phổi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IgA (Immunoglobuline A)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "70 – 400 mg/dl",
+    "description": "Định lượng Immunoglobulin A (IgA). Tăng trong nhiễm trùng (hô hấp, tiêu hóa), xơ gan, u tủy IgA, bệnh tự miễn, sốt thấp khớp. Giảm trong thiếu/không có γ-globulin huyết, leucemia lympho bào, tiền sản giật.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IgG (Immunoglobuline G)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "700 - 1600 mg/dl",
+    "description": "Định lượng Immunoglobulin G (IgG). Tăng trong nhiễm trùng, xơ gan, u tủy IgG, sarcoidosis, bệnh tự miễn, tăng miễn dịch, sốt thấp khớp. Giảm trong thiếu/không có -globulin huyết, leucemia lympho bào, tiền sản giật.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IgM (Immunoglobuline M)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "40 – 230 mg/dl",
+    "description": "Định lượng Immunoglobulin M (IgM). Tăng trong nhiễm trùng cấp, Bệnh macroglobulin Waldestrom, Sốt rét, Lymphosarcom, Tăng bạch cầu đơn nhân nhiễm trùng, Nhiễm virus Rubella ở trẻ sơ sinh. Giảm trong thiếu/không có γ-globulin huyết, Leucemia lympho bào, Tiền sản giật.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IGFBP-3 ( Insulin like growth factor binding protein 3)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "Trung vị IGFBP-3 (µg/mL) thay đổi theo tuổi (ví dụ: tuổi 1: 1,6 µg/mL; tuổi 20: 4,6 µg/mL)",
+    "description": "Định lượng Insulin-like Growth Factor binding protein 3 (IGFBP-3). Hữu ích trong đánh giá sự tiết GH (Growth hormone) và các rối loạn tăng trưởng. Giảm trong suy dinh dưỡng, suy giáp, đái tháo đường và suy gan. Tăng trong suy thận mạn.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Insulin",
+    "category": "MÁU",
+    "price": 181000,
+    "unit": "pmol/L",
+    "referenceRange": "17,8 -173 pmol/L (2,6 – 24,9 U/mL)",
+    "description": "Định lượng hormone Insulin. Tăng trong bệnh ĐTĐ type 2, Hội chứng Cushing, Bệnh to viễn cực, khối u insulin (Isulinoma). Giảm trong tăng glucose máu, suy tuyến yên, ĐTĐ type 1.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Điện di Isozym – LDH",
+    "category": "MÁU",
+    "price": null,
+    "unit": "%",
+    "referenceRange": "LDH toàn phần 240 – 480 U/L; LD1: 16,1 - 31,5%; LD2: 29,2 – 41,6%; LD3: 17 – 26,3%; LD4: 5,9 – 12,3%; LD5: 3,2 – 17,3%",
+    "description": "Điện di 5 isoenzym Lactat dehydrogenase (LDH). Dùng để phân tách các thành phần isoenzym của LDH để xác định nguồn gốc tổn thương mô (tim, gan, cơ xương, nhiều mô).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng IMA (Ischemia Modified Albumin)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "IU/mL",
+    "referenceRange": "Người lớn: 4,0 - 33,85 IU/mL",
+    "description": "Định lượng Albumin bị biến đổi do thiếu máu cục bộ (IMA). Là dấu ấn nhạy cho thiếu máu cục bộ cơ tim. Tăng trong Hội chứng mạch vành cấp, xơ gan, nhiễm trùng và ung thư đang tiến triển.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Kappa",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "660-1300 mg/dl (nồng độ chuỗi Kappa)",
+    "description": "Định lượng chuỗi nhẹ Kappa. Hỗ trợ chẩn đoán và theo dõi bệnh đa u tủy xương, u lympho, Bệnh đại phân tử Waldenström, thoái hóa dạng tinh bột amyloid, bệnh lắng đọng chuỗi nhẹ và các bệnh mô liên kết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Kappa tự do (Free kappa)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/L",
+    "referenceRange": "Huyết thanh: 3.3 – 19.4 mg/L; Nước tiểu: 0.39 – 15.1 mg/L",
+    "description": "Định lượng chuỗi nhẹ Kappa tự do. Hỗ trợ chẩn đoán và theo dõi bệnh đa u tủy xương, u lympho, Bệnh đại phân tử Waldenström, thoái hóa dạng tinh bột amyloid, bệnh lắng đọng chuỗi nhẹ và các bệnh mô liên kết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Xét nghiệm Khí máu",
+    "category": "MÁU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "pH máu: 7.35 – 7.45; pCO2: 35-45 mmHg; PO2: 80 -100 mmHg; HCO3 std: 22 -28 mEq/L; SaO2: 94 – 100%",
+    "description": "Đánh giá tình trạng oxy hoá máu và thăng bằng kiềm toan trong máu. Dùng trong chẩn đoán suy hô hấp, theo dõi quá trình điều trị tại các khoa cấp cứu, hồi sức tích cực.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Lactat (Acid Lactic)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/L",
+    "referenceRange": "Máu động mạch < 1.8 mmol/L; Máu tĩnh mạch 0.5- 2.2 mmol/L; Dịch não tuỷ: 1.2- 2.1 mmol/L",
+    "description": "Định lượng Lactat. Tăng trong thiếu oxy mô (giảm huyết áp, suy tim trái), sốc, nhiễm trùng huyết, suy thận/gan nặng, đái tháo đường nhiễm toan ceton. Giảm đào thải lactate.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Lambda",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "330-720 mg/dl (nồng độ chuỗi Lambda)",
+    "description": "Định lượng chuỗi nhẹ Lambda. Hỗ trợ chẩn đoán và theo dõi bệnh đa u tủy xương, u lympho, Bệnh đại phân tử Waldenström, thoái hóa dạng tinh bột amyloid, bệnh lắng đọng chuỗi nhẹ và các bệnh mô liên kết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Lambda tự do (Free Lambda)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/L",
+    "referenceRange": "Huyết thanh: 5.71 – 26.3 mg/L; Nước tiểu: 0.81 - 10.1 mg/L",
+    "description": "Định lượng chuỗi nhẹ Lambda tự do. Hỗ trợ chẩn đoán và theo dõi bệnh đa u tủy xương, u lympho, Bệnh đại phân tử Waldenström, thoái hóa dạng tinh bột amyloid, bệnh lắng đọng chuỗi nhẹ và các bệnh mô liên kết.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Leptin human",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Nam: 2,05 - 5,63 ng/mL; Nữ: 3,63 - 11,09 ng/mL",
+    "description": "Định lượng hormone Leptin. Giảm nồng độ sau nhịn ăn ngắn hạn, béo phì, mất ngủ, tập thể dục. Tăng khi bị căng thẳng cảm xúc. Liên quan đến điều chỉnh năng lượng ăn vào và tiêu thụ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Điện di LDL/HDL cholesterol",
+    "category": "MÁU",
+    "price": null,
+    "unit": "g/L hoặc mmol/L",
+    "referenceRange": "Nữ: LDL-C: 0,66 - 1,36 g/L (1,70 - 3,53 mmol/L); HDL-C: 0,40 - 1,00 g/L (1,03 - 2,59 mmol/L). Nam: LDL-C: 0,69 - 1,49 g/l (1,79 - 3,84 mmol/L); HDL-C: 0,33 - 0,84 g/ L (0,84 - 2,17 mmol/L)",
+    "description": "Điện di để tách và định lượng LDL-C, VLDL, HDL. Đánh giá nguy cơ xơ vữa động mạch và rối loạn chuyển hóa lipid.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ Lipase",
+    "category": "MÁU",
+    "price": 132000,
+    "unit": "U/L",
+    "referenceRange": "13 - 60 U/L",
+    "description": "Đo hoạt độ enzyme Lipase. Tăng trong viêm tụy cấp (tăng cao và trở về bình thường chậm hơn Amylase), tắc ống dẫn tụy, tổn thương tổ chức mỡ sau chấn thương, xơ gan. Hữu ích trong chẩn đoán viêm tụy.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng LH (Luteinizing hormone)",
+    "category": "MÁU",
+    "price": 240000,
+    "unit": "mIU/ml",
+    "referenceRange": "Nam: 1.7 – 8.6 mIU/ml; Nữ (Pha nang): 3.4- 12.6 mIU/ml; Nữ (Pha rụng trứng): 14.0 – 95.6 mIU/ml; Nữ (Thể vàng): 1.0 – 11.4 mIU/ml; Nữ (Tiền mãn kinh): 7.7 – 58.5 mIU/ml",
+    "description": "Định lượng hormone Luteinizing hormone (LH). Tăng trong dậy thì sớm, thiểu năng buồng trứng/tinh hoàn, mãn kinh sớm, HC Klinefelter/Turner. Giảm trong thiểu năng vùng dưới đồi yên, suy thùy trước tuyến yên.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ LDH ( Lactat dehydrogenase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "240-480 U/L",
+    "description": "Đo hoạt độ enzyme Lactat dehydrogenase (LDH). Tăng trong tổn thương cơ, tổn thương gan, bệnh lý huyết học (tan máu), tổn thương thận, nhồi máu cơ tim/phổi, ung thư.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng LDL - C (Low density lipoprotein Cholesterol)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/L",
+    "referenceRange": "≤ 3,4 mmol/L",
+    "description": "Định lượng Low Density Lipoprotein cholesterol (LDL-C). Tăng là yếu tố dự báo nguy cơ xơ vữa động mạch, bệnh tim mạch.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Điện di Lipoprotein",
+    "category": "MÁU",
+    "price": null,
+    "unit": "%",
+    "referenceRange": "-lipoprotein: 32,8 ± 7,7%; Pre-lipoprotein: 22,6 ± 8,1%; -lipoproterin: 44,2 ± 7,0%",
+    "description": "Phân tách các tiểu phân tử lipoprotein. Đánh giá rối loạn chuyển hóa lipid, chẩn đoán bệnh đa u tủy xương, hội chứng thận hư, viêm gan, xơ gan, lao phổi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Lp-PLA2 (Lipoprotein Associated Phospholipase A2)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "IU/mL",
+    "referenceRange": "Người lớn: 3,49 – 14,70 IU / mL",
+    "description": "Định lượng Lipoprotein Associated Phospholipase A2 (Lp-PLA2). Là chỉ điểm viêm đặc hiệu cho mạch máu. Tăng báo hiệu nguy cơ bệnh mạch vành và đột quỵ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Malondialdehyd (MDA)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "μg/L",
+    "referenceRange": "Người lớn: 0,78 – 19,27 μg/L",
+    "description": "Định lượng Malondialdehyd (MDA). Là dấu ấn sinh học của tình trạng stress oxy hóa. Tăng trong tiền ung thư và các bệnh ung thư.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ MPO",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pmol/L",
+    "referenceRange": "Nam: < 354.3 pmol/L; Nữ: < 246.6 pmol/L",
+    "description": "Đo hoạt độ Myeloperoxydase (MPO). Liên quan đến oxy hóa lipid của LDL-C, xơ vữa mạch máu. Tăng trong các trường hợp xơ vữa mạch máu và là yếu tố tiên lượng hội chứng vành cấp. Giúp phân loại người bệnh suy tim.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Myoglobin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/L",
+    "referenceRange": "Nam: 19- 92 µg/L; Nữ: 12- 76 µg/L",
+    "description": "Định lượng Myoglobin. Tăng sau tổn thương cơ xương/cơ vân (chấn thương, đụng giập, tăng ure máu, đột quỵ, tiêm bắp, bỏng) và nhồi máu cơ tim. Tăng sớm sau NMCT (2-4h).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Mg",
+    "category": "MÁU",
+    "price": 150000,
+    "unit": "mg/dL",
+    "referenceRange": "1.59–2.56 mg/dL (1.3–2.1 mEq/L)",
+    "description": "Định lượng Magie (cation quan trọng, có vai trò điều hòa chức năng, chuyển hóa năng lượng, hoạt động của tim). Tăng trong bệnh Addison, cắt bỏ tuyến thượng thận, mất nước nặng, nhiễm toan ceton, cường cận giáp, suy tuyến giáp. Giảm trong suy dinh dưỡng, suy thận, nghiện rượu, bỏng nặng, dùng thuốc lợi tiểu.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng N-MID Osteocalcin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Nữ (Tiền mãn kinh): 11 - 43 ng/mL; Nữ (Mãn kinh): 15 - 46 ng/mL; Nam (18 – 30): 24 – 70 ng/mL",
+    "description": "Định lượng N-MID Osteocalcin. Dấu ấn cho sự luân chuyển xương. Tăng trong loãng xương, cường tuyến cận giáp. Dùng để theo dõi điều trị thuốc chống hủy xương.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng NSE (Neuron Specific Enolase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "15,7 – 17,0 ng/mL",
+    "description": "Định lượng Neuron Specific Enolase (NSE). Tăng cao trong ung thư phổi tế bào nhỏ, u nguyên bào thần kinh, u ác tính tinh hoàn, u thần kinh đệm. Thay đổi tùy thuộc kỹ thuật định lượng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng NT-proBNP",
+    "category": "MÁU",
+    "price": 400000,
+    "unit": "pg/mL",
+    "referenceRange": "Đơn vị pg/mL, nồng độ NT- proBNP phụ thuộc vào lứa tuổi. Ví dụ: <50 tuổi: < 450 pg/mL (Điểm cắt tối ưu chẩn đoán suy tim cấp)",
+    "description": "Định lượng N-terminal pro B-type natriuretic peptide (NT-proBNP). Sử dụng để sàng lọc, chẩn đoán và theo dõi suy tim cấp/mạn. Cũng tăng ở người bệnh rối loạn chức năng thất trái không có triệu chứng và bệnh động mạch vành.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ P-Amylase (Pancreatic α- Amylase)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/L",
+    "referenceRange": "13 - 53 U/L",
+    "description": "Đo hoạt độ enzyme Amylase tuyến tụy (Pancreatic α- Amylase). Tăng trong bệnh tụy (viêm tụy cấp và mạn).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng PAPP-A (Pregnancy- associated plasma protein A)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mIU/mL",
+    "referenceRange": "Trung vị PAPP-A (mIU/mL) thay đổi theo tuần thai (ví dụ: 10+4 tuần: 1,33 mIU/mL)",
+    "description": "Định lượng Pregnancy-associated plasma protein A (PAPP-A). Giảm nồng độ trong thai kỳ liên quan đến bất thường nhiễm sắc thể (Hội chứng Down). Dùng trong sàng lọc trước sinh quý I (kết hợp với fβ-HCG và độ mờ da gáy).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Pepsinogen I",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "< 70 ng/mL",
+    "description": "Định lượng Pepsinogen I (PG-I), tiền chất không hoạt tính của pepsin. Dùng để xác định teo niêm mạc tuyến đáy vị và tầm soát ung thư dạ dày (tỉ lệ PG-I/PG-II < 3).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Pepsinogen II",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "0 -100 ng/mL (Giới hạn đo của máy)",
+    "description": "Định lượng Pepsinogen II (PG-II), tiền chất không hoạt tính của pepsin. Dùng để xác định teo niêm mạc tuyến đáy vị và tầm soát ung thư dạ dày (tỉ lệ PG-I/PG-II < 3).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Phenobarbital",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "15 – 40 µg/mL (Liều điều trị thường có nồng độ)",
+    "description": "Định lượng thuốc chống co giật Phenobarbital. Dùng để theo dõi nồng độ thuốc trong máu và tránh ngộ độc (>40 µg/mL).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Phenytoin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "10 – 20 µg/mL (Liều điều trị thường có nồng độ)",
+    "description": "Định lượng thuốc chống động kinh Phenytoin. Dùng để theo dõi nồng độ thuốc trong máu và tránh ngộ độc (>20 µg/mL).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Phospho",
+    "category": "MÁU",
+    "price": 66000,
+    "unit": "mmol/L",
+    "referenceRange": "0.87–1.45 mmol/L (2.7–4.5 mg/dL)",
+    "description": "Định lượng Phospho vô cơ. Tăng trong suy cận giáp, ưu năng tuyến yên, thừa Vitamin D, suy thận. Giảm trong cường cận giáp, thiếu Vitamin D, hội chứng Fanconi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Pre-albumin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µmol/L",
+    "referenceRange": "3,64 -7,28 µmol/L (20- 40 mg/dL; 0,2 – 0,4 g/L)",
+    "description": "Định lượng Prealbumin (transthyretin). Giúp đánh giá mức độ suy dinh dưỡng, khả năng hồi phục tình trạng dinh dưỡng (Tăng: cường tuyến thượng thận, Hodgkin; Giảm: suy dinh dưỡng, nhiễm khuẩn nặng, bệnh lý gan, cường giáp).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Pro-calcitonin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "<0,05 ng/mL",
+    "description": "Định tính Procalcitonin (PCT). Tăng trong nhiễm trùng nặng (nhiễm khuẩn huyết, viêm tụy cấp, viêm phổi). Dùng để chẩn đoán và theo dõi diễn biến bệnh nhiễm trùng nặng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Prolactin",
+    "category": "MÁU",
+    "price": 282000,
+    "unit": "ng/ml",
+    "referenceRange": "Nam: 4.6 – 21.4 ng/ml; Nữ: 6.0 – 29-9 ng/ml",
+    "description": "Định lượng hormone Prolactin. Tăng trong suy sinh dục nam, tổn thương vùng dưới đồi, u tuyến yên, u tiết prolactin lạc chỗ. Giảm trong thiểu năng tuyến yên.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Điện di protein",
+    "category": "MÁU",
+    "price": 250000,
+    "unit": "g/L",
+    "referenceRange": "Total protein: 64,0 - 83,0 g/L; Albumin: 35,0 - 50,0 g/L; Alpha-1 globulin: 1,0 - 3,0 g/L; Alpha-2 globulin: 6,0 - 10,0 g/L; Beta globulin: 7,0 - 12,0 g/L; Gamma globulin: 7,0 - 16,0 g/L",
+    "description": "Phân tách các tiểu phân tử protein. Chẩn đoán bệnh đa u tủy xương (Kahler), viêm gan, xơ gan, hội chứng thận hư, lao phổi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Protein toàn phần",
+    "category": "MÁU",
+    "price": 20000,
+    "unit": "g/l",
+    "referenceRange": "66 – 87 g/l",
+    "description": "Định lượng Protein toàn phần. Đánh giá tình trạng dinh dưỡng. Tăng trong mất nước, đa u tủy xương, bệnh Waldestrom. Giảm trong hòa loãng máu, suy dinh dưỡng, bệnh thận/gan, mất protein.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Progesteron",
+    "category": "MÁU",
+    "price": 80000,
+    "unit": "ng/ml",
+    "referenceRange": "Nữ (Pha nang): 0,1 – 1,5 ng/ml; Nữ (Rụng trứng): 0,8 – 3,0 n/ml; Nữ (Thể vàng): 1,7 – 2,7 ng/ml; Nam: 0,2 – 1,4 ng/ml",
+    "description": "Định lượng hormone Progesterone. Tăng trong rụng trứng, có thai, u nang buồng trứng. Giảm trong nhiễm độc thai nghén, dọa xảy thai, rối loạn chức năng sinh dục.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Procainnamid",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/mL",
+    "referenceRange": "4 -10 mg/mL (Khoảng điều trị thông thường)",
+    "description": "Định lượng thuốc chống loạn nhịp Procainamide. Dùng để theo dõi nồng độ thuốc trong máu và tránh ngộ độc (>16 mg/mL).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng protein S100",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ug/mL",
+    "referenceRange": "0.046 - 0.105 ug/mL",
+    "description": "Định lượng Protein S100. Tăng trong nhồi máu não, u hắc tố, u thần kinh. Dùng trong chẩn đoán và theo dõi các bệnh lý này.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Pro-GRP ( Pro- Gastrin-releasing peptide)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "< 65 pg/mL",
+    "description": "Định lượng Pro-Gastrin-Releasing-Peptide (ProGRP). Là dấu ấn đáng tin cậy cho ung thư phổi tế bào nhỏ (SCLC). Dùng để chẩn đoán, theo dõi điều trị và phát hiện tái phát ung thư phổi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng PSA tự do (Free prostate-specific antigen)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "%",
+    "referenceRange": "fPSA/tPSA > 25% (Bình thường)",
+    "description": "Định lượng Prostate-specific antigen tự do (fPSA). Dùng để tính tỷ lệ fPSA/tPSA để tiên lượng bệnh ác tính ung thư tiền liệt tuyến (Tỷ số giảm thấp trong nghi ngờ bệnh ác tính).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng PSA toàn phần (Total prostate-specific antigen)",
+    "category": "MÁU",
+    "price": 140000,
+    "unit": "ng/ml",
+    "referenceRange": "< 4.0 ng/ml",
+    "description": "Định lượng Prostate-specific antigen toàn phần (tPSA). Tăng trong ung thư tiền liệt tuyến, viêm hay phì đại lành tính tiền liệt tuyến. Dùng để theo dõi ung thư tiền liệt tuyến.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng PTH (Parathyroid hormon)",
+    "category": "MÁU",
+    "price": 438000,
+    "unit": "pmol/l",
+    "referenceRange": "1.6 - 6.9 pmol/l",
+    "description": "Định lượng Parathyroid Hormone (PTH). Tăng trong cường cận giáp, loạn dưỡng xương, có thai. Giảm trong suy cận giáp, tăng Ca máu không do tuyến cận giáp. Điều chỉnh chuyển hóa canxi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Renin activity",
+    "category": "MÁU",
+    "price": 300000,
+    "unit": "pg/mL",
+    "referenceRange": "Tư thế đứng thẳng: < 4,00 - 37,52 pg/mL; Tư thế nằm ngữa: < 4,00 - 23,70 pg/mL",
+    "description": "Định lượng Active Renin. Thuộc hệ thống Renin-Angiotensin-Aldosterone (RAAS) kiểm soát huyết áp, dòng máu thận, lọc cầu thận. Dùng để chẩn đoán/phân loại tăng huyết áp, theo dõi điều trị corticoid.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng RF (Rheumatoid factor)",
+    "category": "MÁU",
+    "price": 50000,
+    "unit": "U/mL",
+    "referenceRange": "< 14 U/mL",
+    "description": "Định lượng Rheumatoid factor (RF). Tăng trong viêm khớp dạng thấp, Hội chứng Sjogren, viêm gan mãn tính, xơ gan mật nguyên phát, viêm nội tâm mạc, bệnh bạch cầu, lupus ban đỏ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Sắt",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µmol/l",
+    "referenceRange": "8.1- 28.6 µmol/l",
+    "description": "Định lượng Sắt (Fe) trong máu. Tăng trong phá huỷ hồng cầu (sốt đái huyết sắc tố, thiếu máu huỷ huyết), bệnh gan. Giảm trong thiếu máu thiếu sắt, nhiễm trùng cấp/mạn, ung thư, thận hư.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng SCC (squamous cell carcinoma antigen)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "<1,5 ng/mL",
+    "description": "Định lượng Kháng nguyên ung thư biểu mô tế bào vảy (SCCA). Tăng trong ung thư cổ tử cung, phổi, thực quản, đầu và cổ, ống hậu môn và da. Hữu ích trong chẩn đoán, theo dõi điều trị và tiên lượng ung thư cổ tử cung.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng SHBG (Sex hormon binding globulin)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "nmol/L",
+    "referenceRange": "Nam (17- 65 tuổi): 14.5 - 48.4 nmol/L; Nữ (17 - 50 tuổi): 26.1 - 110 nmol/L; Nữ mãn kinh: 14.1 - 68.9 nmol/L",
+    "description": "Định lượng Sex Hormone-Binding Globulin (SHBG). Tăng trong suy giáp, giảm androgen. Giảm trong buồng trứng đa nang, béo phì, rậm lông, tăng androgen, rụng tóc, bệnh to cực.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Sperm Antibody",
+    "category": "MÁU",
+    "price": null,
+    "unit": "U/mL",
+    "referenceRange": "0 - 60 U/mL",
+    "description": "Định lượng Kháng thể kháng tinh trùng. Tăng (> 60 U/mL) trong trường hợp vô sinh (Đàn ông có hơn 50% tinh trùng có kháng thể kháng tinh trùng).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng T3 (Tri iodothyronine)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "nmol/l",
+    "referenceRange": "1.3 - 3.1 nmol/l",
+    "description": "Định lượng hormone tuyến giáp T3. Tăng trong cường giáp, nhiễm độc giáp. Giảm trong thiểu năng vùng dưới đồi yên, suy giáp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng T4 (Thyroxine)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "nmol/l",
+    "referenceRange": "66 – 181 nmol/l",
+    "description": "Định lượng hormone tuyến giáp T4. Tăng trong cường giáp, nhiễm độc giáp. Giảm trong thiểu năng vùng dưới đồi yên, suy giáp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng s TfR (solube transferin receptor)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/L",
+    "referenceRange": "Nam (18 – 60 tuổi): 2.2 - 5.0 mg/L; Nữ (18 – 45 tuổi): 1.9 – 4.4 mg/L",
+    "description": "Định lượng thụ thể Transferin hòa tan (sTfR). Tăng trong thiếu máu do thiếu sắt. Dùng để chẩn đoán và theo dõi thiếu máu do thiếu sắt.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Tacrolimus",
+    "category": "MÁU",
+    "price": null,
+    "unit": null,
+    "referenceRange": null,
+    "description": "Định lượng thuốc ức chế miễn dịch Tacrolimus. Dùng để theo dõi nồng độ thuốc trong máu toàn phần để chống thải ghép ở người bệnh ghép tạng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Testosterol",
+    "category": "MÁU",
+    "price": 240000,
+    "unit": "nmol/l",
+    "referenceRange": "Nam: 9 - 27.8 nmol/l; Nữ: 0.22 - 2.9 nmol/l",
+    "description": "Định lượng hormone Testosteron. Tăng trong ưu năng tinh hoàn, bệnh nam hóa. Giảm trong thiểu năng tinh hoàn, thiểu năng vùng dưới đồi yên, stress.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng TGF β1( Transforming Growth Factor Beta 1)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "< 25000 pg/mL (25 ng/mL)",
+    "description": "Định lượng Transforming Growth Factor Beta 1 (TGF-β1). Tăng trong ung thư, suy thận mạn, suy thận cấp. Liên quan đến phát triển phôi thai, hình thành xương, chữa lành vết thương.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng TGF β2( Transforming Growth Factor Beta 2)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": null,
+    "description": "Định lượng Transforming Growth Factor Beta 2 (TGF-β2). Tăng trong bệnh lý võng mạc đái tháo đường tăng sinh, khối u ác tính. Liên quan đến điều chỉnh phát triển phôi thai, hình thành xương, chữa lành vết thương.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Tg (Thyroglobulin)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/ml",
+    "referenceRange": "1.4 - 78.0 ng/ml",
+    "description": "Định lượng Thyroglobulin (TG). Tăng trong ung thư tuyến giáp, viêm tuyến giáp, Basedow. Giảm nồng độ có giá trị theo dõi hiệu quả điều trị, sự tăng trở lại báo hiệu tái phát ung thư giáp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Theophylline",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "10 - 20 µg/ mL (Liều điều trị thương ở người lớn); 5 - 10 µg/mL (Trẻ em)",
+    "description": "Định lượng thuốc chống co thắt phế quản Theophylline. Dùng để theo dõi nồng độ thuốc trong máu và tránh ngộ độc (trên 20 µg/mL).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng TRAb (TSH Receptor Antibodies)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "IU/l",
+    "referenceRange": "<0,92 IU/l",
+    "description": "Định lượng Kháng thể kháng TSH receptor (TRAb). Tăng trong Viêm tuyến giáp tự miễn, Basedow. Có giá trị trong chẩn đoán cường giáp tự miễn và dự đoán tái phát, theo dõi điều trị bệnh Basedow.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Transferin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mg/dl",
+    "referenceRange": "200 - 400 mg/dl",
+    "description": "Định lượng Transferrin (protein vận chuyển sắt). Tăng trong viêm gan cấp, đa hồng cầu, dùng thuốc ngừa thai, có thai. Giảm trong thiếu máu tan huyết, thiếu máu thiếu sắt mạn.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Triglycerid",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/l",
+    "referenceRange": "0.46 – 1.88 mmol/l",
+    "description": "Định lượng Triglycerid. Tăng trong tăng huyết áp, đái tháo đường, viêm tụy cấp, xơ gan do rượu. Giảm trong không có β-lipoprotein huyết bẩm sinh, cường giáp, suy dinh dưỡng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Troponin T",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/ml",
+    "referenceRange": "<0,01 ng/ml",
+    "description": "Định lượng Troponin T (TnT). Tăng trong nhồi máu cơ tim, viêm cơ tim, suy thận. Là dấu ấn sinh học tim mạch đặc biệt.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Troponin T hs",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/L",
+    "referenceRange": "<14 ng/L",
+    "description": "Định lượng Troponin T độ nhạy cao (hsTnT). Dùng trong chẩn đoán, loại trừ Nhồi máu cơ tim cấp (NMCT). Phân tầng nguy cơ trong hội chứng vành cấp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Troponin I",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/ml",
+    "referenceRange": "<0,16 ng/ml",
+    "description": "Định lượng Troponin I (TnI). Tăng trong nhồi máu cơ tim, viêm cơ tim, ghép tim. Là dấu ấn sinh học tim mạch đặc biệt.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng TSH (Thyroid Stimulating hormone)",
+    "category": "MÁU",
+    "price": 240000,
+    "unit": "µIU/ml",
+    "referenceRange": "0.27 - 4.2 µIU/ml",
+    "description": "Định lượng hormone kích giáp trạng tố (TSH). Tăng trong suy tuyến giáp nguyên phát. Giảm trong cường tuyến giáp (Basedow), thiểu năng vùng dưới đồi yên, điều trị bằng thyroxin.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Tobramycin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "6 -10 g/mL (Khoảng điều trị thông thường)",
+    "description": "Định lượng kháng sinh Tobramycin. Dùng để theo dõi nồng độ thuốc trong máu. Nồng độ quá cao gây độc cho thận và ảnh hưởng tới thính lực.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Total p1NP",
+    "category": "MÁU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "Tiền mãn kinh : 15.13 – 58.59 ng/mL; Mãn kinh: 16.27 – 73.87 ng/mL",
+    "description": "Định lượng Total procollagen type 1 amino-terminal propeptide (P1NP toàn phần). Dấu ấn của tạo xương. Dùng để thăm dò quá trình tạo xương.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng T-uptake",
+    "category": "MÁU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "0.8-1.3",
+    "description": "Định lượng Chỉ số gắn kết Thyroxine (T-uptake). Cung cấp phép đo cho các vị trí gắn kết thyroxine còn trống. <0.8 có thể cường giáp, >1.3 có thể suy giáp hoặc nồng độ TBG cao.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Urê",
+    "category": "MÁU",
+    "price": null,
+    "unit": "mmol/L",
+    "referenceRange": "1,7- 8,3 mmol/L",
+    "description": "Định lượng Urê trong máu. Tăng trong suy thận, nhiễm trùng, bệnh tim mạch, ăn nhiều protid. Giảm trong suy gan nặng, suy dinh dưỡng.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Valproic acid",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "50 - 100 µg/mL (Liều điều trị thường có nồng độ)",
+    "description": "Định lượng thuốc chống động kinh Valproic Acid. Dùng để theo dõi nồng độ thuốc trong máu. Nồng độ cao gây ngộ độc chủ yếu ở dạ dày và ruột (buồn nôn, nôn, tiêu chảy).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Vancomycin",
+    "category": "MÁU",
+    "price": null,
+    "unit": "µg/mL",
+    "referenceRange": "20-40 µg/ mL (Nồng độ đỉnh); 5-10 µg/mL (Nồng độ đáy) (Liều điều trị thường có nồng độ)",
+    "description": "Định lượng kháng sinh Vancomycin. Dùng để theo dõi nồng độ thuốc trong máu. Nồng độ cao (80-100 µg/mL) gây ngộ độc tai và thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Vitamin B12",
+    "category": "MÁU",
+    "price": 300000,
+    "unit": "pmol/L",
+    "referenceRange": "179-660 pmol/L",
+    "description": "Định lượng Vitamin B12. Tăng trong viêm gan do virus, bạch cầu tủy mạn, đa hồng cầu. Giảm trong thiếu máu ác tính, rối loạn hấp thu, thiếu máu hồng cầu to.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng PLGF (Placental Growth Factor- yếu tố tân tạo mạch máu)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "Thay đổi theo tuổi thai (ví dụ: 10 – 14 tuần: 29.4 – 62.8 – 183 pg/mL)",
+    "description": "Định lượng Placental Growth Factor (PlGF). Giảm trong tiền sản giật. Dùng để chẩn đoán sớm và chẩn đoán phân biệt tiền sản giật (kết hợp với sFlt-1).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng sFlt-1 (yếu tố kháng tân tạo mạch máu)",
+    "category": "MÁU",
+    "price": null,
+    "unit": "pg/mL",
+    "referenceRange": "Thay đổi theo tuổi thai (ví dụ: 10 – 14 tuần: 555 – 1445 - 2361 pg/mL)",
+    "description": "Định lượng Soluble FMS lyke tyrosinkinase - 1 (sFlt-1). Tăng trước khi xuất hiện triệu chứng lâm sàng tiền sản giật. Dùng để chẩn đoán sớm và chẩn đoán phân biệt tiền sản giật (kết hợp với PlGF).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng các chất điện giải",
+    "category": "NƯỚC TIỂU",
+    "price": 84000,
+    "unit": "mmol/24h",
+    "referenceRange": "Na: 120-130 mmol/24h; K: 35 – 120 mmol/24h; Clo: 120-140 mmol/24h",
+    "description": "Định lượng các ion (Na, K, Clo) trong nước tiểu 24 giờ. Đánh giá rối loạn cân bằng nước, điện giải, chức năng thận/thượng thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Amphetamin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính (Cut-off 300 ng/ml)",
+    "description": "Định tính Amphetamin trong nước tiểu bằng sắc ký miễn dịch cạnh tranh. Dùng để phát hiện Amphetamin.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Amphetamin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "500 ng/mL (Cut-off)",
+    "description": "Định lượng Amphetamin trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ Amylase",
+    "category": "NƯỚC TIỂU",
+    "price": 46000,
+    "unit": "U/l",
+    "referenceRange": "42-321 U/l",
+    "description": "Đo hoạt độ Amylase trong nước tiểu. Tăng trong viêm tụy cấp/mạn, bệnh đường mật, quai bị.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng axit uric",
+    "category": "NƯỚC TIỂU",
+    "price": 60000,
+    "unit": "mmol/24giờ",
+    "referenceRange": "1.2- 5.9 mmol/24giờ",
+    "description": "Định lượng Acid Uric trong nước tiểu 24 giờ. Tăng trong bệnh đa hồng cầu Vaquez, xạ trị, bệnh bạch cầu, viêm phổi. Giảm trong suy thận, điều trị Allopurinol.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Barbiturates",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "200 hay 300 ng/mL (Cut-off)",
+    "description": "Định lượng thuốc an thần Barbiturates trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Benzodiazepin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "200 hay 300 ng/mL (Cut-off)",
+    "description": "Định lượng thuốc Benzodiazepin trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính β HCG",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính",
+    "description": "Định tính Beta HCG trong nước tiểu bằng miễn dịch sắc ký. Dương tính: có thai.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Canxi",
+    "category": "NƯỚC TIỂU",
+    "price": 60000,
+    "unit": "mmol/24giờ",
+    "referenceRange": "2.5 - 8.0 mmol/24giờ",
+    "description": "Định lượng Calci trong nước tiểu 24 giờ. Tăng trong cường cận giáp, loãng xương, viêm thận mạn. Giảm trong nhược cận giáp, thiếu Vitamin D.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Catecholamin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "nmol/24giờ",
+    "referenceRange": "Epinephrin: 9.2 - 122.3 nmol/24giờ; Norepinephrin: 71.5 - 505.3 nmol/24giờ; Dopamin: 0 - 3227 nmol/24giờ",
+    "description": "Định lượng Catecholamin (Epinephrin, Norepinephrin, Dopamin) trong nước tiểu 24 giờ. Tăng trong u tủy thượng thận (pheochromocytoma).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cocain",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "150 hay 300 ng/mL (Cut-off)",
+    "description": "Định lượng Cocain trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cortisol",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "nmol/24 giờ",
+    "referenceRange": "100-379nmol/24 giờ",
+    "description": "Định lượng Cortisol trong nước tiểu 24 giờ. Tăng trong có thai, cường vỏ thượng thận, stress, hội chứng Cushing. Giảm trong bệnh Addison, nhược năng vỏ thượng thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Creatinin",
+    "category": "NƯỚC TIỂU",
+    "price": 60000,
+    "unit": "mmol/24giờ",
+    "referenceRange": "Nam: 9.0 – 21.0 mmol/24giờ; Nữ: 7.0 – 14.0 mmol/24 giờ",
+    "description": "Định lượng Creatinin trong nước tiểu 24 giờ. Tăng trong cường giáp, tiểu đường kèm dinh dưỡng kém. Giảm trong suy thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng dưỡng chấp",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "g/L",
+    "referenceRange": "Âm tính",
+    "description": "Định lượng dưỡng chấp trong nước tiểu (dựa trên Triglycerid). Dùng trong chẩn đoán đái ra dưỡng chấp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính dưỡng chấp",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính",
+    "description": "Định tính dưỡng chấp trong nước tiểu bằng cách chiết xuất bằng ete. Dương tính: có giun chỉ, sán dây, u bạch huyết, rò bạch huyết-tiết niệu.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Glucose",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "mmol/l",
+    "referenceRange": "0,1 – 0,8 mmol/l",
+    "description": "Định lượng Glucose trong nước tiểu. Tăng khi ngưỡng thận thấp, đái tháo đường. Kết quả dương tính đòi hỏi xét nghiệm glucose máu để xác minh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Marijuana",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính (Cut-off 300 ng/ml)",
+    "description": "Định tính Marijuana trong nước tiểu bằng sắc ký miễn dịch cạnh tranh. Dùng để phát hiện Marijuana.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng MAU",
+    "category": "NƯỚC TIỂU",
+    "price": 40000,
+    "unit": "mg/24giờ",
+    "referenceRange": "< 30 mg/24giờ",
+    "description": "Định lượng Microalbumin trong nước tiểu. Phát hiện sớm biến chứng thận ở người bệnh đái tháo đường, tăng huyết áp.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Mathadon",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "300 ng/mL (Cut-off)",
+    "description": "Định lượng Methadon trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng NGAL",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "≤ 131,7 ng/mL",
+    "description": "Định lượng Neutrophil Gelatinase - Associated Lipocalin (NGAL). Dấu ấn phát hiện sớm suy thận cấp. Tăng trong chấn thương thận, ngộ độc thận, thiếu máu cục bộ thận.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng opiat",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "300 ng/mL (Cut-off)",
+    "description": "Định lượng Opiat trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Morphin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính (Cut-off 300 ng/ml)",
+    "description": "Định tính Morphin trong nước tiểu bằng sắc ký miễn dịch cạnh tranh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Phospho",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "mmol/24 giờ",
+    "referenceRange": "12.9 - 42.0 mmol/24 giờ",
+    "description": "Định lượng Phospho vô cơ trong nước tiểu 24 giờ. Tăng trong cường cận giáp, thiếu Vitamin D. Giảm trong nhược cận giáp, viêm thận mạn.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính phospho hữu cơ",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính",
+    "description": "Định tính Phospho hữu cơ trong nước tiểu hoặc dịch rửa dạ dày bằng sắc ký lớp mỏng. Dương tính trong ngộ độc Phospho hữu cơ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Porphyrin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Bình thường",
+    "description": "Định tính Porphyrin trong nước tiểu. Dương tính trong đái ra porphyrin (Porphyrinuria).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Điện di protein",
+    "category": "NƯỚC TIỂU",
+    "price": 1500000,
+    "unit": "g/L",
+    "referenceRange": "Âm tính",
+    "description": "Phân tách các protein trong nước tiểu. Dùng để chẩn đoán bệnh đa u tủy xương (Kahler), hội chứng thận hư, viêm gan, xơ gan, lao phổi.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Protein",
+    "category": "NƯỚC TIỂU",
+    "price": 25000,
+    "unit": "g/L",
+    "referenceRange": "Âm tính",
+    "description": "Định lượng Protein toàn phần trong nước tiểu. Tăng trong các bệnh thận (suy thận, hội chứng thận hư, viêm cầu thận), nhiễm độc thai nghén.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Protein Bence –jones",
+    "category": "NƯỚC TIỂU",
+    "price": 25000,
+    "unit": null,
+    "referenceRange": "Âm tính",
+    "description": "Định tính Protein Bence-Jones (chuỗi nhẹ: Lamđa hoặc Kappa). Dương tính trong Đa u tủy xương (Kahler).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định tính Rotundin",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính",
+    "description": "Định tính Rotundin trong nước tiểu hoặc dịch rửa dạ dày bằng sắc ký lớp mỏng. Dương tính: có Rotunda trong mẫu thử (sau khi uống).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng THC (Canabionids)",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "ng/mL",
+    "referenceRange": "25 ng/mL (Cut-off)",
+    "description": "Định lượng THC (Tetrahydrocanabinol - hoạt chất chính của cần sa) trong nước tiểu bằng phương pháp miễn dịch enzyme.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Ure",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": "mmol/24giờ",
+    "referenceRange": "166 - 581 mmol/24giờ",
+    "description": "Định lượng Urê trong nước tiểu 24 giờ. Tăng trong bệnh thận, sốt cao, tiểu đường. Giảm trong bệnh gan (xơ gan nặng, ung thư), suy thận mạn.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Tổng phân tích nước tiểu (bằng máy tự động)",
+    "category": "NƯỚC TIỂU",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Tỉ trọng: 1,014 - 1,028; pH: 5 - 6; Các chất cetonic: Âm tính; Máu: Âm tính; Bilirubin: Âm tính; Urobilinogen: Ít; Protein niệu: Âm tính; Đường niệu: Âm tính; Nitrit: Âm tính; Bạch cầu: Âm tính",
+    "description": "Phân tích 10 thông số hóa sinh nước tiểu. Dùng để sàng lọc, chẩn đoán ban đầu các bệnh về thận, đường tiết niệu, đái tháo đường, bệnh gan.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Clo",
+    "category": "DỊCH NÃO TUỶ",
+    "price": null,
+    "unit": "mmol/L",
+    "referenceRange": "120-130 mmol/L",
+    "description": "Định lượng Clo dịch não tủy. Tăng trong một số bệnh thần kinh trung ương, tăng Clorua huyết tương. Giảm trong viêm màng não, động kinh.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Glucose",
+    "category": "DỊCH NÃO TUỶ",
+    "price": null,
+    "unit": "mmol/L",
+    "referenceRange": "2,2 -3,9 mmol/L",
+    "description": "Định lượng Glucose dịch não tủy. Tăng trong đái tháo đường, viêm não, u não. Giảm trong viêm màng não mủ/lao, hạ đường máu.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Phản ứng Pandy",
+    "category": "DỊCH NÃO TUỶ",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính",
+    "description": "Phản ứng định tính protein phân tử lớn (globulin miễn dịch) trong dịch não tủy. Dương tính trong rối loạn hàng rào máu - não nặng nề (viêm màng não vi khuẩn/lao, HC Guillain - Berré).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Protein",
+    "category": "DỊCH NÃO TUỶ",
+    "price": null,
+    "unit": "g/L",
+    "referenceRange": "< 0.45 g/L",
+    "description": "Định lượng Protein toàn phần dịch não tủy. Tăng trong viêm màng não, lao màng não, Hội chứng Guillain-Barre’, chèn ép tủy sống.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Albumin",
+    "category": "THỦY DỊCH MẮT",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Hầu như không có Albumin trong thủy dịch mắt",
+    "description": "Định lượng Albumin trong thủy dịch mắt. Khi xuất hiện Albumin là có bệnh lý về viêm nhiễm.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Globulin",
+    "category": "THỦY DỊCH MẮT",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Hầu như không có globulin trong thuỷ dịch mắt",
+    "description": "Định lượng Globulin trong thủy dịch mắt (tính toán). Khi xuất hiện Globulin là có bệnh lý viêm nhiễm (viêm mống mắt thể mi, viêm màng bồ đào).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ Amylase",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "U/l",
+    "referenceRange": "Chưa có giá trị tham khảohoạt độ amylase trong dịch",
+    "description": "Đo hoạt độ Amylase trong dịch chọc dò. Dùng để đánh giá các bệnh lý liên quan đến tụy.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Bilirubin toàn phần",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Bình thường không có bilirubin trng các dịch chọc dò",
+    "description": "Định lượng Bilirubin toàn phần trong dịch chọc dò. Khi xuất hiện có thể nghĩ đến hội chứng vàng da.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Cholesterol toàn phần",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "mg/dL hoặc mmol/l",
+    "referenceRange": "Bình thường không có cholesterol toàn phần trong dịch chọc dò",
+    "description": "Định lượng Cholesterol toàn phần trong dịch chọc dò. Dùng để phân biệt dịch thấm (transudate) và dịch tiết (exudate).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Creatinin",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "µmol/l",
+    "referenceRange": "Bình thường không có creatinin trong dịch chọc dò",
+    "description": "Định lượng Creatinin trong dịch chọc dò. Hướng tới các vấn đề về ngoại khoa khi có mặt creatinin.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Glucose",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Bình thường không có glucose trong các dịch chọc dò",
+    "description": "Định lượng Glucose trong dịch chọc dò. Dùng để đánh giá tình trạng viêm nhiễm và các bệnh lý khác.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo hoạt độ LDH",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "U/l",
+    "referenceRange": "Bình thường không có LDH trong dịch chọc dò",
+    "description": "Đo hoạt độ LDH trong dịch chọc dò. Dùng để phân biệt dịch thấm (transudate) và dịch tiết (exudate).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Protein toàn phần",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "g/L",
+    "referenceRange": "Bình thường không có protein trong dịch chọc dò. Nồng độ protein < 30g/Ll hướng tới dịch thấm, nồng độ protein > 30g/L hướng tới dịch tiết.",
+    "description": "Định lượng Protein toàn phần trong dịch chọc dò. Dùng để phân biệt dịch thấm (transudate) và dịch tiết (exudate).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Phản ứng Rivalta",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": null,
+    "referenceRange": "Âm tính (Dịch thấm)",
+    "description": "Phản ứng định tính protein trong dịch chọc dò bằng acid acetic. Dương tính (+): dịch tiết (thường Protein > 30g/L, gặp trong viêm). Âm tính (-): dịch thấm (thường Protein < 30g/L, gặp trong xơ gan, hội chứng thận hư).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Triglycerid",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "mg/dL hoặc mmol/l",
+    "referenceRange": "Bình thường không có Triglycerid trong dịch chọc dò",
+    "description": "Định lượng Triglycerid trong dịch chọc dò. Khi xuất hiện thường hướng tới hiện tượng vỡ bạch mạch do giun chỉ.",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Đo tỷ trọng dịch chọc dò",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": null,
+    "referenceRange": "1,014 - 1,028",
+    "description": "Đo tỷ trọng dịch chọc dò bằng khúc xạ kế. Tăng trong bệnh ĐTĐ. Giảm trong đái tháo nhạt, suy thận. Dùng để phân biệt dịch thấm (transudate) và dịch tiết (exudate).",
+    "roomType": "LABORATORY"
+  },
+  {
+    "name": "Định lượng Ure",
+    "category": "DỊCH CHỌC DÒ (Dịch màng bụng, màng phổi, màng tim...)",
+    "price": null,
+    "unit": "mmol/l",
+    "referenceRange": "Chưa có giá trị tham khảo về ure trong dịch chọc dò",
+    "description": "Định lượng Urê trong dịch chọc dò. Dùng để đánh giá các vấn đề liên quan đến bệnh lý ngoại khoa.",
+    "roomType": "LABORATORY"
+  }
+]
