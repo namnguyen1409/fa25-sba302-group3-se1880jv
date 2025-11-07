@@ -11,6 +11,7 @@ import type {
     PrescriptionResponse,
     PrescriptionRequest,
     DiagnosisRequest,
+    CreateServiceOrderRequest,
 } from "../models"
 
 export const ExaminationApi = {
@@ -68,6 +69,27 @@ export const ExaminationApi = {
         apiClient.put(`/examinations/${id}/diagnosis/${diagnosisId}`, data),
 
     // Services
+
+    filterServiceOrders: (
+        id: string,
+        page: number,
+        size: number,
+        filterGroup?: any,
+        sorts?: any
+    ) =>
+        apiClient.post<PageResponse<ServiceOrderResponse>>(
+            `/examinations/${id}/services/filter`,
+            {
+                page,
+                size,
+                filterGroup,
+                sorts,
+            }
+        ),
+
+    createServiceOrder: (id: string, data: CreateServiceOrderRequest) =>
+        apiClient.post<ServiceOrderResponse[]>(`/examinations/${id}/services/orders`, data),
+
     getServiceOrders: (id: string) =>
         apiClient.get<ServiceOrderResponse[]>(`/examinations/${id}/services`),
 

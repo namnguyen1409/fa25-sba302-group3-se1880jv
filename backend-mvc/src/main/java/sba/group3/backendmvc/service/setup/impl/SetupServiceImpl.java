@@ -75,14 +75,12 @@ public class SetupServiceImpl implements SetupService {
             Role.builder().name("ROLE_DOCTOR").build(),
             Role.builder().name("ROLE_NURSE").build(),
             Role.builder().name("ROLE_TECHNICIAN").build(),
+            Role.builder().name("ROLE_LAB_TECHNICIAN").build(),
             Role.builder().name("ROLE_PHARMACIST").build(),
             Role.builder().name("ROLE_RECEPTIONIST").build(),
             Role.builder().name("ROLE_CASHIER").build(),
             Role.builder().name("ROLE_MANAGER").build()
     );
-
-
-
 
     @Transactional
     @PostConstruct
@@ -91,7 +89,7 @@ public class SetupServiceImpl implements SetupService {
             roleRepository.saveAll(roles);
         }
         if (clinicRepository.count() == 0) {
-            Clinic clinic = clinicRepository.save(
+            clinicRepository.save(
                     Clinic.builder()
                             .name("Group 3 Clinic")
                             .address(

@@ -6,15 +6,19 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import sba.group3.backendmvc.config.UploadProperties;
+import sba.group3.backendmvc.dto.response.common.FileAttachmentResponse;
 import sba.group3.backendmvc.entity.common.FileAttachment;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
+import sba.group3.backendmvc.mapper.common.FileAttachmentMapper;
 import sba.group3.backendmvc.repository.common.FileAttachmentRepository;
 import sba.group3.backendmvc.service.infrastructure.FileStorageService;
 import sba.group3.backendmvc.service.infrastructure.FileUploadService;
 import sba.group3.backendmvc.service.infrastructure.SecurityFileValidator;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +29,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     FileStorageService fileStorageService;
     UploadProperties uploadProps;
     SecurityFileValidator securityValidator;
+    private final FileAttachmentMapper fileAttachmentMapper;
 
     @Override
     public String upload(MultipartFile file, String entityType, String entityId) throws Exception {
@@ -49,6 +54,12 @@ public class FileUploadServiceImpl implements FileUploadService {
 
         var id = fileAttachmentRepository.save(attachment).getId();
         return "/api/files/view/" + id;
+    }
+
+    @Override
+    public List<FileAttachmentResponse> getAttachments(String entityType, String entityId) {
+        var attachments = fileAttachmentRepository.findAllByEntityTypeAndEntityId(entityType, entityId);
+        return attachments.stream().map(fileAttachmentMapper::toDto).collect(Collectors.toList());
     }
 
 }

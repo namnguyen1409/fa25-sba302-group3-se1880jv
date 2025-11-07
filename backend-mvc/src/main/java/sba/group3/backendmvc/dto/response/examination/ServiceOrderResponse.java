@@ -1,6 +1,7 @@
 package sba.group3.backendmvc.dto.response.examination;
 
 import sba.group3.backendmvc.dto.response.organization.RoomResponse;
+import sba.group3.backendmvc.dto.response.patient.PatientResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.entity.examination.ServiceOrderStatus;
 
@@ -13,5 +14,5 @@ import java.util.UUID;
  */
 public record ServiceOrderResponse(UUID id, String orderCode,
                                    Set<ServiceOrderItemResponse> items, RoomResponse room, StaffResponse assignedStaff,
-                                   ServiceOrderStatus status) implements Serializable {
+                                   ServiceOrderStatus status, PatientResponse examinationPatient) implements Serializable {
 }

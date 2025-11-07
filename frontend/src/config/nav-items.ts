@@ -43,15 +43,19 @@ export const staffNavItems = (roles: string[]) => {
     { label: "My Schedule", to: "/staff/schedule", icon: CalendarCheck },
     { label: "My Patients", to: "/staff/patients", icon: Users },
     { label: "Examinations", to: "/staff/examinations", icon: Stethoscope },
-    { label: "Orders", to: "/staff/orders", icon: Syringe },
+    { label: "Queue", to: "/staff/queue", icon: ClipboardList },
     { label: "Prescriptions", to: "/staff/prescriptions", icon: Pill },
     { label: "Results", to: "/staff/results", icon: FileStack },
   ];
 
   const technician = [
-    { label: "Lab Orders", to: "/staff/lab-orders", icon: FlaskRound },
     { label: "Results Entry", to: "/staff/lab-results", icon: MonitorCheck },
     { label: "Service Orders", to: "/staff/service-orders", icon: Box },
+    { label: "Queue", to: "/staff/service-queue", icon: ClipboardList },
+  ];
+
+  const labTechnician = [
+    { label: "Lab Orders", to: "/staff/lab-orders", icon: FlaskRound },
   ];
 
 
@@ -97,6 +101,7 @@ export const staffNavItems = (roles: string[]) => {
     ROLE_NURSE: nurse,
     ROLE_DOCTOR: doctor,
     ROLE_TECHNICIAN: technician,
+    ROLE_LAB_TECHNICIAN: labTechnician,
     ROLE_PHARMACIST: pharmacist,
     ROLE_CASHIER: cashier,
     ROLE_MANAGER: [
@@ -109,6 +114,6 @@ export const staffNavItems = (roles: string[]) => {
 
   return [
     ...base,
-    ...roles.flatMap(r => map[r] || []),
+    ...roles.flatMap(r => map[r as keyof typeof map] || []),
   ];
 };

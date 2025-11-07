@@ -55,6 +55,7 @@ docs/ClinicManagementApi.md
 docs/ClinicRequest.md
 docs/ClinicResponse.md
 docs/ClinicSimpleResponse.md
+docs/CreateServiceOrderRequest.md
 docs/CustomApiResponseAccountSettingResponse.md
 docs/CustomApiResponseAllergyResponse.md
 docs/CustomApiResponseAppointmentResponse.md
@@ -75,6 +76,7 @@ docs/CustomApiResponseListAdministrativeUnitResponse.md
 docs/CustomApiResponseListDeviceSessionResponse.md
 docs/CustomApiResponseListMfaConfigResponse.md
 docs/CustomApiResponseListQueueTicketResponse.md
+docs/CustomApiResponseListServiceOrderResponse.md
 docs/CustomApiResponseListStaffScheduleResponse.md
 docs/CustomApiResponseListString.md
 docs/CustomApiResponseMeResponse.md
@@ -264,6 +266,7 @@ models/ChangePasswordRequest.ts
 models/ClinicRequest.ts
 models/ClinicResponse.ts
 models/ClinicSimpleResponse.ts
+models/CreateServiceOrderRequest.ts
 models/CustomApiResponseAccountSettingResponse.ts
 models/CustomApiResponseAllergyResponse.ts
 models/CustomApiResponseAppointmentResponse.ts
@@ -284,6 +287,7 @@ models/CustomApiResponseListAdministrativeUnitResponse.ts
 models/CustomApiResponseListDeviceSessionResponse.ts
 models/CustomApiResponseListMfaConfigResponse.ts
 models/CustomApiResponseListQueueTicketResponse.ts
+models/CustomApiResponseListServiceOrderResponse.ts
 models/CustomApiResponseListStaffScheduleResponse.ts
 models/CustomApiResponseListString.ts
 models/CustomApiResponseMeResponse.ts

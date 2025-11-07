@@ -41,7 +41,6 @@ export default function ExaminationPage() {
 
   return (
     <div className="grid grid-cols-12 gap-6 p-6">
-      {/* -------- LEFT PANEL -------- */}
       <div className="col-span-4">
         <Card className="p-4">
           <h2 className="text-lg font-bold">Thông tin bệnh nhân</h2>
@@ -60,8 +59,6 @@ export default function ExaminationPage() {
           />
         </Card>
       </div>
-
-      {/* -------- RIGHT PANEL -------- */}
       <div className="col-span-8">
         <Tabs defaultValue="clinical" className="w-full">
           <TabsList className="grid grid-cols-6 mb-4">
@@ -73,32 +70,26 @@ export default function ExaminationPage() {
             <TabsTrigger value="lab">Xét nghiệm</TabsTrigger>
           </TabsList>
 
-          {/* CLINICAL NOTE */}
           <TabsContent value="clinical">
             <ClinicalNoteTab exam={exam} reload={load} />
           </TabsContent>
 
-          {/* ICD */}
           <TabsContent value="icd">
             <DiagnosisTab exam={exam} />
           </TabsContent>
 
-          {/* VITAL SIGNS */}
           <TabsContent value="vitals">
             <VitalSignsTab exam={exam} />
           </TabsContent>
 
-          {/* SERVICES / SERVICE ORDERS */}
           <TabsContent value="services">
-            <ServiceOrdersTab exam={exam} reload={load} />
+            <ServiceOrdersTab exam={exam} />
           </TabsContent>
 
-          {/* PRESCRIPTION */}
           <TabsContent value="prescription">
             <PrescriptionTab exam={exam} reload={load} />
           </TabsContent>
 
-          {/* LAB ORDERS */}
           <TabsContent value="lab">
             <LabOrdersTab exam={exam} reload={load} />
           </TabsContent>

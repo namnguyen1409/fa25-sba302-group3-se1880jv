@@ -33,6 +33,8 @@ import StaffDetailPage from "./pages/staff/StaffDetail";
 import AppointmentManagementPage from "./pages/appointment/AppointmentManagement";
 import DoctorQueuePage from "./pages/appointment/DoctorQueuePage";
 import ExaminationPage from "./pages/examination/ExaminationPage";
+import TechnicianOrderPage from "./pages/service/TechnicianOrderPage";
+import TechnicianOrderResultPage from "./pages/service/TechnicianOrderResultPage";
 function App() {
   return (
     <AppProvider>
@@ -96,6 +98,8 @@ function App() {
               <Route path="service-catalogs" element={<ServiceCatalogManagementPage />} />
               <Route path="lab-tests" element={<LabTestManagementPage />} />
               <Route path="queue" element={<DoctorQueuePage />} />
+              <Route path="service-queue" element={<TechnicianOrderPage />} />
+              <Route path="service/orders/:id" element={<TechnicianOrderResultPage />} />
               <Route path="examinations/:id" element={<ExaminationPage />} />
             </Route>
 

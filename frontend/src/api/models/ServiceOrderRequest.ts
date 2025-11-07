@@ -31,7 +31,27 @@ export interface ServiceOrderRequest {
      * @memberof ServiceOrderRequest
      */
     orderCode?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ServiceOrderRequest
+     */
+    status?: ServiceOrderRequestStatusEnum;
 }
+
+
+/**
+ * @export
+ */
+export const ServiceOrderRequestStatusEnum = {
+    Pending: 'PENDING',
+    Ready: 'READY',
+    InProgress: 'IN_PROGRESS',
+    Completed: 'COMPLETED',
+    Cancelled: 'CANCELLED'
+} as const;
+export type ServiceOrderRequestStatusEnum = typeof ServiceOrderRequestStatusEnum[keyof typeof ServiceOrderRequestStatusEnum];
+
 
 /**
  * Check if a given object implements the ServiceOrderRequest interface.
@@ -52,6 +72,7 @@ export function ServiceOrderRequestFromJSONTyped(json: any, ignoreDiscriminator:
         
         'examinationId': json['examinationId'] == null ? undefined : json['examinationId'],
         'orderCode': json['orderCode'] == null ? undefined : json['orderCode'],
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
@@ -68,6 +89,7 @@ export function ServiceOrderRequestToJSONTyped(value?: ServiceOrderRequest | nul
         
         'examinationId': value['examinationId'],
         'orderCode': value['orderCode'],
+        'status': value['status'],
     };
 }
 

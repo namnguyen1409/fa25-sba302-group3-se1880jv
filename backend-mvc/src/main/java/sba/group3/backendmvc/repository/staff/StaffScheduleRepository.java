@@ -3,6 +3,7 @@ package sba.group3.backendmvc.repository.staff;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import sba.group3.backendmvc.entity.organization.Room;
+import sba.group3.backendmvc.entity.organization.RoomType;
 import sba.group3.backendmvc.entity.staff.ScheduleStatus;
 import sba.group3.backendmvc.entity.staff.StaffSchedule;
 import sba.group3.backendmvc.repository.BaseRepository;
@@ -69,4 +70,20 @@ public interface StaffScheduleRepository extends BaseRepository<StaffSchedule, U
     List<StaffSchedule> findActiveSchedules(UUID specialtyId, LocalDate date, LocalTime time);
 
     List<StaffSchedule> findAllByStaff_Specialty_IdAndDate(UUID staffSpecialtyId, LocalDate date);
+
+    @Query("""
+                SELECT ss
+                FROM StaffSchedule ss
+                WHERE ss.date = :date
+                  AND ss.room.roomType = :roomType
+                  AND ss.status IN ('AVAILABLE', 'CHANGED')
+                  AND :now BETWEEN ss.startTime AND ss.endTime
+                ORDER BY ss.startTime
+            """)
+    List<StaffSchedule> findAvailableStaffForRoomType(
+            @Param("roomType") RoomType roomType,
+            @Param("date") LocalDate date,
+            @Param("now") LocalTime now
+    );
+
 }

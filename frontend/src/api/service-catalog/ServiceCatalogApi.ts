@@ -3,12 +3,39 @@ import { apiClient } from "../client";
 import type { ServiceCatalogRequest, ServiceCatalogResponse } from "../models";
 
 export const ServiceCatalogApi = {
-    filter: (page: number, size: number, filterGroup?: FilterGroup, sorts?: SortRequest[]) => 
+    filter: (page: number, size: number, filterGroup?: FilterGroup, sorts?: SortRequest[]) =>
         apiClient.post<PageResponse<ServiceCatalogResponse>>("/examinations/service-catalog/filter", {
             page,
             size,
             filterGroup,
             sorts
+        }),
+    search: (keyword: string) =>
+        apiClient.post<PageResponse<ServiceCatalogResponse>>(`/examinations/service-catalog/filter`, {
+            page: 0,
+            size: 10,
+            filterGroup: {
+                operator: "OR",
+                filters: [
+                    {
+                        field: "code",
+                        operator: "containsIgnoreCase",
+                        value: `${keyword}`
+                    },
+                    {
+                        field: "name",
+                        operator: "containsIgnoreCase",
+                        value: `${keyword}`
+                    },
+                    {
+                        field: "description",
+                        operator: "containsIgnoreCase",
+                        value: `${keyword}`
+                    }
+                ]
+            },
+            sorts: [],
+            searchMode: "JPA"
         }),
     create: (data: ServiceCatalogRequest) =>
         apiClient.post<ServiceCatalogResponse>("/examinations/service-catalog", data),

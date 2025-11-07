@@ -12,6 +12,7 @@ Name | Type
 `room` | [RoomResponse](RoomResponse.md)
 `assignedStaff` | [StaffResponse](StaffResponse.md)
 `status` | string
+`examinationPatient` | [PatientResponse](PatientResponse.md)
 
 ## Example
 
@@ -26,6 +27,7 @@ const example = {
   "room": null,
   "assignedStaff": null,
   "status": null,
+  "examinationPatient": null,
 } satisfies ServiceOrderResponse
 
 console.log(example)

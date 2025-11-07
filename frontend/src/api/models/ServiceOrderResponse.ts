@@ -20,6 +20,13 @@ import {
     RoomResponseToJSON,
     RoomResponseToJSONTyped,
 } from './RoomResponse';
+import type { PatientResponse } from './PatientResponse';
+import {
+    PatientResponseFromJSON,
+    PatientResponseFromJSONTyped,
+    PatientResponseToJSON,
+    PatientResponseToJSONTyped,
+} from './PatientResponse';
 import type { ServiceOrderItemResponse } from './ServiceOrderItemResponse';
 import {
     ServiceOrderItemResponseFromJSON,
@@ -77,6 +84,12 @@ export interface ServiceOrderResponse {
      * @memberof ServiceOrderResponse
      */
     status?: ServiceOrderResponseStatusEnum;
+    /**
+     * 
+     * @type {PatientResponse}
+     * @memberof ServiceOrderResponse
+     */
+    examinationPatient?: PatientResponse;
 }
 
 
@@ -116,6 +129,7 @@ export function ServiceOrderResponseFromJSONTyped(json: any, ignoreDiscriminator
         'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
         'assignedStaff': json['assignedStaff'] == null ? undefined : StaffResponseFromJSON(json['assignedStaff']),
         'status': json['status'] == null ? undefined : json['status'],
+        'examinationPatient': json['examinationPatient'] == null ? undefined : PatientResponseFromJSON(json['examinationPatient']),
     };
 }
 
@@ -136,6 +150,7 @@ export function ServiceOrderResponseToJSONTyped(value?: ServiceOrderResponse | n
         'room': RoomResponseToJSON(value['room']),
         'assignedStaff': StaffResponseToJSON(value['assignedStaff']),
         'status': value['status'],
+        'examinationPatient': PatientResponseToJSON(value['examinationPatient']),
     };
 }
 

@@ -1,26 +1,30 @@
 
-# ServiceOrderRequest
+# CustomApiResponseListServiceOrderResponse
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`examinationId` | string
-`orderCode` | string
-`status` | string
+`code` | number
+`message` | string
+`data` | [Array&lt;ServiceOrderResponse&gt;](ServiceOrderResponse.md)
+`timestamp` | Date
+`path` | string
 
 ## Example
 
 ```typescript
-import type { ServiceOrderRequest } from ''
+import type { CustomApiResponseListServiceOrderResponse } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "examinationId": null,
-  "orderCode": null,
-  "status": null,
-} satisfies ServiceOrderRequest
+  "code": null,
+  "message": null,
+  "data": null,
+  "timestamp": null,
+  "path": null,
+} satisfies CustomApiResponseListServiceOrderResponse
 
 console.log(example)
 
@@ -29,7 +33,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as ServiceOrderRequest
+const exampleParsed = JSON.parse(exampleJSON) as CustomApiResponseListServiceOrderResponse
 console.log(exampleParsed)
 ```
 

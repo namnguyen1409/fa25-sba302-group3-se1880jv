@@ -1,26 +1,22 @@
 
-# ServiceOrderRequest
+# CreateServiceOrderRequest
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`examinationId` | string
-`orderCode` | string
-`status` | string
+`serviceIds` | Array&lt;string&gt;
 
 ## Example
 
 ```typescript
-import type { ServiceOrderRequest } from ''
+import type { CreateServiceOrderRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "examinationId": null,
-  "orderCode": null,
-  "status": null,
-} satisfies ServiceOrderRequest
+  "serviceIds": null,
+} satisfies CreateServiceOrderRequest
 
 console.log(example)
 
@@ -29,7 +25,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as ServiceOrderRequest
+const exampleParsed = JSON.parse(exampleJSON) as CreateServiceOrderRequest
 console.log(exampleParsed)
 ```
 

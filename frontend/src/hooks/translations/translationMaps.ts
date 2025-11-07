@@ -59,6 +59,7 @@ export const ENUM_TRANSLATIONS = {
     DOCTOR: "Bác sĩ",
     NURSE: "Y tá",
     TECHNICIAN: "Kỹ thuật viên",
+    LAB_TECHNICIAN: "Kỹ thuật viên xét nghiệm",
     PHARMACIST: "Dược sĩ",
     RECEPTIONIST: "Lễ tân",
     CASHIER: "Thu ngân",

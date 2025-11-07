@@ -5,8 +5,13 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ServiceOrderRequest;
 import sba.group3.backendmvc.dto.response.examination.ServiceOrderResponse;
 
+import java.util.List;
+import java.util.UUID;
+
 public interface ServiceOrderService {
     Page<ServiceOrderResponse> filter(SearchFilter filter);
+
+    List<ServiceOrderResponse> filterList(SearchFilter filter);
 
     ServiceOrderResponse create(ServiceOrderRequest request);
 
@@ -15,4 +20,8 @@ public interface ServiceOrderService {
     void delete(String id);
 
     ServiceOrderResponse getServiceOrdersByExaminationId(String examinationId);
+
+    List<ServiceOrderResponse> createOrders(UUID examId, List<UUID> uuids);
+
+    ServiceOrderResponse getById(String id);
 }
