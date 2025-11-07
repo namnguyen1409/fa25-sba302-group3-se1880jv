@@ -40,6 +40,7 @@ export const staffNavItems = (roles: string[]) => {
   ];
 
   const doctor = [
+    { label: "My Schedule", to: "/staff/schedule", icon: CalendarCheck },
     { label: "My Patients", to: "/staff/patients", icon: Users },
     { label: "Examinations", to: "/staff/examinations", icon: Stethoscope },
     { label: "Orders", to: "/staff/orders", icon: Syringe },

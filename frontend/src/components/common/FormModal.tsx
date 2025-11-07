@@ -40,6 +40,7 @@ export interface FormFieldConfig {
   required?: boolean;
   placeholder?: string;
   options?: Option[];
+  defaultValue?: any;
   renderFormItem?: (props: {
     value: any;
     onChange: (v: any) => void;
@@ -144,7 +145,7 @@ export const FormModal: React.FC<FormModalProps> = ({
                         />
                       ) : f.type === "select" ? (
                         <Select
-                          value={field.value}
+                          value={field.value || f.defaultValue || ""}
                           onValueChange={field.onChange}
                         >
                           <SelectTrigger>

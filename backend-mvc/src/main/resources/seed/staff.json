@@ -1,0 +1,114 @@
+[
+  {
+    "username": "doctor1",
+    "password": "123456",
+    "fullName": "BS. Minh",
+    "email": "doctor1@clinic.com",
+    "phone": "0901000001",
+    "staffType": "DOCTOR",
+    "department": "Khoa Nội tổng quát",
+    "specialty": "Nội khoa",
+    "licenseNumber": "DOC-001",
+    "experienceYears": 5
+  },
+  {
+    "username": "doctor2",
+    "password": "123456",
+    "fullName": "BS. Lan",
+    "email": "doctor2@clinic.com",
+    "phone": "0901000002",
+    "staffType": "DOCTOR",
+    "department": "Khoa Nhi",
+    "specialty": "Nhi khoa",
+    "licenseNumber": "DOC-002",
+    "experienceYears": 3
+  },
+  {
+    "username": "nurse1",
+    "password": "123456",
+    "fullName": "Điều dưỡng Hạnh",
+    "email": "nurse1@clinic.com",
+    "phone": "0902000001",
+    "staffType": "NURSE",
+    "department": "Khoa Khám bệnh",
+    "specialty": "Điều dưỡng",
+    "experienceYears": 4
+  },
+  {
+    "username": "reception1",
+    "password": "123456",
+    "fullName": "Lễ tân Thu",
+    "email": "reception1@clinic.com",
+    "phone": "0903000001",
+    "staffType": "RECEPTIONIST",
+    "department": "Khoa Hành chính – Quản trị",
+    "specialty": "Tiếp nhận"
+  },
+  {
+    "username": "lab1",
+    "password": "123456",
+    "fullName": "KTV Xét nghiệm A",
+    "email": "lab1@clinic.com",
+    "phone": "0904000001",
+    "staffType": "TECHNICIAN",
+    "department": "Khoa Xét nghiệm",
+    "specialty": "Hóa sinh",
+    "licenseNumber": "LAB-001",
+    "experienceYears": 2
+  },
+  {
+    "username": "imaging1",
+    "password": "123456",
+    "fullName": "KTV Siêu âm B",
+    "email": "imaging1@clinic.com",
+    "phone": "0904000002",
+    "staffType": "TECHNICIAN",
+    "department": "Khoa Chẩn đoán hình ảnh",
+    "specialty": "Siêu âm",
+    "licenseNumber": "IMG-001",
+    "experienceYears": 2
+  },
+  {
+    "username": "pharmacy1",
+    "password": "123456",
+    "fullName": "Dược sĩ Hoa",
+    "email": "pharmacy1@clinic.com",
+    "phone": "0905000001",
+    "staffType": "PHARMACIST",
+    "department": "Khoa Dược",
+    "specialty": "Dược lâm sàng",
+    "experienceYears": 3
+  },
+  {
+    "username": "cashier1",
+    "password": "123456",
+    "fullName": "Thu ngân Trí",
+    "email": "cashier1@clinic.com",
+    "phone": "0906000001",
+    "staffType": "CASHIER",
+    "department": "Khoa Hành chính – Quản trị",
+    "specialty": "Thu ngân"
+  },
+  {
+    "username": "manager1",
+    "password": "123456",
+    "fullName": "Quản lý Bình",
+    "email": "manager1@clinic.com",
+    "phone": "0907000001",
+    "staffType": "MANAGER",
+    "department": "Khoa Hành chính – Quản trị",
+    "specialty": "Quản lý",
+    "experienceYears": 7
+  },
+  {
+    "username": "admin",
+    "password": "123456",
+    "fullName": "Admin System",
+    "email": "admin@clinic.com",
+    "phone": "0908000001",
+    "staffType": "SYSTEM_ADMIN",
+    "department": "Khoa Hành chính – Quản trị",
+    "specialty": "Quản lý",
+    "experienceYears": 7
+  }
+]

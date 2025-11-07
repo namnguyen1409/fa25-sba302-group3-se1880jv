@@ -30,6 +30,8 @@ import ServiceCatalogManagementPage from "./pages/examination/service-catalog/Se
 import LabTestManagementPage from "./pages/laboratory/LabTestManagement";
 import PositionManagementPage from "./pages/staff/positions/PositionManagement";
 import StaffDetailPage from "./pages/staff/StaffDetail";
+import AppointmentManagementPage from "./pages/appointment/AppointmentManagement";
+import DoctorQueuePage from "./pages/appointment/DoctorQueuePage";
 function App() {
   return (
     <AppProvider>
@@ -78,6 +80,7 @@ function App() {
               </ProtectedRoute>
               }>
               <Route index element={<div>Staff Dashboard</div>} />
+              <Route path="appointments" element={<AppointmentManagementPage />} />
               <Route path="users" element={<UserManagementPage />} />
               <Route path="patients" element={<PatientManagementPage />} />
               <Route path="patients/:id" element={<PatientDetailPage />} />
@@ -91,6 +94,7 @@ function App() {
               <Route path="specialties" element={<SpecialtyManagementPage />} />
               <Route path="service-catalogs" element={<ServiceCatalogManagementPage />} />
               <Route path="lab-tests" element={<LabTestManagementPage />} />
+              <Route path="queue" element={<DoctorQueuePage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

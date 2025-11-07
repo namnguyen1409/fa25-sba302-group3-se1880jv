@@ -59,6 +59,8 @@ public class JwtServiceImpl implements JwtService {
                 .claim("scope", scope)
                 .claim("deviceId", deviceId)
                 .claim("username", user.getUsername())
+                .claim("staffId", user.getStaff() != null ? user.getStaff().getId().toString() : "")
+                .claim("patientId", user.getPatient() != null ? user.getPatient().getId().toString() : "")
                 .notBefore(Instant.now().minusSeconds(5))
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();

@@ -34,7 +34,7 @@ public class Staff extends BaseEntity {
     @JoinColumn(name = "department_id")
     Department department;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "specialty_id")
     Specialty specialty;
 
@@ -46,7 +46,7 @@ public class Staff extends BaseEntity {
     @JoinColumn(name = "position_id")
     Position position;
 
-    @Column(name = "license_number", unique = true)
+    @Column(name = "license_number")
     String licenseNumber;
 
     @Column(name = "experience_years")

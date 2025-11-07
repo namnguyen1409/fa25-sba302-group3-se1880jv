@@ -83,6 +83,24 @@ export interface StaffScheduleResponse {
      * @memberof StaffScheduleResponse
      */
     room?: RoomResponse;
+    /**
+     * 
+     * @type {Date}
+     * @memberof StaffScheduleResponse
+     */
+    date?: Date;
+    /**
+     * 
+     * @type {string}
+     * @memberof StaffScheduleResponse
+     */
+    status?: StaffScheduleResponseStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof StaffScheduleResponse
+     */
+    note?: string;
 }
 
 
@@ -99,6 +117,17 @@ export const StaffScheduleResponseDayOfWeekEnum = {
     Sunday: 'SUNDAY'
 } as const;
 export type StaffScheduleResponseDayOfWeekEnum = typeof StaffScheduleResponseDayOfWeekEnum[keyof typeof StaffScheduleResponseDayOfWeekEnum];
+
+/**
+ * @export
+ */
+export const StaffScheduleResponseStatusEnum = {
+    Available: 'AVAILABLE',
+    Off: 'OFF',
+    Cancelled: 'CANCELLED',
+    Changed: 'CHANGED'
+} as const;
+export type StaffScheduleResponseStatusEnum = typeof StaffScheduleResponseStatusEnum[keyof typeof StaffScheduleResponseStatusEnum];
 
 
 /**
@@ -125,6 +154,9 @@ export function StaffScheduleResponseFromJSONTyped(json: any, ignoreDiscriminato
         'available': json['available'] == null ? undefined : json['available'],
         'staff': json['staff'] == null ? undefined : StaffResponseFromJSON(json['staff']),
         'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
+        'date': json['date'] == null ? undefined : (new Date(json['date'])),
+        'status': json['status'] == null ? undefined : json['status'],
+        'note': json['note'] == null ? undefined : json['note'],
     };
 }
 
@@ -146,6 +178,9 @@ export function StaffScheduleResponseToJSONTyped(value?: StaffScheduleResponse |
         'available': value['available'],
         'staff': StaffResponseToJSON(value['staff']),
         'room': RoomResponseToJSON(value['room']),
+        'date': value['date'] == null ? value['date'] : value['date'].toISOString().substring(0,10),
+        'status': value['status'],
+        'note': value['note'],
     };
 }
 

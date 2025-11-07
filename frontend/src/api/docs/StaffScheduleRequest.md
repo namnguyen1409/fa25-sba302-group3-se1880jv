@@ -12,6 +12,9 @@ Name | Type
 `endTime` | [LocalTime](LocalTime.md)
 `available` | boolean
 `roomId` | string
+`date` | Date
+`status` | string
+`note` | string
 
 ## Example
 
@@ -26,6 +29,9 @@ const example = {
   "endTime": null,
   "available": null,
   "roomId": null,
+  "date": null,
+  "status": null,
+  "note": null,
 } satisfies StaffScheduleRequest
 
 console.log(example)

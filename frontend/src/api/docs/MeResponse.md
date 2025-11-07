@@ -17,6 +17,9 @@ Name | Type
 `firstLogin` | boolean
 `roles` | [Set&lt;RoleNameResponse&gt;](RoleNameResponse.md)
 `device` | [DeviceInfo](DeviceInfo.md)
+`staff` | [StaffResponse](StaffResponse.md)
+`patient` | [PatientResponse](PatientResponse.md)
+`room` | [RoomResponse](RoomResponse.md)
 
 ## Example
 
@@ -36,6 +39,9 @@ const example = {
   "firstLogin": null,
   "roles": null,
   "device": null,
+  "staff": null,
+  "patient": null,
+  "room": null,
 } satisfies MeResponse
 
 console.log(example)

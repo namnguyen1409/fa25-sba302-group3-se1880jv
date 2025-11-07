@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ExaminationRequest;
 import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
+import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.entity.examination.Examination;
+import sba.group3.backendmvc.entity.examination.ExaminationStatus;
+import sba.group3.backendmvc.entity.examination.ExaminationType;
 import sba.group3.backendmvc.mapper.examination.ExaminationMapper;
 import sba.group3.backendmvc.repository.patient.ExaminationRepository;
 import sba.group3.backendmvc.repository.patient.PatientRepository;
@@ -73,5 +76,16 @@ public class ExaminationServiceImpl implements ExaminationService {
                 () -> new IllegalArgumentException("Examination with id " + id + " not found."));
         examination.setDeleted(true);
         examinationRepository.save(examination);
+    }
+
+    @Override
+    public Examination createFromQueueTicket(QueueTicket ticket) {
+        Examination examination = Examination.builder()
+                .patient(ticket.getAppointment().getPatient())
+                .staff(ticket.getAssignedDoctor())
+                .type(ExaminationType.GENERAL)
+                .status(ExaminationStatus.ONGOING)
+                .build();
+        return examinationRepository.save(examination);
     }
 }

@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ExaminationRequest;
 import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
+import sba.group3.backendmvc.entity.appointment.QueueTicket;
+import sba.group3.backendmvc.entity.examination.Examination;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface ExaminationService {
     ExaminationResponse update(String id, ExaminationRequest request);
 
     void delete(String id);
+
+    Examination createFromQueueTicket(QueueTicket ticket);
 }

@@ -15,6 +15,9 @@ public interface StaffMapper {
     @InheritInverseConfiguration(name = "toEntity")
     StaffRequest toDto(Staff staff);
 
+    @Mapping(target = "department", ignore = true)
+    @Mapping(target = "specialty", ignore = true)
+    @Mapping(target = "position", ignore = true)
     @InheritConfiguration(name = "toEntity")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Staff partialUpdate(StaffRequest staffRequest, @MappingTarget Staff staff);

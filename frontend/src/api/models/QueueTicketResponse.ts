@@ -20,6 +20,13 @@ import {
     RoomResponseToJSON,
     RoomResponseToJSONTyped,
 } from './RoomResponse';
+import type { PatientResponse } from './PatientResponse';
+import {
+    PatientResponseFromJSON,
+    PatientResponseFromJSONTyped,
+    PatientResponseToJSON,
+    PatientResponseToJSONTyped,
+} from './PatientResponse';
 import type { StaffResponse } from './StaffResponse';
 import {
     StaffResponseFromJSON,
@@ -27,6 +34,13 @@ import {
     StaffResponseToJSON,
     StaffResponseToJSONTyped,
 } from './StaffResponse';
+import type { SpecialtyResponse } from './SpecialtyResponse';
+import {
+    SpecialtyResponseFromJSON,
+    SpecialtyResponseFromJSONTyped,
+    SpecialtyResponseToJSON,
+    SpecialtyResponseToJSONTyped,
+} from './SpecialtyResponse';
 
 /**
  * 
@@ -40,12 +54,6 @@ export interface QueueTicketResponse {
      * @memberof QueueTicketResponse
      */
     id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QueueTicketResponse
-     */
-    appointmentId?: string;
     /**
      * 
      * @type {StaffResponse}
@@ -82,6 +90,24 @@ export interface QueueTicketResponse {
      * @memberof QueueTicketResponse
      */
     examinationId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof QueueTicketResponse
+     */
+    appointmentId?: string;
+    /**
+     * 
+     * @type {PatientResponse}
+     * @memberof QueueTicketResponse
+     */
+    appointmentPatient?: PatientResponse;
+    /**
+     * 
+     * @type {SpecialtyResponse}
+     * @memberof QueueTicketResponse
+     */
+    appointmentSpecialty?: SpecialtyResponse;
 }
 
 
@@ -127,13 +153,15 @@ export function QueueTicketResponseFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
-        'appointmentId': json['appointmentId'] == null ? undefined : json['appointmentId'],
         'assignedDoctor': json['assignedDoctor'] == null ? undefined : StaffResponseFromJSON(json['assignedDoctor']),
         'assignedRoom': json['assignedRoom'] == null ? undefined : RoomResponseFromJSON(json['assignedRoom']),
         'queueNumber': json['queueNumber'] == null ? undefined : json['queueNumber'],
         'status': json['status'] == null ? undefined : json['status'],
         'priority': json['priority'] == null ? undefined : json['priority'],
         'examinationId': json['examinationId'] == null ? undefined : json['examinationId'],
+        'appointmentId': json['appointmentId'] == null ? undefined : json['appointmentId'],
+        'appointmentPatient': json['appointmentPatient'] == null ? undefined : PatientResponseFromJSON(json['appointmentPatient']),
+        'appointmentSpecialty': json['appointmentSpecialty'] == null ? undefined : SpecialtyResponseFromJSON(json['appointmentSpecialty']),
     };
 }
 
@@ -149,13 +177,15 @@ export function QueueTicketResponseToJSONTyped(value?: QueueTicketResponse | nul
     return {
         
         'id': value['id'],
-        'appointmentId': value['appointmentId'],
         'assignedDoctor': StaffResponseToJSON(value['assignedDoctor']),
         'assignedRoom': RoomResponseToJSON(value['assignedRoom']),
         'queueNumber': value['queueNumber'],
         'status': value['status'],
         'priority': value['priority'],
         'examinationId': value['examinationId'],
+        'appointmentId': value['appointmentId'],
+        'appointmentPatient': PatientResponseToJSON(value['appointmentPatient']),
+        'appointmentSpecialty': SpecialtyResponseToJSON(value['appointmentSpecialty']),
     };
 }
 

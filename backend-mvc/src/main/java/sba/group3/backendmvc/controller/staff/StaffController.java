@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,14 @@ import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleTemplateResponse;
+import sba.group3.backendmvc.entity.staff.ScheduleStatus;
 import sba.group3.backendmvc.service.staff.StaffScheduleService;
 import sba.group3.backendmvc.service.staff.StaffScheduleTemplateService;
 import sba.group3.backendmvc.service.staff.StaffService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -157,6 +162,66 @@ public class StaffController {
                         .build()
         );
     }
+
+
+    @GetMapping("/{staffId}/schedule")
+    public ResponseEntity<CustomApiResponse<List<StaffScheduleResponse>>> range(
+            @PathVariable UUID staffId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+
+        return ResponseEntity.ok(
+                CustomApiResponse.<List<StaffScheduleResponse>>builder()
+                        .data(staffScheduleService.getByStaffAndRange(staffId, from, to))
+                        .build()
+        );
+    }
+
+    @PostMapping("/{staffId}/schedule/generate")
+    public ResponseEntity<CustomApiResponse<Void>> generate(
+            @PathVariable UUID staffId,
+            @RequestBody(required = false) StaffScheduleGenerateRequest req) {
+
+        int days = (req == null || req.daysAhead() == null) ? 30 : req.daysAhead();
+        staffScheduleService.generate(staffId, days);
+        return ResponseEntity.ok(CustomApiResponse.<Void>builder().message("Generated").build());
+    }
+
+    @PatchMapping("/schedule/{scheduleId}/status")
+    public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> markStatus(
+            @PathVariable UUID scheduleId,
+            @RequestParam ScheduleStatus status,
+            @RequestParam(required = false) String note) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<StaffScheduleResponse>builder()
+                        .data(staffScheduleService.markStatus(scheduleId, status, note))
+                        .build()
+        );
+    }
+
+    @PostMapping("/schedule/day-off")
+    public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> dayOff(
+            @RequestBody @Validated StaffScheduleDayOffRequest req) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<StaffScheduleResponse>builder()
+                        .data(staffScheduleService.createDayOff(req))
+                        .build()
+        );
+    }
+
+    public record StaffScheduleDayOffRequest(
+            UUID staffId,
+            LocalDate date,
+            LocalTime startTime,
+            LocalTime endTime,
+            UUID roomId,
+            String reason
+    ) {}
+
+    public record StaffScheduleGenerateRequest(
+            java.util.UUID staffId,
+            Integer daysAhead // default 30
+    ) {}
 
     @PostMapping("/{staffId}/schedule-template/filter")
     public ResponseEntity<CustomApiResponse<Page<StaffScheduleTemplateResponse>>> getStaffScheduleTemplate(

@@ -1,6 +1,6 @@
 import type { FinishLoginPasskeyRequest, StartPasskeyLoginResponse } from "@/types/auth.dto";
 import { apiClient } from "./client";
-import type { MeResponse } from "@/types/auth";
+import type { MeResponse } from "./models";
 
 export interface LoginRequest {
     username: string;

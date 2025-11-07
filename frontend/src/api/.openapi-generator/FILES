@@ -21,6 +21,7 @@ apis/PasskeyAuthenticationApi.ts
 apis/PatientManagementApi.ts
 apis/PositionManagementApi.ts
 apis/PrescriptionControllerApi.ts
+apis/QueueTicketManagementApi.ts
 apis/RoomsManagementApi.ts
 apis/ServiceCatalogControllerApi.ts
 apis/ServiceOrderControllerApi.ts
@@ -73,6 +74,8 @@ docs/CustomApiResponseLabTestResultResponse.md
 docs/CustomApiResponseListAdministrativeUnitResponse.md
 docs/CustomApiResponseListDeviceSessionResponse.md
 docs/CustomApiResponseListMfaConfigResponse.md
+docs/CustomApiResponseListQueueTicketResponse.md
+docs/CustomApiResponseListStaffScheduleResponse.md
 docs/CustomApiResponseListString.md
 docs/CustomApiResponseMeResponse.md
 docs/CustomApiResponseMedicineResponse.md
@@ -107,6 +110,7 @@ docs/CustomApiResponsePatientResponse.md
 docs/CustomApiResponsePositionResponse.md
 docs/CustomApiResponsePrescriptionResponse.md
 docs/CustomApiResponsePublicKeyCredentialCreationOptions.md
+docs/CustomApiResponseQueueTicketResponse.md
 docs/CustomApiResponseRoomResponse.md
 docs/CustomApiResponseServiceCatalogResponse.md
 docs/CustomApiResponseServiceOrderResponse.md
@@ -198,6 +202,7 @@ docs/PublicKeyCredentialCreationOptions.md
 docs/PublicKeyCredentialDescriptor.md
 docs/PublicKeyCredentialParameters.md
 docs/PublicKeyCredentialRequestOptions.md
+docs/QueueTicketManagementApi.md
 docs/QueueTicketResponse.md
 docs/RegistrationExtensionInputs.md
 docs/RelyingPartyIdentity.md
@@ -223,6 +228,8 @@ docs/SpecialtyResponse.md
 docs/StaffManagementApi.md
 docs/StaffRequest.md
 docs/StaffResponse.md
+docs/StaffScheduleDayOffRequest.md
+docs/StaffScheduleGenerateRequest.md
 docs/StaffScheduleRequest.md
 docs/StaffScheduleResponse.md
 docs/StaffScheduleTemplateRequest.md
@@ -274,6 +281,8 @@ models/CustomApiResponseLabTestResultResponse.ts
 models/CustomApiResponseListAdministrativeUnitResponse.ts
 models/CustomApiResponseListDeviceSessionResponse.ts
 models/CustomApiResponseListMfaConfigResponse.ts
+models/CustomApiResponseListQueueTicketResponse.ts
+models/CustomApiResponseListStaffScheduleResponse.ts
 models/CustomApiResponseListString.ts
 models/CustomApiResponseMeResponse.ts
 models/CustomApiResponseMedicineResponse.ts
@@ -308,6 +317,7 @@ models/CustomApiResponsePatientResponse.ts
 models/CustomApiResponsePositionResponse.ts
 models/CustomApiResponsePrescriptionResponse.ts
 models/CustomApiResponsePublicKeyCredentialCreationOptions.ts
+models/CustomApiResponseQueueTicketResponse.ts
 models/CustomApiResponseRoomResponse.ts
 models/CustomApiResponseServiceCatalogResponse.ts
 models/CustomApiResponseServiceOrderResponse.ts
@@ -404,6 +414,8 @@ models/SpecialtyRequest.ts
 models/SpecialtyResponse.ts
 models/StaffRequest.ts
 models/StaffResponse.ts
+models/StaffScheduleDayOffRequest.ts
+models/StaffScheduleGenerateRequest.ts
 models/StaffScheduleRequest.ts
 models/StaffScheduleResponse.ts
 models/StaffScheduleTemplateRequest.ts

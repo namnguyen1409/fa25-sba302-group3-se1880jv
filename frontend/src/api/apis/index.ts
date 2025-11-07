@@ -23,6 +23,7 @@ export * from './PasskeyAuthenticationApi';
 export * from './PatientManagementApi';
 export * from './PositionManagementApi';
 export * from './PrescriptionControllerApi';
+export * from './QueueTicketManagementApi';
 export * from './RoomsManagementApi';
 export * from './ServiceCatalogControllerApi';
 export * from './ServiceOrderControllerApi';

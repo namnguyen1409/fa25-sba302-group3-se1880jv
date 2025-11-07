@@ -7,13 +7,15 @@
 Name | Type
 ------------ | -------------
 `id` | string
-`appointmentId` | string
 `assignedDoctor` | [StaffResponse](StaffResponse.md)
 `assignedRoom` | [RoomResponse](RoomResponse.md)
 `queueNumber` | string
 `status` | string
 `priority` | string
 `examinationId` | string
+`appointmentId` | string
+`appointmentPatient` | [PatientResponse](PatientResponse.md)
+`appointmentSpecialty` | [SpecialtyResponse](SpecialtyResponse.md)
 
 ## Example
 
@@ -23,13 +25,15 @@ import type { QueueTicketResponse } from ''
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
-  "appointmentId": null,
   "assignedDoctor": null,
   "assignedRoom": null,
   "queueNumber": null,
   "status": null,
   "priority": null,
   "examinationId": null,
+  "appointmentId": null,
+  "appointmentPatient": null,
+  "appointmentSpecialty": null,
 } satisfies QueueTicketResponse
 
 console.log(example)

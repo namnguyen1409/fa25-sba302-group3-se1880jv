@@ -1,5 +1,5 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
-import type { StaffScheduleRequest, StaffScheduleResponse } from "../models";
+import type { StaffScheduleDayOffRequest, StaffScheduleGenerateRequest, StaffScheduleRequest, StaffScheduleResponse } from "../models";
 import { apiClient } from "../client";
 
 export const StaffScheduleApi = {
@@ -24,4 +24,29 @@ export const StaffScheduleApi = {
     delete: async (id: string) => {
         return apiClient.delete<StaffScheduleResponse>(`/admin/staffs/schedule/${id}`);
     },
+     getRange: (staffId: string, from: string, to: string) =>
+        apiClient.get<StaffScheduleResponse[]>(
+            `/admin/staffs/${staffId}/schedule?from=${from}&to=${to}`
+        ),
+
+    /** Generate schedule từ template */
+    generate: (staffId: string, body?: StaffScheduleGenerateRequest) =>
+        apiClient.post(`/admin/staffs/${staffId}/schedule/generate`, body),
+
+    /** Đánh dấu trạng thái OFF/BLOCKED/CANCELLED cho 1 slot */
+    markStatus: (
+        scheduleId: string,
+        status: string,
+        note?: string
+    ) => {
+        const q = new URLSearchParams({ status });
+        if (note) q.append("note", note);
+        return apiClient.patch<StaffScheduleResponse>(
+            `/admin/staffs/schedule/${scheduleId}/status?${q.toString()}`
+        );
+    },
+
+    /** Tạo Day-Off (override 1 slot) */
+    dayOff: (body: StaffScheduleDayOffRequest) =>
+        apiClient.post<StaffScheduleResponse>(`/admin/staffs/schedule/day-off`, body),
 }

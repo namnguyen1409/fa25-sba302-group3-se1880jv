@@ -7,13 +7,17 @@ All URIs are relative to *http://localhost:9999*
 | [**create10**](StaffManagementApi.md#create10) | **POST** /api/admin/staffs |  |
 | [**createStaffSchedule**](StaffManagementApi.md#createstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule |  |
 | [**createStaffScheduleTemplate**](StaffManagementApi.md#createstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template |  |
+| [**dayOff**](StaffManagementApi.md#dayoff) | **POST** /api/admin/staffs/schedule/day-off |  |
 | [**delete10**](StaffManagementApi.md#delete10) | **DELETE** /api/admin/staffs/{id} |  |
 | [**deleteStaffSchedule**](StaffManagementApi.md#deletestaffschedule) | **DELETE** /api/admin/staffs/schedule/{scheduleId} |  |
 | [**deleteStaffScheduleTemplate**](StaffManagementApi.md#deletestaffscheduletemplate) | **DELETE** /api/admin/staffs/schedule-template/{templateId} |  |
 | [**filter12**](StaffManagementApi.md#filter12) | **POST** /api/admin/staffs/filter |  |
+| [**generate**](StaffManagementApi.md#generate) | **POST** /api/admin/staffs/{staffId}/schedule/generate |  |
 | [**getById6**](StaffManagementApi.md#getbyid6) | **GET** /api/admin/staffs/{id} |  |
 | [**getStaffSchedule**](StaffManagementApi.md#getstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule/filter |  |
 | [**getStaffScheduleTemplate**](StaffManagementApi.md#getstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template/filter |  |
+| [**markStatus**](StaffManagementApi.md#markstatus) | **PATCH** /api/admin/staffs/schedule/{scheduleId}/status |  |
+| [**range**](StaffManagementApi.md#range) | **GET** /api/admin/staffs/{staffId}/schedule |  |
 | [**update10**](StaffManagementApi.md#update10) | **PUT** /api/admin/staffs/{id} |  |
 | [**updateStaffSchedule**](StaffManagementApi.md#updatestaffschedule) | **PUT** /api/admin/staffs/schedule/{scheduleId} |  |
 | [**updateStaffScheduleTemplate**](StaffManagementApi.md#updatestaffscheduletemplate) | **PUT** /api/admin/staffs/schedule-template/{templateId} |  |
@@ -218,6 +222,77 @@ example().catch(console.error);
 ### Return type
 
 [**CustomApiResponseStaffScheduleTemplateResponse**](CustomApiResponseStaffScheduleTemplateResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## dayOff
+
+> CustomApiResponseStaffScheduleResponse dayOff(staffScheduleDayOffRequest)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { DayOffRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
+
+  const body = {
+    // StaffScheduleDayOffRequest
+    staffScheduleDayOffRequest: ...,
+  } satisfies DayOffRequest;
+
+  try {
+    const data = await api.dayOff(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffScheduleDayOffRequest** | [StaffScheduleDayOffRequest](StaffScheduleDayOffRequest.md) |  | |
+
+### Return type
+
+[**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -523,6 +598,80 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## generate
+
+> CustomApiResponseVoid generate(staffId, staffScheduleGenerateRequest)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GenerateRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
+
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffScheduleGenerateRequest (optional)
+    staffScheduleGenerateRequest: ...,
+  } satisfies GenerateRequest;
+
+  try {
+    const data = await api.generate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **staffScheduleGenerateRequest** | [StaffScheduleGenerateRequest](StaffScheduleGenerateRequest.md) |  | [Optional] |
+
+### Return type
+
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getById6
 
 > CustomApiResponseStaffResponse getById6(id)
@@ -729,6 +878,160 @@ example().catch(console.error);
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## markStatus
+
+> CustomApiResponseStaffScheduleResponse markStatus(scheduleId, status, note)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { MarkStatusRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
+
+  const body = {
+    // string
+    scheduleId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // 'AVAILABLE' | 'OFF' | 'CANCELLED' | 'CHANGED'
+    status: status_example,
+    // string (optional)
+    note: note_example,
+  } satisfies MarkStatusRequest;
+
+  try {
+    const data = await api.markStatus(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **scheduleId** | `string` |  | [Defaults to `undefined`] |
+| **status** | `AVAILABLE`, `OFF`, `CANCELLED`, `CHANGED` |  | [Defaults to `undefined`] [Enum: AVAILABLE, OFF, CANCELLED, CHANGED] |
+| **note** | `string` |  | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## range
+
+> CustomApiResponseListStaffScheduleResponse range(staffId, from, to)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { RangeRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
+
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies RangeRequest;
+
+  try {
+    const data = await api.range(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**CustomApiResponseListStaffScheduleResponse**](CustomApiResponseListStaffScheduleResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `*/*`
 
 

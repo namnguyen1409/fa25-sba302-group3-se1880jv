@@ -13,6 +13,9 @@ Name | Type
 `available` | boolean
 `staff` | [StaffResponse](StaffResponse.md)
 `room` | [RoomResponse](RoomResponse.md)
+`date` | Date
+`status` | string
+`note` | string
 
 ## Example
 
@@ -28,6 +31,9 @@ const example = {
   "available": null,
   "staff": null,
   "room": null,
+  "date": null,
+  "status": null,
+  "note": null,
 } satisfies StaffScheduleResponse
 
 console.log(example)

@@ -63,6 +63,24 @@ export interface StaffScheduleRequest {
      * @memberof StaffScheduleRequest
      */
     roomId?: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof StaffScheduleRequest
+     */
+    date?: Date;
+    /**
+     * 
+     * @type {string}
+     * @memberof StaffScheduleRequest
+     */
+    status?: StaffScheduleRequestStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof StaffScheduleRequest
+     */
+    note?: string;
 }
 
 
@@ -79,6 +97,17 @@ export const StaffScheduleRequestDayOfWeekEnum = {
     Sunday: 'SUNDAY'
 } as const;
 export type StaffScheduleRequestDayOfWeekEnum = typeof StaffScheduleRequestDayOfWeekEnum[keyof typeof StaffScheduleRequestDayOfWeekEnum];
+
+/**
+ * @export
+ */
+export const StaffScheduleRequestStatusEnum = {
+    Available: 'AVAILABLE',
+    Off: 'OFF',
+    Cancelled: 'CANCELLED',
+    Changed: 'CHANGED'
+} as const;
+export type StaffScheduleRequestStatusEnum = typeof StaffScheduleRequestStatusEnum[keyof typeof StaffScheduleRequestStatusEnum];
 
 
 /**
@@ -104,6 +133,9 @@ export function StaffScheduleRequestFromJSONTyped(json: any, ignoreDiscriminator
         'endTime': json['endTime'] == null ? undefined : LocalTimeFromJSON(json['endTime']),
         'available': json['available'] == null ? undefined : json['available'],
         'roomId': json['roomId'] == null ? undefined : json['roomId'],
+        'date': json['date'] == null ? undefined : (new Date(json['date'])),
+        'status': json['status'] == null ? undefined : json['status'],
+        'note': json['note'] == null ? undefined : json['note'],
     };
 }
 
@@ -124,6 +156,9 @@ export function StaffScheduleRequestToJSONTyped(value?: StaffScheduleRequest | n
         'endTime': LocalTimeToJSON(value['endTime']),
         'available': value['available'],
         'roomId': value['roomId'],
+        'date': value['date'] == null ? value['date'] : value['date'].toISOString().substring(0,10),
+        'status': value['status'],
+        'note': value['note'],
     };
 }
 

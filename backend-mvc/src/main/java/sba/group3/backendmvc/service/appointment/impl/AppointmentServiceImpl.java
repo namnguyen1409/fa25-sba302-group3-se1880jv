@@ -49,17 +49,28 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional
     @Override
     public AppointmentResponse create(AppointmentRequest appointmentRequest) {
+
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+
+        // 1) Tạo bản ghi Appointment
         var entity = appointmentMapper.toEntity(appointmentRequest);
         entity.setPatient(patientRepository.getReferenceById(appointmentRequest.patientId()));
         entity.setSpecialty(specialtyRepository.getReferenceById(appointmentRequest.specialtyId()));
+
         var savedEntity = appointmentRepository.save(entity);
+
+        // 2) Auto pick bác sĩ đúng chuyên khoa + còn ca làm
         var doctorDto = staffService.autoPickDoctor(appointmentRequest.specialtyId());
         var doctor = staffRepository.getReferenceById(doctorDto.id());
 
-        var day = LocalDate.now().getDayOfWeek();
-        var now = LocalTime.now();
-        var room = staffScheduleRepository.findActiveRoomForDoctor(doctor.getId(), day, now)
-                .orElseThrow(() -> new AppException(ErrorCode.BAD_REQUEST, "Không tìm thấy phòng trực cho bác sĩ"));
+        // 3) Tìm phòng bác sĩ đang trực NGAY HÔM NAY, đúng giờ hiện tại
+        var room = staffScheduleRepository.findActiveRoomForDoctor(doctor.getId(), today, now)
+                .orElseThrow(() ->
+                        new AppException(ErrorCode.BAD_REQUEST,
+                                "Không tìm thấy phòng trực của bác sĩ tại thời điểm hiện tại"));
+
+        // 4) Tạo queue ticket
         QueueTicket ticket = QueueTicket.builder()
                 .appointment(entity)
                 .assignedDoctor(doctor)
@@ -68,8 +79,11 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .priority(QueuePriority.NORMAL)
                 .status(QueueStatus.WAITING)
                 .build();
+
         queueTicketRepository.save(ticket);
+
         entity.setQueueTicket(ticket);
+
         return appointmentMapper.toDto1(savedEntity);
     }
 

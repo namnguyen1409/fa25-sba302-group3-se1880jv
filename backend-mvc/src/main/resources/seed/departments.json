@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Khoa Khám bệnh",
+    "clinic": "Group 3 Clinic",
+    "description": "Tiếp nhận và khám bệnh ban đầu cho bệnh nhân."
+  },
+  {
+    "name": "Khoa Nội tổng quát",
+    "clinic": "Group 3 Clinic",
+    "description": "Khám và điều trị các bệnh lý nội khoa thông thường."
+  },
+  {
+    "name": "Khoa Nhi",
+    "clinic": "Group 3 Clinic",
+    "description": "Tiếp nhận và khám chữa bệnh cho trẻ em."
+  },
+  {
+    "name": "Khoa Tai Mũi Họng",
+    "clinic": "Group 3 Clinic",
+    "description": "Khám và điều trị các bệnh lý về tai, mũi, họng."
+  },
+  {
+    "name": "Khoa Xét nghiệm",
+    "clinic": "Group 3 Clinic",
+    "description": "Thực hiện các xét nghiệm cận lâm sàng."
+  },
+  {
+    "name": "Khoa Chẩn đoán hình ảnh",
+    "clinic": "Group 3 Clinic",
+    "description": "Chụp X-quang, siêu âm và các kỹ thuật hình ảnh."
+  },
+  {
+    "name": "Khoa Dược",
+    "clinic": "Group 3 Clinic",
+    "description": "Quản lý thuốc và cấp phát thuốc."
+  },
+  {
+    "name": "Khoa Thủ thuật",
+    "clinic": "Group 3 Clinic",
+    "description": "Thực hiện các thủ thuật ngoại trú đơn giản."
+  },
+  {
+    "name": "Khoa Hành chính – Quản trị",
+    "clinic": "Group 3 Clinic",
+    "description": "Quản lý hồ sơ, tài chính và vận hành phòng khám."
+  }
+]

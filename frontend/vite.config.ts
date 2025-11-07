@@ -11,6 +11,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    global: "{}",
+  },
   server: {
     allowedHosts: ["sba301.telecomic.top"]
   }

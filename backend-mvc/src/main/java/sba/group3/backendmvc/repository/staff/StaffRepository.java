@@ -18,7 +18,7 @@ public interface StaffRepository extends BaseRepository<Staff, UUID> {
     @Query("SELECT s FROM Staff s JOIN s.staffSchedules sch " +
             "WHERE s.specialty.id = :specialtyId " +
             "AND s.staffType = 'DOCTOR' " +
-            "AND sch.dayOfWeek = :day " +
+            "AND sch.date = :day " +
             "AND sch.startTime <= :time " +
             "AND sch.endTime >= :time")
     List<Staff> findAvailableDoctors(UUID specialtyId, DayOfWeek day, LocalTime time);
@@ -28,7 +28,7 @@ public interface StaffRepository extends BaseRepository<Staff, UUID> {
     JOIN s.staffSchedules sch
     WHERE s.specialty.id = :specialtyId
       AND s.staffType = 'DOCTOR'
-      AND sch.dayOfWeek = :day
+      AND sch.date = :day
 """)
     List<Staff> findDoctorsScheduledToday(UUID specialtyId, DayOfWeek day);
 
@@ -37,7 +37,7 @@ public interface StaffRepository extends BaseRepository<Staff, UUID> {
     END
     FROM StaffSchedule sch
     WHERE sch.staff.id = :staffId 
-      AND sch.dayOfWeek = :day
+      AND sch.date = :day
 """)
     Boolean isDoctorStillWorkingToday(UUID staffId, DayOfWeek day, LocalTime time);
 }

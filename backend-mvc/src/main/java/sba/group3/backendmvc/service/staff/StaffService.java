@@ -6,6 +6,7 @@ import sba.group3.backendmvc.dto.request.staff.StaffRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +24,7 @@ public interface StaffService {
 
     List<StaffResponse> findDoctorsBySpecialty(UUID specialtyId);
 
-    List<StaffResponse> findAvailableDoctors(UUID specialtyId, DayOfWeek day, LocalTime time);
+    List<StaffResponse> findAvailableDoctors(UUID specialtyId, LocalDate date, LocalTime time);
 
     StaffResponse autoPickDoctor(UUID specialtyId);
 }

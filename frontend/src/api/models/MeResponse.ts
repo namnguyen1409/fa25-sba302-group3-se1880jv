@@ -13,6 +13,20 @@
  */
 
 import { mapValues } from '../runtime';
+import type { RoomResponse } from './RoomResponse';
+import {
+    RoomResponseFromJSON,
+    RoomResponseFromJSONTyped,
+    RoomResponseToJSON,
+    RoomResponseToJSONTyped,
+} from './RoomResponse';
+import type { PatientResponse } from './PatientResponse';
+import {
+    PatientResponseFromJSON,
+    PatientResponseFromJSONTyped,
+    PatientResponseToJSON,
+    PatientResponseToJSONTyped,
+} from './PatientResponse';
 import type { DeviceInfo } from './DeviceInfo';
 import {
     DeviceInfoFromJSON,
@@ -20,6 +34,13 @@ import {
     DeviceInfoToJSON,
     DeviceInfoToJSONTyped,
 } from './DeviceInfo';
+import type { StaffResponse } from './StaffResponse';
+import {
+    StaffResponseFromJSON,
+    StaffResponseFromJSONTyped,
+    StaffResponseToJSON,
+    StaffResponseToJSONTyped,
+} from './StaffResponse';
 import type { SimpleProfileResponse } from './SimpleProfileResponse';
 import {
     SimpleProfileResponseFromJSON,
@@ -107,6 +128,24 @@ export interface MeResponse {
      * @memberof MeResponse
      */
     device?: DeviceInfo;
+    /**
+     * 
+     * @type {StaffResponse}
+     * @memberof MeResponse
+     */
+    staff?: StaffResponse;
+    /**
+     * 
+     * @type {PatientResponse}
+     * @memberof MeResponse
+     */
+    patient?: PatientResponse;
+    /**
+     * 
+     * @type {RoomResponse}
+     * @memberof MeResponse
+     */
+    room?: RoomResponse;
 }
 
 /**
@@ -137,6 +176,9 @@ export function MeResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'firstLogin': json['firstLogin'] == null ? undefined : json['firstLogin'],
         'roles': json['roles'] == null ? undefined : (new Set((json['roles'] as Array<any>).map(RoleNameResponseFromJSON))),
         'device': json['device'] == null ? undefined : DeviceInfoFromJSON(json['device']),
+        'staff': json['staff'] == null ? undefined : StaffResponseFromJSON(json['staff']),
+        'patient': json['patient'] == null ? undefined : PatientResponseFromJSON(json['patient']),
+        'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
     };
 }
 
@@ -162,6 +204,9 @@ export function MeResponseToJSONTyped(value?: MeResponse | null, ignoreDiscrimin
         'firstLogin': value['firstLogin'],
         'roles': value['roles'] == null ? undefined : (Array.from(value['roles'] as Set<any>).map(RoleNameResponseToJSON)),
         'device': DeviceInfoToJSON(value['device']),
+        'staff': StaffResponseToJSON(value['staff']),
+        'patient': PatientResponseToJSON(value['patient']),
+        'room': RoomResponseToJSON(value['room']),
     };
 }
 

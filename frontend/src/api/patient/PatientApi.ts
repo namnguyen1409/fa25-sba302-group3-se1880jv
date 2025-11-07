@@ -47,7 +47,7 @@ export interface PatientRequest {
 }
 
 export const PatientApi = {
-    getPatient : (
+    getPatient: (
         page: number,
         size: number,
         filterGroup?: FilterGroup,
@@ -61,6 +61,20 @@ export const PatientApi = {
         sorts,
         searchMode
     }),
+    search: (keyword: string) =>
+        apiClient.post<PageResponse<PatientResponse>>("/patients/filter", {
+            page: 0,
+            size: 10,
+            filterGroup: {
+                operator: "OR",
+                filters: [
+                    { field: "fullName", operator: "containsIgnoreCase", value: keyword },
+                    { field: "phone", operator: "containsIgnoreCase", value: keyword },
+                    { field: "patientCode", operator: "containsIgnoreCase", value: keyword },
+                ],
+            },
+            sorts: [{ field: "fullName", direction: "ASC" }],
+        }),
     createPatient: (data: PatientRequest) =>
         apiClient.post<PatientResponse>("/patients", data),
 

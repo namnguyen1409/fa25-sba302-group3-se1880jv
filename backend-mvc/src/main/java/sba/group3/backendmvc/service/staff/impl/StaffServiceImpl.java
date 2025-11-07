@@ -14,6 +14,7 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.entity.staff.Staff;
+import sba.group3.backendmvc.entity.staff.StaffSchedule;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
@@ -25,6 +26,7 @@ import sba.group3.backendmvc.repository.organization.DepartmentRepository;
 import sba.group3.backendmvc.repository.staff.PositionRepository;
 import sba.group3.backendmvc.repository.staff.SpecialtyRepository;
 import sba.group3.backendmvc.repository.staff.StaffRepository;
+import sba.group3.backendmvc.repository.staff.StaffScheduleRepository;
 import sba.group3.backendmvc.repository.user.RoleRepository;
 import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
@@ -32,7 +34,6 @@ import sba.group3.backendmvc.service.infrastructure.EmailSender;
 import sba.group3.backendmvc.service.infrastructure.EmailTemplateService;
 import sba.group3.backendmvc.service.staff.StaffService;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Comparator;
@@ -54,9 +55,10 @@ public class StaffServiceImpl implements StaffService {
     UserProfileRepository userProfileRepository;
     RoleRepository roleRepository;
     EmailSender emailSender;
-    private final QueueTicketRepository queueTicketRepository;
-    private final SpecialtyRepository specialtyRepository;
-    private final EmailTemplateService emailTemplateService;
+    QueueTicketRepository queueTicketRepository;
+    SpecialtyRepository specialtyRepository;
+    EmailTemplateService emailTemplateService;
+    private final StaffScheduleRepository staffScheduleRepository;
 
     @Override
     public Page<StaffResponse> filter(SearchFilter filter) {
@@ -168,6 +170,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
 
+    @Transactional
     @Override
     public StaffResponse update(UUID id, StaffRequest request) {
         var entity = staffRepository.findById(id).orElseThrow();
@@ -202,59 +205,79 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public List<StaffResponse> findAvailableDoctors(UUID specialtyId, DayOfWeek day, LocalTime time) {
-        // Nếu trong giờ → lấy bác sĩ đang trực
-        var activeDoctors = staffRepository.findAvailableDoctors(specialtyId, day, time);
+    public List<StaffResponse> findAvailableDoctors(UUID specialtyId, LocalDate date, LocalTime time) {
 
-        if (!activeDoctors.isEmpty()) {
-            return activeDoctors.stream()
+        // 1) Bác sĩ đang trực trong giờ hiện tại (start ≤ now ≤ end)
+        var activeSchedules = staffScheduleRepository.findActiveSchedules(
+                specialtyId, date, time
+        );
+
+        if (!activeSchedules.isEmpty()) {
+            return activeSchedules.stream()
+                    .map(StaffSchedule::getStaff)
+                    .distinct()
                     .map(staffMapper::toDto1)
                     .toList();
         }
 
-        // Nếu đến sớm → lấy bác sĩ có lịch hôm nay, không check giờ
-        var scheduledDoctors = staffRepository.findDoctorsScheduledToday(specialtyId, day);
-        return scheduledDoctors.stream()
+        // 2) Nếu bệnh nhân đến sớm → lấy danh sách bác sĩ có lịch hôm nay
+        var todaySchedules = staffScheduleRepository.findAllByStaff_Specialty_IdAndDate(
+                specialtyId, date
+        );
+
+        return todaySchedules.stream()
+                .map(StaffSchedule::getStaff)
+                .distinct()
                 .map(staffMapper::toDto1)
                 .toList();
     }
 
+
     @Override
     public StaffResponse autoPickDoctor(UUID specialtyId) {
-        var day = LocalDate.now().getDayOfWeek();
-        var now = LocalTime.now();
 
-        // 1) Thử lấy bác sĩ đang trực ngay lúc này
-        var activeDoctors = staffRepository.findAvailableDoctors(specialtyId, day, now);
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+
+        // 1) Lấy lịch bác sĩ đang trực ngay lúc này
+        var activeSchedules = staffScheduleRepository.findActiveSchedules(specialtyId, today, now);
 
         List<Staff> candidates;
 
-        if (!activeDoctors.isEmpty()) {
-            candidates = activeDoctors;
+        if (!activeSchedules.isEmpty()) {
+            candidates = activeSchedules.stream()
+                    .map(StaffSchedule::getStaff)
+                    .distinct()
+                    .toList();
         } else {
-            // 2) Không có bác sĩ đang trực → có thể bệnh nhân đến sớm
-            var scheduledDoctors = staffRepository.findDoctorsScheduledToday(specialtyId, day);
+            // 2) Không có ai đang trực → lấy bác sĩ có lịch hôm nay
+            var todaySchedules = staffScheduleRepository.findAllByStaff_Specialty_IdAndDate(
+                    specialtyId, today
+            );
 
-            if (scheduledDoctors.isEmpty()) {
+            if (todaySchedules.isEmpty()) {
                 throw new AppException(ErrorCode.RESOURCE_NOT_FOUND,
-                        "Không có bác sĩ trực cho chuyên khoa này hôm nay");
+                        "Hôm nay không có bác sĩ trực cho chuyên khoa này");
             }
 
-            // Lọc bác sĩ còn ca (không lấy người đã hết giờ)
-            candidates = scheduledDoctors.stream()
-                    .filter(doc -> staffRepository.isDoctorStillWorkingToday(doc.getId(), day, now))
+            // Lọc người chưa hết giờ làm
+            candidates = todaySchedules.stream()
+                    .filter(s -> s.getEndTime().isAfter(now))
+                    .map(StaffSchedule::getStaff)
+                    .distinct()
                     .toList();
 
             if (candidates.isEmpty()) {
                 throw new AppException(ErrorCode.BAD_REQUEST,
-                        "Tất cả bác sĩ đã kết thúc ca trực. Vui lòng chọn ca khác.");
+                        "Tất cả bác sĩ đã kết thúc ca trực hôm nay");
             }
-
         }
 
-        // 3) Pick bác sĩ có ít bệnh nhân nhất hôm nay
+        // 3) Pick bác sĩ có ít bệnh nhân chờ nhất hôm nay
         var selected = candidates.stream()
-                .min(Comparator.comparing(doc -> queueTicketRepository.countWaitingTodayByDoctor(doc.getId())))
+                .min(Comparator.comparing(doc ->
+                        queueTicketRepository.countWaitingTodayByDoctor(doc.getId())
+                ))
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         return staffMapper.toDto1(selected);

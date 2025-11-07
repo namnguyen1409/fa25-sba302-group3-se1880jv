@@ -10,6 +10,7 @@ import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.organization.Room;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -23,16 +24,19 @@ import java.util.Objects;
 @FieldNameConstants
 @Table(
         name = "staff_schedule",
-        schema = "medical_staff_management"
+        schema = "medical_staff_management",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_staff_date_room_time",
+                columnNames = {"staff_id", "date", "room_id", "start_time", "end_time"}
+        )
 )
 public class StaffSchedule extends BaseEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "staff_id")
     Staff staff;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "day_of_week", nullable = false)
-    DayOfWeek dayOfWeek;
+    @Column(name = "date", nullable = false)
+    LocalDate date;
 
     @Column(name = "start_time", nullable = false)
     LocalTime startTime;
@@ -40,12 +44,16 @@ public class StaffSchedule extends BaseEntity {
     @Column(name = "end_time", nullable = false)
     LocalTime endTime;
 
-    @Column(name = "available", nullable = false)
-    boolean available;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    ScheduleStatus status = ScheduleStatus.AVAILABLE;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "room_id")
     Room room;
+
+    @Column(name = "note", length = 500)
+    String note;
 
     @Override
     public final boolean equals(Object o) {

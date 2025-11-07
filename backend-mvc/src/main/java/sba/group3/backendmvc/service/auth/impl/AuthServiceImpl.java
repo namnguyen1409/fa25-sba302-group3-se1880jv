@@ -36,12 +36,14 @@ import sba.group3.backendmvc.enums.LoginStatus;
 import sba.group3.backendmvc.enums.OAuthProvider;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
+import sba.group3.backendmvc.mapper.organization.RoomMapper;
 import sba.group3.backendmvc.mapper.user.DeviceSessionMapper;
 import sba.group3.backendmvc.mapper.user.UserMapper;
 import sba.group3.backendmvc.repository.auth.MfaConfigRepository;
 import sba.group3.backendmvc.repository.auth.OAuthAccountRepository;
 import sba.group3.backendmvc.repository.auth.OtpChallengeRepository;
 import sba.group3.backendmvc.repository.patient.PatientRepository;
+import sba.group3.backendmvc.repository.staff.StaffScheduleRepository;
 import sba.group3.backendmvc.repository.user.DeviceSessionRepository;
 import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
@@ -53,6 +55,8 @@ import sba.group3.backendmvc.service.user.DeviceSessionService;
 import sba.group3.backendmvc.service.user.RoleService;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -63,6 +67,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
+    private final RoomMapper roomMapper;
     DeviceSessionMapper deviceSessionMapper;
     UserMapper userMapper;
 
@@ -87,6 +92,7 @@ public class AuthServiceImpl implements AuthService {
     OtpChallengeRepository otpChallengeRepository;
     MfaConfigRepository mfaConfigRepository;
     PatientRepository patientRepository;
+    private final StaffScheduleRepository staffScheduleRepository;
 
     @NonFinal
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
@@ -310,6 +316,12 @@ public class AuthServiceImpl implements AuthService {
                 .ifPresent(
                         deviceSession -> dto.setDevice(deviceSessionMapper.toDto(deviceSession))
                 );
+        if (user.getStaff() != null) {
+            staffScheduleRepository
+                    .findActiveRoomForDoctor(user.getStaff().getId(), LocalDate.now(), LocalTime.now())
+                    .ifPresent(activeRoom -> dto.setRoom(roomMapper.toDto(activeRoom)));
+
+        }
         return dto;
     }
 

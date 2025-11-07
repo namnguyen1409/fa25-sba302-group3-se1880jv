@@ -19,6 +19,7 @@ import {
   type RoomResponse,
 } from "@/api";
 import { RoomApi } from "@/api/room/RoomApi";
+import { useEnumTranslation } from "@/hooks/translations/useEnumTranslation";
 
 export default function RoomManagementPage() {
   const [selectForForm, setSelectForForm] = React.useState<RoomResponse | null>(
@@ -28,6 +29,8 @@ export default function RoomManagementPage() {
     "create" | "update" | "hidden"
   >("hidden");
   const tableRef = React.useRef<any>(null);
+
+  const {translate, toOptions} = useEnumTranslation();
 
   const fetchRooms = async (
     page: number,
@@ -57,30 +60,7 @@ export default function RoomManagementPage() {
       title: "Loại phòng",
       dataIndex: "roomType",
       sortable: true,
-      render: (_value, record) => {
-        switch (record.roomType) {
-          case RoomRequestRoomTypeEnum.Consultation:
-            return "Tư vấn";
-          case RoomRequestRoomTypeEnum.Xray:
-            return "X-Quang";
-          case RoomRequestRoomTypeEnum.Ultrasound:
-            return "Siêu âm";
-          case RoomRequestRoomTypeEnum.Laboratory:
-            return "Phòng xét nghiệm";
-          case RoomRequestRoomTypeEnum.Procedure:
-            return "Thủ thuật";
-          case RoomRequestRoomTypeEnum.Pharmacy:
-            return "Nhà thuốc";
-          case RoomRequestRoomTypeEnum.Cashier:
-            return "Quầy thu ngân";
-          case RoomRequestRoomTypeEnum.Reception:
-            return "Lễ tân";
-          case RoomRequestRoomTypeEnum.WaitingArea:
-            return "Khu vực chờ";
-          default:
-            return "";
-        }
-      },
+      render: (_value) => translate("roomType", _value),
     },
     { title: "Tầng", dataIndex: "floorNumber", sortable: true },
     { title: "Sức chứa", dataIndex: "capacity", sortable: true },
@@ -100,20 +80,7 @@ export default function RoomManagementPage() {
       label: "Loại phòng",
       type: "select",
       required: false,
-      options: [
-        { label: "Tư vấn", value: RoomRequestRoomTypeEnum.Consultation },
-        { label: "X-Quang", value: RoomRequestRoomTypeEnum.Xray },
-        { label: "Siêu âm", value: RoomRequestRoomTypeEnum.Ultrasound },
-        {
-          label: "Phòng xét nghiệm",
-          value: RoomRequestRoomTypeEnum.Laboratory,
-        },
-        { label: "Thủ thuật", value: RoomRequestRoomTypeEnum.Procedure },
-        { label: "Nhà thuốc", value: RoomRequestRoomTypeEnum.Pharmacy },
-        { label: "Quầy thu ngân", value: RoomRequestRoomTypeEnum.Cashier },
-        { label: "Lễ tân", value: RoomRequestRoomTypeEnum.Reception },
-        { label: "Khu vực chờ", value: RoomRequestRoomTypeEnum.WaitingArea },
-      ],
+      options: toOptions("roomType"),
     },
     { name: "floorNumber", label: "Tầng", type: "number" },
     { name: "capacity", label: "Sức chứa", type: "number" },

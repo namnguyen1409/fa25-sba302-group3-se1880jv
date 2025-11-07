@@ -2,6 +2,9 @@ package sba.group3.backendmvc.dto.response.user;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import sba.group3.backendmvc.dto.response.organization.RoomResponse;
+import sba.group3.backendmvc.dto.response.patient.PatientResponse;
+import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -27,4 +30,7 @@ public class MeResponse implements Serializable {
     boolean firstLogin;
     Set<RoleNameResponse> roles;
     DeviceInfo device;
+    private StaffResponse staff;
+    private PatientResponse patient;
+    private RoomResponse room;
 }
