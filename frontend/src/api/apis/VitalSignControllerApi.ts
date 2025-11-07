@@ -16,17 +16,23 @@
 import * as runtime from '../runtime';
 import type {
   CustomApiResponseObject,
+  CustomApiResponsePageVitalSignResponse,
   CustomApiResponseVitalSignResponse,
   GetPatientById400Response,
+  SearchFilter,
   VitalSignRequest,
 } from '../models/index';
 import {
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
+    CustomApiResponsePageVitalSignResponseFromJSON,
+    CustomApiResponsePageVitalSignResponseToJSON,
     CustomApiResponseVitalSignResponseFromJSON,
     CustomApiResponseVitalSignResponseToJSON,
     GetPatientById400ResponseFromJSON,
     GetPatientById400ResponseToJSON,
+    SearchFilterFromJSON,
+    SearchFilterToJSON,
     VitalSignRequestFromJSON,
     VitalSignRequestToJSON,
 } from '../models/index';
@@ -34,6 +40,11 @@ import {
 export interface CreateVitalRequest {
     id: string;
     vitalSignRequest: VitalSignRequest;
+}
+
+export interface FilterVitalsRequest {
+    id: string;
+    searchFilter: SearchFilter;
 }
 
 export interface GetVitalsRequest {
@@ -101,6 +112,59 @@ export class VitalSignControllerApi extends runtime.BaseAPI {
      */
     async createVital(requestParameters: CreateVitalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVitalSignResponse> {
         const response = await this.createVitalRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async filterVitalsRaw(requestParameters: FilterVitalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageVitalSignResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling filterVitals().'
+            );
+        }
+
+        if (requestParameters['searchFilter'] == null) {
+            throw new runtime.RequiredError(
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling filterVitals().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/vitals/filter`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageVitalSignResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async filterVitals(requestParameters: FilterVitalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageVitalSignResponse> {
+        const response = await this.filterVitalsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -7,9 +7,8 @@
 Name | Type
 ------------ | -------------
 `examinationId` | string
-`icdCode` | string
-`diseaseName` | string
 `note` | string
+`icdCodeId` | string
 
 ## Example
 
@@ -19,9 +18,8 @@ import type { DiagnosisRequest } from ''
 // TODO: Update the object below with actual values
 const example = {
   "examinationId": null,
-  "icdCode": null,
-  "diseaseName": null,
   "note": null,
+  "icdCodeId": null,
 } satisfies DiagnosisRequest
 
 console.log(example)

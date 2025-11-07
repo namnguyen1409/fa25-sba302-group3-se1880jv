@@ -7,9 +7,8 @@
 Name | Type
 ------------ | -------------
 `id` | string
-`icdCode` | string
-`diseaseName` | string
 `note` | string
+`icdCode` | [IcdCodeResponse](IcdCodeResponse.md)
 
 ## Example
 
@@ -19,9 +18,8 @@ import type { DiagnosisResponse } from ''
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
-  "icdCode": null,
-  "diseaseName": null,
   "note": null,
+  "icdCode": null,
 } satisfies DiagnosisResponse
 
 console.log(example)

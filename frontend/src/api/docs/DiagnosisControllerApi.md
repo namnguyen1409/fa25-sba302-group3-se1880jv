@@ -6,6 +6,7 @@ All URIs are relative to *http://localhost:9999*
 |------------- | ------------- | -------------|
 | [**addDiagnosis**](DiagnosisControllerApi.md#adddiagnosis) | **POST** /api/examinations/{id}/diagnosis |  |
 | [**deleteDiagnosis**](DiagnosisControllerApi.md#deletediagnosis) | **DELETE** /api/examinations/{id}/diagnosis/{diagnosisId} |  |
+| [**filterDiagnosis**](DiagnosisControllerApi.md#filterdiagnosis) | **POST** /api/examinations/{id}/diagnosis/filter |  |
 | [**getDiagnosisList**](DiagnosisControllerApi.md#getdiagnosislist) | **GET** /api/examinations/{id}/diagnosis |  |
 
 
@@ -145,6 +146,80 @@ example().catch(console.error);
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## filterDiagnosis
+
+> CustomApiResponsePageDiagnosisResponse filterDiagnosis(id, searchFilter)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  DiagnosisControllerApi,
+} from '';
+import type { FilterDiagnosisRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DiagnosisControllerApi(config);
+
+  const body = {
+    // string
+    id: id_example,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies FilterDiagnosisRequest;
+
+  try {
+    const data = await api.filterDiagnosis(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+
+### Return type
+
+[**CustomApiResponsePageDiagnosisResponse**](CustomApiResponsePageDiagnosisResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `*/*`
 
 

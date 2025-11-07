@@ -17,7 +17,6 @@ import sba.group3.backendmvc.service.examination.ServiceOrderService;
 @RequestMapping("/api/examinations")
 public class ServiceOrderController {
     private final ServiceOrderService serviceOrderService;
-    private final RestClient.Builder builder;
 
     @GetMapping("/{id}/services")
     public ResponseEntity<CustomApiResponse<ServiceOrderResponse>> getServiceOrders(

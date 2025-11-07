@@ -30,19 +30,13 @@ export interface DiagnosisRequest {
      * @type {string}
      * @memberof DiagnosisRequest
      */
-    icdCode?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DiagnosisRequest
-     */
-    diseaseName?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DiagnosisRequest
-     */
     note?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DiagnosisRequest
+     */
+    icdCodeId?: string;
 }
 
 /**
@@ -63,9 +57,8 @@ export function DiagnosisRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'examinationId': json['examinationId'] == null ? undefined : json['examinationId'],
-        'icdCode': json['icdCode'] == null ? undefined : json['icdCode'],
-        'diseaseName': json['diseaseName'] == null ? undefined : json['diseaseName'],
         'note': json['note'] == null ? undefined : json['note'],
+        'icdCodeId': json['icdCodeId'] == null ? undefined : json['icdCodeId'],
     };
 }
 
@@ -81,9 +74,8 @@ export function DiagnosisRequestToJSONTyped(value?: DiagnosisRequest | null, ign
     return {
         
         'examinationId': value['examinationId'],
-        'icdCode': value['icdCode'],
-        'diseaseName': value['diseaseName'],
         'note': value['note'],
+        'icdCodeId': value['icdCodeId'],
     };
 }
 

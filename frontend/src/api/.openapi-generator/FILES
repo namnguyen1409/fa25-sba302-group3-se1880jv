@@ -87,6 +87,7 @@ docs/CustomApiResponsePageAllergyResponse.md
 docs/CustomApiResponsePageAppointmentResponse.md
 docs/CustomApiResponsePageClinicResponse.md
 docs/CustomApiResponsePageDepartmentResponse.md
+docs/CustomApiResponsePageDiagnosisResponse.md
 docs/CustomApiResponsePageDispenseRecordResponse.md
 docs/CustomApiResponsePageEmergencyContactResponse.md
 docs/CustomApiResponsePageExaminationResponse.md
@@ -106,6 +107,7 @@ docs/CustomApiResponsePageStaffResponse.md
 docs/CustomApiResponsePageStaffScheduleResponse.md
 docs/CustomApiResponsePageStaffScheduleTemplateResponse.md
 docs/CustomApiResponsePageUserResponse.md
+docs/CustomApiResponsePageVitalSignResponse.md
 docs/CustomApiResponsePatientResponse.md
 docs/CustomApiResponsePositionResponse.md
 docs/CustomApiResponsePrescriptionResponse.md
@@ -294,6 +296,7 @@ models/CustomApiResponsePageAllergyResponse.ts
 models/CustomApiResponsePageAppointmentResponse.ts
 models/CustomApiResponsePageClinicResponse.ts
 models/CustomApiResponsePageDepartmentResponse.ts
+models/CustomApiResponsePageDiagnosisResponse.ts
 models/CustomApiResponsePageDispenseRecordResponse.ts
 models/CustomApiResponsePageEmergencyContactResponse.ts
 models/CustomApiResponsePageExaminationResponse.ts
@@ -313,6 +316,7 @@ models/CustomApiResponsePageStaffResponse.ts
 models/CustomApiResponsePageStaffScheduleResponse.ts
 models/CustomApiResponsePageStaffScheduleTemplateResponse.ts
 models/CustomApiResponsePageUserResponse.ts
+models/CustomApiResponsePageVitalSignResponse.ts
 models/CustomApiResponsePatientResponse.ts
 models/CustomApiResponsePositionResponse.ts
 models/CustomApiResponsePrescriptionResponse.ts

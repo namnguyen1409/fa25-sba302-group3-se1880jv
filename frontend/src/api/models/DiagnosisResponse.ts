@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { IcdCodeResponse } from './IcdCodeResponse';
+import {
+    IcdCodeResponseFromJSON,
+    IcdCodeResponseFromJSONTyped,
+    IcdCodeResponseToJSON,
+    IcdCodeResponseToJSONTyped,
+} from './IcdCodeResponse';
+
 /**
  * 
  * @export
@@ -30,19 +38,13 @@ export interface DiagnosisResponse {
      * @type {string}
      * @memberof DiagnosisResponse
      */
-    icdCode?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DiagnosisResponse
-     */
-    diseaseName?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DiagnosisResponse
-     */
     note?: string;
+    /**
+     * 
+     * @type {IcdCodeResponse}
+     * @memberof DiagnosisResponse
+     */
+    icdCode?: IcdCodeResponse;
 }
 
 /**
@@ -63,9 +65,8 @@ export function DiagnosisResponseFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
-        'icdCode': json['icdCode'] == null ? undefined : json['icdCode'],
-        'diseaseName': json['diseaseName'] == null ? undefined : json['diseaseName'],
         'note': json['note'] == null ? undefined : json['note'],
+        'icdCode': json['icdCode'] == null ? undefined : IcdCodeResponseFromJSON(json['icdCode']),
     };
 }
 
@@ -81,9 +82,8 @@ export function DiagnosisResponseToJSONTyped(value?: DiagnosisResponse | null, i
     return {
         
         'id': value['id'],
-        'icdCode': value['icdCode'],
-        'diseaseName': value['diseaseName'],
         'note': value['note'],
+        'icdCode': IcdCodeResponseToJSON(value['icdCode']),
     };
 }
 

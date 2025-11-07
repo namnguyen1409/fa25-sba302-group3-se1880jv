@@ -32,6 +32,7 @@ import PositionManagementPage from "./pages/staff/positions/PositionManagement";
 import StaffDetailPage from "./pages/staff/StaffDetail";
 import AppointmentManagementPage from "./pages/appointment/AppointmentManagement";
 import DoctorQueuePage from "./pages/appointment/DoctorQueuePage";
+import ExaminationPage from "./pages/examination/ExaminationPage";
 function App() {
   return (
     <AppProvider>
@@ -95,6 +96,7 @@ function App() {
               <Route path="service-catalogs" element={<ServiceCatalogManagementPage />} />
               <Route path="lab-tests" element={<LabTestManagementPage />} />
               <Route path="queue" element={<DoctorQueuePage />} />
+              <Route path="examinations/:id" element={<ExaminationPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

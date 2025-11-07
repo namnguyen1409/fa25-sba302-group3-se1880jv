@@ -17,21 +17,27 @@ import * as runtime from '../runtime';
 import type {
   CustomApiResponseDiagnosisResponse,
   CustomApiResponseObject,
+  CustomApiResponsePageDiagnosisResponse,
   CustomApiResponseVoid,
   DiagnosisRequest,
   GetPatientById400Response,
+  SearchFilter,
 } from '../models/index';
 import {
     CustomApiResponseDiagnosisResponseFromJSON,
     CustomApiResponseDiagnosisResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
+    CustomApiResponsePageDiagnosisResponseFromJSON,
+    CustomApiResponsePageDiagnosisResponseToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
     DiagnosisRequestFromJSON,
     DiagnosisRequestToJSON,
     GetPatientById400ResponseFromJSON,
     GetPatientById400ResponseToJSON,
+    SearchFilterFromJSON,
+    SearchFilterToJSON,
 } from '../models/index';
 
 export interface AddDiagnosisRequest {
@@ -42,6 +48,11 @@ export interface AddDiagnosisRequest {
 export interface DeleteDiagnosisRequest {
     id: string;
     diagnosisId: string;
+}
+
+export interface FilterDiagnosisRequest {
+    id: string;
+    searchFilter: SearchFilter;
 }
 
 export interface GetDiagnosisListRequest {
@@ -154,6 +165,59 @@ export class DiagnosisControllerApi extends runtime.BaseAPI {
      */
     async deleteDiagnosis(requestParameters: DeleteDiagnosisRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
         const response = await this.deleteDiagnosisRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async filterDiagnosisRaw(requestParameters: FilterDiagnosisRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageDiagnosisResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling filterDiagnosis().'
+            );
+        }
+
+        if (requestParameters['searchFilter'] == null) {
+            throw new runtime.RequiredError(
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling filterDiagnosis().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/diagnosis/filter`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageDiagnosisResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async filterDiagnosis(requestParameters: FilterDiagnosisRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageDiagnosisResponse> {
+        const response = await this.filterDiagnosisRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

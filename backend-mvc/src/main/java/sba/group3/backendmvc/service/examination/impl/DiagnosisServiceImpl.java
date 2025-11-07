@@ -10,6 +10,7 @@ import sba.group3.backendmvc.entity.examination.Diagnosis;
 import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.examination.ServiceCatalog;
 import sba.group3.backendmvc.mapper.examination.DiagnosisMapper;
+import sba.group3.backendmvc.repository.common.IcdCodeRepository;
 import sba.group3.backendmvc.repository.examination.DiagnosisRepository;
 import sba.group3.backendmvc.repository.patient.ExaminationRepository;
 import sba.group3.backendmvc.service.examination.DiagnosisService;
@@ -22,6 +23,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     private final DiagnosisRepository diagnosisRepository;
     private final DiagnosisMapper diagnosisMapper;
     private final ExaminationRepository examinationRepository;
+    private final IcdCodeRepository icdCodeRepository;
 
     @Override
     public Page<DiagnosisResponse> filter(SearchFilter filter) {
@@ -31,6 +33,8 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Override
     public DiagnosisResponse create(DiagnosisRequest request) {
         Diagnosis diagnosis = diagnosisMapper.toEntity(request);
+        diagnosis.setExamination(examinationRepository.getReferenceById(request.examinationId()));
+        diagnosis.setIcdCode(icdCodeRepository.getReferenceById(request.icdCodeId()));
         return diagnosisMapper.toDto(diagnosisRepository.save(diagnosis));
     }
 
@@ -38,17 +42,11 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     public DiagnosisResponse update(String id, DiagnosisRequest request) {
         Diagnosis diagnosis = diagnosisRepository.findById(UUID.fromString(id)).orElseThrow(()->
                 new IllegalArgumentException("Diagnosis with id " + id + " not found."));
-
         diagnosisMapper.partialUpdate(request, diagnosis);
-
-        if(request.examinationId() != null) {
-            diagnosis.setExamination(examinationRepository.findById(request.examinationId())
-                    .orElseThrow(() -> new IllegalArgumentException("Examination not found with id " + request.examinationId())));
+        if (request.icdCodeId() != null) {
+            diagnosis.setIcdCode(icdCodeRepository.getReferenceById(request.icdCodeId()));
         }
-
         Diagnosis saved = diagnosisRepository.save(diagnosis);
-
-
         return diagnosisMapper.toDto(saved);
     }
 

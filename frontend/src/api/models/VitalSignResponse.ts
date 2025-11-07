@@ -61,6 +61,12 @@ export interface VitalSignResponse {
      * @memberof VitalSignResponse
      */
     weight?: number;
+    /**
+     * 
+     * @type {Date}
+     * @memberof VitalSignResponse
+     */
+    createdDate?: Date;
 }
 
 /**
@@ -87,6 +93,7 @@ export function VitalSignResponseFromJSONTyped(json: any, ignoreDiscriminator: b
         'respirationRate': json['respirationRate'] == null ? undefined : json['respirationRate'],
         'height': json['height'] == null ? undefined : json['height'],
         'weight': json['weight'] == null ? undefined : json['weight'],
+        'createdDate': json['createdDate'] == null ? undefined : (new Date(json['createdDate'])),
     };
 }
 
@@ -108,6 +115,7 @@ export function VitalSignResponseToJSONTyped(value?: VitalSignResponse | null, i
         'respirationRate': value['respirationRate'],
         'height': value['height'],
         'weight': value['weight'],
+        'createdDate': value['createdDate'] == null ? value['createdDate'] : value['createdDate'].toISOString(),
     };
 }
 

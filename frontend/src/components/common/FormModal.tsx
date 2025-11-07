@@ -45,6 +45,7 @@ export interface FormFieldConfig {
     value: any;
     onChange: (v: any) => void;
     watch: (name: string) => any;
+    setValue?: (name: string, value: any) => void;
   }) => React.ReactNode;
 }
 
@@ -139,6 +140,7 @@ export const FormModal: React.FC<FormModalProps> = ({
                                 value,
                                 onChange,
                                 watch,
+                                setValue: form.setValue,
                               })}
                             </>
                           )}

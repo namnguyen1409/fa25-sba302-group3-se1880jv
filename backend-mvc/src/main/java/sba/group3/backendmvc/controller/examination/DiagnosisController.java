@@ -21,7 +21,27 @@ import java.util.List;
 @RequestMapping("/api/examinations")
 public class DiagnosisController {
     private final DiagnosisService diagnosisService;
-    private final RestClient.Builder builder;
+
+    @PostMapping("/{id}/diagnosis/filter")
+    public ResponseEntity<CustomApiResponse<Page<DiagnosisResponse>>> filterDiagnosis(
+            @PathVariable("id") String examinationId,
+            @RequestBody @Validated SearchFilter filter
+    ) {
+        log.info("Filtering diagnosis for examination {}: {}", examinationId, filter);
+        filter.addMandatoryCondition(
+                sba.group3.backendmvc.dto.filter.Filter.builder()
+                        .field("examination.id")
+                        .operator("eq")
+                        .value(examinationId)
+                        .build()
+        );
+        Page<DiagnosisResponse> responseList = diagnosisService.filter(filter);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<DiagnosisResponse>>builder()
+                        .data(responseList)
+                        .build()
+        );
+    }
 
     @GetMapping("/{id}/diagnosis")
     public ResponseEntity<CustomApiResponse<DiagnosisResponse>> getDiagnosisList(

@@ -7,7 +7,7 @@ export const QueueApi = {
     callQueueTicket: (queueTicketId: string) =>
         apiClient.post(`/queue-tickets/${queueTicketId}/call`),
     startQueueTicket: (queueTicketId: string) =>
-        apiClient.post(`/queue-tickets/${queueTicketId}/start`),
+        apiClient.post<QueueTicketResponse>(`/queue-tickets/${queueTicketId}/start`),
     skipQueueTicket: (queueTicketId: string) =>
         apiClient.post(`/queue-tickets/${queueTicketId}/skip`),
     requeueQueueTicket: (queueTicketId: string) =>

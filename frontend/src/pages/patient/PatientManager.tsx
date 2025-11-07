@@ -13,7 +13,7 @@ import * as yup from "yup";
 import type { FormFieldConfig } from "@/components/common/FormModal";
 import type { Column } from "@/components/common/ReuseAbleTable";
 import { useNavigate } from "react-router-dom";
-
+import { useEnumTranslation } from "@/hooks/translations/useEnumTranslation";
 
 const fetchPatient = async (
   page: number,
@@ -37,7 +37,6 @@ const fetchPatient = async (
 };
 
 export default function PatientManagementPage() {
-
   const navigate = useNavigate();
 
   const [selectForForm, setSelectForForm] =
@@ -53,14 +52,21 @@ export default function PatientManagementPage() {
 
   const fetchData = useCallback(fetchPatient, []);
 
+  const { translate, toOptions } = useEnumTranslation();
+
   const columns: Column<PatientResponse>[] = [
     { title: "Patient Code", dataIndex: "patientCode", sortable: true },
     { title: "Full Name", dataIndex: "fullName", sortable: true },
     { title: "Date of Birth", dataIndex: "dateOfBirth", sortable: true },
     { title: "Gender", dataIndex: "gender", sortable: true },
-    { title: "Blood Type", dataIndex: "bloodType", sortable: true, render: (value:String) => {
-      return value ? value.replace("_", " ").replace("POSITIVE", "+").replace("NEGATIVE", "-") : "";
-    }},
+    {
+      title: "Blood Type",
+      dataIndex: "bloodType",
+      sortable: true,
+      render: (value) => {
+        return value ? translate("bloodType", value) : "";
+      },
+    },
     { title: "Status", dataIndex: "status", sortable: true },
     { title: "Phone", dataIndex: "phone", sortable: true },
     { title: "Email", dataIndex: "email", sortable: true },
@@ -81,26 +87,14 @@ export default function PatientManagementPage() {
       label: "Gender",
       type: "select",
       required: true,
-      options: [
-        { value: "MALE", label: "Male" },
-        { value: "FEMALE", label: "Female" },
-      ],
+      options: toOptions("gender"),
     },
     {
       name: "bloodType",
       label: "Blood Type",
       type: "select",
       required: false,
-      options: [
-        { value: "A_POSITIVE", label: "A+" },
-        { value: "A_NEGATIVE", label: "A-" },
-        { value: "B_POSITIVE", label: "B+" },
-        { value: "B_NEGATIVE", label: "B-" },
-        { value: "AB_POSITIVE", label: "AB+" },
-        { value: "AB_NEGATIVE", label: "AB-" },
-        { value: "O_POSITIVE", label: "O+" },
-        { value: "O_NEGATIVE", label: "O-" },
-      ],
+      options: toOptions("bloodType"),
     },
     {
       name: "status",
@@ -190,10 +184,7 @@ export default function PatientManagementPage() {
             >
               <Eye className="w-4 h-4" />
             </Button>
-            <Button
-              variant="outline"
-              onClick={() => handleUpdate(row)}
-            >
+            <Button variant="outline" onClick={() => handleUpdate(row)}>
               <Pencil className="w-4 h-4" />
             </Button>
           </>

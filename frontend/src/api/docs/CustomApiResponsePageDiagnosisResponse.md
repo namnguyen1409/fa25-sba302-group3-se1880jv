@@ -1,36 +1,30 @@
 
-# VitalSignResponse
+# CustomApiResponsePageDiagnosisResponse
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`id` | string
-`temperature` | number
-`bloodPressure` | string
-`pulse` | number
-`respirationRate` | number
-`height` | number
-`weight` | number
-`createdDate` | Date
+`code` | number
+`message` | string
+`data` | [PageObject](PageObject.md)
+`timestamp` | Date
+`path` | string
 
 ## Example
 
 ```typescript
-import type { VitalSignResponse } from ''
+import type { CustomApiResponsePageDiagnosisResponse } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "id": null,
-  "temperature": null,
-  "bloodPressure": null,
-  "pulse": null,
-  "respirationRate": null,
-  "height": null,
-  "weight": null,
-  "createdDate": null,
-} satisfies VitalSignResponse
+  "code": null,
+  "message": null,
+  "data": null,
+  "timestamp": null,
+  "path": null,
+} satisfies CustomApiResponsePageDiagnosisResponse
 
 console.log(example)
 
@@ -39,7 +33,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as VitalSignResponse
+const exampleParsed = JSON.parse(exampleJSON) as CustomApiResponsePageDiagnosisResponse
 console.log(exampleParsed)
 ```
 

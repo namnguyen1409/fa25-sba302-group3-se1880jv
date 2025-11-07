@@ -10,32 +10,33 @@ import { cn } from "@/lib/utils";
 import { QueueApi } from "@/api/queue/queueApi";
 import type { QueueTicketResponse } from "@/api";
 import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function DoctorQueuePage() {
   const [queue, setQueue] = useState<QueueTicketResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const {user} = useAuth();
- 
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const stompClient = useRef<Client | null>(null);
 
-
-
+  // ✅ Load queue lần đầu
   useEffect(() => {
     async function init() {
       try {
-        const queueRes = await QueueApi.getQueuesForDoctorToday();
-        setQueue(queueRes);
+        const res = await QueueApi.getQueuesForDoctorToday();
+        setQueue(res);
         connectWebSocket(user?.staff?.id || "");
       } catch (e) {
-        toast.error("Không tìm thấy phòng trực");
+        toast.error("Không tìm thấy phòng trực hoặc không có lịch làm việc.");
       }
       setLoading(false);
     }
     init();
   }, []);
 
-
+  // ✅ WebSocket
   const connectWebSocket = (staffId: string) => {
     const socket = new SockJS("/ws");
     const client = new Client({
@@ -44,66 +45,102 @@ export default function DoctorQueuePage() {
       debug: () => {},
       onConnect: () => {
         client.subscribe(`/topic/doctor/${staffId}/queue`, (message) => {
-          const body = JSON.parse(message.body);
-          setQueue(body);
+          const updated = JSON.parse(message.body);
+          setQueue(updated);
         });
-      }
+      },
     });
     stompClient.current = client;
     client.activate();
   };
 
-  const updateStatus = (ticketId: string, status: string) => {
-    stompClient.current?.publish({
-      destination: "/app/queue/update-status",
-      body: JSON.stringify({
-        ticketId,
-        newStatus: status
-      })
-    });
+  const goToExamination = (ticket: QueueTicketResponse) => {
+    if (ticket.examinationId) {
+      navigate(`/staff/examinations/${ticket.examinationId}`);
+    } else {
+      toast.error("Không tìm thấy examination. Backend chưa generate?");
+    }
   };
 
-  if (loading) return (
-    <div className="flex justify-center py-20">
-      <Loader2 className="animate-spin h-10 w-10" />
-    </div>
-  );
+  const handleAction = async (ticket: QueueTicketResponse, action: string) => {
+    try {
+      if (action === "call") {
+        await QueueApi.callQueueTicket(ticket.id!);
+        toast.success("Đã gọi bệnh nhân");
+      }
+      if (action === "start") {
+        const res = await QueueApi.startQueueTicket(ticket.id!);
+        toast.success("Bắt đầu khám");
+        goToExamination(res);
+      }
+      if (action === "done") {
+        await QueueApi.doneQueueTicket(ticket.id!);
+        toast.success("Hoàn tất khám");
+      }
+      if (action === "skip") {
+        await QueueApi.skipQueueTicket(ticket.id!);
+        toast.success("Đã bỏ qua bệnh nhân");
+      }
+    } catch (e) {
+      toast.error("Lỗi thao tác queue");
+    }
+  };
+
+  if (loading)
+    return (
+      <div className="flex justify-center py-20">
+        <Loader2 className="animate-spin h-10 w-10" />
+      </div>
+    );
 
   return (
     <Card className="shadow-lg">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>Phòng khám: {user?.room?.name}</span>
-          <Badge variant="secondary">Floor {user?.room?.floorNumber}</Badge>
+          <Badge variant="secondary">
+            Tầng {user?.room?.floorNumber}
+          </Badge>
+          <span>Bác sĩ: {user?.staff?.fullName}</span>
         </CardTitle>
       </CardHeader>
 
       <CardContent>
         <div className="grid gap-3">
-          {queue.map((item: QueueTicketResponse) => (
+          {queue.map((item) => (
             <div
               key={item.id}
               className={cn(
                 "p-4 border rounded-md flex justify-between items-center",
-                item.status === "CALLED" && "bg-blue-50 border-blue-300",
-                item.status === "IN_SERVICE" && "bg-green-50 border-green-300",
+                item.status === "CALLED" && " border-blue-300",
+                item.status === "IN_SERVICE" && " border-green-300"
               )}
             >
               <div>
                 <div className="font-bold text-lg">{item.queueNumber}</div>
-                <div>{item.appointmentResponse?.patient?.fullName}</div>
+                <div>{item.appointmentPatient?.fullName}</div>
+                <div>Ngày sinh: {item.appointmentPatient?.dateOfBirth}</div>
+                <div>Giới tính: {item.appointmentPatient?.gender}</div>
                 <Badge className="mt-1">{item.status}</Badge>
               </div>
 
               <div className="flex gap-2">
                 {item.status === "WAITING" && (
-                  <Button onClick={() => updateStatus(item.id!, "CALLED")}>
-                    Gọi
-                  </Button>
+                  <>
+                    <Button onClick={() => handleAction(item, "call")}>
+                      Gọi
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleAction(item, "skip")}
+                    >
+                      Bỏ qua
+                    </Button>
+                  </>
                 )}
 
                 {item.status === "CALLED" && (
-                  <Button onClick={() => updateStatus(item.id!, "IN_SERVICE")}>
+                  <Button onClick={() => handleAction(item, "start")}>
                     Bắt đầu khám
                   </Button>
                 )}
@@ -111,18 +148,18 @@ export default function DoctorQueuePage() {
                 {item.status === "IN_SERVICE" && (
                   <Button
                     variant="secondary"
-                    onClick={() => updateStatus(item.id, "DONE")}
+                    onClick={() => goToExamination(item)}
                   >
-                    Hoàn tất
+                    Tiếp tục khám
                   </Button>
                 )}
 
-                {item.status === "WAITING" && (
+                {item.status === "IN_SERVICE" && (
                   <Button
-                    variant="destructive"
-                    onClick={() => updateStatus(item.id, "SKIPPED")}
+                    onClick={() => handleAction(item, "done")}
+                    variant="outline"
                   >
-                    Bỏ qua
+                    Hoàn tất
                   </Button>
                 )}
               </div>

@@ -30,6 +30,7 @@ public class VitalSignServiceImpl implements VitalSignService {
     @Override
     public VitalSignResponse create(VitalSignRequest request) {
         VitalSign vitalSign = vitalSignMapper.toEntity(request);
+        vitalSign.setExamination(examinationRepository.getReferenceById(request.examinationId()));
         return vitalSignMapper.toDto1(vitalSignRepository.save(vitalSign));
     }
 
