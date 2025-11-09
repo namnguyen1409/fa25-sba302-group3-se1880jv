@@ -18,6 +18,8 @@ import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
 import sba.group3.backendmvc.service.organization.ClinicService;
 import sba.group3.backendmvc.service.organization.DepartmentService;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/organization/clinics")
@@ -48,6 +50,7 @@ public class ClinicController {
                         .build()
         );
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomApiResponse<ClinicResponse>> getClinicById(
@@ -91,7 +94,7 @@ public class ClinicController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomApiResponse<ClinicResponse>> update(
-            @PathVariable String id,
+            @PathVariable UUID id,
             @RequestBody @Validated ClinicRequest clinicRequest) {
         log.info("Updating clinic with ID {}: {}", id, clinicRequest);
         return ResponseEntity.ok(

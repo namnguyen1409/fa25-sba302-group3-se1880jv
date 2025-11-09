@@ -23,6 +23,7 @@ apis/PatientManagementApi.ts
 apis/PositionManagementApi.ts
 apis/PrescriptionControllerApi.ts
 apis/QueueTicketManagementApi.ts
+apis/ReportControllerApi.ts
 apis/RoomsManagementApi.ts
 apis/ServiceCatalogControllerApi.ts
 apis/ServiceOrderControllerApi.ts
@@ -200,6 +201,8 @@ docs/PageableObject.md
 docs/PasskeyAuthenticationApi.md
 docs/PasswordResetConfirmRequest.md
 docs/PasswordResetRequest.md
+docs/PatientByDayResponse.md
+docs/PatientByHourResponse.md
 docs/PatientManagementApi.md
 docs/PatientRequest.md
 docs/PatientResponse.md
@@ -223,6 +226,8 @@ docs/QueueTicketManagementApi.md
 docs/QueueTicketResponse.md
 docs/RegistrationExtensionInputs.md
 docs/RelyingPartyIdentity.md
+docs/ReportControllerApi.md
+docs/RevenueDailyResponse.md
 docs/RoleNameResponse.md
 docs/RoomRequest.md
 docs/RoomResponse.md
@@ -237,9 +242,11 @@ docs/ServiceOrderItemRequest.md
 docs/ServiceOrderItemResponse.md
 docs/ServiceOrderRequest.md
 docs/ServiceOrderResponse.md
+docs/ServiceUsageResponse.md
 docs/SimpleProfileResponse.md
 docs/SortObject.md
 docs/SortRequest.md
+docs/SpecialtyDistributionResponse.md
 docs/SpecialtyManagementApi.md
 docs/SpecialtyRequest.md
 docs/SpecialtyResponse.md
@@ -252,9 +259,11 @@ docs/StaffScheduleRequest.md
 docs/StaffScheduleResponse.md
 docs/StaffScheduleTemplateRequest.md
 docs/StaffScheduleTemplateResponse.md
+docs/StaffWorkloadResponse.md
 docs/StartPasskeyLoginResponse.md
 docs/SwitchMfaRequest.md
 docs/TOTPConfirmRequest.md
+docs/TodaySummaryResponse.md
 docs/UpdateEmailRequest.md
 docs/UpdateUsernameRequest.md
 docs/UserIdentity.md
@@ -412,6 +421,8 @@ models/PageObject.ts
 models/PageableObject.ts
 models/PasswordResetConfirmRequest.ts
 models/PasswordResetRequest.ts
+models/PatientByDayResponse.ts
+models/PatientByHourResponse.ts
 models/PatientRequest.ts
 models/PatientResponse.ts
 models/PermissionNameResponse.ts
@@ -431,6 +442,7 @@ models/PublicKeyCredentialRequestOptions.ts
 models/QueueTicketResponse.ts
 models/RegistrationExtensionInputs.ts
 models/RelyingPartyIdentity.ts
+models/RevenueDailyResponse.ts
 models/RoleNameResponse.ts
 models/RoomRequest.ts
 models/RoomResponse.ts
@@ -441,9 +453,11 @@ models/ServiceOrderItemRequest.ts
 models/ServiceOrderItemResponse.ts
 models/ServiceOrderRequest.ts
 models/ServiceOrderResponse.ts
+models/ServiceUsageResponse.ts
 models/SimpleProfileResponse.ts
 models/SortObject.ts
 models/SortRequest.ts
+models/SpecialtyDistributionResponse.ts
 models/SpecialtyRequest.ts
 models/SpecialtyResponse.ts
 models/StaffRequest.ts
@@ -454,9 +468,11 @@ models/StaffScheduleRequest.ts
 models/StaffScheduleResponse.ts
 models/StaffScheduleTemplateRequest.ts
 models/StaffScheduleTemplateResponse.ts
+models/StaffWorkloadResponse.ts
 models/StartPasskeyLoginResponse.ts
 models/SwitchMfaRequest.ts
 models/TOTPConfirmRequest.ts
+models/TodaySummaryResponse.ts
 models/UpdateEmailRequest.ts
 models/UpdateUsernameRequest.ts
 models/UserIdentity.ts

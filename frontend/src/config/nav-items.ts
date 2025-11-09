@@ -64,7 +64,7 @@ export const staffNavItems = (roles: string[]) => {
 
   const cashier = [
     { label: "Billing Queue", to: "/staff/billing/queue", icon: Receipt },
-    { label: "History", to: "/staff/history", icon: Wallet },
+    { label: "History", to: "/staff/billing/history", icon: Wallet },
   ];
 
   const manager = [
@@ -86,8 +86,7 @@ export const staffNavItems = (roles: string[]) => {
 
   const sysadmin = [
     { label: "User Management", to: "/staff/users", icon: ShieldCheck },
-    { label: "System Settings", to: "/staff/settings", icon: Settings },
-    { label: "Device Access Logs", to: "/staff/devices", icon: MonitorCheck },
+    { label: "Clinic Settings", to: "/staff/settings", icon: Settings }
   ];
 
   const specialty = [

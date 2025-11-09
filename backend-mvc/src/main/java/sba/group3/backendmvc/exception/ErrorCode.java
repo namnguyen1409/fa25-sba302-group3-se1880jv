@@ -46,7 +46,8 @@ public enum ErrorCode {
     NOT_FOUND(40017, "Entity not found", HttpStatus.NOT_FOUND),
     SCHEDULE_TIME_INVALID(40018, "Schedule time is invalid", HttpStatus.BAD_REQUEST),
     SCHEDULE_ROOM_CONFLICT(40019, "Schedule room conflict", HttpStatus.CONFLICT),
-    QUEUE_TICKET_NOT_FOUND(40020, "Queue ticket not found", HttpStatus.NOT_FOUND);
+    QUEUE_TICKET_NOT_FOUND(40020, "Queue ticket not found", HttpStatus.NOT_FOUND),
+    EMAIL_ALREADY_USED(40021, "", HttpStatus.CONFLICT);
 
     int code;
     String message;

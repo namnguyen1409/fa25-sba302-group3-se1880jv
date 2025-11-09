@@ -60,7 +60,6 @@ export default function BillOrderPage() {
     return () => window.removeEventListener("cashier-invoice", handler);
   }, []);
 
-  // ✅ Update invoice status
   const markPaid = async (invoice: InvoiceResponse) => {
     try {
       await InvoiceApi.update(invoice.id!, { paid: true });

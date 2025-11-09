@@ -46,6 +46,10 @@ import ServiceOrderHistoryPage from "./pages/service/ServiceOrderHistoryPage";
 import DispenseRecordPage from "./pages/pharmacy/DispenseRecordPage";
 import DispenseRecordDetailPage from "./pages/pharmacy/DispenseRecordDetailPage";
 import DispenseRecordHistoryPage from "./pages/pharmacy/DispenseHistory";
+import BillingHistoryPage from "./pages/bill/BillingHistoryPage";
+import ClinicProfilePage from "./pages/clinic/ClinicSettingPage";
+import ReportDashboard from "./pages/report/ReportDashboard";
+import RegisterPage from "./pages/auth/Register";
 function App() {
   return (
     <AppProvider>
@@ -55,6 +59,7 @@ function App() {
 
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route
               path="/verify-email"
               element={
@@ -120,11 +125,14 @@ function App() {
               <Route path="examinations/:id" element={<ExaminationPage />} />
               <Route path="examinations" element={<ExaminationManagementPage />} />
               <Route path="billing/queue" element={<BillOrderPage />} />
+              <Route path="billing/history" element={<BillingHistoryPage />} />
               <Route path="billing/:id" element={<BillingDetailPage />} />
               <Route path="prescriptions" element={<DispenseRecordPage />} />
               <Route path="dispense/:id" element={<DispenseRecordDetailPage />} />
               <Route path="dispense-history" element={<DispenseRecordHistoryPage />} />
               <Route path="schedule" element={<StaffMySchedulePage />} />
+              <Route path="settings" element={<ClinicProfilePage />} />
+              <Route path="reports" element={<ReportDashboard />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

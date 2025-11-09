@@ -79,4 +79,8 @@ export const authApi = {
         apiClient.post<AuthResponse>("/auth/mfa/switch", payload),
     resendMfa: (payload: { challengeId: string }) =>
         apiClient.post<AuthResponse>("/auth/mfa/resend", payload),
+    register: (payload: any) =>
+        apiClient.post("/auth/register", payload),
+    activateAccount: (token: string) =>
+        apiClient.post<{ message: string }>("/auth/activate", { token }),
 };

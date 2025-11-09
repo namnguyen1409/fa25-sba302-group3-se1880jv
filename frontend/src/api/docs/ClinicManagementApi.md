@@ -460,7 +460,7 @@ async function example() {
 
   const body = {
     // string
-    id: id_example,
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // ClinicRequest
     clinicRequest: ...,
   } satisfies Update2Request;

@@ -192,7 +192,6 @@ export const WebSocketProvider = ({
   };
 
 
-  
 
   return (
     <WebSocketContext.Provider value={{ status }}>

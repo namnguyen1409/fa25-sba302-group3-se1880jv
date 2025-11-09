@@ -24,10 +24,12 @@ import org.springframework.web.client.RestTemplate;
 import sba.group3.backendmvc.controller.auth.AuthController;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
+import sba.group3.backendmvc.dto.request.auth.RegisterRequest;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
 import sba.group3.backendmvc.entity.auth.MfaConfig;
 import sba.group3.backendmvc.entity.auth.OAuthAccount;
+import sba.group3.backendmvc.entity.common.Address;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
@@ -57,10 +59,7 @@ import sba.group3.backendmvc.service.user.RoleService;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -422,6 +421,90 @@ public class AuthServiceImpl implements AuthService {
                 .challengeId(newChallenge.getId())
                 .build();
     }
+
+    @Override
+    @Transactional
+    public AuthResponse register(RegisterRequest req) {
+
+        if (userRepository.existsByEmail(req.getEmail())) {
+            throw new AppException(ErrorCode.EMAIL_ALREADY_USED, "Email đã được sử dụng");
+        }
+
+        Address address = Address.builder()
+                .city(req.getAddress().city())
+                .street(req.getAddress().street())
+                .wardName(req.getAddress().wardName())
+                .build();
+
+        UserProfile profile = UserProfile.builder()
+                .fullName(req.getFullName())
+                .dateOfBirth(req.getDob())
+                .phone(req.getPhone())
+                .address(address)
+                .build();
+
+        User user = User.builder()
+                .username(req.getUsername())
+                .email(req.getEmail())
+                .password(passwordEncoder.encode(req.getPassword()))
+                .active(false)
+                .firstLogin(false)
+                .roles(new HashSet<>(roleService.findDefaultRoles()))
+                .userProfile(profile)
+                .build();
+
+        userRepository.save(user);
+
+        String token = UUID.randomUUID().toString();
+        cacheService.put(
+                CacheKey.ACTIVE_ACCOUNT.of(token),
+                user.getId().toString(),
+                Duration.ofMinutes(10)
+        );
+
+        String activateLink = frontendUrl + "/activate?token=" + token;
+
+        emailSender.send(
+                user.getEmail(),
+                "Kích hoạt tài khoản của bạn",
+                """
+                <p>Xin chào %s,</p>
+                <p>Bạn vừa đăng ký tài khoản trên hệ thống phòng khám.</p>
+                <p>Nhấn vào liên kết để kích hoạt tài khoản (hiệu lực 10 phút):</p>
+                <p><a href="%s">%s</a></p>
+                """.formatted(
+                        profile.getFullName(),
+                        activateLink,
+                        activateLink
+                )
+        );
+
+        return AuthResponse.builder()
+                .build();
+    }
+
+    @Transactional
+    @Override
+    public void activateAccount(String token) {
+
+        String userId = cacheService.get(
+                CacheKey.ACTIVE_ACCOUNT.of(token),
+                String.class
+        );
+
+        if (userId == null) {
+            throw new AppException(ErrorCode.BAD_REQUEST, "Invalid token");
+        }
+
+        var user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        user.setActive(true);
+        userRepository.save(user);
+        cacheService.evict(CacheKey.ACTIVE_ACCOUNT.of(token));
+    }
+
+
 
 
     private JsonNode verifyToken(OAuthProvider provider, String accessToken) {

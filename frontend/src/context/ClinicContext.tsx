@@ -5,6 +5,7 @@ import { clinicApi } from "@/api/clinicApi";
 
 interface ClinicContextType {
   clinicInfo: ClinicResponse | null
+  setClinicInfo: React.Dispatch<React.SetStateAction<ClinicResponse | null>>;
 }
 
 const ClinicContext = createContext<ClinicContextType | undefined>(undefined);
@@ -24,7 +25,7 @@ export const ClinicProvider: React.FC<React.PropsWithChildren> = ({ children }) 
   }, []);
 
   return (
-    <ClinicContext.Provider value={{ clinicInfo}}>
+    <ClinicContext.Provider value={{ clinicInfo, setClinicInfo}}>
       {children}
     </ClinicContext.Provider>
   );

@@ -36,7 +36,8 @@ public class SecurityConfig {
             "/api/files/**",
             "/ws/**",
             "/api/notifications/**",
-            "/topic/**"
+            "/topic/**",
+            "/api/admin/report/**"
     };
 
     @Bean

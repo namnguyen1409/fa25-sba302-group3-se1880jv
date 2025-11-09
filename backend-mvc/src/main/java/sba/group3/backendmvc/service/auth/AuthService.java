@@ -1,8 +1,10 @@
 package sba.group3.backendmvc.service.auth;
 
+import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.controller.auth.AuthController;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
+import sba.group3.backendmvc.dto.request.auth.RegisterRequest;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
 
@@ -27,4 +29,8 @@ public interface AuthService {
     AuthResponse verifyMfa(AuthController.MfaVerifyRequest request);
 
     AuthResponse switchMfa(AuthController.SwitchMfaRequest request);
+
+    AuthResponse register(RegisterRequest registerRequest);
+
+    void activateAccount(String token);
 }

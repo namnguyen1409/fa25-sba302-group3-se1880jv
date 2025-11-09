@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import sba.group3.backendmvc.entity.laboratory.LabOrder;
 import sba.group3.backendmvc.repository.BaseRepository;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,4 +19,6 @@ public interface LabOrderRepository extends BaseRepository<LabOrder, UUID> {
                 GROUP BY l.room.id
             """)
     List<Map<String, Object>> countActiveOrdersByRoomIds(List<UUID> roomIds);
+
+    long countByCreatedDateBetween(Instant createdDateAfter, Instant createdDateBefore);
 }
