@@ -10,7 +10,6 @@ import {
   Receipt,
   CalendarCheck,
   Building2,
-  FileStack,
   ShieldCheck,
   Settings,
   UserPlus,
@@ -24,7 +23,8 @@ import {
 
 export const staffNavItems = (roles: string[]) => {
   const base = [
-    { label: "Dashboard", to: "/staff/dashboard", icon: LayoutDashboard },
+    // { label: "Dashboard", to: "/staff/dashboard", icon: LayoutDashboard },
+    { label: "My Schedule", to: "/staff/schedule", icon: CalendarCheck },
   ];
 
   const receptionist = [
@@ -40,33 +40,31 @@ export const staffNavItems = (roles: string[]) => {
   ];
 
   const doctor = [
-    { label: "My Schedule", to: "/staff/schedule", icon: CalendarCheck },
+    
     { label: "My Patients", to: "/staff/patients", icon: Users },
     { label: "Examinations", to: "/staff/examinations", icon: Stethoscope },
     { label: "Queue", to: "/staff/queue", icon: ClipboardList },
-    { label: "Prescriptions", to: "/staff/prescriptions", icon: Pill },
-    { label: "Results", to: "/staff/results", icon: FileStack },
   ];
 
   const technician = [
-    { label: "Results Entry", to: "/staff/lab-results", icon: MonitorCheck },
     { label: "Service Orders", to: "/staff/service-orders", icon: Box },
     { label: "Queue", to: "/staff/service-queue", icon: ClipboardList },
   ];
 
   const labTechnician = [
-    { label: "Lab Orders", to: "/staff/lab-orders", icon: FlaskRound },
+    { label: "Queue", to: "/staff/lab-orders", icon: FlaskRound },
+    { label: "Lab Orders", to: "/staff/lab-orders-history", icon: ClipboardList },
   ];
 
 
   const pharmacist = [
-    { label: "Prescription Queue", to: "/staff/prescriptions", icon: Pill },
-    { label: "Dispense", to: "/staff/dispense", icon: Syringe },
+    { label: "Dispense", to: "/staff/prescriptions", icon: Syringe },
+    { label: "History", to: "/staff/dispense-history", icon: Wallet },
   ];
 
   const cashier = [
-    { label: "Billing Queue", to: "/staff/billing", icon: Receipt },
-    { label: "Payments", to: "/staff/payments", icon: Wallet },
+    { label: "Billing Queue", to: "/staff/billing/queue", icon: Receipt },
+    { label: "History", to: "/staff/history", icon: Wallet },
   ];
 
   const manager = [

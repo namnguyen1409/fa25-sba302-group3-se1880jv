@@ -14,9 +14,9 @@ export const PositionApi = {
         filterGroup,
         sorts,
     }),
-    search: (keyword: string) => apiClient.post<PageResponse<PositionResponse>>("/admin/positions/filter", {
-        page: 0,
-        size: 10,
+    search: (keyword: string, page: number = 0, size: number = 10) => apiClient.post<PageResponse<PositionResponse>>("/admin/positions/filter", {
+        page,
+        size,
         filterGroup: {
             operator: "AND",
             filters: [

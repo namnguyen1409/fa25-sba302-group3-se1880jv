@@ -1,17 +1,27 @@
 import { useState, useRef } from "react";
-import type { ExaminationResponse, ServiceOrderResponse } from "@/api";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { FileDown, Plus } from "lucide-react";
 
 import {
   EntityTableWrapper,
   type FilterGroup,
   type SortRequest,
 } from "@/components/common/EntityTableWrapper";
-import { ViewDetailDialog } from "@/components/common/ViewDetailDialog";
-import { ExaminationApi } from "@/api/examination/ExaminationApi";
 import type { Column } from "@/components/common/ReuseAbleTable";
+
+import { useReactToPrint } from "react-to-print";
+import { Card } from "@/components/ui/card";
+
+import { ExaminationApi } from "@/api/examination/ExaminationApi";
+import type {
+  ExaminationResponse,
+  ServiceOrderResponse,
+} from "@/api";
+
+import { ServiceOrderPrintTable } from "./ServiceOrderPrintTable";
+import { useNavigate } from "react-router-dom";
 import { ServiceSearchModal } from "./ServiceSearchModal";
+import { toast } from "sonner";
 
 export default function ServiceOrdersTab({
   exam,
@@ -19,8 +29,17 @@ export default function ServiceOrdersTab({
   exam: ExaminationResponse;
 }) {
   const tableRef = useRef<any>(null);
-  const [viewOrder, setViewOrder] = useState<any>(null);
+  const navigate = useNavigate();
+
+  const [orderToPrint, setOrderToPrint] =
+    useState<ServiceOrderResponse | null>(null);
+
   const [openServiceModal, setOpenServiceModal] = useState(false);
+
+  const printRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    contentRef: printRef,
+  });
 
   const fetchData = async (
     page: number,
@@ -28,21 +47,20 @@ export default function ServiceOrdersTab({
     filterGroup?: FilterGroup | null,
     sorts?: SortRequest[]
   ) => {
-    const data = await ExaminationApi.filterServiceOrders(
+    const res = await ExaminationApi.filterServiceOrders(
       exam.id!,
       page,
       size,
       filterGroup ?? undefined,
       sorts
     );
-    return { data };
+    return { data: res };
   };
 
   const columns: Column<ServiceOrderResponse>[] = [
     {
       title: "Mã Order",
       dataIndex: "orderCode",
-      sortable: true,
     },
     {
       title: "Phòng",
@@ -65,78 +83,82 @@ export default function ServiceOrdersTab({
     },
   ];
 
-  const detailConfig: any = [
-    {
-      fields: [
-        { label: "Mã Order", name: "orderCode", type: "text" },
-        { label: "Phòng thực hiện", name: "room.name" },
-        { label: "Nhân viên nhận", name: "assignedStaff.fullName" },
-        { label: "Trạng thái", name: "status" },
-      ],
-    },
-    {
-      groupTitle: "Danh sách dịch vụ",
-      fields: [
-        {
-          label: "",
-          name: "",
-          render: (_: any, row: any) => (
-            <ul className="space-y-1">
-              {row.items?.map((it: any) => (
-                <li
-                  key={it.id}
-                  className="flex justify-between border-b pb-1 text-sm"
-                >
-                  <span>{it.serviceName}</span>
-                  <span className="text-gray-500">{it.status}</span>
-                </li>
-              ))}
-            </ul>
-          ),
-        },
-      ],
-    },
-  ];
-
   return (
-    <div className="p-4">
-      {/* TABLE */}
-      <EntityTableWrapper
+    <div className="p-4 space-y-4">
+      <EntityTableWrapper<ServiceOrderResponse>
         ref={tableRef}
         title="Chỉ định cận lâm sàng"
         fetchData={fetchData}
         columns={columns}
-        renderRowActions={(row) => (
-          <Button size="sm" variant="outline" onClick={() => setViewOrder(row)}>
-            Xem
-          </Button>
-        )}
         headerExtra={
-          <Button onClick={() => setOpenServiceModal(true)}>Thêm dịch vụ</Button>
+          <Button onClick={() => setOpenServiceModal(true)}>
+            <Plus className="mr-2 h-4 w-4" /> Thêm dịch vụ
+          </Button>
         }
+        renderRowActions={(row) => (
+          <>
+            <Button
+              size="sm"
+              variant="outline"
+              className="mr-2"
+              onClick={() => navigate(`/staff/service/orders/${row.id}`)}
+            >
+              Xem
+            </Button>
+
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => setOrderToPrint(row)}
+            >
+              In phiếu
+            </Button>
+          </>
+        )}
       />
 
-      {/* VIEW DETAIL */}
-      <ViewDetailDialog
-        open={!!viewOrder}
-        onClose={() => setViewOrder(null)}
-        title={`Chi tiết Order ${viewOrder?.orderCode ?? ""}`}
-        data={viewOrder}
-        config={detailConfig}
-        columns={2}
-      />
+      {/* ✅ Modal chọn dịch vụ */}
       <ServiceSearchModal
         open={openServiceModal}
         onClose={() => setOpenServiceModal(false)}
         onConfirm={async (services) => {
-          await ExaminationApi.createServiceOrder(exam.id!, {
-            serviceIds: services.map((s) => s.id),
-          });
+          try {
+            await ExaminationApi.createServiceOrder(exam.id!, {
+              serviceIds: services.map((s) => s.id),
+            });
+            toast.success("Tạo order thành công");
 
-          toast.success("Tạo order thành công");
-          tableRef.current?.reload();
+            setOpenServiceModal(false);
+            tableRef.current?.reload();
+          } catch {
+            toast.error("Không thể tạo order");
+          }
         }}
       />
+
+      {/* ✅ Popup In phiếu */}
+      {orderToPrint && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+          <Card className="p-4 w-[500px] bg-background shadow-lg">
+            <div className="font-semibold mb-2">
+              Phiếu chỉ định dịch vụ
+            </div>
+
+            <div className="border rounded-md p-3">
+              <ServiceOrderPrintTable ref={printRef} order={orderToPrint} />
+            </div>
+
+            <div className="flex justify-end gap-2 mt-4">
+              <Button variant="outline" onClick={() => setOrderToPrint(null)}>
+                Đóng
+              </Button>
+              <Button onClick={handlePrint}>
+                <FileDown className="h-4 w-4 mr-2" /> In phiếu
+              </Button>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

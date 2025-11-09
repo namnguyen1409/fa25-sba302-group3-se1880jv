@@ -10,10 +10,10 @@ export const ServiceCatalogApi = {
             filterGroup,
             sorts
         }),
-    search: (keyword: string) =>
+    search: (keyword: string, page: number = 0, size: number = 10) =>
         apiClient.post<PageResponse<ServiceCatalogResponse>>(`/examinations/service-catalog/filter`, {
-            page: 0,
-            size: 10,
+            page,
+            size,
             filterGroup: {
                 operator: "OR",
                 filters: [

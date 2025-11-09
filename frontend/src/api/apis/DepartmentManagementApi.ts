@@ -21,7 +21,7 @@ import type {
   CustomApiResponsePageRoomResponse,
   CustomApiResponseVoid,
   DepartmentRequest,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   SearchFilter,
 } from '../models/index';
 import {
@@ -37,8 +37,8 @@ import {
     CustomApiResponseVoidToJSON,
     DepartmentRequestFromJSON,
     DepartmentRequestToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
 } from '../models/index';

@@ -14,6 +14,8 @@ import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.appointment.AppointmentMapper;
+import sba.group3.backendmvc.mapper.appointment.QueueTicketMapper;
+import sba.group3.backendmvc.publisher.QueueEventPublisher;
 import sba.group3.backendmvc.repository.appointment.AppointmentRepository;
 import sba.group3.backendmvc.repository.appointment.QueueTicketRepository;
 import sba.group3.backendmvc.repository.patient.PatientRepository;
@@ -39,6 +41,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final StaffRepository staffRepository;
     private final StaffScheduleRepository staffScheduleRepository;
     private final QueueTicketRepository queueTicketRepository;
+    private final QueueEventPublisher queueEventPublisher;
+    private final QueueTicketMapper queueTicketMapper;
 
     @Transactional
     @Override
@@ -81,6 +85,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .build();
 
         queueTicketRepository.save(ticket);
+        queueEventPublisher.publish(queueTicketMapper.toDto(ticket));
 
         entity.setQueueTicket(ticket);
 

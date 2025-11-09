@@ -10,6 +10,7 @@ import sba.group3.backendmvc.controller.staff.StaffController;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffScheduleRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleResponse;
+import sba.group3.backendmvc.entity.organization.RoomType;
 import sba.group3.backendmvc.entity.staff.ScheduleStatus;
 import sba.group3.backendmvc.entity.staff.StaffSchedule;
 import sba.group3.backendmvc.entity.staff.StaffScheduleTemplate;
@@ -25,10 +26,7 @@ import sba.group3.backendmvc.service.staff.StaffScheduleService;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -250,4 +248,8 @@ public class StaffScheduleServiceImpl implements StaffScheduleService {
         staffScheduleRepository.save(target);
         return staffScheduleMapper.toDto1(target);
     }
+
+
+
+
 }

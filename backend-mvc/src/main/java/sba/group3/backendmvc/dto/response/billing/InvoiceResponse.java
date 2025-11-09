@@ -1,7 +1,9 @@
 package sba.group3.backendmvc.dto.response.billing;
 
 import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
+import sba.group3.backendmvc.dto.response.organization.RoomResponse;
 import sba.group3.backendmvc.dto.response.patient.PatientResponse;
+import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,5 +16,5 @@ import java.util.UUID;
  */
 public record InvoiceResponse(UUID id, PatientResponse patient, ExaminationResponse examination, String invoiceNumber,
                               LocalDateTime issueDate, BigDecimal totalAmount, Boolean paid, String note,
-                              Set<InvoiceItemResponse> items) implements Serializable {
+                              Set<InvoiceItemResponse> items, RoomResponse room, StaffResponse assignedStaff) implements Serializable {
 }

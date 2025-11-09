@@ -13,4 +13,6 @@ public interface PrescriptionItemService {
     PrescriptionItemResponse update(String id, PrescriptionItemRequest request);
 
     void delete(String id);
+
+    PrescriptionItemResponse createItem(String prescriptionId, PrescriptionItemRequest request);
 }

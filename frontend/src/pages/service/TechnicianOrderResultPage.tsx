@@ -12,10 +12,15 @@ import { Loader2 } from "lucide-react";
 import type { ServiceOrderResponse, ServiceOrderItemResponse } from "@/api";
 import { ServiceOrderApi } from "@/api/service/ServiceOrderApi";
 import { FileApi } from "@/api/file/FileApi";
+import { useImageLink } from "@/hooks/useImageLink";
+import { useAuth } from "@/context/AuthContext";
 
 export default function TechnicianOrderResultPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+  const readonly = user?.staff?.staffType !== "TECHNICIAN";
 
   const [order, setOrder] = useState<ServiceOrderResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -76,7 +81,6 @@ export default function TechnicianOrderResultPage() {
     init();
   }, [id]);
 
-  // ✅ chọn file
   const handleFileChange = (itemId: string, files: FileList | null) => {
     if (!files) return;
     setResults((prev) => ({
@@ -88,14 +92,12 @@ export default function TechnicianOrderResultPage() {
     }));
   };
 
-  // ✅ Lưu từng item
   const saveItem = async (item: ServiceOrderItemResponse) => {
     const r = results[item.id!];
 
     try {
       const uploadedUrls: string[] = [];
 
-      // ✅ upload từng file
       for (const file of r.attachments) {
         const url = await FileApi.upload({
           file,
@@ -104,8 +106,6 @@ export default function TechnicianOrderResultPage() {
         });
         uploadedUrls.push(url);
       }
-
-      // ✅ update note (nếu không upload file → vẫn update note bình thường)
       await ServiceOrderApi.updateItem(item.id!, {
         note: r.note,
         attachmentUrls: uploadedUrls.length > 0 ? uploadedUrls : undefined,
@@ -173,6 +173,7 @@ export default function TechnicianOrderResultPage() {
                   <label className="font-semibold">Ghi chú</label>
                   <Textarea
                     value={r?.note || ""}
+                    disabled={readonly}
                     onChange={(e) =>
                       setResults((prev) => ({
                         ...prev,
@@ -191,12 +192,11 @@ export default function TechnicianOrderResultPage() {
                   <Input
                     type="file"
                     multiple
-                    onChange={(e) =>
-                      handleFileChange(item.id!, e.target.files)
-                    }
+                    disabled={readonly}
+                    onChange={(e) => handleFileChange(item.id!, e.target.files)}
                   />
 
-                  {r?.attachments?.length > 0 && (
+                  {r?.attachments?.length > 0 && !readonly && (
                     <div className="text-sm text-muted-foreground">
                       {r.attachments.length} file đã chọn
                     </div>
@@ -208,7 +208,7 @@ export default function TechnicianOrderResultPage() {
                       {r.existingFiles.map((file) => (
                         <div key={file.id} className="flex flex-col gap-1">
                           <img
-                            src={file.url}
+                            src={useImageLink(`/api/files/view/${file.id}`)}
                             alt={file.fileName}
                             className="w-full h-28 object-cover rounded border"
                           />
@@ -221,7 +221,10 @@ export default function TechnicianOrderResultPage() {
                   )}
                 </div>
 
-                <Button onClick={() => saveItem(item)}>Lưu kết quả</Button>
+                {/* Save button – KỸ THUẬT VIÊN mới thấy */}
+                {!readonly && (
+                  <Button onClick={() => saveItem(item)}>Lưu kết quả</Button>
+                )}
               </div>
             );
           })}

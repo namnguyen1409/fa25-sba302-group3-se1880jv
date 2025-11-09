@@ -24,7 +24,7 @@ import type {
   CustomApiResponseStaffScheduleResponse,
   CustomApiResponseStaffScheduleTemplateResponse,
   CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   SearchFilter,
   StaffRequest,
   StaffScheduleDayOffRequest,
@@ -51,8 +51,8 @@ import {
     CustomApiResponseStaffScheduleTemplateResponseToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
     StaffRequestFromJSON,
@@ -110,6 +110,10 @@ export interface GetById6Request {
     id: string;
 }
 
+export interface GetMyScheduleRequest {
+    searchFilter: SearchFilter;
+}
+
 export interface GetStaffScheduleRequest {
     staffId: string;
     searchFilter: SearchFilter;
@@ -124,6 +128,11 @@ export interface MarkStatusRequest {
     scheduleId: string;
     status: MarkStatusStatusEnum;
     note?: string;
+}
+
+export interface MyRangeRequest {
+    from: Date;
+    to: Date;
 }
 
 export interface RangeRequest {
@@ -613,6 +622,51 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
+    async getMyScheduleRaw(requestParameters: GetMyScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageStaffScheduleResponse>> {
+        if (requestParameters['searchFilter'] == null) {
+            throw new runtime.RequiredError(
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling getMySchedule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/admin/staffs/schedule/filter`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageStaffScheduleResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getMySchedule(requestParameters: GetMyScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageStaffScheduleResponse> {
+        const response = await this.getMyScheduleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async getStaffScheduleRaw(requestParameters: GetStaffScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageStaffScheduleResponse>> {
         if (requestParameters['staffId'] == null) {
             throw new runtime.RequiredError(
@@ -772,6 +826,63 @@ export class StaffManagementApi extends runtime.BaseAPI {
      */
     async markStatus(requestParameters: MarkStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffScheduleResponse> {
         const response = await this.markStatusRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async myRangeRaw(requestParameters: MyRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListStaffScheduleResponse>> {
+        if (requestParameters['from'] == null) {
+            throw new runtime.RequiredError(
+                'from',
+                'Required parameter "from" was null or undefined when calling myRange().'
+            );
+        }
+
+        if (requestParameters['to'] == null) {
+            throw new runtime.RequiredError(
+                'to',
+                'Required parameter "to" was null or undefined when calling myRange().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['from'] != null) {
+            queryParameters['from'] = requestParameters['from'];
+        }
+
+        if (requestParameters['to'] != null) {
+            queryParameters['to'] = requestParameters['to'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/admin/staffs/schedule`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListStaffScheduleResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async myRange(requestParameters: MyRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListStaffScheduleResponse> {
+        const response = await this.myRangeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

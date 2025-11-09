@@ -15,4 +15,6 @@ public interface LabTestResultService {
     void deleteFromOrder(UUID orderId, UUID itemId);
 
     LabTestResultResponse update(UUID itemId, LabTestResultRequest labTestResultRequest);
+
+    void verify(UUID itemId, UUID staffId);
 }

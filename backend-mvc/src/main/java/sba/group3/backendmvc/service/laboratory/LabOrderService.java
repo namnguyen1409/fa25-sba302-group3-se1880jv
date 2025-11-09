@@ -5,6 +5,7 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.laboratory.LabOrderRequest;
 import sba.group3.backendmvc.dto.response.laboratory.LabOrderResponse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface LabOrderService {
@@ -17,4 +18,8 @@ public interface LabOrderService {
     LabOrderResponse update(UUID orderId, LabOrderRequest labOrderRequest);
 
     void delete(UUID orderId);
+
+    List<LabOrderResponse> createOrder(String examinationId, List<UUID> uuids);
+
+    List<LabOrderResponse> filterList(SearchFilter filter);
 }

@@ -21,7 +21,7 @@ import type {
   CustomApiResponseStartPasskeyLoginResponse,
   CustomApiResponseVoid,
   FinishLoginRequest,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
 } from '../models/index';
 import {
     CustomApiResponseAuthResponseFromJSON,
@@ -36,8 +36,8 @@ import {
     CustomApiResponseVoidToJSON,
     FinishLoginRequestFromJSON,
     FinishLoginRequestToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
 } from '../models/index';
 
 export interface FinishLoginOperationRequest {

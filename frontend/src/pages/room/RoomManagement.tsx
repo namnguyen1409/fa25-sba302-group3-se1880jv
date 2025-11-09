@@ -97,12 +97,13 @@ export default function RoomManagementPage() {
           placeholder="Chọn khoa"
           fetchOptions={async (keyword) => {
             const res = await DepartmentApi.search(keyword);
-            return res.content
-              .filter((d) => d.id != null && d.name != null)
-              .map((d) => ({
+            return {
+              content: res.content.map((d) => ({
                 value: String(d.id),
-                label: String(d.name),
-              }));
+                label: d.name!,
+              })),
+              page: res.page,
+            };
           }}
           initialOption={
             selectForForm?.department

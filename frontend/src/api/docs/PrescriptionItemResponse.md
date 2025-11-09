@@ -12,6 +12,7 @@ Name | Type
 `frequency` | string
 `duration` | string
 `instruction` | string
+`quantity` | number
 
 ## Example
 
@@ -26,6 +27,7 @@ const example = {
   "frequency": null,
   "duration": null,
   "instruction": null,
+  "quantity": null,
 } satisfies PrescriptionItemResponse
 
 console.log(example)

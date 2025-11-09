@@ -13,6 +13,10 @@ Name | Type
 `email` | string
 `address` | [AddressResponse](AddressResponse.md)
 `departments` | [Array&lt;DepartmentSimpleResponse&gt;](DepartmentSimpleResponse.md)
+`taxCode` | string
+`website` | string
+`accountNumber` | string
+`bankName` | string
 
 ## Example
 
@@ -28,6 +32,10 @@ const example = {
   "email": null,
   "address": null,
   "departments": null,
+  "taxCode": null,
+  "website": null,
+  "accountNumber": null,
+  "bankName": null,
 } satisfies ClinicResponse
 
 console.log(example)

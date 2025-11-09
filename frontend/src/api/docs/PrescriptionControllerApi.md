@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost:9999*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deletePrescriptionItem**](PrescriptionControllerApi.md#deleteprescriptionitem) | **DELETE** /api/examinations/{id}/prescription/{prescriptionId} |  |
-| [**getPrescription**](PrescriptionControllerApi.md#getprescription) | **GET** /api/examinations/{id}/prescription |  |
-| [**saveOrUpdatePrescription**](PrescriptionControllerApi.md#saveorupdateprescription) | **PUT** /api/examinations/{id}/prescription/{prescriptionId} |  |
+| [**createPrescriptionForExamination**](PrescriptionControllerApi.md#createprescriptionforexamination) | **POST** /api/prescriptions/{id}/items/filter |  |
+| [**createPrescriptionItem**](PrescriptionControllerApi.md#createprescriptionitem) | **POST** /api/prescriptions/{id}/items |  |
+| [**updatePrescriptionItem**](PrescriptionControllerApi.md#updateprescriptionitem) | **PUT** /api/prescriptions/items/{itemId} |  |
 
 
 
-## deletePrescriptionItem
+## createPrescriptionForExamination
 
-> CustomApiResponseVoid deletePrescriptionItem(id, prescriptionId)
+> CustomApiResponsePagePrescriptionItemResponse createPrescriptionForExamination(id, searchFilter)
 
 
 
@@ -23,7 +23,7 @@ import {
   Configuration,
   PrescriptionControllerApi,
 } from '';
-import type { DeletePrescriptionItemRequest } from '';
+import type { CreatePrescriptionForExaminationRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -35,13 +35,13 @@ async function example() {
 
   const body = {
     // string
-    id: id_example,
-    // string
-    prescriptionId: prescriptionId_example,
-  } satisfies DeletePrescriptionItemRequest;
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies CreatePrescriptionForExaminationRequest;
 
   try {
-    const data = await api.deletePrescriptionItem(body);
+    const data = await api.createPrescriptionForExamination(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -58,11 +58,11 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
-| **prescriptionId** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+[**CustomApiResponsePagePrescriptionItemResponse**](CustomApiResponsePagePrescriptionItemResponse.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `*/*`
 
 
@@ -84,9 +84,9 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## getPrescription
+## createPrescriptionItem
 
-> CustomApiResponsePrescriptionResponse getPrescription(id)
+> CustomApiResponsePrescriptionItemResponse createPrescriptionItem(id, prescriptionItemRequest)
 
 
 
@@ -97,7 +97,7 @@ import {
   Configuration,
   PrescriptionControllerApi,
 } from '';
-import type { GetPrescriptionRequest } from '';
+import type { CreatePrescriptionItemRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -110,10 +110,12 @@ async function example() {
   const body = {
     // string
     id: id_example,
-  } satisfies GetPrescriptionRequest;
+    // PrescriptionItemRequest
+    prescriptionItemRequest: ...,
+  } satisfies CreatePrescriptionItemRequest;
 
   try {
-    const data = await api.getPrescription(body);
+    const data = await api.createPrescriptionItem(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -130,10 +132,11 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
+| **prescriptionItemRequest** | [PrescriptionItemRequest](PrescriptionItemRequest.md) |  | |
 
 ### Return type
 
-[**CustomApiResponsePrescriptionResponse**](CustomApiResponsePrescriptionResponse.md)
+[**CustomApiResponsePrescriptionItemResponse**](CustomApiResponsePrescriptionItemResponse.md)
 
 ### Authorization
 
@@ -141,7 +144,7 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `*/*`
 
 
@@ -155,9 +158,9 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## saveOrUpdatePrescription
+## updatePrescriptionItem
 
-> CustomApiResponsePrescriptionResponse saveOrUpdatePrescription(id, prescriptionId, prescriptionRequest)
+> CustomApiResponsePrescriptionItemResponse updatePrescriptionItem(itemId, prescriptionItemRequest)
 
 
 
@@ -168,7 +171,7 @@ import {
   Configuration,
   PrescriptionControllerApi,
 } from '';
-import type { SaveOrUpdatePrescriptionRequest } from '';
+import type { UpdatePrescriptionItemRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -180,15 +183,13 @@ async function example() {
 
   const body = {
     // string
-    id: id_example,
-    // string
-    prescriptionId: prescriptionId_example,
-    // PrescriptionRequest
-    prescriptionRequest: ...,
-  } satisfies SaveOrUpdatePrescriptionRequest;
+    itemId: itemId_example,
+    // PrescriptionItemRequest
+    prescriptionItemRequest: ...,
+  } satisfies UpdatePrescriptionItemRequest;
 
   try {
-    const data = await api.saveOrUpdatePrescription(body);
+    const data = await api.updatePrescriptionItem(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -204,13 +205,12 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **prescriptionId** | `string` |  | [Defaults to `undefined`] |
-| **prescriptionRequest** | [PrescriptionRequest](PrescriptionRequest.md) |  | |
+| **itemId** | `string` |  | [Defaults to `undefined`] |
+| **prescriptionItemRequest** | [PrescriptionItemRequest](PrescriptionItemRequest.md) |  | |
 
 ### Return type
 
-[**CustomApiResponsePrescriptionResponse**](CustomApiResponsePrescriptionResponse.md)
+[**CustomApiResponsePrescriptionItemResponse**](CustomApiResponsePrescriptionItemResponse.md)
 
 ### Authorization
 

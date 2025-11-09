@@ -18,7 +18,7 @@ import type {
   CustomApiResponseObject,
   CustomApiResponsePageUserResponse,
   CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   SearchFilter,
 } from '../models/index';
 import {
@@ -28,8 +28,8 @@ import {
     CustomApiResponsePageUserResponseToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
 } from '../models/index';

@@ -31,6 +31,30 @@ export interface ClinicSimpleResponse {
      * @memberof ClinicSimpleResponse
      */
     name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicSimpleResponse
+     */
+    taxCode?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicSimpleResponse
+     */
+    website?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicSimpleResponse
+     */
+    accountNumber?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicSimpleResponse
+     */
+    bankName?: string;
 }
 
 /**
@@ -52,6 +76,10 @@ export function ClinicSimpleResponseFromJSONTyped(json: any, ignoreDiscriminator
         
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] == null ? undefined : json['name'],
+        'taxCode': json['taxCode'] == null ? undefined : json['taxCode'],
+        'website': json['website'] == null ? undefined : json['website'],
+        'accountNumber': json['accountNumber'] == null ? undefined : json['accountNumber'],
+        'bankName': json['bankName'] == null ? undefined : json['bankName'],
     };
 }
 
@@ -68,6 +96,10 @@ export function ClinicSimpleResponseToJSONTyped(value?: ClinicSimpleResponse | n
         
         'id': value['id'],
         'name': value['name'],
+        'taxCode': value['taxCode'],
+        'website': value['website'],
+        'accountNumber': value['accountNumber'],
+        'bankName': value['bankName'],
     };
 }
 

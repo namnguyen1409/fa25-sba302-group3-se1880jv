@@ -20,7 +20,7 @@ import type {
   CustomApiResponseObject,
   CustomApiResponsePageAppointmentResponse,
   CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   SearchFilter,
 } from '../models/index';
 import {
@@ -34,8 +34,8 @@ import {
     CustomApiResponsePageAppointmentResponseToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
 } from '../models/index';

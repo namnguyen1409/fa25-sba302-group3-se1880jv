@@ -71,10 +71,13 @@ export default function DiagnosisTab({ exam }: { exam: ExaminationResponse }) {
           placeholder="Tìm mã ICD"
           fetchOptions={async (keyword) => {
             const res = await IcdApi.SearchIcd(keyword);
-            return res.content.map((s) => ({
-              value: String(s.id),
-              label: s.name!
-            }));
+            return {
+              content: res.content.map((icd) => ({
+                value: String(icd.id),
+                label: `${icd.code} - ${icd.name}`,
+              })),
+              page: res.page,
+            }
           }}
         />
       ),

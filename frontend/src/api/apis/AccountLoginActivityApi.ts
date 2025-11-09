@@ -17,7 +17,7 @@ import * as runtime from '../runtime';
 import type {
   CustomApiResponseObject,
   CustomApiResponsePageLoginAttemptResponse,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   SearchFilter,
 } from '../models/index';
 import {
@@ -25,8 +25,8 @@ import {
     CustomApiResponseObjectToJSON,
     CustomApiResponsePageLoginAttemptResponseFromJSON,
     CustomApiResponsePageLoginAttemptResponseToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
 } from '../models/index';

@@ -13,6 +13,20 @@
  */
 
 import { mapValues } from '../runtime';
+import type { RoomResponse } from './RoomResponse';
+import {
+    RoomResponseFromJSON,
+    RoomResponseFromJSONTyped,
+    RoomResponseToJSON,
+    RoomResponseToJSONTyped,
+} from './RoomResponse';
+import type { PatientResponse } from './PatientResponse';
+import {
+    PatientResponseFromJSON,
+    PatientResponseFromJSONTyped,
+    PatientResponseToJSON,
+    PatientResponseToJSONTyped,
+} from './PatientResponse';
 import type { StaffResponse } from './StaffResponse';
 import {
     StaffResponseFromJSON,
@@ -76,6 +90,18 @@ export interface DispenseRecordResponse {
      * @memberof DispenseRecordResponse
      */
     note?: string;
+    /**
+     * 
+     * @type {PatientResponse}
+     * @memberof DispenseRecordResponse
+     */
+    patient?: PatientResponse;
+    /**
+     * 
+     * @type {RoomResponse}
+     * @memberof DispenseRecordResponse
+     */
+    room?: RoomResponse;
 }
 
 
@@ -114,6 +140,8 @@ export function DispenseRecordResponseFromJSONTyped(json: any, ignoreDiscriminat
         'dispensedAt': json['dispensedAt'] == null ? undefined : (new Date(json['dispensedAt'])),
         'totalCost': json['totalCost'] == null ? undefined : json['totalCost'],
         'note': json['note'] == null ? undefined : json['note'],
+        'patient': json['patient'] == null ? undefined : PatientResponseFromJSON(json['patient']),
+        'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
     };
 }
 
@@ -135,6 +163,8 @@ export function DispenseRecordResponseToJSONTyped(value?: DispenseRecordResponse
         'dispensedAt': value['dispensedAt'] == null ? value['dispensedAt'] : value['dispensedAt'].toISOString(),
         'totalCost': value['totalCost'],
         'note': value['note'],
+        'patient': PatientResponseToJSON(value['patient']),
+        'room': RoomResponseToJSON(value['room']),
     };
 }
 

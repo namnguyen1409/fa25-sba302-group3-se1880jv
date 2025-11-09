@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost:9999*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteServiceOrderItem**](ServiceOrderItemControllerApi.md#deleteserviceorderitem) | **DELETE** /api/examinations/{id}/services/item/{itemId} |  |
+| [**updateServiceOrderItem**](ServiceOrderItemControllerApi.md#updateserviceorderitem) | **PUT** /api/service-order-items/{id} |  |
 
 
 
-## deleteServiceOrderItem
+## updateServiceOrderItem
 
-> CustomApiResponseVoid deleteServiceOrderItem(id, itemId)
+> CustomApiResponseObject updateServiceOrderItem(id, serviceOrderItemRequest)
 
 
 
@@ -21,7 +21,7 @@ import {
   Configuration,
   ServiceOrderItemControllerApi,
 } from '';
-import type { DeleteServiceOrderItemRequest } from '';
+import type { UpdateServiceOrderItemRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -34,12 +34,12 @@ async function example() {
   const body = {
     // string
     id: id_example,
-    // string
-    itemId: itemId_example,
-  } satisfies DeleteServiceOrderItemRequest;
+    // ServiceOrderItemRequest
+    serviceOrderItemRequest: ...,
+  } satisfies UpdateServiceOrderItemRequest;
 
   try {
-    const data = await api.deleteServiceOrderItem(body);
+    const data = await api.updateServiceOrderItem(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -56,11 +56,11 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
-| **itemId** | `string` |  | [Defaults to `undefined`] |
+| **serviceOrderItemRequest** | [ServiceOrderItemRequest](ServiceOrderItemRequest.md) |  | |
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+[**CustomApiResponseObject**](CustomApiResponseObject.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `*/*`
 
 

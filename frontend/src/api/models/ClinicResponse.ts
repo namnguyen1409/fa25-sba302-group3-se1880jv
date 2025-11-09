@@ -76,6 +76,30 @@ export interface ClinicResponse {
      * @memberof ClinicResponse
      */
     departments?: Array<DepartmentSimpleResponse>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicResponse
+     */
+    taxCode?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicResponse
+     */
+    website?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicResponse
+     */
+    accountNumber?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicResponse
+     */
+    bankName?: string;
 }
 
 /**
@@ -102,6 +126,10 @@ export function ClinicResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
         'email': json['email'] == null ? undefined : json['email'],
         'address': json['address'] == null ? undefined : AddressResponseFromJSON(json['address']),
         'departments': json['departments'] == null ? undefined : ((json['departments'] as Array<any>).map(DepartmentSimpleResponseFromJSON)),
+        'taxCode': json['taxCode'] == null ? undefined : json['taxCode'],
+        'website': json['website'] == null ? undefined : json['website'],
+        'accountNumber': json['accountNumber'] == null ? undefined : json['accountNumber'],
+        'bankName': json['bankName'] == null ? undefined : json['bankName'],
     };
 }
 
@@ -123,6 +151,10 @@ export function ClinicResponseToJSONTyped(value?: ClinicResponse | null, ignoreD
         'email': value['email'],
         'address': AddressResponseToJSON(value['address']),
         'departments': value['departments'] == null ? undefined : ((value['departments'] as Array<any>).map(DepartmentSimpleResponseToJSON)),
+        'taxCode': value['taxCode'],
+        'website': value['website'],
+        'accountNumber': value['accountNumber'],
+        'bankName': value['bankName'],
     };
 }
 

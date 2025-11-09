@@ -39,25 +39,31 @@ export function ServiceSearchModal({
   const [selected, setSelected] = useState<ServiceItem[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   const { translate } = useEnumTranslation();
 
-  // ✅ Debounce search (300ms)
+  const mapItem = (s: any): ServiceItem => ({
+    id: s.id,
+    name: s.name,
+    code: s.code,
+    roomType: s.roomType,
+    category: s.category,
+    price: s.price,
+  });
+
+  // ✅ Debounce search (300ms) + reset paging
   const debounceSearch = useCallback(() => {
     const handler = setTimeout(async () => {
       setLoading(true);
 
       try {
-        const res = await ServiceCatalogApi.search(keyword);
-        const mapped = res.content.map((s: any) => ({
-          id: s.id,
-          name: s.name,
-          code: s.code,
-          roomType: s.roomType,
-          category: s.category,
-          price: s.price,
-        }));
-
-        setResults(mapped);
+        const res = await ServiceCatalogApi.search(keyword, 0, 20);
+        setResults(res.content.map(mapItem));
+        setPage(1);
+        setHasMore(1 < res.page.totalPages);
       } finally {
         setLoading(false);
       }
@@ -70,7 +76,25 @@ export function ServiceSearchModal({
     if (open) debounceSearch();
   }, [keyword, open]);
 
-  // ✅ Add/remove selected
+  // ✅ Load thêm trang khi scroll
+  const loadMore = async () => {
+    if (!hasMore || isLoadingMore) return;
+
+    setIsLoadingMore(true);
+    try {
+      const res = await ServiceCatalogApi.search(keyword, page, 20);
+
+      setResults((prev) => [...prev, ...res.content.map(mapItem)]);
+
+      const nextPage = page + 1;
+      setPage(nextPage);
+      setHasMore(nextPage < res.page.totalPages);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
+  // ✅ Select / unselect
   const toggleSelect = (item: ServiceItem) => {
     const exists = selected.some((s) => s.id === item.id);
     if (exists) {
@@ -96,26 +120,64 @@ export function ServiceSearchModal({
           <DialogTitle>Chọn dịch vụ</DialogTitle>
         </DialogHeader>
 
-        {/* TWO-PANEL LAYOUT */}
         <div className="flex gap-4 flex-1 overflow-hidden">
-
-          {/* LEFT PANEL — SEARCH & RESULTS */}
+          {/* LEFT: SEARCH + LIST */}
           <div className="flex-1 flex flex-col border rounded p-3 bg-muted/20 overflow-hidden">
-
-            {/* Search */}
             <Input
-              placeholder="Tìm kiếm tên, mã, loại dịch vụ..."
+              placeholder="Tìm tên, mã, loại dịch vụ..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               className="mb-3"
             />
 
-            {/* Results */}
-            <div className="flex-1 overflow-auto space-y-2">
+            <div
+              className="flex-1 overflow-auto space-y-2"
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                if (el.scrollTop + el.clientHeight >= el.scrollHeight - 40) {
+                  loadMore();
+                }
+              }}
+            >
               {loading && (
                 <div className="flex justify-center items-center py-8 text-muted-foreground">
                   <Loader2 className="w-5 h-5 animate-spin" />
                   <span className="ml-2">Đang tìm...</span>
+                </div>
+              )}
+
+              {!loading &&
+                results.map((item) => {
+                  const isSelected = selected.some((s) => s.id === item.id);
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => toggleSelect(item)}
+                      className={cn(
+                        "p-3 rounded border cursor-pointer hover:bg-muted transition flex justify-between items-center",
+                        isSelected && " border-blue-400"
+                      )}
+                    >
+                      <div>
+                        <p className="font-medium">{item.name}</p>
+                        <p className="text-sm text-muted-foreground">
+                          Mã: {item.code} — {translate("roomType", item.roomType)}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Loại: {item.category}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Giá: {item.price.toLocaleString()}₫
+                        </p>
+                      </div>
+                      {isSelected && <Check className="text-blue-600 w-5 h-5" />}
+                    </div>
+                  );
+                })}
+
+              {isLoadingMore && (
+                <div className="flex justify-center py-3 text-muted-foreground">
+                  <Loader2 className="w-4 h-4 animate-spin" />
                 </div>
               )}
 
@@ -124,37 +186,11 @@ export function ServiceSearchModal({
                   Không tìm thấy dịch vụ
                 </p>
               )}
-
-              {results.map((item) => {
-                const isSelected = selected.some((s) => s.id === item.id);
-                return (
-                  <div
-                    key={item.id}
-                    className={cn(
-                      "p-3 rounded border cursor-pointer hover:bg-muted transition flex justify-between items-center",
-                      isSelected && "bg-blue-50 border-blue-400"
-                    )}
-                    onClick={() => toggleSelect(item)}
-                  >
-                    <div>
-                      <p className="font-medium">{item.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        Mã: {item.code} — {translate("roomType", item.roomType)}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Loại: {item.category}
-                      </p>
-                    </div>
-                    {isSelected && <Check className="text-blue-600 w-5 h-5" />}
-                  </div>
-                );
-              })}
             </div>
           </div>
 
-          {/* RIGHT PANEL — SELECTED */}
-          <div className="w-72 border rounded p-3 bg-white overflow-auto flex flex-col">
-
+          {/* RIGHT: SELECTED */}
+          <div className="w-72 border rounded p-3 overflow-auto flex flex-col">
             <p className="font-medium mb-2">
               Đã chọn ({selected.length})
             </p>
@@ -169,6 +205,9 @@ export function ServiceSearchModal({
                     <p className="font-medium">{item.name}</p>
                     <p className="text-muted-foreground">
                       {translate("roomType", item.roomType)}
+                    </p>
+                    <p className="text-muted-foreground">
+                      {item.price.toLocaleString()}₫
                     </p>
                   </div>
 

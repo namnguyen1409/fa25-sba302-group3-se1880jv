@@ -10,7 +10,7 @@ Name | Type
 `totalElements` | number
 `pageable` | [PageableObject](PageableObject.md)
 `size` | number
-`content` | [Array&lt;EmergencyContactResponse&gt;](EmergencyContactResponse.md)
+`content` | [Array&lt;ServiceOrderResponse&gt;](ServiceOrderResponse.md)
 `number` | number
 `sort` | [SortObject](SortObject.md)
 `first` | boolean

@@ -40,7 +40,7 @@ public class LabTestResult extends BaseEntity {
     @Column(name = "unit", length = 50)
     String unit;
 
-    @Column(name = "reference_range", length = 100)
+    @Column(name = "reference_range", length = 500)
     String referenceRange;
 
     @Column(name = "remark", columnDefinition = "TEXT")

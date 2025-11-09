@@ -1,5 +1,10 @@
-
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "@/context/AuthContext";
@@ -9,60 +14,72 @@ interface WsContextValue {
   status: "connecting" | "connected" | "error" | "disconnected";
 }
 
-const WebSocketContext = createContext<WsContextValue>({ status: "connecting" });
-
+const WebSocketContext = createContext<WsContextValue>({
+  status: "connecting",
+});
 export const useWebSocket = () => useContext(WebSocketContext);
 
-export const WebSocketProvider = ({ children }: { children: React.ReactNode }) => {
+export const WebSocketProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const { user } = useAuth();
 
   const [status, setStatus] = useState<WsContextValue["status"]>("connecting");
   const stompClient = useRef<Client | null>(null);
 
-  // Local stores để detect "new vs update"
-  const doctorQueueRef = useRef<Record<string, boolean>>({});
-  const technicianOrdersRef = useRef<Record<string, boolean>>({});
-  const labOrdersRef = useRef<Record<string, boolean>>({});
+  // Local seen cache
+  const seenDoctorQueueRef = useRef<Record<string, boolean>>({});
+  const seenTechOrdersRef = useRef<Record<string, boolean>>({});
+  const seenLabOrdersRef = useRef<Record<string, boolean>>({});
+  const seenInvoiceOrdersRef = useRef<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!user?.staff?.id) return;
+
     connect();
-    return () => {
-      stompClient.current?.deactivate();
-    };
+
+    return () => stompClient.current?.deactivate();
   }, [user?.staff?.id]);
 
   const connect = () => {
     const socket = new SockJS(import.meta.env.VITE_API_URL + "/ws");
 
     const client = new Client({
-      webSocketFactory: () => socket as any,
-      reconnectDelay: 5000,
+      webSocketFactory: () => socket,
+      reconnectDelay: 4000,
 
-      debug: (msg) => console.log("%c[STOMP DEBUG]", "color:#6fa8dc", msg),
+      debug: (msg) => console.log("%c[STOMP]", "color:#6fa8dc", msg),
 
       onConnect: () => {
         setStatus("connected");
-        console.log("[WS] Connected ✅");
+
+        // Reset local seen cache khi kết nối lại
+        seenDoctorQueueRef.current = {};
+        seenTechOrdersRef.current = {};
+        seenLabOrdersRef.current = {};
+        seenInvoiceOrdersRef.current = {};
 
         subscribeDoctorQueue(client);
         subscribeTechnicianOrders(client);
         subscribeLabOrders(client);
+        subscribeInvoiceOrders(client);
       },
 
-      onWebSocketClose: (e) => {
+      onWebSocketClose: () => {
+        console.warn("[WS] ❌ Closed");
         setStatus("disconnected");
-        console.warn("[WS] Closed ❌", e);
       },
 
-      onWebSocketError: (e) => {
+      onWebSocketError: () => {
+        console.error("[WS] ❗ Error");
         setStatus("error");
-        console.error("[WS] ERROR ❗", e);
       },
 
       onStompError: (frame) => {
-        setStatus("error");
         console.error("[STOMP ERROR]", frame);
+        setStatus("error");
       },
     });
 
@@ -71,80 +88,111 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
   };
 
   /* ===========================================================
-      1. DOCTOR LISTENS — /topic/doctor/{id}/queue
+      DOCTOR — /topic/doctor/{id}/queue
   ============================================================ */
   const subscribeDoctorQueue = (client: Client) => {
-    const doctorId = user?.staff?.id;
-    if (!doctorId) return;
+    if (![...user?.roles!].some((r) => r.name === "ROLE_DOCTOR")) return;
+    const staffId = user?.staff?.id;
+    const destination = `/topic/doctor/${staffId}/queue`;
 
-    const destination = `/topic/doctor/${doctorId}/queue`;
     console.log("[WS] Doctor subscribe →", destination);
 
     client.subscribe(destination, (msg) => {
-      const queueItem = JSON.parse(msg.body);
+      const data = JSON.parse(msg.body);
+      const id = data.id;
 
-      const id = queueItem.id;
-      const seen = doctorQueueRef.current[id];
-
-      // Toast ONLY for new queue item
-      if (!seen) {
-        doctorQueueRef.current[id] = true;
-        toast.success(`Có bệnh nhân mới trong hàng chờ!`);
+      if (!seenDoctorQueueRef.current[id]) {
+        seenDoctorQueueRef.current[id] = true;
+        toast.success("Có bệnh nhân mới trong hàng chờ!");
       }
 
-      console.log("[WS] Doctor queue update:", queueItem);
+      window.dispatchEvent(new CustomEvent("doctor-queue", { detail: data }));
+      console.log("[WS][Doctor] event:", data);
     });
   };
 
   /* ===========================================================
-      2. TECHNICIAN LISTENS — /topic/technician/{staffId}/orders
+      TECHNICIAN — /topic/technician/{id}/orders
   ============================================================ */
   const subscribeTechnicianOrders = (client: Client) => {
-    const staffId = user?.staff?.id;
-    if (!staffId) return;
+    if (![...user?.roles!].some((r) => r.name === "ROLE_TECHNICIAN")) return;
 
+    const staffId = user?.staff?.id;
     const destination = `/topic/technician/${staffId}/orders`;
+
     console.log("[WS] Technician subscribe →", destination);
 
     client.subscribe(destination, (msg) => {
-      const order = JSON.parse(msg.body);
+      const data = JSON.parse(msg.body);
+      const id = data.id;
 
-      const id = order.id;
-      const seen = technicianOrdersRef.current[id];
-
-      if (!seen) {
-        technicianOrdersRef.current[id] = true;
-        toast(`Có order mới: ${order.orderCode}`);
+      if (!seenTechOrdersRef.current[id]) {
+        seenTechOrdersRef.current[id] = true;
+        toast(`Có order mới: ${data.orderCode}`);
       }
 
-      console.log("[WS] Technician order update:", order);
+      window.dispatchEvent(
+        new CustomEvent("technician-order", { detail: data })
+      );
+      console.log("[WS][Tech] event:", data);
     });
   };
 
   /* ===========================================================
-      3. LAB STAFF LISTENS — /topic/lab/{staffId}/orders
+      LAB — /topic/lab/{id}/orders
   ============================================================ */
   const subscribeLabOrders = (client: Client) => {
-    const staffId = user?.staff?.id;
-    if (!staffId) return;
+    if (![...user?.roles!].some((r) => r.name === "ROLE_LAB_TECHNICIAN"))
+      return;
 
+    const staffId = user?.staff?.id;
     const destination = `/topic/lab/${staffId}/orders`;
+
     console.log("[WS] Lab subscribe →", destination);
 
     client.subscribe(destination, (msg) => {
-      const order = JSON.parse(msg.body);
+      const data = JSON.parse(msg.body);
+      const id = data.id;
 
-      const id = order.id;
-      const seen = labOrdersRef.current[id];
-
-      if (!seen) {
-        labOrdersRef.current[id] = true;
-        toast.info(`Có order xét nghiệm mới!`);
+      if (!seenLabOrdersRef.current[id]) {
+        seenLabOrdersRef.current[id] = true;
+        toast.info("Có order xét nghiệm mới!");
       }
 
-      console.log("[WS] Lab order update:", order);
+      window.dispatchEvent(new CustomEvent("lab-order", { detail: data }));
+      console.log("[WS][Lab] event:", data);
     });
   };
+
+
+    /* ===========================================================
+      CASHIER — /topic/invoice/{id}/orders
+  ============================================================ */
+  const subscribeInvoiceOrders = (client: Client) => {
+    if (![...user?.roles!].some((r) => r.name === "ROLE_CASHIER"))
+      return;
+
+    const staffId = user?.staff?.id;
+    const destination = `/topic/invoice/${staffId}/orders`;
+
+    console.log("[WS] Invoice subscribe →", destination);
+
+    client.subscribe(destination, (msg) => {
+      const data = JSON.parse(msg.body);
+      const id = data.id;
+
+      if (!seenInvoiceOrdersRef.current[id]) {
+        seenInvoiceOrdersRef.current[id] = true;
+        toast.info("Có order hóa đơn mới!");
+      }
+
+      window.dispatchEvent(new CustomEvent("cashier-invoice", { detail: data }));
+      console.log("[WS][Invoice] event:", data);
+    });
+  };
+
+
+  
 
   return (
     <WebSocketContext.Provider value={{ status }}>

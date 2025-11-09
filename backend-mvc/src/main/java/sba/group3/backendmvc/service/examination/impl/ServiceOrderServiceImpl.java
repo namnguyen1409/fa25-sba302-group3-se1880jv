@@ -7,18 +7,23 @@ import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ServiceOrderRequest;
 import sba.group3.backendmvc.dto.response.examination.ServiceOrderResponse;
+import sba.group3.backendmvc.entity.appointment.QueueStatus;
 import sba.group3.backendmvc.entity.examination.*;
 import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.entity.organization.RoomType;
 import sba.group3.backendmvc.entity.staff.StaffSchedule;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
+import sba.group3.backendmvc.mapper.appointment.QueueTicketMapper;
 import sba.group3.backendmvc.mapper.examination.ServiceOrderMapper;
 import sba.group3.backendmvc.publisher.OrderEventPublisher;
+import sba.group3.backendmvc.publisher.QueueEventPublisher;
+import sba.group3.backendmvc.repository.appointment.QueueTicketRepository;
 import sba.group3.backendmvc.repository.examination.ServiceCatalogRepository;
 import sba.group3.backendmvc.repository.examination.ServiceOrderRepository;
 import sba.group3.backendmvc.repository.patient.ExaminationRepository;
 import sba.group3.backendmvc.repository.staff.StaffScheduleRepository;
+import sba.group3.backendmvc.service.examination.ExaminationService;
 import sba.group3.backendmvc.service.examination.ServiceOrderService;
 
 import java.time.LocalDate;
@@ -35,6 +40,10 @@ public class ServiceOrderServiceImpl implements ServiceOrderService {
     private final ServiceCatalogRepository serviceCatalogRepository;
     private final StaffScheduleRepository staffScheduleRepository;
     private final OrderEventPublisher orderEventPublisher;
+    private final QueueTicketRepository queueTicketRepository;
+    private final QueueEventPublisher queueEventPublisher;
+    private final QueueTicketMapper queueTicketMapper;
+    private final ExaminationService examinationService;
 
     @Override
     public Page<ServiceOrderResponse> filter(SearchFilter filter) {
@@ -55,13 +64,24 @@ public class ServiceOrderServiceImpl implements ServiceOrderService {
     }
 
     @Override
+    @Transactional
     public ServiceOrderResponse update(String id, ServiceOrderRequest request) {
-        ServiceOrder serviceOrder = serviceOrderRepository.findById(UUID.fromString(id)).orElseThrow(()->
-                new IllegalArgumentException("ServiceOrder with id " + id + " not found."));
+
+        ServiceOrder serviceOrder = serviceOrderRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new IllegalArgumentException("ServiceOrder not found"));
+
         serviceOrderMapper.partialUpdate(request, serviceOrder);
+
         ServiceOrder saved = serviceOrderRepository.save(serviceOrder);
-        return serviceOrderMapper.toDto1(saved);
+
+        var dto = serviceOrderMapper.toDto1(saved);
+        orderEventPublisher.publishNewOrder(dto);
+
+        examinationService.handleOrderStatusChanged(saved.getExamination().getId());
+
+        return dto;
     }
+
 
     @Override
     public void delete(String id) {
@@ -88,44 +108,96 @@ public class ServiceOrderServiceImpl implements ServiceOrderService {
     public List<ServiceOrderResponse> createOrders(UUID examId, List<UUID> serviceIds) {
         Examination exam = examinationRepository.findById(examId)
                 .orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND));
+        if (exam.getStatus() != ExaminationStatus.ONGOING) {
+            throw new AppException(ErrorCode.BAD_REQUEST, "Examination is not ongoing");
+        }
 
         List<ServiceCatalog> services = serviceCatalogRepository.findAllById(serviceIds);
-
-        Map<RoomType, List<ServiceCatalog>> grouped =
-                services.stream().collect(Collectors.groupingBy(ServiceCatalog::getRoomType));
-
         List<ServiceOrder> orders = new ArrayList<>();
+        List<ServiceCatalog> consultationServices = services.stream()
+                .filter(s -> s.getRoomType() == RoomType.CONSULTATION)
+                .toList();
 
-        for (var entry : grouped.entrySet()) {
-            RoomType type = entry.getKey();
-            List<ServiceCatalog> list = entry.getValue();
-            StaffSchedule staffSchedule = pickLeastBusySchedule(type);
-            Room room = staffSchedule.getRoom();
-            ServiceOrder order = ServiceOrder.builder()
+        if (!consultationServices.isEmpty()) {
+
+            ServiceOrder consultationOrder = ServiceOrder.builder()
                     .examination(exam)
                     .orderCode(generateCode())
-                    .room(room)
-                    .assignedStaff(staffSchedule.getStaff())
-                    .status(ServiceOrderStatus.PENDING)
+                    .room(exam.getQueueTicket().getAssignedRoom())
+                    .assignedStaff(exam.getStaff())
+                    .status(ServiceOrderStatus.COMPLETED) // bác sĩ thực hiện ngay
                     .build();
 
-            for (ServiceCatalog service : list) {
-                order.getItems().add(
+            for (ServiceCatalog s : consultationServices) {
+                consultationOrder.getItems().add(
                         ServiceOrderItem.builder()
-                                .serviceOrder(order)
-                                .service(service)
-                                .price(service.getPrice())
+                                .serviceOrder(consultationOrder)
+                                .service(s)
+                                .price(s.getPrice())
                                 .build()
                 );
             }
-            serviceOrderRepository.save(order);
-            orders.add(order);
-            orderEventPublisher.publishNewOrder(serviceOrderMapper.toDto1(order));
+
+            serviceOrderRepository.save(consultationOrder);
+            orders.add(consultationOrder);
+
+            orderEventPublisher.publishNewOrder(serviceOrderMapper.toDto1(consultationOrder));
+        }
+
+        List<ServiceCatalog> routedServices = services.stream()
+                .filter(s -> s.getRoomType() != RoomType.CONSULTATION)
+                .toList();
+
+        if (!routedServices.isEmpty()) {
+
+            Map<RoomType, List<ServiceCatalog>> grouped =
+                    routedServices.stream().collect(Collectors.groupingBy(ServiceCatalog::getRoomType));
+
+            for (var entry : grouped.entrySet()) {
+
+                RoomType type = entry.getKey();
+                List<ServiceCatalog> list = entry.getValue();
+
+                // chọn nhân viên ít bận nhất + phòng tương ứng
+                StaffSchedule staffSchedule = pickLeastBusySchedule(type);
+                Room room = staffSchedule.getRoom();
+
+                ServiceOrder order = ServiceOrder.builder()
+                        .examination(exam)
+                        .orderCode(generateCode())
+                        .room(room)
+                        .assignedStaff(staffSchedule.getStaff())
+                        .status(ServiceOrderStatus.PENDING)
+                        .build();
+
+                for (ServiceCatalog s : list) {
+                    order.getItems().add(
+                            ServiceOrderItem.builder()
+                                    .serviceOrder(order)
+                                    .service(s)
+                                    .price(s.getPrice())
+                                    .build()
+                    );
+                }
+
+                serviceOrderRepository.save(order);
+                orders.add(order);
+
+                // publish event
+                orderEventPublisher.publishNewOrder(serviceOrderMapper.toDto1(order));
+            }
+
+            var ticket = exam.getQueueTicket();
+            ticket.setStatus(QueueStatus.IN_SERVICE_WAITING_RESULT);
+            queueTicketRepository.save(ticket);
+
+            queueEventPublisher.publish(queueTicketMapper.toDto(ticket));
         }
         return orders.stream()
                 .map(serviceOrderMapper::toDto1)
                 .toList();
     }
+
 
     @Override
     public ServiceOrderResponse getById(String id) {

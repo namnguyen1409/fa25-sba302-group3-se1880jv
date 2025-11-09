@@ -36,8 +36,8 @@ public class FileController {
 
     FileAttachmentRepository fileAttachmentRepository;
     MinioClient minioClient;
-    private final FileStorageService fileStorageService;
-    private final FileUploadService fileUploadService;
+    FileStorageService fileStorageService;
+    FileUploadService fileUploadService;
 
     @GetMapping("/view/{id}")
     public ResponseEntity<Resource> viewFile(@PathVariable UUID id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {

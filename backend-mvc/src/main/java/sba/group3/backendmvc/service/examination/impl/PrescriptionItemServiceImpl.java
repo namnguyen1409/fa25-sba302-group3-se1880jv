@@ -62,4 +62,14 @@ public class PrescriptionItemServiceImpl implements PrescriptionItemService {
         prescriptionItem.setDeleted(true);
         prescriptionItemRepository.save(prescriptionItem);
     }
+
+    @Override
+    public PrescriptionItemResponse createItem(String prescriptionId, PrescriptionItemRequest request) {
+        PrescriptionItem prescriptionItem = prescriptionItemMapper.toEntity(request);
+        prescriptionItem.setPrescription(prescriptionRepository.findById(UUID.fromString(prescriptionId))
+                .orElseThrow(() -> new IllegalArgumentException("Prescription not found with id " + prescriptionId)));
+        prescriptionItem.setMedicine(medicineRepository.findById(request.medicineId())
+                .orElseThrow(() -> new IllegalArgumentException("Medicine not found with id " + request.medicineId())));
+        return prescriptionItemMapper.toDto1(prescriptionItemRepository.save(prescriptionItem));
+    }
 }

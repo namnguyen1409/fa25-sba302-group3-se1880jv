@@ -14,61 +14,64 @@ import * as yup from "yup";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import type { StaffScheduleResponse } from "@/api";
 
-interface FormatFn {
-  (date: Date, formatStr?: string, options?: any): string;
-}
-interface ParseFn {
-  (value: string, formatStr: string): Date;
-}
-interface StartOfWeekFn {
-  (): Date;
-}
-interface GetDayFn {
-  (date: Date): number;
-}
-interface DateFnsLocalizerOptions {
-  format: FormatFn;
-  parse: ParseFn;
-  startOfWeek: StartOfWeekFn;
-  getDay: GetDayFn;
-  locales: Record<string, any>;
-}
+// ---- Localizer (date-fns) ----
+const localizer = dateFnsLocalizer({
+  format: (date: Date, formatStr?: string, _?: any) =>
+    format(date, formatStr || "EEEE", { locale: vi }),
+  parse: (value: string, formatStr: string) =>
+    parse(value, formatStr, new Date(), { locale: vi }),
+  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }), // Monday
+  getDay: (date: Date) => getDay(date),
+  locales: { vi },
+});
 
-const localizer = dateFnsLocalizer(
-  {
-    format: (date: Date, formatStr?: string, _?: any) =>
-      format(date, formatStr || "EEEE", { locale: vi }),
-
-    parse: (value: string, formatStr: string) =>
-      parse(value, formatStr, new Date(), { locale: vi }),
-
-    startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }),
-
-    getDay: (date: Date) => getDay(date),
-    locales: { vi },
-  } as DateFnsLocalizerOptions
-);
-
-
-const DOW_INDEX: Record<string, number> = {
-  MONDAY: 1,
-  TUESDAY: 2,
-  WEDNESDAY: 3,
-  THURSDAY: 4,
-  FRIDAY: 5,
-  SATURDAY: 6,
-  SUNDAY: 0,
+// ---- DOW mapping (Monday-first) ----
+// Thứ 2 = 0, Thứ 3 = 1, ..., Chủ nhật = 6
+const DOW_MONDAY_FIRST: Record<
+  "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY",
+  number
+> = {
+  MONDAY: 0,
+  TUESDAY: 1,
+  WEDNESDAY: 2,
+  THURSDAY: 3,
+  FRIDAY: 4,
+  SATURDAY: 5,
+  SUNDAY: 6,
 };
 
-const JS_TO_ENUM = [
-  "SUNDAY",
+// Ngược lại: index Monday-first -> enum
+const ENUM_FROM_MONDAY_FIRST = [
   "MONDAY",
   "TUESDAY",
   "WEDNESDAY",
   "THURSDAY",
   "FRIDAY",
   "SATURDAY",
-];
+  "SUNDAY",
+] as const;
+
+// JS getDay(): 0=Sun..6=Sat. Đổi sang Monday-first (0=Mon..6=Sun)
+const jsGetDayToMondayFirst = (js: number) => (js + 6) % 7;
+
+// Helper: build Date theo local time để tránh timezone đẩy sang ngày khác
+function buildDateFrom(
+  base: Date, // FIXED_WEEK_START (Monday)
+  offsetDays: number, // 0..6
+  timeHHmm: string // "HH:mm"
+) {
+  const [hh, mm] = timeHHmm.split(":").map((v) => parseInt(v, 10));
+  const d = new Date(
+    base.getFullYear(),
+    base.getMonth(),
+    base.getDate() + offsetDays,
+    isNaN(hh) ? 0 : hh,
+    isNaN(mm) ? 0 : mm,
+    0,
+    0
+  );
+  return d;
+}
 
 export default function StaffScheduleTemplateCalendar({
   staffId,
@@ -81,48 +84,44 @@ export default function StaffScheduleTemplateCalendar({
   const [formDefaults, setFormDefaults] = React.useState<any>({});
   const [editing, setEditing] = React.useState<StaffScheduleResponse | null>(null);
 
+  // Chọn 1 Monday làm mốc hiển thị
   const FIXED_WEEK_START = startOfWeek(new Date("2024-01-01"), {
     weekStartsOn: 1,
   });
 
   const fetch = async () => {
     try {
-      const res = await StaffScheduleTemplateApi.filter(
-        staffId,
-        0,
-        100,
-        null,
-        []
-      );
-
-      const mapped = res.content.map((t) => {
-        const jsIndex = DOW_INDEX[t.dayOfWeek || "MONDAY"] || 1;
-        const day = addDays(FIXED_WEEK_START, jsIndex === 0 ? 6 : jsIndex );
-        const dateStr = day.toISOString().split("T")[0];
+      const res = await StaffScheduleTemplateApi.filter(staffId, 0, 100, null, []);
+      const mapped = res.content.map((t: any) => {
+        const idx = DOW_MONDAY_FIRST[(t.dayOfWeek || "MONDAY") as keyof typeof DOW_MONDAY_FIRST] ?? 0;
 
         return {
           id: t.id,
           title: `${t.startTime} - ${t.endTime} (${t.room?.name ?? "No room"})`,
-          start: new Date(`${dateStr}T${t.startTime}`),
-          end: new Date(`${dateStr}T${t.endTime}`),
+          start: buildDateFrom(FIXED_WEEK_START, idx, t.startTime),
+          end: buildDateFrom(FIXED_WEEK_START, idx, t.endTime),
           raw: t,
         };
       });
 
       setEvents(mapped);
-    } catch {
+    } catch (e) {
       toast.error("Không tải được lịch mẫu");
     }
   };
 
   React.useEffect(() => {
     fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [staffId]);
 
   const handleSelectSlot = (slot: any) => {
-    const dow = JS_TO_ENUM[slot.start.getDay()];
-    setEditing(null);
+    // slot.start.getDay(): 0=Sun..6=Sat
+    // -> chuyển Monday-first index, rồi sang enum
+    const mondayFirstIdx = jsGetDayToMondayFirst(slot.start.getDay());
+    const dow = ENUM_FROM_MONDAY_FIRST[mondayFirstIdx];
 
+    setEditing(null);
     setFormDefaults({
       dayOfWeek: dow,
       startTime: "",
@@ -130,15 +129,12 @@ export default function StaffScheduleTemplateCalendar({
       roomId: "",
       active: "true",
     });
-
     setOpen(true);
   };
 
   const handleSelectEvent = (event: any) => {
     const raw = event.raw;
-
     setEditing(raw);
-
     setFormDefaults({
       dayOfWeek: raw.dayOfWeek,
       startTime: raw.startTime,
@@ -146,12 +142,11 @@ export default function StaffScheduleTemplateCalendar({
       roomId: raw.room?.id ?? "",
       active: raw.active ? "true" : "false",
     });
-
     setOpen(true);
   };
 
   const eventStyleGetter = (event: any) => {
-    let bg = event.raw.active ? "#3b82f6" : "#9ca3af";
+    const bg = event.raw.active ? "#3b82f6" : "#9ca3af";
     return {
       style: {
         backgroundColor: bg,
@@ -235,12 +230,13 @@ export default function StaffScheduleTemplateCalendar({
                 placeholder="Chọn phòng"
                 fetchOptions={async (keyword: string) => {
                   const res = await RoomApi.search(keyword);
-                  return res.content
-                    .filter((p) => p.id != null)
-                    .map((p) => ({
-                      value: p.id as string,
-                      label: p.name ?? "",
-                    }));
+                  return {
+                    content: res.content.map((r: any) => ({
+                      value: r.id!,
+                      label: r.name!,
+                    })),
+                    page: res.page,
+                  };
                 }}
                 initialOption={
                   editing?.room?.id

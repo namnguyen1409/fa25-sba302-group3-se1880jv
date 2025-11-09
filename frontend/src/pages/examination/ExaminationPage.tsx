@@ -10,19 +10,24 @@ import type { ExaminationResponse } from "@/api/models";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-import DynamicInfo from "@/components/common/DynamicInfo";
-
-
 import ClinicalNoteTab from "./tabs/ClinicalNoteTab";
 import VitalSignsTab from "./tabs/VitalSignsTab";
 import ServiceOrdersTab from "./tabs/ServiceOrdersTab";
 import PrescriptionTab from "./tabs/PrescriptionTab";
 import LabOrdersTab from "./tabs/LabOrdersTab";
 import DiagnosisTab from "./tabs/DiagnosisTab";
+import DynamicInfo from "@/components/common/DynamicInfo";
+import { QueuePanel } from "./QueuePanel";
 
 export default function ExaminationPage() {
   const { id } = useParams();
   const [exam, setExam] = useState<ExaminationResponse | null>(null);
+  const [activeTab, setActiveTab] = useState("clinical");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("exam-tab");
+    if (saved) setActiveTab(saved);
+  }, []);
 
   const load = async () => {
     try {
@@ -40,13 +45,21 @@ export default function ExaminationPage() {
   if (!exam) return <div className="p-6">Đang tải...</div>;
 
   return (
-    <div className="grid grid-cols-12 gap-6 p-6">
-      <div className="col-span-4">
+    <div className="grid grid-cols-12 gap-6 p-4 md:p-6">
+      <div
+        className="
+        col-span-12 
+        md:col-span-4 
+        xl:col-span-3
+        order-1
+      "
+      >
         <Card className="p-4">
-          <h2 className="text-lg font-bold">Thông tin bệnh nhân</h2>
+          <h2 className="text-lg font-bold mb-2">Thông tin bệnh nhân</h2>
+
           <DynamicInfo
             data={exam.patient}
-            columns={2}
+            columns={1}
             config={[
               { label: "Mã bệnh nhân", name: "patientCode" },
               { label: "Tên", name: "fullName" },
@@ -59,9 +72,39 @@ export default function ExaminationPage() {
           />
         </Card>
       </div>
-      <div className="col-span-8">
-        <Tabs defaultValue="clinical" className="w-full">
-          <TabsList className="grid grid-cols-6 mb-4">
+
+      {/* Tabs */}
+      <div
+        className="
+        col-span-12 
+        md:col-span-8 
+        xl:col-span-6
+        order-3 
+        xl:order-2
+      "
+      >
+        <Tabs
+          value={activeTab}
+          onValueChange={(v) => {
+            setActiveTab(v);
+            localStorage.setItem("exam-tab", v);
+          }}
+          className="w-full"
+        >
+          {/* ✅ TabsList responsive */}
+          <TabsList
+            className="
+              grid 
+              grid-cols-3 
+              sm:grid-cols-4 
+              md:grid-cols-6 
+              overflow-x-auto 
+              gap-1 
+              mb-4
+              scrollbar-thin
+              px-1
+            "
+          >
             <TabsTrigger value="clinical">Lâm sàng</TabsTrigger>
             <TabsTrigger value="icd">Chẩn đoán ICD</TabsTrigger>
             <TabsTrigger value="vitals">Sinh hiệu</TabsTrigger>
@@ -71,29 +114,42 @@ export default function ExaminationPage() {
           </TabsList>
 
           <TabsContent value="clinical">
-            <ClinicalNoteTab exam={exam} reload={load} />
+            <ClinicalNoteTab key={exam.id} exam={exam} reload={load} />
           </TabsContent>
 
           <TabsContent value="icd">
-            <DiagnosisTab exam={exam} />
+            <DiagnosisTab key={exam.id} exam={exam} />
           </TabsContent>
 
           <TabsContent value="vitals">
-            <VitalSignsTab exam={exam} />
+            <VitalSignsTab key={exam.id} exam={exam} />
           </TabsContent>
 
           <TabsContent value="services">
-            <ServiceOrdersTab exam={exam} />
+            <ServiceOrdersTab key={exam.id} exam={exam} />
           </TabsContent>
 
           <TabsContent value="prescription">
-            <PrescriptionTab exam={exam} reload={load} />
+            <PrescriptionTab key={exam.id} exam={exam} />
           </TabsContent>
 
           <TabsContent value="lab">
-            <LabOrdersTab exam={exam} reload={load} />
+            <LabOrdersTab key={exam.id} exam={exam} />
           </TabsContent>
         </Tabs>
+      </div>
+
+      {/* Queue Panel */}
+      <div
+        className="
+        col-span-12 
+        md:col-span-12 
+        xl:col-span-3
+        order-2 
+        xl:order-3
+      "
+      >
+        <QueuePanel currentExamId={exam.id} />
       </div>
     </div>
   );

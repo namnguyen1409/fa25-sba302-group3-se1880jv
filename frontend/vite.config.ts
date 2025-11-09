@@ -15,6 +15,7 @@ export default defineConfig({
     global: "window",
   },
   server: {
-    allowedHosts: ["sba301.telecomic.top"]
+    allowedHosts: ["sba301.telecomic.top"],
+    
   }
 })

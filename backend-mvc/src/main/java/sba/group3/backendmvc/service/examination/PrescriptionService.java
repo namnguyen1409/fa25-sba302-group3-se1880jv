@@ -16,4 +16,6 @@ public interface PrescriptionService {
     void delete(String id);
 
     PrescriptionResponse getPrescriptionByExaminationId(String examinationId);
+
+    PrescriptionResponse createForExamination(String examinationId, PrescriptionRequest request);
 }

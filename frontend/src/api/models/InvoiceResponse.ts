@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { RoomResponse } from './RoomResponse';
+import {
+    RoomResponseFromJSON,
+    RoomResponseFromJSONTyped,
+    RoomResponseToJSON,
+    RoomResponseToJSONTyped,
+} from './RoomResponse';
 import type { PatientResponse } from './PatientResponse';
 import {
     PatientResponseFromJSON,
@@ -27,6 +34,13 @@ import {
     ExaminationResponseToJSON,
     ExaminationResponseToJSONTyped,
 } from './ExaminationResponse';
+import type { StaffResponse } from './StaffResponse';
+import {
+    StaffResponseFromJSON,
+    StaffResponseFromJSONTyped,
+    StaffResponseToJSON,
+    StaffResponseToJSONTyped,
+} from './StaffResponse';
 import type { InvoiceItemResponse } from './InvoiceItemResponse';
 import {
     InvoiceItemResponseFromJSON,
@@ -95,6 +109,18 @@ export interface InvoiceResponse {
      * @memberof InvoiceResponse
      */
     items?: Set<InvoiceItemResponse>;
+    /**
+     * 
+     * @type {RoomResponse}
+     * @memberof InvoiceResponse
+     */
+    room?: RoomResponse;
+    /**
+     * 
+     * @type {StaffResponse}
+     * @memberof InvoiceResponse
+     */
+    assignedStaff?: StaffResponse;
 }
 
 /**
@@ -123,6 +149,8 @@ export function InvoiceResponseFromJSONTyped(json: any, ignoreDiscriminator: boo
         'paid': json['paid'] == null ? undefined : json['paid'],
         'note': json['note'] == null ? undefined : json['note'],
         'items': json['items'] == null ? undefined : (new Set((json['items'] as Array<any>).map(InvoiceItemResponseFromJSON))),
+        'room': json['room'] == null ? undefined : RoomResponseFromJSON(json['room']),
+        'assignedStaff': json['assignedStaff'] == null ? undefined : StaffResponseFromJSON(json['assignedStaff']),
     };
 }
 
@@ -146,6 +174,8 @@ export function InvoiceResponseToJSONTyped(value?: InvoiceResponse | null, ignor
         'paid': value['paid'],
         'note': value['note'],
         'items': value['items'] == null ? undefined : (Array.from(value['items'] as Set<any>).map(InvoiceItemResponseToJSON)),
+        'room': RoomResponseToJSON(value['room']),
+        'assignedStaff': StaffResponseToJSON(value['assignedStaff']),
     };
 }
 

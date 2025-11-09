@@ -14,9 +14,11 @@ All URIs are relative to *http://localhost:9999*
 | [**filter12**](StaffManagementApi.md#filter12) | **POST** /api/admin/staffs/filter |  |
 | [**generate**](StaffManagementApi.md#generate) | **POST** /api/admin/staffs/{staffId}/schedule/generate |  |
 | [**getById6**](StaffManagementApi.md#getbyid6) | **GET** /api/admin/staffs/{id} |  |
+| [**getMySchedule**](StaffManagementApi.md#getmyschedule) | **POST** /api/admin/staffs/schedule/filter |  |
 | [**getStaffSchedule**](StaffManagementApi.md#getstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule/filter |  |
 | [**getStaffScheduleTemplate**](StaffManagementApi.md#getstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template/filter |  |
 | [**markStatus**](StaffManagementApi.md#markstatus) | **PATCH** /api/admin/staffs/schedule/{scheduleId}/status |  |
+| [**myRange**](StaffManagementApi.md#myrange) | **GET** /api/admin/staffs/schedule |  |
 | [**range**](StaffManagementApi.md#range) | **GET** /api/admin/staffs/{staffId}/schedule |  |
 | [**update10**](StaffManagementApi.md#update10) | **PUT** /api/admin/staffs/{id} |  |
 | [**updateStaffSchedule**](StaffManagementApi.md#updatestaffschedule) | **PUT** /api/admin/staffs/schedule/{scheduleId} |  |
@@ -743,6 +745,77 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getMySchedule
+
+> CustomApiResponsePageStaffScheduleResponse getMySchedule(searchFilter)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GetMyScheduleRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
+
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetMyScheduleRequest;
+
+  try {
+    const data = await api.getMySchedule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+
+### Return type
+
+[**CustomApiResponsePageStaffScheduleResponse**](CustomApiResponsePageStaffScheduleResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getStaffSchedule
 
 > CustomApiResponsePageStaffScheduleResponse getStaffSchedule(staffId, searchFilter)
@@ -947,6 +1020,80 @@ example().catch(console.error);
 ### Return type
 
 [**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## myRange
+
+> CustomApiResponseListStaffScheduleResponse myRange(from, to)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { MyRangeRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
+
+  const body = {
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies MyRangeRequest;
+
+  try {
+    const data = await api.myRange(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**CustomApiResponseListStaffScheduleResponse**](CustomApiResponseListStaffScheduleResponse.md)
 
 ### Authorization
 

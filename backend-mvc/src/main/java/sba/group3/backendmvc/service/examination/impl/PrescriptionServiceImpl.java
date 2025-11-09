@@ -7,7 +7,10 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.PrescriptionRequest;
 import sba.group3.backendmvc.dto.response.examination.PrescriptionResponse;
 import sba.group3.backendmvc.entity.examination.Examination;
+import sba.group3.backendmvc.entity.examination.ExaminationStatus;
 import sba.group3.backendmvc.entity.examination.Prescription;
+import sba.group3.backendmvc.exception.AppException;
+import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.examination.PrescriptionMapper;
 import sba.group3.backendmvc.repository.examination.PrescriptionRepository;
 import sba.group3.backendmvc.repository.patient.ExaminationRepository;
@@ -66,5 +69,18 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             throw new IllegalArgumentException("Prescription for Examination id " + examinationId + " not found.");
         }
         return prescriptionMapper.toDto1(prescription);
+    }
+
+    @Override
+    public PrescriptionResponse createForExamination(String examinationId, PrescriptionRequest request) {
+        Examination examination = examinationRepository.findById(UUID.fromString(examinationId)).orElseThrow(()->
+                new IllegalArgumentException("Examination with id " + examinationId + " not found."));
+        if (examination.getStatus() != ExaminationStatus.ONGOING) {
+            throw new AppException(ErrorCode.BAD_REQUEST, "Examination is not ongoing");
+        }
+        Prescription prescription = prescriptionMapper.toEntity(request);
+        prescription.setExamination(examination);
+        Prescription saved = prescriptionRepository.save(prescription);
+        return prescriptionMapper.toDto1(saved);
     }
 }

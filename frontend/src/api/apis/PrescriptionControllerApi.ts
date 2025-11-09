@@ -16,37 +16,40 @@
 import * as runtime from '../runtime';
 import type {
   CustomApiResponseObject,
-  CustomApiResponsePrescriptionResponse,
-  CustomApiResponseVoid,
-  GetPatientById400Response,
-  PrescriptionRequest,
+  CustomApiResponsePagePrescriptionItemResponse,
+  CustomApiResponsePrescriptionItemResponse,
+  GetServiceOrderDetail400Response,
+  PrescriptionItemRequest,
+  SearchFilter,
 } from '../models/index';
 import {
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
-    CustomApiResponsePrescriptionResponseFromJSON,
-    CustomApiResponsePrescriptionResponseToJSON,
-    CustomApiResponseVoidFromJSON,
-    CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
-    PrescriptionRequestFromJSON,
-    PrescriptionRequestToJSON,
+    CustomApiResponsePagePrescriptionItemResponseFromJSON,
+    CustomApiResponsePagePrescriptionItemResponseToJSON,
+    CustomApiResponsePrescriptionItemResponseFromJSON,
+    CustomApiResponsePrescriptionItemResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
+    PrescriptionItemRequestFromJSON,
+    PrescriptionItemRequestToJSON,
+    SearchFilterFromJSON,
+    SearchFilterToJSON,
 } from '../models/index';
 
-export interface DeletePrescriptionItemRequest {
+export interface CreatePrescriptionForExaminationRequest {
     id: string;
-    prescriptionId: string;
+    searchFilter: SearchFilter;
 }
 
-export interface GetPrescriptionRequest {
+export interface CreatePrescriptionItemRequest {
     id: string;
+    prescriptionItemRequest: PrescriptionItemRequest;
 }
 
-export interface SaveOrUpdatePrescriptionRequest {
-    id: string;
-    prescriptionId: string;
-    prescriptionRequest: PrescriptionRequest;
+export interface UpdatePrescriptionItemRequest {
+    itemId: string;
+    prescriptionItemRequest: PrescriptionItemRequest;
 }
 
 /**
@@ -56,119 +59,18 @@ export class PrescriptionControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async deletePrescriptionItemRaw(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+    async createPrescriptionForExaminationRaw(requestParameters: CreatePrescriptionForExaminationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePagePrescriptionItemResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling deletePrescriptionItem().'
+                'Required parameter "id" was null or undefined when calling createPrescriptionForExamination().'
             );
         }
 
-        if (requestParameters['prescriptionId'] == null) {
+        if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
-                'prescriptionId',
-                'Required parameter "prescriptionId" was null or undefined when calling deletePrescriptionItem().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/examinations/{id}/prescription/{prescriptionId}`;
-        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-        urlPath = urlPath.replace(`{${"prescriptionId"}}`, encodeURIComponent(String(requestParameters['prescriptionId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseVoidFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async deletePrescriptionItem(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.deletePrescriptionItemRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async getPrescriptionRaw(requestParameters: GetPrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling getPrescription().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/examinations/{id}/prescription`;
-        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionResponseFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async getPrescription(requestParameters: GetPrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionResponse> {
-        const response = await this.getPrescriptionRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async saveOrUpdatePrescriptionRaw(requestParameters: SaveOrUpdatePrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling saveOrUpdatePrescription().'
-            );
-        }
-
-        if (requestParameters['prescriptionId'] == null) {
-            throw new runtime.RequiredError(
-                'prescriptionId',
-                'Required parameter "prescriptionId" was null or undefined when calling saveOrUpdatePrescription().'
-            );
-        }
-
-        if (requestParameters['prescriptionRequest'] == null) {
-            throw new runtime.RequiredError(
-                'prescriptionRequest',
-                'Required parameter "prescriptionRequest" was null or undefined when calling saveOrUpdatePrescription().'
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling createPrescriptionForExamination().'
             );
         }
 
@@ -187,25 +89,130 @@ export class PrescriptionControllerApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api/examinations/{id}/prescription/{prescriptionId}`;
+        let urlPath = `/api/prescriptions/{id}/items/filter`;
         urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-        urlPath = urlPath.replace(`{${"prescriptionId"}}`, encodeURIComponent(String(requestParameters['prescriptionId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePagePrescriptionItemResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createPrescriptionForExamination(requestParameters: CreatePrescriptionForExaminationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePagePrescriptionItemResponse> {
+        const response = await this.createPrescriptionForExaminationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async createPrescriptionItemRaw(requestParameters: CreatePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionItemResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling createPrescriptionItem().'
+            );
+        }
+
+        if (requestParameters['prescriptionItemRequest'] == null) {
+            throw new runtime.RequiredError(
+                'prescriptionItemRequest',
+                'Required parameter "prescriptionItemRequest" was null or undefined when calling createPrescriptionItem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/prescriptions/{id}/items`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PrescriptionItemRequestToJSON(requestParameters['prescriptionItemRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionItemResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createPrescriptionItem(requestParameters: CreatePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionItemResponse> {
+        const response = await this.createPrescriptionItemRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updatePrescriptionItemRaw(requestParameters: UpdatePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionItemResponse>> {
+        if (requestParameters['itemId'] == null) {
+            throw new runtime.RequiredError(
+                'itemId',
+                'Required parameter "itemId" was null or undefined when calling updatePrescriptionItem().'
+            );
+        }
+
+        if (requestParameters['prescriptionItemRequest'] == null) {
+            throw new runtime.RequiredError(
+                'prescriptionItemRequest',
+                'Required parameter "prescriptionItemRequest" was null or undefined when calling updatePrescriptionItem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/prescriptions/items/{itemId}`;
+        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
 
         const response = await this.request({
             path: urlPath,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: PrescriptionRequestToJSON(requestParameters['prescriptionRequest']),
+            body: PrescriptionItemRequestToJSON(requestParameters['prescriptionItemRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionItemResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async saveOrUpdatePrescription(requestParameters: SaveOrUpdatePrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionResponse> {
-        const response = await this.saveOrUpdatePrescriptionRaw(requestParameters, initOverrides);
+    async updatePrescriptionItem(requestParameters: UpdatePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionItemResponse> {
+        const response = await this.updatePrescriptionItemRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

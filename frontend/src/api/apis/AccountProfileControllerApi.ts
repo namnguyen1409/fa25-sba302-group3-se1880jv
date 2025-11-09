@@ -17,7 +17,7 @@ import * as runtime from '../runtime';
 import type {
   CustomApiResponseObject,
   CustomApiResponseUserProfileResponse,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   UserProfileRequest,
 } from '../models/index';
 import {
@@ -25,8 +25,8 @@ import {
     CustomApiResponseObjectToJSON,
     CustomApiResponseUserProfileResponseFromJSON,
     CustomApiResponseUserProfileResponseToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     UserProfileRequestFromJSON,
     UserProfileRequestToJSON,
 } from '../models/index';

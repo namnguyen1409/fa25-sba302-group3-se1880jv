@@ -15,15 +15,23 @@
 
 import * as runtime from '../runtime';
 import type {
+  CustomApiResponseListFileAttachmentResponse,
   CustomApiResponseObject,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
 } from '../models/index';
 import {
+    CustomApiResponseListFileAttachmentResponseFromJSON,
+    CustomApiResponseListFileAttachmentResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
 } from '../models/index';
+
+export interface GetFilesRequest {
+    entityType: string;
+    entityId: string;
+}
 
 export interface ViewFileRequest {
     id: string;
@@ -33,6 +41,63 @@ export interface ViewFileRequest {
  * 
  */
 export class FileManagementApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async getFilesRaw(requestParameters: GetFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListFileAttachmentResponse>> {
+        if (requestParameters['entityType'] == null) {
+            throw new runtime.RequiredError(
+                'entityType',
+                'Required parameter "entityType" was null or undefined when calling getFiles().'
+            );
+        }
+
+        if (requestParameters['entityId'] == null) {
+            throw new runtime.RequiredError(
+                'entityId',
+                'Required parameter "entityId" was null or undefined when calling getFiles().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['entityType'] != null) {
+            queryParameters['entityType'] = requestParameters['entityType'];
+        }
+
+        if (requestParameters['entityId'] != null) {
+            queryParameters['entityId'] = requestParameters['entityId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/files`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListFileAttachmentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getFiles(requestParameters: GetFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListFileAttachmentResponse> {
+        const response = await this.getFilesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */

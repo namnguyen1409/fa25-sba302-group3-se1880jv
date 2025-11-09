@@ -30,7 +30,7 @@ public class VitalSignController {
 
     @PostMapping("/{id}/vitals/filter")
     public ResponseEntity<CustomApiResponse<Page<VitalSignResponse>>> filterVitals(
-            @PathVariable("id") String examinationId,
+            @PathVariable("id") UUID examinationId,
             @RequestBody @Validated SearchFilter filter
     ) {
         log.info("Filtering vitals for examination {}: {}", examinationId, filter);

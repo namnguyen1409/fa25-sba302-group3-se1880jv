@@ -11,13 +11,18 @@ import org.springframework.web.client.RestClient;
 import sba.group3.backendmvc.dto.filter.Filter;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ExaminationRequest;
+import sba.group3.backendmvc.dto.request.examination.PrescriptionRequest;
 import sba.group3.backendmvc.dto.request.examination.ServiceOrderRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
+import sba.group3.backendmvc.dto.response.examination.PrescriptionResponse;
 import sba.group3.backendmvc.dto.response.examination.ServiceOrderResponse;
+import sba.group3.backendmvc.dto.response.laboratory.LabOrderResponse;
 import sba.group3.backendmvc.service.examination.ExaminationService;
+import sba.group3.backendmvc.service.examination.PrescriptionService;
 import sba.group3.backendmvc.service.examination.ServiceOrderItemService;
 import sba.group3.backendmvc.service.examination.ServiceOrderService;
+import sba.group3.backendmvc.service.laboratory.LabOrderService;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,9 +33,10 @@ import java.util.UUID;
 @RequestMapping("/api/examinations")
 public class ExaminationController {
     private final ExaminationService examinationService;
-    private final RestClient.Builder builder;
     private final ServiceOrderService serviceOrderService;
     private final ServiceOrderItemService serviceOrderItemService;
+    private final PrescriptionService prescriptionService;
+    private final LabOrderService labOrderService;
 
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<ExaminationResponse>>> getExaminations(@RequestBody SearchFilter filter) {
@@ -97,7 +103,7 @@ public class ExaminationController {
                 Filter.builder()
                         .field("examination.id")
                         .operator("eq")
-                        .value(examId.toString())
+                        .value(examId)
                         .build()
         );
         Page<ServiceOrderResponse> responsePage = serviceOrderService.filter(filter);
@@ -186,4 +192,106 @@ public class ExaminationController {
                         .build()
         );
     }
+
+    @PostMapping("/{id}/prescription")
+    public ResponseEntity<CustomApiResponse<PrescriptionResponse>> createPrescription(
+            @PathVariable("id") String examinationId,
+            @RequestBody @Validated PrescriptionRequest request
+    ) {
+        log.info("Creating prescription for examination with id {}: {}", examinationId, request);
+        PrescriptionResponse response = prescriptionService.createForExamination(examinationId, request);
+        return ResponseEntity.ok(
+                CustomApiResponse.<PrescriptionResponse>builder()
+                        .data(response)
+                        .message("Prescription created successfully")
+                        .build()
+        );
+    }
+
+    @GetMapping("/{id}/prescription")
+    public ResponseEntity<CustomApiResponse<PrescriptionResponse>> getPrescription(
+            @PathVariable("id") String examinationId
+    ) {
+        log.info("Getting prescription for examination with id: {}", examinationId);
+        PrescriptionResponse response = prescriptionService.getPrescriptionByExaminationId(examinationId);
+        return ResponseEntity.ok(
+                CustomApiResponse.<PrescriptionResponse>builder()
+                        .data(response)
+                        .build()
+        );
+    }
+
+
+    @PutMapping("/{id}/prescription/{prescriptionId}")
+    public ResponseEntity<CustomApiResponse<PrescriptionResponse>> saveOrUpdatePrescription(
+            @PathVariable("id") String examinationId,
+            @PathVariable("prescriptionId") String prescriptionId,
+            @RequestBody @Validated PrescriptionRequest request
+    ) {
+        log.info("Saving/Updating prescription for examination with id {}: {}", examinationId, request);
+        PrescriptionResponse response = prescriptionService.update(prescriptionId, request);
+        return ResponseEntity.ok(
+                CustomApiResponse.<PrescriptionResponse>builder()
+                        .data(response)
+                        .message("Prescription saved/updated successfully")
+                        .build()
+        );
+    }
+
+
+    @DeleteMapping("/{id}/prescription/{prescriptionId}")
+    public ResponseEntity<CustomApiResponse<Void>> deletePrescriptionItem(
+            @PathVariable("id") String examinationId,
+            @PathVariable("prescriptionId") String prescriptionId
+    ) {
+        log.info("Deleting prescription item {} from examination {}", prescriptionId, examinationId);
+        prescriptionService.delete(examinationId);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("Prescription item deleted successfully")
+                        .build()
+        );
+    }
+
+    public record CreateLabOrderRequest(
+            List<UUID> labTestIds
+    ) {}
+
+    @PostMapping("/{id}/lab/orders")
+    public ResponseEntity<CustomApiResponse<List<LabOrderResponse>>> createLabOrder(
+            @PathVariable("id") String examinationId,
+            @RequestBody @Validated CreateLabOrderRequest request
+    ) {
+        log.info("Creating new lab order for examination {}: {}", examinationId, request);
+        List<LabOrderResponse> response = labOrderService.createOrder(examinationId, request.labTestIds());
+        return ResponseEntity.ok(
+                CustomApiResponse.<List<LabOrderResponse>>builder()
+                        .data(response)
+                        .message("Service order created successfully")
+                        .build()
+        );
+    }
+
+    @PostMapping("/{id}/lab/orders/filter")
+    public ResponseEntity<CustomApiResponse<Page<LabOrderResponse>>> filterLabOrders(
+            @PathVariable("id") UUID examinationId,
+            @RequestBody @Validated SearchFilter filter
+    ) {
+        log.info("Filtering lab orders for examination {}: {}", examinationId, filter);
+        filter.addMandatoryCondition(
+                Filter.builder()
+                        .field("examination.id")
+                        .operator("eq")
+                        .value(examinationId)
+                        .build()
+        );
+        Page<LabOrderResponse> responsePage = labOrderService.filter(filter);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<LabOrderResponse>>builder()
+                        .data(responsePage)
+                        .build()
+        );
+    }
+
+
 }

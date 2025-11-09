@@ -63,6 +63,12 @@ export interface PrescriptionItemResponse {
      * @memberof PrescriptionItemResponse
      */
     instruction?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof PrescriptionItemResponse
+     */
+    quantity?: number;
 }
 
 /**
@@ -88,6 +94,7 @@ export function PrescriptionItemResponseFromJSONTyped(json: any, ignoreDiscrimin
         'frequency': json['frequency'] == null ? undefined : json['frequency'],
         'duration': json['duration'] == null ? undefined : json['duration'],
         'instruction': json['instruction'] == null ? undefined : json['instruction'],
+        'quantity': json['quantity'] == null ? undefined : json['quantity'],
     };
 }
 
@@ -108,6 +115,7 @@ export function PrescriptionItemResponseToJSONTyped(value?: PrescriptionItemResp
         'frequency': value['frequency'],
         'duration': value['duration'],
         'instruction': value['instruction'],
+        'quantity': value['quantity'],
     };
 }
 

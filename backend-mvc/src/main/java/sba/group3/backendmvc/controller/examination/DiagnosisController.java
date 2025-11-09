@@ -14,6 +14,7 @@ import sba.group3.backendmvc.dto.response.examination.DiagnosisResponse;
 import sba.group3.backendmvc.service.examination.DiagnosisService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class DiagnosisController {
 
     @PostMapping("/{id}/diagnosis/filter")
     public ResponseEntity<CustomApiResponse<Page<DiagnosisResponse>>> filterDiagnosis(
-            @PathVariable("id") String examinationId,
+            @PathVariable("id") UUID examinationId,
             @RequestBody @Validated SearchFilter filter
     ) {
         log.info("Filtering diagnosis for examination {}: {}", examinationId, filter);

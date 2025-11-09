@@ -3,14 +3,21 @@ package sba.group3.backendmvc.service.examination.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ExaminationRequest;
 import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
+import sba.group3.backendmvc.entity.appointment.QueueStatus;
 import sba.group3.backendmvc.entity.appointment.QueueTicket;
-import sba.group3.backendmvc.entity.examination.Examination;
-import sba.group3.backendmvc.entity.examination.ExaminationStatus;
-import sba.group3.backendmvc.entity.examination.ExaminationType;
+import sba.group3.backendmvc.entity.examination.*;
+import sba.group3.backendmvc.entity.laboratory.LabStatus;
+import sba.group3.backendmvc.exception.AppException;
+import sba.group3.backendmvc.exception.ErrorCode;
+import sba.group3.backendmvc.mapper.appointment.QueueTicketMapper;
 import sba.group3.backendmvc.mapper.examination.ExaminationMapper;
+import sba.group3.backendmvc.publisher.QueueEventPublisher;
+import sba.group3.backendmvc.repository.appointment.QueueTicketRepository;
+import sba.group3.backendmvc.repository.examination.ServiceOrderRepository;
 import sba.group3.backendmvc.repository.patient.ExaminationRepository;
 import sba.group3.backendmvc.repository.patient.PatientRepository;
 import sba.group3.backendmvc.repository.staff.StaffRepository;
@@ -26,7 +33,11 @@ public class ExaminationServiceImpl implements ExaminationService {
     private final ExaminationMapper examinationMapper;
     private final PatientRepository patientRepository;
     private final StaffRepository staffRepository;
-    
+    private final ServiceOrderRepository serviceOrderRepository;
+    private final QueueEventPublisher queueEventPublisher;
+    private final QueueTicketMapper queueTicketMapper;
+    private final QueueTicketRepository queueTicketRepository;
+
     @Override
     public Page<ExaminationResponse> filter(SearchFilter filter) {
         return examinationRepository.search(filter).map(examinationMapper::toDto1);
@@ -51,7 +62,9 @@ public class ExaminationServiceImpl implements ExaminationService {
     public ExaminationResponse update(String id, ExaminationRequest request) {
         Examination examination = examinationRepository.findById(UUID.fromString(id)).orElseThrow(()->
                 new IllegalArgumentException("Examination with id " + id + " not found."));
-
+        if (examination.getStatus() != ExaminationStatus.ONGOING) {
+            throw new AppException(ErrorCode.BAD_REQUEST, "Examination is not ongoing");
+        }
         examinationMapper.partialUpdate(request, examination);
 
         if (request.patientId() != null) {
@@ -88,4 +101,30 @@ public class ExaminationServiceImpl implements ExaminationService {
                 .build();
         return examinationRepository.save(examination);
     }
+
+    @Transactional
+    @Override
+    public void handleOrderStatusChanged(UUID examId) {
+        Examination exam = examinationRepository.findById(examId)
+                .orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND));
+
+        boolean allServiceCompleted = exam.getServiceOrders()
+                .stream().allMatch(o -> o.getStatus() == ServiceOrderStatus.COMPLETED);
+
+        boolean allLabCompleted = exam.getLabOrders()
+                .stream().allMatch(o -> o.getStatus() == LabStatus.COMPLETED);
+
+        boolean allCompleted = allServiceCompleted && allLabCompleted;
+        if (allCompleted) {
+            QueueTicket ticket = exam.getQueueTicket();
+            ticket.setStatus(QueueStatus.WAITING_AFTER_RESULT);
+            queueTicketRepository.save(ticket);
+
+            queueEventPublisher.publish(
+                    queueTicketMapper.toDto(ticket)
+            );
+        }
+
+    }
+
 }

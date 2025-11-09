@@ -17,15 +17,15 @@ import * as runtime from '../runtime';
 import type {
   CustomApiResponseListAdministrativeUnitResponse,
   CustomApiResponseObject,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
 } from '../models/index';
 import {
     CustomApiResponseListAdministrativeUnitResponseFromJSON,
     CustomApiResponseListAdministrativeUnitResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
 } from '../models/index';
 
 export interface GetAdministrativeUnitsRequest {

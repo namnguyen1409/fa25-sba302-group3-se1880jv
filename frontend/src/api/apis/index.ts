@@ -14,6 +14,7 @@ export * from './DiagnosisControllerApi';
 export * from './DispenseRecordManagementApi';
 export * from './ExaminationControllerApi';
 export * from './FileManagementApi';
+export * from './FileUploadApi';
 export * from './ICDCodeManagementApi';
 export * from './InvoiceManagementApi';
 export * from './LabOrderManagementApi';

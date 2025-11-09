@@ -16,6 +16,10 @@ public interface LabTestResultMapper {
     @InheritInverseConfiguration(name = "toEntity")
     LabTestResultRequest toDto(LabTestResult labTestResult);
 
+
+    @Mapping(target = "labOrder", ignore = true)
+    @Mapping(target = "verifiedBy",  ignore = true)
+    @Mapping(target = "labTest", ignore = true)
     @InheritConfiguration(name = "toEntity")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     LabTestResult partialUpdate(LabTestResultRequest labTestResultRequest, @MappingTarget LabTestResult labTestResult);

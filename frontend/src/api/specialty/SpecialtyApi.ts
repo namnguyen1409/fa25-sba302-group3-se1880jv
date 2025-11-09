@@ -17,10 +17,10 @@ export const SpecialtyApi = {
       { page, size, filterGroup, sorts, searchMode }
     ),
 
-  search: (keyword: string) =>
+  search: (keyword: string, page: number = 0, size: number = 10) =>
     apiClient.post<PageResponse<SpecialtyResponse>>("/admin/specialties/filter", {
-      page: 0,
-      size: 10,
+      page,
+      size,
       filterGroup: {
         operator: "AND",
         filters: [

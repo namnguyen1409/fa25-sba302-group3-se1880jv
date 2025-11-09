@@ -24,9 +24,13 @@ export const StaffScheduleApi = {
     delete: async (id: string) => {
         return apiClient.delete<StaffScheduleResponse>(`/admin/staffs/schedule/${id}`);
     },
-     getRange: (staffId: string, from: string, to: string) =>
+    getRange: (staffId: string, from: string, to: string) =>
         apiClient.get<StaffScheduleResponse[]>(
             `/admin/staffs/${staffId}/schedule?from=${from}&to=${to}`
+        ),
+    getMyRange: (from: string, to: string) =>
+        apiClient.get<StaffScheduleResponse[]>(
+            `/admin/staffs/schedule?from=${from}&to=${to}`
         ),
 
     /** Generate schedule từ template */

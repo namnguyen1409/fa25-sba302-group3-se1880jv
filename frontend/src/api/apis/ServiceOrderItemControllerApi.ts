@@ -16,21 +16,21 @@
 import * as runtime from '../runtime';
 import type {
   CustomApiResponseObject,
-  CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
+  ServiceOrderItemRequest,
 } from '../models/index';
 import {
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
-    CustomApiResponseVoidFromJSON,
-    CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
+    ServiceOrderItemRequestFromJSON,
+    ServiceOrderItemRequestToJSON,
 } from '../models/index';
 
-export interface DeleteServiceOrderItemRequest {
+export interface UpdateServiceOrderItemRequest {
     id: string;
-    itemId: string;
+    serviceOrderItemRequest: ServiceOrderItemRequest;
 }
 
 /**
@@ -40,24 +40,26 @@ export class ServiceOrderItemControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async deleteServiceOrderItemRaw(requestParameters: DeleteServiceOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+    async updateServiceOrderItemRaw(requestParameters: UpdateServiceOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseObject>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling deleteServiceOrderItem().'
+                'Required parameter "id" was null or undefined when calling updateServiceOrderItem().'
             );
         }
 
-        if (requestParameters['itemId'] == null) {
+        if (requestParameters['serviceOrderItemRequest'] == null) {
             throw new runtime.RequiredError(
-                'itemId',
-                'Required parameter "itemId" was null or undefined when calling deleteServiceOrderItem().'
+                'serviceOrderItemRequest',
+                'Required parameter "serviceOrderItemRequest" was null or undefined when calling updateServiceOrderItem().'
             );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -68,24 +70,24 @@ export class ServiceOrderItemControllerApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api/examinations/{id}/services/item/{itemId}`;
+        let urlPath = `/api/service-order-items/{id}`;
         urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
 
         const response = await this.request({
             path: urlPath,
-            method: 'DELETE',
+            method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
+            body: ServiceOrderItemRequestToJSON(requestParameters['serviceOrderItemRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseVoidFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseObjectFromJSON(jsonValue));
     }
 
     /**
      */
-    async deleteServiceOrderItem(requestParameters: DeleteServiceOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.deleteServiceOrderItemRaw(requestParameters, initOverrides);
+    async updateServiceOrderItem(requestParameters: UpdateServiceOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseObject> {
+        const response = await this.updateServiceOrderItemRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

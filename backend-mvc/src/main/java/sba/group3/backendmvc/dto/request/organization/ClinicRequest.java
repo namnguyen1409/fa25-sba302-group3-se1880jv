@@ -27,6 +27,6 @@ public record ClinicRequest(
                 regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
                 message = "Invalid email format"
         )
-        String email
-) implements Serializable {
+        String email,
+        String taxCode, String website, String accountNumber, String bankName) implements Serializable {
 }

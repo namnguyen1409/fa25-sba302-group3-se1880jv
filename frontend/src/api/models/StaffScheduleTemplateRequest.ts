@@ -109,6 +109,7 @@ export const StaffScheduleTemplateRequestStaffStaffTypeEnum = {
     Doctor: 'DOCTOR',
     Nurse: 'NURSE',
     Technician: 'TECHNICIAN',
+    LabTechnician: 'LAB_TECHNICIAN',
     Pharmacist: 'PHARMACIST',
     Receptionist: 'RECEPTIONIST',
     Cashier: 'CASHIER',

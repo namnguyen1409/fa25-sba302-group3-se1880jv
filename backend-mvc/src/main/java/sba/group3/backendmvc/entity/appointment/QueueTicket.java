@@ -33,7 +33,7 @@ public class QueueTicket extends BaseEntity {
     @JoinColumn(name = "room_id", nullable = false)
     Room assignedRoom;
 
-    @Column(name = "queue_number", nullable = false, unique = true, length = 10)
+    @Column(name = "queue_number", nullable = false, length = 10)
     String queueNumber;
 
     @Builder.Default

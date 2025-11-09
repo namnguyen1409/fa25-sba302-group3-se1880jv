@@ -15,30 +15,103 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreateLabOrderRequest,
+  CreateServiceOrderRequest,
   CustomApiResponseExaminationResponse,
+  CustomApiResponseListLabOrderResponse,
+  CustomApiResponseListServiceOrderResponse,
   CustomApiResponseObject,
   CustomApiResponsePageExaminationResponse,
+  CustomApiResponsePageLabOrderResponse,
+  CustomApiResponsePageServiceOrderResponse,
+  CustomApiResponsePrescriptionResponse,
+  CustomApiResponseServiceOrderResponse,
+  CustomApiResponseVoid,
   ExaminationRequest,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
+  PrescriptionRequest,
   SearchFilter,
+  ServiceOrderRequest,
 } from '../models/index';
 import {
+    CreateLabOrderRequestFromJSON,
+    CreateLabOrderRequestToJSON,
+    CreateServiceOrderRequestFromJSON,
+    CreateServiceOrderRequestToJSON,
     CustomApiResponseExaminationResponseFromJSON,
     CustomApiResponseExaminationResponseToJSON,
+    CustomApiResponseListLabOrderResponseFromJSON,
+    CustomApiResponseListLabOrderResponseToJSON,
+    CustomApiResponseListServiceOrderResponseFromJSON,
+    CustomApiResponseListServiceOrderResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
     CustomApiResponsePageExaminationResponseFromJSON,
     CustomApiResponsePageExaminationResponseToJSON,
+    CustomApiResponsePageLabOrderResponseFromJSON,
+    CustomApiResponsePageLabOrderResponseToJSON,
+    CustomApiResponsePageServiceOrderResponseFromJSON,
+    CustomApiResponsePageServiceOrderResponseToJSON,
+    CustomApiResponsePrescriptionResponseFromJSON,
+    CustomApiResponsePrescriptionResponseToJSON,
+    CustomApiResponseServiceOrderResponseFromJSON,
+    CustomApiResponseServiceOrderResponseToJSON,
+    CustomApiResponseVoidFromJSON,
+    CustomApiResponseVoidToJSON,
     ExaminationRequestFromJSON,
     ExaminationRequestToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
+    PrescriptionRequestFromJSON,
+    PrescriptionRequestToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
+    ServiceOrderRequestFromJSON,
+    ServiceOrderRequestToJSON,
 } from '../models/index';
 
 export interface CreateExaminationRequest {
     examinationRequest: ExaminationRequest;
+}
+
+export interface CreateLabOrderOperationRequest {
+    id: string;
+    createLabOrderRequest: CreateLabOrderRequest;
+}
+
+export interface CreateOrdersRequest {
+    examId: string;
+    createServiceOrderRequest: CreateServiceOrderRequest;
+}
+
+export interface CreatePrescriptionRequest {
+    id: string;
+    prescriptionRequest: PrescriptionRequest;
+}
+
+export interface CreateServiceOrderRequest {
+    id: string;
+    serviceOrderRequest: ServiceOrderRequest;
+}
+
+export interface DeletePrescriptionItemRequest {
+    id: string;
+    prescriptionId: string;
+}
+
+export interface DeleteServiceOrderItemRequest {
+    id: string;
+    itemId: string;
+}
+
+export interface FilterLabOrdersRequest {
+    id: string;
+    searchFilter: SearchFilter;
+}
+
+export interface FilterServiceOrdersRequest {
+    examId: string;
+    searchFilter: SearchFilter;
 }
 
 export interface GetExaminationDetailRequest {
@@ -47,6 +120,26 @@ export interface GetExaminationDetailRequest {
 
 export interface GetExaminationsRequest {
     searchFilter: SearchFilter;
+}
+
+export interface GetPrescriptionRequest {
+    id: string;
+}
+
+export interface GetServiceOrdersRequest {
+    id: string;
+}
+
+export interface SaveOrUpdatePrescriptionRequest {
+    id: string;
+    prescriptionId: string;
+    prescriptionRequest: PrescriptionRequest;
+}
+
+export interface SaveOrUpdateServiceOrdersRequest {
+    id: string;
+    serviceOrderId: string;
+    serviceOrderRequest: ServiceOrderRequest;
 }
 
 export interface UpdateExaminationRequest {
@@ -101,6 +194,426 @@ export class ExaminationControllerApi extends runtime.BaseAPI {
      */
     async createExamination(requestParameters: CreateExaminationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseExaminationResponse> {
         const response = await this.createExaminationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async createLabOrderRaw(requestParameters: CreateLabOrderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListLabOrderResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling createLabOrder().'
+            );
+        }
+
+        if (requestParameters['createLabOrderRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createLabOrderRequest',
+                'Required parameter "createLabOrderRequest" was null or undefined when calling createLabOrder().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/lab/orders`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateLabOrderRequestToJSON(requestParameters['createLabOrderRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListLabOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createLabOrder(requestParameters: CreateLabOrderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListLabOrderResponse> {
+        const response = await this.createLabOrderRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async createOrdersRaw(requestParameters: CreateOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListServiceOrderResponse>> {
+        if (requestParameters['examId'] == null) {
+            throw new runtime.RequiredError(
+                'examId',
+                'Required parameter "examId" was null or undefined when calling createOrders().'
+            );
+        }
+
+        if (requestParameters['createServiceOrderRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createServiceOrderRequest',
+                'Required parameter "createServiceOrderRequest" was null or undefined when calling createOrders().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{examId}/services/orders`;
+        urlPath = urlPath.replace(`{${"examId"}}`, encodeURIComponent(String(requestParameters['examId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateServiceOrderRequestToJSON(requestParameters['createServiceOrderRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createOrders(requestParameters: CreateOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListServiceOrderResponse> {
+        const response = await this.createOrdersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async createPrescriptionRaw(requestParameters: CreatePrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling createPrescription().'
+            );
+        }
+
+        if (requestParameters['prescriptionRequest'] == null) {
+            throw new runtime.RequiredError(
+                'prescriptionRequest',
+                'Required parameter "prescriptionRequest" was null or undefined when calling createPrescription().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/prescription`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PrescriptionRequestToJSON(requestParameters['prescriptionRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createPrescription(requestParameters: CreatePrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionResponse> {
+        const response = await this.createPrescriptionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async createServiceOrderRaw(requestParameters: CreateServiceOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling createServiceOrder().'
+            );
+        }
+
+        if (requestParameters['serviceOrderRequest'] == null) {
+            throw new runtime.RequiredError(
+                'serviceOrderRequest',
+                'Required parameter "serviceOrderRequest" was null or undefined when calling createServiceOrder().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/services`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ServiceOrderRequestToJSON(requestParameters['serviceOrderRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createServiceOrder(requestParameters: CreateServiceOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
+        const response = await this.createServiceOrderRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deletePrescriptionItemRaw(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deletePrescriptionItem().'
+            );
+        }
+
+        if (requestParameters['prescriptionId'] == null) {
+            throw new runtime.RequiredError(
+                'prescriptionId',
+                'Required parameter "prescriptionId" was null or undefined when calling deletePrescriptionItem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/prescription/{prescriptionId}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"prescriptionId"}}`, encodeURIComponent(String(requestParameters['prescriptionId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseVoidFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async deletePrescriptionItem(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.deletePrescriptionItemRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deleteServiceOrderItemRaw(requestParameters: DeleteServiceOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteServiceOrderItem().'
+            );
+        }
+
+        if (requestParameters['itemId'] == null) {
+            throw new runtime.RequiredError(
+                'itemId',
+                'Required parameter "itemId" was null or undefined when calling deleteServiceOrderItem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/services/item/{itemId}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseVoidFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async deleteServiceOrderItem(requestParameters: DeleteServiceOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.deleteServiceOrderItemRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async filterLabOrdersRaw(requestParameters: FilterLabOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageLabOrderResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling filterLabOrders().'
+            );
+        }
+
+        if (requestParameters['searchFilter'] == null) {
+            throw new runtime.RequiredError(
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling filterLabOrders().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/lab/orders/filter`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageLabOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async filterLabOrders(requestParameters: FilterLabOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageLabOrderResponse> {
+        const response = await this.filterLabOrdersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async filterServiceOrdersRaw(requestParameters: FilterServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageServiceOrderResponse>> {
+        if (requestParameters['examId'] == null) {
+            throw new runtime.RequiredError(
+                'examId',
+                'Required parameter "examId" was null or undefined when calling filterServiceOrders().'
+            );
+        }
+
+        if (requestParameters['searchFilter'] == null) {
+            throw new runtime.RequiredError(
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling filterServiceOrders().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{examId}/services/filter`;
+        urlPath = urlPath.replace(`{${"examId"}}`, encodeURIComponent(String(requestParameters['examId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async filterServiceOrders(requestParameters: FilterServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageServiceOrderResponse> {
+        const response = await this.filterServiceOrdersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -189,6 +702,214 @@ export class ExaminationControllerApi extends runtime.BaseAPI {
      */
     async getExaminations(requestParameters: GetExaminationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageExaminationResponse> {
         const response = await this.getExaminationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getPrescriptionRaw(requestParameters: GetPrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getPrescription().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/prescription`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getPrescription(requestParameters: GetPrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionResponse> {
+        const response = await this.getPrescriptionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getServiceOrdersRaw(requestParameters: GetServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getServiceOrders().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/services`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getServiceOrders(requestParameters: GetServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
+        const response = await this.getServiceOrdersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async saveOrUpdatePrescriptionRaw(requestParameters: SaveOrUpdatePrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePrescriptionResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling saveOrUpdatePrescription().'
+            );
+        }
+
+        if (requestParameters['prescriptionId'] == null) {
+            throw new runtime.RequiredError(
+                'prescriptionId',
+                'Required parameter "prescriptionId" was null or undefined when calling saveOrUpdatePrescription().'
+            );
+        }
+
+        if (requestParameters['prescriptionRequest'] == null) {
+            throw new runtime.RequiredError(
+                'prescriptionRequest',
+                'Required parameter "prescriptionRequest" was null or undefined when calling saveOrUpdatePrescription().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/prescription/{prescriptionId}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"prescriptionId"}}`, encodeURIComponent(String(requestParameters['prescriptionId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PrescriptionRequestToJSON(requestParameters['prescriptionRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePrescriptionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async saveOrUpdatePrescription(requestParameters: SaveOrUpdatePrescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionResponse> {
+        const response = await this.saveOrUpdatePrescriptionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async saveOrUpdateServiceOrdersRaw(requestParameters: SaveOrUpdateServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling saveOrUpdateServiceOrders().'
+            );
+        }
+
+        if (requestParameters['serviceOrderId'] == null) {
+            throw new runtime.RequiredError(
+                'serviceOrderId',
+                'Required parameter "serviceOrderId" was null or undefined when calling saveOrUpdateServiceOrders().'
+            );
+        }
+
+        if (requestParameters['serviceOrderRequest'] == null) {
+            throw new runtime.RequiredError(
+                'serviceOrderRequest',
+                'Required parameter "serviceOrderRequest" was null or undefined when calling saveOrUpdateServiceOrders().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/examinations/{id}/services/{serviceOrderId}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"serviceOrderId"}}`, encodeURIComponent(String(requestParameters['serviceOrderId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ServiceOrderRequestToJSON(requestParameters['serviceOrderRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async saveOrUpdateServiceOrders(requestParameters: SaveOrUpdateServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
+        const response = await this.saveOrUpdateServiceOrdersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -15,45 +15,41 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateServiceOrderRequest,
   CustomApiResponseListServiceOrderResponse,
   CustomApiResponseObject,
+  CustomApiResponsePageServiceOrderResponse,
   CustomApiResponseServiceOrderResponse,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
+  SearchFilter,
   ServiceOrderRequest,
 } from '../models/index';
 import {
-    CreateServiceOrderRequestFromJSON,
-    CreateServiceOrderRequestToJSON,
     CustomApiResponseListServiceOrderResponseFromJSON,
     CustomApiResponseListServiceOrderResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
+    CustomApiResponsePageServiceOrderResponseFromJSON,
+    CustomApiResponsePageServiceOrderResponseToJSON,
     CustomApiResponseServiceOrderResponseFromJSON,
     CustomApiResponseServiceOrderResponseToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
+    SearchFilterFromJSON,
+    SearchFilterToJSON,
     ServiceOrderRequestFromJSON,
     ServiceOrderRequestToJSON,
 } from '../models/index';
 
-export interface CreateOrdersRequest {
-    examId: string;
-    createServiceOrderRequest: CreateServiceOrderRequest;
-}
-
-export interface CreateServiceOrderRequest {
-    id: string;
-    serviceOrderRequest: ServiceOrderRequest;
-}
-
-export interface GetServiceOrdersRequest {
+export interface GetServiceOrderDetailRequest {
     id: string;
 }
 
-export interface SaveOrUpdateServiceOrdersRequest {
+export interface GetServiceOrdersForFiltersRequest {
+    searchFilter: SearchFilter;
+}
+
+export interface UpdateServiceOrderRequest {
     id: string;
-    serviceOrderId: string;
     serviceOrderRequest: ServiceOrderRequest;
 }
 
@@ -64,117 +60,11 @@ export class ServiceOrderControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async createOrdersRaw(requestParameters: CreateOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListServiceOrderResponse>> {
-        if (requestParameters['examId'] == null) {
-            throw new runtime.RequiredError(
-                'examId',
-                'Required parameter "examId" was null or undefined when calling createOrders().'
-            );
-        }
-
-        if (requestParameters['createServiceOrderRequest'] == null) {
-            throw new runtime.RequiredError(
-                'createServiceOrderRequest',
-                'Required parameter "createServiceOrderRequest" was null or undefined when calling createOrders().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/examinations/{examId}/orders`;
-        urlPath = urlPath.replace(`{${"examId"}}`, encodeURIComponent(String(requestParameters['examId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateServiceOrderRequestToJSON(requestParameters['createServiceOrderRequest']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListServiceOrderResponseFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async createOrders(requestParameters: CreateOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListServiceOrderResponse> {
-        const response = await this.createOrdersRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async createServiceOrderRaw(requestParameters: CreateServiceOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
+    async getServiceOrderDetailRaw(requestParameters: GetServiceOrderDetailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling createServiceOrder().'
-            );
-        }
-
-        if (requestParameters['serviceOrderRequest'] == null) {
-            throw new runtime.RequiredError(
-                'serviceOrderRequest',
-                'Required parameter "serviceOrderRequest" was null or undefined when calling createServiceOrder().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/examinations/{id}/services`;
-        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ServiceOrderRequestToJSON(requestParameters['serviceOrderRequest']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseServiceOrderResponseFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async createServiceOrder(requestParameters: CreateServiceOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
-        const response = await this.createServiceOrderRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async getServiceOrdersRaw(requestParameters: GetServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling getServiceOrders().'
+                'Required parameter "id" was null or undefined when calling getServiceOrderDetail().'
             );
         }
 
@@ -191,7 +81,7 @@ export class ServiceOrderControllerApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api/examinations/{id}/services`;
+        let urlPath = `/api/service-orders/{id}`;
         urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
 
         const response = await this.request({
@@ -206,32 +96,18 @@ export class ServiceOrderControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getServiceOrders(requestParameters: GetServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
-        const response = await this.getServiceOrdersRaw(requestParameters, initOverrides);
+    async getServiceOrderDetail(requestParameters: GetServiceOrderDetailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
+        const response = await this.getServiceOrderDetailRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async saveOrUpdateServiceOrdersRaw(requestParameters: SaveOrUpdateServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
-        if (requestParameters['id'] == null) {
+    async getServiceOrdersForFiltersRaw(requestParameters: GetServiceOrdersForFiltersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageServiceOrderResponse>> {
+        if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling saveOrUpdateServiceOrders().'
-            );
-        }
-
-        if (requestParameters['serviceOrderId'] == null) {
-            throw new runtime.RequiredError(
-                'serviceOrderId',
-                'Required parameter "serviceOrderId" was null or undefined when calling saveOrUpdateServiceOrders().'
-            );
-        }
-
-        if (requestParameters['serviceOrderRequest'] == null) {
-            throw new runtime.RequiredError(
-                'serviceOrderRequest',
-                'Required parameter "serviceOrderRequest" was null or undefined when calling saveOrUpdateServiceOrders().'
+                'searchFilter',
+                'Required parameter "searchFilter" was null or undefined when calling getServiceOrdersForFilters().'
             );
         }
 
@@ -250,9 +126,95 @@ export class ServiceOrderControllerApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api/examinations/{id}/services/{serviceOrderId}`;
+        let urlPath = `/api/service-orders/filter`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchFilterToJSON(requestParameters['searchFilter']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponsePageServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getServiceOrdersForFilters(requestParameters: GetServiceOrdersForFiltersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageServiceOrderResponse> {
+        const response = await this.getServiceOrdersForFiltersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getServiceOrdersForStaffTodayRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListServiceOrderResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/service-orders/staff/today`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListServiceOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getServiceOrdersForStaffToday(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListServiceOrderResponse> {
+        const response = await this.getServiceOrdersForStaffTodayRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateServiceOrderRaw(requestParameters: UpdateServiceOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseServiceOrderResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateServiceOrder().'
+            );
+        }
+
+        if (requestParameters['serviceOrderRequest'] == null) {
+            throw new runtime.RequiredError(
+                'serviceOrderRequest',
+                'Required parameter "serviceOrderRequest" was null or undefined when calling updateServiceOrder().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/service-orders/{id}`;
         urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-        urlPath = urlPath.replace(`{${"serviceOrderId"}}`, encodeURIComponent(String(requestParameters['serviceOrderId'])));
 
         const response = await this.request({
             path: urlPath,
@@ -267,8 +229,8 @@ export class ServiceOrderControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async saveOrUpdateServiceOrders(requestParameters: SaveOrUpdateServiceOrdersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
-        const response = await this.saveOrUpdateServiceOrdersRaw(requestParameters, initOverrides);
+    async updateServiceOrder(requestParameters: UpdateServiceOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseServiceOrderResponse> {
+        const response = await this.updateServiceOrderRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

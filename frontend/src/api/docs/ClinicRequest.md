@@ -11,6 +11,10 @@ Name | Type
 `phone` | string
 `address` | [AddressResponse](AddressResponse.md)
 `email` | string
+`taxCode` | string
+`website` | string
+`accountNumber` | string
+`bankName` | string
 
 ## Example
 
@@ -24,6 +28,10 @@ const example = {
   "phone": null,
   "address": null,
   "email": null,
+  "taxCode": null,
+  "website": null,
+  "accountNumber": null,
+  "bankName": null,
 } satisfies ClinicRequest
 
 console.log(example)

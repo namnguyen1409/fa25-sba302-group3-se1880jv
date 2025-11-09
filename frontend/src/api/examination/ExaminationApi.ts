@@ -95,11 +95,69 @@ export const ExaminationApi = {
 
     saveOrUpdateServiceOrder: (id: string, serviceOrderId: string, data: ServiceOrderRequest) =>
         apiClient.put<ServiceOrderResponse>(`/examinations/${id}/services/${serviceOrderId}`, data),
-
     // Prescription
-    saveOrUpdatePrescription: (id: string, prescriptionId: string, data: PrescriptionRequest) =>
+    createPrescription: (id: string, data: PrescriptionRequest) =>
+        apiClient.post<PrescriptionResponse>(`/examinations/${id}/prescription`, data),
+    updatePrescription: (id: string, prescriptionId: string, data: PrescriptionRequest) =>
         apiClient.put<PrescriptionResponse>(`/examinations/${id}/prescription/${prescriptionId}`, data),
 
     deletePrescriptionItem: (id: string, prescriptionId: string) =>
         apiClient.delete(`/examinations/${id}/prescription/${prescriptionId}`),
+    getPrescriptionItems: (prescriptionId: string, params: {
+        page: number,
+        size: number,
+        filterGroup?: any,
+        sorts?: any
+    }) =>
+        apiClient.post<PageResponse<PrescriptionResponse>>(
+            `/prescriptions/${prescriptionId}/items/filter`,
+            params
+        ),
+
+    createPrescriptionItem: (prescriptionId: string, data: any) =>
+        apiClient.post<PrescriptionResponse>(`/prescriptions/${prescriptionId}/items`, data),
+
+    updatePrescriptionItem: (itemId: string, data: any) =>
+        apiClient.put<PrescriptionResponse>(`/prescriptions/items/${itemId}`, data),
+        
+    createLabOrder: (id: string, data: any) =>
+        apiClient.post<ServiceOrderResponse[]>(`/examinations/${id}/lab/orders`, data),
+    filterLabOrders: (
+        id: string,
+        page: number,
+        size: number,
+        filterGroup?: any,
+        sorts?: any
+    ) =>
+        apiClient.post<PageResponse<ServiceOrderResponse>>(
+            `/examinations/${id}/lab/orders/filter`,
+            {
+                page,
+                size,
+                filterGroup,
+                sorts,
+            }
+        ),  
+    /**
+     * Filter / get paged examinations
+     * @param page page index
+     * @param size page size
+     * @param filterGroup optional filter group
+     * @param sorts optional sorts
+     */
+    getExaminations: (
+        page: number,
+        size: number,
+        filterGroup?: any,
+        sorts?: any
+    ) =>
+        apiClient.post<PageResponse<ExaminationResponse>>(
+            `/examinations/filter`,
+            {
+                page,
+                size,
+                filterGroup,
+                sorts,
+            }
+        ),
 }

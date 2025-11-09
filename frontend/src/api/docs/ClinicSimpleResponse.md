@@ -8,6 +8,10 @@ Name | Type
 ------------ | -------------
 `id` | string
 `name` | string
+`taxCode` | string
+`website` | string
+`accountNumber` | string
+`bankName` | string
 
 ## Example
 
@@ -18,6 +22,10 @@ import type { ClinicSimpleResponse } from ''
 const example = {
   "id": null,
   "name": null,
+  "taxCode": null,
+  "website": null,
+  "accountNumber": null,
+  "bankName": null,
 } satisfies ClinicSimpleResponse
 
 console.log(example)

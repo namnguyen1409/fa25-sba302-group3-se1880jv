@@ -15,6 +15,8 @@ Name | Type
 `paid` | boolean
 `note` | string
 `items` | [Set&lt;InvoiceItemResponse&gt;](InvoiceItemResponse.md)
+`room` | [RoomResponse](RoomResponse.md)
+`assignedStaff` | [StaffResponse](StaffResponse.md)
 
 ## Example
 
@@ -32,6 +34,8 @@ const example = {
   "paid": null,
   "note": null,
   "items": null,
+  "room": null,
+  "assignedStaff": null,
 } satisfies InvoiceResponse
 
 console.log(example)

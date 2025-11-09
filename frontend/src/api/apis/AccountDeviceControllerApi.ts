@@ -18,7 +18,7 @@ import type {
   CustomApiResponseListDeviceSessionResponse,
   CustomApiResponseObject,
   CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
 } from '../models/index';
 import {
     CustomApiResponseListDeviceSessionResponseFromJSON,
@@ -27,8 +27,8 @@ import {
     CustomApiResponseObjectToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
 } from '../models/index';
 
 export interface LogoutDeviceRequest {

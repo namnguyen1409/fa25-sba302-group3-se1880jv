@@ -18,7 +18,7 @@ import type {
   CustomApiResponseListQueueTicketResponse,
   CustomApiResponseObject,
   CustomApiResponseQueueTicketResponse,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
 } from '../models/index';
 import {
     CustomApiResponseListQueueTicketResponseFromJSON,
@@ -27,8 +27,8 @@ import {
     CustomApiResponseObjectToJSON,
     CustomApiResponseQueueTicketResponseFromJSON,
     CustomApiResponseQueueTicketResponseToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
 } from '../models/index';
 
 export interface CallQueueTicketRequest {

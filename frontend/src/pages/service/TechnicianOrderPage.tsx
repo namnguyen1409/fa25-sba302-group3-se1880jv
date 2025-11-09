@@ -60,16 +60,23 @@ export default function TechnicianOrderPage() {
       );
   }, []);
 
+
   const updateStatus = async (order: ServiceOrderResponse, status: any) => {
-    try {
-      await ServiceOrderApi.update(order.id!, {
-        status: status,
-      });
-      toast.success("Cập nhật trạng thái thành công");
-    } catch {
-      toast.error("Không thể cập nhật order");
-    }
+  try {
+    await ServiceOrderApi.update(order.id!, { status });
+
+    setOrders(prev =>
+      prev.map(o =>
+        o.id === order.id ? { ...o, status } : o
+      )
+    );
+
+    toast.success("Cập nhật trạng thái thành công");
+  } catch {
+    toast.error("Không thể cập nhật order");
+  }
   };
+
 
   if (loading)
     return (

@@ -61,10 +61,10 @@ export const PatientApi = {
         sorts,
         searchMode
     }),
-    search: (keyword: string) =>
+    search: (keyword: string, page: number = 0, size: number = 10) =>
         apiClient.post<PageResponse<PatientResponse>>("/patients/filter", {
-            page: 0,
-            size: 10,
+            page,
+            size,
             filterGroup: {
                 operator: "OR",
                 filters: [

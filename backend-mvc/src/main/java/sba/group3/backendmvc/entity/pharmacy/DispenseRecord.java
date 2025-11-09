@@ -7,6 +7,8 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.examination.Prescription;
+import sba.group3.backendmvc.entity.organization.Room;
+import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
 
 import java.math.BigDecimal;
@@ -27,6 +29,10 @@ public class DispenseRecord extends BaseEntity {
     @JoinColumn(name = "prescription_id", unique = true)
     Prescription prescription;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "patient_id")
+    Patient patient;
+
     @ManyToOne
     @JoinColumn(name = "dispensed_by")
     Staff dispensedBy;
@@ -44,4 +50,9 @@ public class DispenseRecord extends BaseEntity {
 
     @Column(name = "note", columnDefinition = "TEXT")
     String note;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+
 }

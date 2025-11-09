@@ -20,13 +20,6 @@ import {
     PageableObjectToJSON,
     PageableObjectToJSONTyped,
 } from './PageableObject';
-import type { EmergencyContactResponse } from './EmergencyContactResponse';
-import {
-    EmergencyContactResponseFromJSON,
-    EmergencyContactResponseFromJSONTyped,
-    EmergencyContactResponseToJSON,
-    EmergencyContactResponseToJSONTyped,
-} from './EmergencyContactResponse';
 import type { SortObject } from './SortObject';
 import {
     SortObjectFromJSON,
@@ -34,6 +27,13 @@ import {
     SortObjectToJSON,
     SortObjectToJSONTyped,
 } from './SortObject';
+import type { ServiceOrderResponse } from './ServiceOrderResponse';
+import {
+    ServiceOrderResponseFromJSON,
+    ServiceOrderResponseFromJSONTyped,
+    ServiceOrderResponseToJSON,
+    ServiceOrderResponseToJSONTyped,
+} from './ServiceOrderResponse';
 
 /**
  * 
@@ -67,10 +67,10 @@ export interface PageObject {
     size?: number;
     /**
      * 
-     * @type {Array<EmergencyContactResponse>}
+     * @type {Array<ServiceOrderResponse>}
      * @memberof PageObject
      */
-    content?: Array<EmergencyContactResponse>;
+    content?: Array<ServiceOrderResponse>;
     /**
      * 
      * @type {number}
@@ -130,7 +130,7 @@ export function PageObjectFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'totalElements': json['totalElements'] == null ? undefined : json['totalElements'],
         'pageable': json['pageable'] == null ? undefined : PageableObjectFromJSON(json['pageable']),
         'size': json['size'] == null ? undefined : json['size'],
-        'content': json['content'] == null ? undefined : ((json['content'] as Array<any>).map(EmergencyContactResponseFromJSON)),
+        'content': json['content'] == null ? undefined : ((json['content'] as Array<any>).map(ServiceOrderResponseFromJSON)),
         'number': json['number'] == null ? undefined : json['number'],
         'sort': json['sort'] == null ? undefined : SortObjectFromJSON(json['sort']),
         'first': json['first'] == null ? undefined : json['first'],
@@ -155,7 +155,7 @@ export function PageObjectToJSONTyped(value?: PageObject | null, ignoreDiscrimin
         'totalElements': value['totalElements'],
         'pageable': PageableObjectToJSON(value['pageable']),
         'size': value['size'],
-        'content': value['content'] == null ? undefined : ((value['content'] as Array<any>).map(EmergencyContactResponseToJSON)),
+        'content': value['content'] == null ? undefined : ((value['content'] as Array<any>).map(ServiceOrderResponseToJSON)),
         'number': value['number'],
         'sort': SortObjectToJSON(value['sort']),
         'first': value['first'],

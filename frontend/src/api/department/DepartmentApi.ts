@@ -3,9 +3,9 @@ import type { DepartmentRequest, DepartmentResponse } from "../models";
 import { apiClient } from "../client";
 
 export const DepartmentApi = {
-    search: (keyword: string) => apiClient.post<PageResponse<DepartmentResponse>>("/organization/departments/filter", {
-        page: 0,
-        size: 10,
+    search: (keyword: string, page: number = 0, size: number = 10) => apiClient.post<PageResponse<DepartmentResponse>>("/organization/departments/filter", {
+        page,
+        size,
         filterGroup: {
             operator: "AND",
             filters: [

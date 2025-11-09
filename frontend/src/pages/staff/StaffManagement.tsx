@@ -132,10 +132,13 @@ export default function StaffManagementPage() {
           placeholder="Chọn khoa"
           fetchOptions={async (keyword) => {
             const res = await DepartmentApi.search(keyword);
-            return res.content.map((d) => ({
-              value: String(d.id),
-              label: d.name!,
-            }));
+            return {
+              content: res.content.map((d) => ({
+                value: String(d.id),
+                label: d.name!,
+              })),
+              page: res.page,
+            };
           }}
           initialOption={
             selectForForm?.department
@@ -158,12 +161,15 @@ export default function StaffManagementPage() {
           value={value}
           onChange={onChange}
           placeholder="Chọn chuyên khoa"
-          fetchOptions={async (keyword) => {
-            const res = await SpecialtyApi.search(keyword);
-            return res.content.map((s) => ({
-              value: String(s.id),
-              label: s.name!,
-            }));
+          fetchOptions={async (keyword, page) => {
+            const res = await SpecialtyApi.search(keyword, page);
+            return {
+              content: res.content.map((s) => ({
+                value: String(s.id),
+                label: s.name!,
+              })),
+              page: res.page,
+            };
           }}
           initialOption={
             selectForForm?.specialty
@@ -186,12 +192,15 @@ export default function StaffManagementPage() {
           value={value}
           onChange={onChange}
           placeholder="Chọn chức vụ"
-          fetchOptions={async (keyword) => {
-            const res = await PositionApi.search(keyword);
-            return res.content.map((p) => ({
-              value: String(p.id),
-              label: p.title!,
-            }));
+          fetchOptions={async (keyword, page) => {
+            const res = await PositionApi.search(keyword, page);
+            return {
+              content: res.content.map((p) => ({
+                value: String(p.id),
+                label: p.title!,
+              })),
+              page: res.page,
+            };
           }}
           initialOption={
             selectForForm?.position

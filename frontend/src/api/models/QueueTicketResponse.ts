@@ -119,6 +119,7 @@ export const QueueTicketResponseStatusEnum = {
     Called: 'CALLED',
     InService: 'IN_SERVICE',
     InServiceWaitingResult: 'IN_SERVICE_WAITING_RESULT',
+    WaitingAfterResult: 'WAITING_AFTER_RESULT',
     Skipped: 'SKIPPED',
     Done: 'DONE',
     Cancelled: 'CANCELLED'

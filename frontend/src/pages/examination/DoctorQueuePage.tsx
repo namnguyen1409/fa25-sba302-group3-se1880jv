@@ -19,12 +19,13 @@ export default function DoctorQueuePage() {
   const navigate = useNavigate();
   const { status: wsStatus } = useWebSocket();
 
+  // Load queue ban đầu
   useEffect(() => {
     async function init() {
       try {
         const res = await QueueApi.getQueuesForDoctorToday();
         setQueue(res);
-      } catch (e) {
+      } catch {
         toast.error("Không tìm thấy phòng trực hoặc không có lịch làm việc.");
       }
       setLoading(false);
@@ -32,6 +33,7 @@ export default function DoctorQueuePage() {
     init();
   }, []);
 
+  // Lắng nghe realtime updates
   useEffect(() => {
     const handler = (event: any) => {
       const updated = event.detail as QueueTicketResponse;
@@ -39,11 +41,12 @@ export default function DoctorQueuePage() {
       setQueue((prev) => {
         const exists = prev.some((q) => q.id === updated.id);
 
-        // Xóa nếu queue done
+        // DONE hoặc SKIPPED thì xóa khỏi màn hình
         if (updated.status === "DONE" || updated.status === "SKIPPED") {
           return prev.filter((q) => q.id !== updated.id);
         }
 
+        // Có rồi thì update
         return exists
           ? prev.map((q) => (q.id === updated.id ? updated : q))
           : [...prev, updated];
@@ -51,10 +54,10 @@ export default function DoctorQueuePage() {
     };
 
     window.addEventListener("doctor-queue", handler);
-
     return () => window.removeEventListener("doctor-queue", handler);
   }, []);
 
+  // Điều hướng sang Examination
   const goToExamination = (ticket: QueueTicketResponse) => {
     if (ticket.examinationId) {
       navigate(`/staff/examinations/${ticket.examinationId}`);
@@ -63,25 +66,35 @@ export default function DoctorQueuePage() {
     }
   };
 
+  // Các hành động queue
   const handleAction = async (ticket: QueueTicketResponse, action: string) => {
     try {
       if (action === "call") {
         await QueueApi.callQueueTicket(ticket.id!);
         toast.success("Đã gọi bệnh nhân");
       }
+
       if (action === "start") {
         const res = await QueueApi.startQueueTicket(ticket.id!);
         toast.success("Bắt đầu khám");
         goToExamination(res);
       }
+
       if (action === "done") {
         await QueueApi.doneQueueTicket(ticket.id!);
         toast.success("Hoàn tất khám");
       }
+
       if (action === "skip") {
         await QueueApi.skipQueueTicket(ticket.id!);
         toast.success("Đã bỏ qua bệnh nhân");
       }
+
+      if (action === "requeue") {
+        await QueueApi.requeueQueueTicket(ticket.id!);
+        toast.success("Đã đưa bệnh nhân quay lại hàng chờ");
+      }
+
     } catch {
       toast.error("Lỗi thao tác queue");
     }
@@ -138,6 +151,7 @@ export default function DoctorQueuePage() {
               </div>
 
               <div className="flex gap-2">
+
                 {item.status === "WAITING" && (
                   <>
                     <Button onClick={() => handleAction(item, "call")}>
@@ -164,6 +178,13 @@ export default function DoctorQueuePage() {
                       Hoàn tất
                     </Button>
                   </>
+                )}
+
+                {/* ✅ Hiển thị nút requeue nếu SKIPPED (bệnh nhân quay lại) */}
+                {item.status === "SKIPPED" && (
+                  <Button variant="secondary" onClick={() => handleAction(item, "requeue")}>
+                    Quay lại hàng chờ
+                  </Button>
                 )}
               </div>
             </div>

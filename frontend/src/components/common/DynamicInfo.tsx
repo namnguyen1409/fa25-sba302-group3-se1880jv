@@ -29,7 +29,7 @@ interface DynamicInfoProps {
   data: any;
   config: (InfoField | InfoGroup)[];
   className?: string;
-  columns?: 1 | 2 | 3;
+  columns?: 1 | 2 | 3 | 12;
 }
 
 const formatValue = (value: any, field: InfoField) => {
@@ -74,6 +74,7 @@ export default function DynamicInfo({
     1: "grid-cols-1",
     2: "grid-cols-2",
     3: "grid-cols-3",
+    12: "grid-cols-12",
   }[columns];
 
   const renderField = (field: InfoField, idx: number) => {

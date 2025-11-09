@@ -8,6 +8,7 @@ import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.entity.examination.Examination;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ExaminationService {
     Page<ExaminationResponse> filter(SearchFilter filter);
@@ -20,4 +21,6 @@ public interface ExaminationService {
     void delete(String id);
 
     Examination createFromQueueTicket(QueueTicket ticket);
+
+    void handleOrderStatusChanged(UUID examId);
 }

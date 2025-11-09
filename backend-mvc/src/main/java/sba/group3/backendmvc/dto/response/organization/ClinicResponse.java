@@ -16,6 +16,6 @@ public record ClinicResponse(
         String phone,
         String email,
         AddressResponse address,
-        List<DepartmentSimpleResponse> departments
-) implements Serializable {
+        List<DepartmentSimpleResponse> departments,
+        String taxCode, String website, String accountNumber, String bankName) implements Serializable {
 }

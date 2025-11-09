@@ -7,5 +7,5 @@ import java.util.UUID;
  * DTO for {@link sba.group3.backendmvc.entity.examination.PrescriptionItem}
  */
 public record PrescriptionItemRequest(UUID prescriptionId, UUID medicineId, String dosage, String frequency,
-                                      String duration, String instruction) implements Serializable {
+                                      String duration, String instruction, Integer quantity) implements Serializable {
 }

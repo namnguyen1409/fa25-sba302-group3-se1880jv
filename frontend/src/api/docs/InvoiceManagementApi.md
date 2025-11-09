@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost:9999*
 | [**delete6**](InvoiceManagementApi.md#delete6) | **DELETE** /api/invoices/{invoiceId} |  |
 | [**filter7**](InvoiceManagementApi.md#filter7) | **POST** /api/invoices/filter |  |
 | [**getById3**](InvoiceManagementApi.md#getbyid3) | **GET** /api/invoices/{invoiceId} |  |
+| [**getOrdersForStaffToday**](InvoiceManagementApi.md#getordersforstafftoday) | **GET** /api/invoices/staff/today |  |
 | [**update6**](InvoiceManagementApi.md#update6) | **PUT** /api/invoices/{invoiceId} |  |
 
 
@@ -275,6 +276,69 @@ example().catch(console.error);
 ### Return type
 
 [**CustomApiResponseInvoiceResponse**](CustomApiResponseInvoiceResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getOrdersForStaffToday
+
+> CustomApiResponseListInvoiceResponse getOrdersForStaffToday()
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  InvoiceManagementApi,
+} from '';
+import type { GetOrdersForStaffTodayRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new InvoiceManagementApi(config);
+
+  try {
+    const data = await api.getOrdersForStaffToday();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CustomApiResponseListInvoiceResponse**](CustomApiResponseListInvoiceResponse.md)
 
 ### Authorization
 

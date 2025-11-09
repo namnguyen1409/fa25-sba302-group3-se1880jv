@@ -148,12 +148,19 @@ export default function AppointmentManagementPage() {
           value={value}
           onChange={onChange}
           placeholder="Tìm kiếm bệnh nhân"
-          fetchOptions={async (keyword) => {
-            const res = await PatientApi.search(keyword);
-            return res.content.map((d) => ({
-              value: String(d.id),
-              label: d.fullName!,
-            }));
+          fetchOptions={async (keyword, page = 0) => {
+            const res = await PatientApi.search(keyword, page, 10);
+
+            return {
+              content: res.content.map((d) => ({
+                value: String(d.id),
+                label: d.fullName!,
+              })),
+              page: {
+                number: res.page.number,
+                totalPages: res.page.totalPages,
+              },
+            };
           }}
         />
       ),
@@ -168,12 +175,18 @@ export default function AppointmentManagementPage() {
           value={value}
           onChange={onChange}
           placeholder="Chọn chuyên khoa"
-          fetchOptions={async (keyword) => {
-            const res = await SpecialtyApi.search(keyword);
-            return res.content.map((s) => ({
-              value: String(s.id),
-              label: s.name!,
-            }));
+          fetchOptions={async (keyword, page = 0) => {
+            const res = await SpecialtyApi.search(keyword, page, 10);
+            return {
+              content: res.content.map((s) => ({
+                value: String(s.id),
+                label: s.name!,
+              })),
+              page: {
+                number: res.page.number,
+                totalPages: res.page.totalPages,
+              },
+            };
           }}
         />
       ),

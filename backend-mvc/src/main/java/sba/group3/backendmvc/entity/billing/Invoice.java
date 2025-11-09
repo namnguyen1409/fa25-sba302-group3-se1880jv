@@ -7,7 +7,9 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.examination.Examination;
+import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.entity.patient.Patient;
+import sba.group3.backendmvc.entity.staff.Staff;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -52,5 +54,13 @@ public class Invoice extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<InvoiceItem> items = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_staff_id")
+    Staff assignedStaff;
 
 }

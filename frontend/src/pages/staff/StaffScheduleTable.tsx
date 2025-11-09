@@ -64,10 +64,13 @@ export default function StaffScheduleTable({ staffId }: { staffId: string }) {
           placeholder="Chọn phòng"
           fetchOptions={async (keyword) => {
             const res = await RoomApi.search(keyword);
-            return res.content.map((p) => ({
-              value: String(p.id),
-              label: p.name!,
-            }));
+            return {
+              content: res.content.map((r) => ({
+                value: r.id!,
+                label: r.name!,
+              })),
+              page: res.page,
+            };
           }}
           initialOption={
             selected?.room

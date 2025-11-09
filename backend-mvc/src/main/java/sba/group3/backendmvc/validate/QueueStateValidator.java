@@ -15,7 +15,7 @@ public class QueueStateValidator {
     }
 
     public void ensureCanStart(QueueTicket t) {
-        if (t.getStatus() != QueueStatus.CALLED)
+        if (!(t.getStatus() == QueueStatus.CALLED || t.getStatus() == QueueStatus.WAITING_AFTER_RESULT))
             throw new AppException(ErrorCode.BAD_REQUEST, "Chỉ bắt đầu khám khi bệnh nhân đang ở trạng thái CALLED.");
     }
 

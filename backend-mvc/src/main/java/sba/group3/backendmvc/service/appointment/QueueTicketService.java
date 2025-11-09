@@ -1,5 +1,6 @@
 package sba.group3.backendmvc.service.appointment;
 
+import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.response.appointment.QueueTicketResponse;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface QueueTicketService {
     QueueTicketResponse resume(UUID queueTicketId);
 
     QueueTicketResponse done(UUID queueTicketId);
+
+    List<QueueTicketResponse> filterList(SearchFilter filter);
 }

@@ -17,11 +17,12 @@ import * as runtime from '../runtime';
 import type {
   CustomApiResponseLabOrderResponse,
   CustomApiResponseLabTestResultResponse,
+  CustomApiResponseListLabOrderResponse,
   CustomApiResponseObject,
   CustomApiResponsePageLabOrderResponse,
   CustomApiResponsePageLabTestResultResponse,
   CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   LabOrderRequest,
   LabTestResultRequest,
   SearchFilter,
@@ -31,6 +32,8 @@ import {
     CustomApiResponseLabOrderResponseToJSON,
     CustomApiResponseLabTestResultResponseFromJSON,
     CustomApiResponseLabTestResultResponseToJSON,
+    CustomApiResponseListLabOrderResponseFromJSON,
+    CustomApiResponseListLabOrderResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
     CustomApiResponsePageLabOrderResponseFromJSON,
@@ -39,8 +42,8 @@ import {
     CustomApiResponsePageLabTestResultResponseToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     LabOrderRequestFromJSON,
     LabOrderRequestToJSON,
     LabTestResultRequestFromJSON,
@@ -88,6 +91,10 @@ export interface Update5Request {
 export interface UpdateOrderItemRequest {
     itemId: string;
     labTestResultRequest: LabTestResultRequest;
+}
+
+export interface VerifyOrderItemRequest {
+    itemId: string;
 }
 
 /**
@@ -430,6 +437,41 @@ export class LabOrderManagementApi extends runtime.BaseAPI {
 
     /**
      */
+    async getLabOrdersForStaffTodayRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListLabOrderResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/lab-orders/staff/today`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListLabOrderResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getLabOrdersForStaffToday(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListLabOrderResponse> {
+        const response = await this.getLabOrdersForStaffTodayRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async update5Raw(requestParameters: Update5Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseLabOrderResponse>> {
         if (requestParameters['orderId'] == null) {
             throw new runtime.RequiredError(
@@ -531,6 +573,49 @@ export class LabOrderManagementApi extends runtime.BaseAPI {
      */
     async updateOrderItem(requestParameters: UpdateOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseLabTestResultResponse> {
         const response = await this.updateOrderItemRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async verifyOrderItemRaw(requestParameters: VerifyOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+        if (requestParameters['itemId'] == null) {
+            throw new runtime.RequiredError(
+                'itemId',
+                'Required parameter "itemId" was null or undefined when calling verifyOrderItem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/lab-orders/result/{itemId}/verify`;
+        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseVoidFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async verifyOrderItem(requestParameters: VerifyOrderItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.verifyOrderItemRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

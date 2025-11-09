@@ -12,6 +12,7 @@ apis/DiagnosisControllerApi.ts
 apis/DispenseRecordManagementApi.ts
 apis/ExaminationControllerApi.ts
 apis/FileManagementApi.ts
+apis/FileUploadApi.ts
 apis/ICDCodeManagementApi.ts
 apis/InvoiceManagementApi.ts
 apis/LabOrderManagementApi.ts
@@ -55,6 +56,7 @@ docs/ClinicManagementApi.md
 docs/ClinicRequest.md
 docs/ClinicResponse.md
 docs/ClinicSimpleResponse.md
+docs/CreateLabOrderRequest.md
 docs/CreateServiceOrderRequest.md
 docs/CustomApiResponseAccountSettingResponse.md
 docs/CustomApiResponseAllergyResponse.md
@@ -74,6 +76,10 @@ docs/CustomApiResponseLabTestResponse.md
 docs/CustomApiResponseLabTestResultResponse.md
 docs/CustomApiResponseListAdministrativeUnitResponse.md
 docs/CustomApiResponseListDeviceSessionResponse.md
+docs/CustomApiResponseListDispenseRecordResponse.md
+docs/CustomApiResponseListFileAttachmentResponse.md
+docs/CustomApiResponseListInvoiceResponse.md
+docs/CustomApiResponseListLabOrderResponse.md
 docs/CustomApiResponseListMfaConfigResponse.md
 docs/CustomApiResponseListQueueTicketResponse.md
 docs/CustomApiResponseListServiceOrderResponse.md
@@ -102,8 +108,10 @@ docs/CustomApiResponsePageLoginAttemptResponse.md
 docs/CustomApiResponsePageMedicineResponse.md
 docs/CustomApiResponsePagePatientResponse.md
 docs/CustomApiResponsePagePositionResponse.md
+docs/CustomApiResponsePagePrescriptionItemResponse.md
 docs/CustomApiResponsePageRoomResponse.md
 docs/CustomApiResponsePageServiceCatalogResponse.md
+docs/CustomApiResponsePageServiceOrderResponse.md
 docs/CustomApiResponsePageSpecialtyResponse.md
 docs/CustomApiResponsePageStaffResponse.md
 docs/CustomApiResponsePageStaffScheduleResponse.md
@@ -112,6 +120,7 @@ docs/CustomApiResponsePageUserResponse.md
 docs/CustomApiResponsePageVitalSignResponse.md
 docs/CustomApiResponsePatientResponse.md
 docs/CustomApiResponsePositionResponse.md
+docs/CustomApiResponsePrescriptionItemResponse.md
 docs/CustomApiResponsePrescriptionResponse.md
 docs/CustomApiResponsePublicKeyCredentialCreationOptions.md
 docs/CustomApiResponseQueueTicketResponse.md
@@ -123,6 +132,7 @@ docs/CustomApiResponseStaffResponse.md
 docs/CustomApiResponseStaffScheduleResponse.md
 docs/CustomApiResponseStaffScheduleTemplateResponse.md
 docs/CustomApiResponseStartPasskeyLoginResponse.md
+docs/CustomApiResponseString.md
 docs/CustomApiResponseUserProfileResponse.md
 docs/CustomApiResponseVitalSignResponse.md
 docs/CustomApiResponseVoid.md
@@ -143,13 +153,15 @@ docs/EmergencyContactResponse.md
 docs/ExaminationControllerApi.md
 docs/ExaminationRequest.md
 docs/ExaminationResponse.md
+docs/FileAttachmentResponse.md
 docs/FileManagementApi.md
+docs/FileUploadApi.md
 docs/Filter.md
 docs/FilterGroup.md
 docs/FinishLoginRequest.md
 docs/FinishPasskeyRegistrationRequest.md
 docs/FirstLoginRequest.md
-docs/GetPatientById400Response.md
+docs/GetServiceOrderDetail400Response.md
 docs/ICDCodeManagementApi.md
 docs/IcdCodeRequest.md
 docs/IcdCodeResponse.md
@@ -196,6 +208,7 @@ docs/PositionManagementApi.md
 docs/PositionRequest.md
 docs/PositionResponse.md
 docs/PrescriptionControllerApi.md
+docs/PrescriptionItemRequest.md
 docs/PrescriptionItemResponse.md
 docs/PrescriptionRequest.md
 docs/PrescriptionResponse.md
@@ -220,6 +233,7 @@ docs/ServiceCatalogRequest.md
 docs/ServiceCatalogResponse.md
 docs/ServiceOrderControllerApi.md
 docs/ServiceOrderItemControllerApi.md
+docs/ServiceOrderItemRequest.md
 docs/ServiceOrderItemResponse.md
 docs/ServiceOrderRequest.md
 docs/ServiceOrderResponse.md
@@ -266,6 +280,7 @@ models/ChangePasswordRequest.ts
 models/ClinicRequest.ts
 models/ClinicResponse.ts
 models/ClinicSimpleResponse.ts
+models/CreateLabOrderRequest.ts
 models/CreateServiceOrderRequest.ts
 models/CustomApiResponseAccountSettingResponse.ts
 models/CustomApiResponseAllergyResponse.ts
@@ -285,6 +300,10 @@ models/CustomApiResponseLabTestResponse.ts
 models/CustomApiResponseLabTestResultResponse.ts
 models/CustomApiResponseListAdministrativeUnitResponse.ts
 models/CustomApiResponseListDeviceSessionResponse.ts
+models/CustomApiResponseListDispenseRecordResponse.ts
+models/CustomApiResponseListFileAttachmentResponse.ts
+models/CustomApiResponseListInvoiceResponse.ts
+models/CustomApiResponseListLabOrderResponse.ts
 models/CustomApiResponseListMfaConfigResponse.ts
 models/CustomApiResponseListQueueTicketResponse.ts
 models/CustomApiResponseListServiceOrderResponse.ts
@@ -313,8 +332,10 @@ models/CustomApiResponsePageLoginAttemptResponse.ts
 models/CustomApiResponsePageMedicineResponse.ts
 models/CustomApiResponsePagePatientResponse.ts
 models/CustomApiResponsePagePositionResponse.ts
+models/CustomApiResponsePagePrescriptionItemResponse.ts
 models/CustomApiResponsePageRoomResponse.ts
 models/CustomApiResponsePageServiceCatalogResponse.ts
+models/CustomApiResponsePageServiceOrderResponse.ts
 models/CustomApiResponsePageSpecialtyResponse.ts
 models/CustomApiResponsePageStaffResponse.ts
 models/CustomApiResponsePageStaffScheduleResponse.ts
@@ -323,6 +344,7 @@ models/CustomApiResponsePageUserResponse.ts
 models/CustomApiResponsePageVitalSignResponse.ts
 models/CustomApiResponsePatientResponse.ts
 models/CustomApiResponsePositionResponse.ts
+models/CustomApiResponsePrescriptionItemResponse.ts
 models/CustomApiResponsePrescriptionResponse.ts
 models/CustomApiResponsePublicKeyCredentialCreationOptions.ts
 models/CustomApiResponseQueueTicketResponse.ts
@@ -334,6 +356,7 @@ models/CustomApiResponseStaffResponse.ts
 models/CustomApiResponseStaffScheduleResponse.ts
 models/CustomApiResponseStaffScheduleTemplateResponse.ts
 models/CustomApiResponseStartPasskeyLoginResponse.ts
+models/CustomApiResponseString.ts
 models/CustomApiResponseUserProfileResponse.ts
 models/CustomApiResponseVitalSignResponse.ts
 models/CustomApiResponseVoid.ts
@@ -350,12 +373,13 @@ models/EmergencyContactRequest.ts
 models/EmergencyContactResponse.ts
 models/ExaminationRequest.ts
 models/ExaminationResponse.ts
+models/FileAttachmentResponse.ts
 models/Filter.ts
 models/FilterGroup.ts
 models/FinishLoginRequest.ts
 models/FinishPasskeyRegistrationRequest.ts
 models/FirstLoginRequest.ts
-models/GetPatientById400Response.ts
+models/GetServiceOrderDetail400Response.ts
 models/IcdCodeRequest.ts
 models/IcdCodeResponse.ts
 models/InvoiceItemResponse.ts
@@ -393,6 +417,7 @@ models/PatientResponse.ts
 models/PermissionNameResponse.ts
 models/PositionRequest.ts
 models/PositionResponse.ts
+models/PrescriptionItemRequest.ts
 models/PrescriptionItemResponse.ts
 models/PrescriptionRequest.ts
 models/PrescriptionResponse.ts
@@ -412,6 +437,7 @@ models/RoomResponse.ts
 models/SearchFilter.ts
 models/ServiceCatalogRequest.ts
 models/ServiceCatalogResponse.ts
+models/ServiceOrderItemRequest.ts
 models/ServiceOrderItemResponse.ts
 models/ServiceOrderRequest.ts
 models/ServiceOrderResponse.ts

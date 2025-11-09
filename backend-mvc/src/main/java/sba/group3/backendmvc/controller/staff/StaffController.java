@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
@@ -120,6 +122,25 @@ public class StaffController {
         );
     }
 
+    @PostMapping("/schedule/filter")
+    public ResponseEntity<CustomApiResponse<Page<StaffScheduleResponse>>> getMySchedule(
+            @AuthenticationPrincipal Jwt jwt,
+            @RequestBody SearchFilter filter
+    ) {
+        var staffId = UUID.fromString(jwt.getClaim("staffId"));
+        filter.addMandatoryCondition(
+                new sba.group3.backendmvc.dto.filter.Filter("staff.id", null, "eq", staffId)
+        );
+
+        log.info("Filtering staff schedule for staffId {} with filter: {}", staffId, filter);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<StaffScheduleResponse>>builder()
+                        .data(staffScheduleService.filter(filter))
+                        .message("Staff schedule retrieved successfully")
+                        .build()
+        );
+    }
+
     @PostMapping("/{staffId}/schedule")
     public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> createStaffSchedule(
             @PathVariable UUID staffId,
@@ -169,6 +190,21 @@ public class StaffController {
             @PathVariable UUID staffId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+
+        return ResponseEntity.ok(
+                CustomApiResponse.<List<StaffScheduleResponse>>builder()
+                        .data(staffScheduleService.getByStaffAndRange(staffId, from, to))
+                        .build()
+        );
+    }
+
+    @GetMapping("/schedule")
+    public ResponseEntity<CustomApiResponse<List<StaffScheduleResponse>>> myRange(
+            @AuthenticationPrincipal Jwt jwt,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+
+        var staffId = UUID.fromString(jwt.getClaim("staffId"));
 
         return ResponseEntity.ok(
                 CustomApiResponse.<List<StaffScheduleResponse>>builder()

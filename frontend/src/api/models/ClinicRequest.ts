@@ -57,6 +57,30 @@ export interface ClinicRequest {
      * @memberof ClinicRequest
      */
     email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicRequest
+     */
+    taxCode?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicRequest
+     */
+    website?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicRequest
+     */
+    accountNumber?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClinicRequest
+     */
+    bankName?: string;
 }
 
 /**
@@ -83,6 +107,10 @@ export function ClinicRequestFromJSONTyped(json: any, ignoreDiscriminator: boole
         'phone': json['phone'],
         'address': json['address'] == null ? undefined : AddressResponseFromJSON(json['address']),
         'email': json['email'] == null ? undefined : json['email'],
+        'taxCode': json['taxCode'] == null ? undefined : json['taxCode'],
+        'website': json['website'] == null ? undefined : json['website'],
+        'accountNumber': json['accountNumber'] == null ? undefined : json['accountNumber'],
+        'bankName': json['bankName'] == null ? undefined : json['bankName'],
     };
 }
 
@@ -102,6 +130,10 @@ export function ClinicRequestToJSONTyped(value?: ClinicRequest | null, ignoreDis
         'phone': value['phone'],
         'address': AddressResponseToJSON(value['address']),
         'email': value['email'],
+        'taxCode': value['taxCode'],
+        'website': value['website'],
+        'accountNumber': value['accountNumber'],
+        'bankName': value['bankName'],
     };
 }
 

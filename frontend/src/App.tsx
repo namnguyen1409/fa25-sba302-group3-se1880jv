@@ -31,15 +31,28 @@ import LabTestManagementPage from "./pages/laboratory/LabTestManagement";
 import PositionManagementPage from "./pages/staff/positions/PositionManagement";
 import StaffDetailPage from "./pages/staff/StaffDetail";
 import AppointmentManagementPage from "./pages/appointment/AppointmentManagement";
-import DoctorQueuePage from "./pages/appointment/DoctorQueuePage";
+import DoctorQueuePage from "./pages/examination/DoctorQueuePage";
 import ExaminationPage from "./pages/examination/ExaminationPage";
 import TechnicianOrderPage from "./pages/service/TechnicianOrderPage";
 import TechnicianOrderResultPage from "./pages/service/TechnicianOrderResultPage";
+import TechnicianLabOrderPage from "./pages/test/LabOrderPage";
+import TechnicianLabOrderResultPage from "./pages/test/TechnicianLabOrderResultPage";
+import ExaminationManagementPage from "./pages/examination/ExaminationManagement";
+import BillingDetailPage from "./pages/bill/InvoiceDetail";
+import BillOrderPage from "./pages/bill/InvoiceOrderPage";
+import StaffMySchedulePage from "./pages/staff/StaffMySchedulePage";
+import LabOrderHistoryPage from "./pages/test/LabOrderHistoryPage";
+import ServiceOrderHistoryPage from "./pages/service/ServiceOrderHistoryPage";
+import DispenseRecordPage from "./pages/pharmacy/DispenseRecordPage";
+import DispenseRecordDetailPage from "./pages/pharmacy/DispenseRecordDetailPage";
+import DispenseRecordHistoryPage from "./pages/pharmacy/DispenseHistory";
 function App() {
   return (
     <AppProvider>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <BrowserRouter>
+
+
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
@@ -100,7 +113,18 @@ function App() {
               <Route path="queue" element={<DoctorQueuePage />} />
               <Route path="service-queue" element={<TechnicianOrderPage />} />
               <Route path="service/orders/:id" element={<TechnicianOrderResultPage />} />
+              <Route path="service-orders" element={<ServiceOrderHistoryPage />} />
+              <Route path="lab-orders" element={<TechnicianLabOrderPage />} />
+              <Route path="lab/orders/:id" element={<TechnicianLabOrderResultPage />} />
+              <Route path="lab-orders-history" element={<LabOrderHistoryPage />} />
               <Route path="examinations/:id" element={<ExaminationPage />} />
+              <Route path="examinations" element={<ExaminationManagementPage />} />
+              <Route path="billing/queue" element={<BillOrderPage />} />
+              <Route path="billing/:id" element={<BillingDetailPage />} />
+              <Route path="prescriptions" element={<DispenseRecordPage />} />
+              <Route path="dispense/:id" element={<DispenseRecordDetailPage />} />
+              <Route path="dispense-history" element={<DispenseRecordHistoryPage />} />
+              <Route path="schedule" element={<StaffMySchedulePage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

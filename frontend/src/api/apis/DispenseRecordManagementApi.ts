@@ -16,16 +16,19 @@
 import * as runtime from '../runtime';
 import type {
   CustomApiResponseDispenseRecordResponse,
+  CustomApiResponseListDispenseRecordResponse,
   CustomApiResponseObject,
   CustomApiResponsePageDispenseRecordResponse,
   CustomApiResponseVoid,
   DispenseRecordRequest,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   SearchFilter,
 } from '../models/index';
 import {
     CustomApiResponseDispenseRecordResponseFromJSON,
     CustomApiResponseDispenseRecordResponseToJSON,
+    CustomApiResponseListDispenseRecordResponseFromJSON,
+    CustomApiResponseListDispenseRecordResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
     CustomApiResponsePageDispenseRecordResponseFromJSON,
@@ -34,8 +37,8 @@ import {
     CustomApiResponseVoidToJSON,
     DispenseRecordRequestFromJSON,
     DispenseRecordRequestToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     SearchFilterFromJSON,
     SearchFilterToJSON,
 } from '../models/index';
@@ -239,6 +242,41 @@ export class DispenseRecordManagementApi extends runtime.BaseAPI {
      */
     async getById4(requestParameters: GetById4Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseDispenseRecordResponse> {
         const response = await this.getById4Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getOrdersForStaffToday1Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListDispenseRecordResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/dispense-records/staff/today`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListDispenseRecordResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getOrdersForStaffToday1(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListDispenseRecordResponse> {
+        const response = await this.getOrdersForStaffToday1Raw(initOverrides);
         return await response.value();
     }
 

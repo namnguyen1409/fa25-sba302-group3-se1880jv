@@ -58,7 +58,7 @@ public class StaffServiceImpl implements StaffService {
     QueueTicketRepository queueTicketRepository;
     SpecialtyRepository specialtyRepository;
     EmailTemplateService emailTemplateService;
-    private final StaffScheduleRepository staffScheduleRepository;
+    StaffScheduleRepository staffScheduleRepository;
 
     @Override
     public Page<StaffResponse> filter(SearchFilter filter) {
@@ -174,6 +174,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public StaffResponse update(UUID id, StaffRequest request) {
         var entity = staffRepository.findById(id).orElseThrow();
+        if (entity.getStaffType() != request.staffType()) {
+            entity.getUser().getRoles().remove(roleRepository.findByName("ROLE_" + entity.getStaffType().name()));
+            entity.getUser().getRoles().add(roleRepository.findByName("ROLE_" + request.staffType().name()));
+            userRepository.save(entity.getUser());
+        }
         staffMapper.partialUpdate(request, entity);
         if (request.positionId() != null) {
             entity.setPosition(positionRepository.getReferenceById(request.positionId()));
@@ -181,6 +186,7 @@ public class StaffServiceImpl implements StaffService {
         if (request.departmentId() != null) {
             entity.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
         }
+
         var updatedEntity = staffRepository.save(entity);
         return staffMapper.toDto1(updatedEntity);
     }

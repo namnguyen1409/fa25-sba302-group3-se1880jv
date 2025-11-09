@@ -13,6 +13,8 @@ Name | Type
 `dispensedAt` | Date
 `totalCost` | number
 `note` | string
+`patient` | [PatientResponse](PatientResponse.md)
+`room` | [RoomResponse](RoomResponse.md)
 
 ## Example
 
@@ -28,6 +30,8 @@ const example = {
   "dispensedAt": null,
   "totalCost": null,
   "note": null,
+  "patient": null,
+  "room": null,
 } satisfies DispenseRecordResponse
 
 console.log(example)

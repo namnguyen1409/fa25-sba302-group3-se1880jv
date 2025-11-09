@@ -1,6 +1,8 @@
 package sba.group3.backendmvc.dto.response.pharmacy;
 
 import sba.group3.backendmvc.dto.response.examination.PrescriptionResponse;
+import sba.group3.backendmvc.dto.response.organization.RoomResponse;
+import sba.group3.backendmvc.dto.response.patient.PatientResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.entity.pharmacy.DispenseStatus;
 
@@ -14,5 +16,5 @@ import java.util.UUID;
  */
 public record DispenseRecordResponse(UUID id, PrescriptionResponse prescription, StaffResponse dispensedBy,
                                      DispenseStatus status, LocalDateTime dispensedAt, BigDecimal totalCost,
-                                     String note) implements Serializable {
+                                     String note, PatientResponse patient, RoomResponse room) implements Serializable {
 }

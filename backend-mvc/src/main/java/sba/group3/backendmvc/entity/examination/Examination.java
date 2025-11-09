@@ -7,6 +7,7 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.appointment.Appointment;
+import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.entity.laboratory.LabOrder;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
@@ -32,7 +33,10 @@ public class Examination extends BaseEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "staff_id")
-    Staff staff; // bác sĩ khám
+    Staff staff;
+
+    @OneToOne(mappedBy = "examination", orphanRemoval = true)
+    QueueTicket queueTicket;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", length = 50)

@@ -38,7 +38,7 @@ export default function LabTestManagementPage() {
     setSelectRow(row);
     setShowViewModal(true);
   };
-  /* ---------------------------- FETCH DATA ---------------------------- */
+
   const fetchLabs = async (
     page: number,
     size: number,
@@ -86,7 +86,6 @@ export default function LabTestManagementPage() {
     },
   ];
 
-  /* --------------------------- FORM DEFAULTS --------------------------- */
   const normalizeDefaults = (data: any) => ({
     name: data?.name ?? "",
     category: data?.category ?? "",
@@ -97,7 +96,6 @@ export default function LabTestManagementPage() {
     roomType: data?.roomType ?? null,
   });
 
-  /* --------------------------- FORM FIELDS --------------------------- */
   const formFieldConfigs: FormFieldConfig[] = [
     { name: "name", label: "Tên xét nghiệm", type: "text", required: true },
     { name: "category", label: "Danh mục", type: "text" },
@@ -113,7 +111,6 @@ export default function LabTestManagementPage() {
     },
   ];
 
-  /* --------------------------- VALIDATION --------------------------- */
   const schema = yup.object({
     name: yup.string().required("Tên xét nghiệm bắt buộc"),
     price: yup.number().positive("Giá phải > 0").required("Giá bắt buộc"),
@@ -124,7 +121,6 @@ export default function LabTestManagementPage() {
     roomType: yup.mixed().nullable(),
   });
 
-  /* --------------------------- FORM MODAL --------------------------- */
   const formModalProps = {
     open: formType !== "hidden",
     onClose: () => setFormType("hidden"),

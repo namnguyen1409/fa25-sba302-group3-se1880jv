@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost:9999*
 | [**delete8**](DispenseRecordManagementApi.md#delete8) | **DELETE** /api/dispense-records/{recordId} |  |
 | [**filter8**](DispenseRecordManagementApi.md#filter8) | **POST** /api/dispense-records/filter |  |
 | [**getById4**](DispenseRecordManagementApi.md#getbyid4) | **GET** /api/dispense-records/{recordId} |  |
+| [**getOrdersForStaffToday1**](DispenseRecordManagementApi.md#getordersforstafftoday1) | **GET** /api/dispense-records/staff/today |  |
 | [**update8**](DispenseRecordManagementApi.md#update8) | **PUT** /api/dispense-records/{recordId} |  |
 
 
@@ -275,6 +276,69 @@ example().catch(console.error);
 ### Return type
 
 [**CustomApiResponseDispenseRecordResponse**](CustomApiResponseDispenseRecordResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getOrdersForStaffToday1
+
+> CustomApiResponseListDispenseRecordResponse getOrdersForStaffToday1()
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { GetOrdersForStaffToday1Request } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
+
+  try {
+    const data = await api.getOrdersForStaffToday1();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CustomApiResponseListDispenseRecordResponse**](CustomApiResponseListDispenseRecordResponse.md)
 
 ### Authorization
 

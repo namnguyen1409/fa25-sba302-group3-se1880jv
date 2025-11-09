@@ -4,7 +4,10 @@ import org.springframework.data.domain.Page;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.pharmacy.DispenseRecordRequest;
 import sba.group3.backendmvc.dto.response.pharmacy.DispenseRecordResponse;
+import sba.group3.backendmvc.entity.examination.Prescription;
+import sba.group3.backendmvc.entity.pharmacy.DispenseRecord;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface DispenseRecordService {
@@ -17,4 +20,8 @@ public interface DispenseRecordService {
     DispenseRecordResponse update(UUID recordId, DispenseRecordRequest dispenseRecordRequest);
 
     void delete(UUID recordId);
+
+    DispenseRecord createDispenseRecord(Prescription prescription);
+
+    List<DispenseRecordResponse> filterList(SearchFilter filter);
 }

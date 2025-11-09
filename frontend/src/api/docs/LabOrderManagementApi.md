@@ -11,8 +11,10 @@ All URIs are relative to *http://localhost:9999*
 | [**filter6**](LabOrderManagementApi.md#filter6) | **POST** /api/lab-orders/filter |  |
 | [**filterOrderItems**](LabOrderManagementApi.md#filterorderitems) | **POST** /api/lab-orders/{orderId}/results/filter |  |
 | [**getById2**](LabOrderManagementApi.md#getbyid2) | **GET** /api/lab-orders/{orderId} |  |
+| [**getLabOrdersForStaffToday**](LabOrderManagementApi.md#getlabordersforstafftoday) | **GET** /api/lab-orders/staff/today |  |
 | [**update5**](LabOrderManagementApi.md#update5) | **PUT** /api/lab-orders/{orderId} |  |
 | [**updateOrderItem**](LabOrderManagementApi.md#updateorderitem) | **PUT** /api/lab-orders/results/{itemId} |  |
+| [**verifyOrderItem**](LabOrderManagementApi.md#verifyorderitem) | **POST** /api/lab-orders/result/{itemId}/verify |  |
 
 
 
@@ -522,6 +524,69 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getLabOrdersForStaffToday
+
+> CustomApiResponseListLabOrderResponse getLabOrdersForStaffToday()
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  LabOrderManagementApi,
+} from '';
+import type { GetLabOrdersForStaffTodayRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new LabOrderManagementApi(config);
+
+  try {
+    const data = await api.getLabOrdersForStaffToday();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CustomApiResponseListLabOrderResponse**](CustomApiResponseListLabOrderResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## update5
 
 > CustomApiResponseLabOrderResponse update5(orderId, labOrderRequest)
@@ -657,6 +722,77 @@ example().catch(console.error);
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `*/*`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## verifyOrderItem
+
+> CustomApiResponseVoid verifyOrderItem(itemId)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  LabOrderManagementApi,
+} from '';
+import type { VerifyOrderItemRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new LabOrderManagementApi(config);
+
+  const body = {
+    // string
+    itemId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies VerifyOrderItemRequest;
+
+  try {
+    const data = await api.verifyOrderItem(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **itemId** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `*/*`
 
 

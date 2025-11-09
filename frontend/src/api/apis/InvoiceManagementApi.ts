@@ -16,24 +16,27 @@
 import * as runtime from '../runtime';
 import type {
   CustomApiResponseInvoiceResponse,
+  CustomApiResponseListInvoiceResponse,
   CustomApiResponseObject,
   CustomApiResponsePageInvoiceResponse,
   CustomApiResponseVoid,
-  GetPatientById400Response,
+  GetServiceOrderDetail400Response,
   InvoiceRequest,
   SearchFilter,
 } from '../models/index';
 import {
     CustomApiResponseInvoiceResponseFromJSON,
     CustomApiResponseInvoiceResponseToJSON,
+    CustomApiResponseListInvoiceResponseFromJSON,
+    CustomApiResponseListInvoiceResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
     CustomApiResponsePageInvoiceResponseFromJSON,
     CustomApiResponsePageInvoiceResponseToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
-    GetPatientById400ResponseFromJSON,
-    GetPatientById400ResponseToJSON,
+    GetServiceOrderDetail400ResponseFromJSON,
+    GetServiceOrderDetail400ResponseToJSON,
     InvoiceRequestFromJSON,
     InvoiceRequestToJSON,
     SearchFilterFromJSON,
@@ -239,6 +242,41 @@ export class InvoiceManagementApi extends runtime.BaseAPI {
      */
     async getById3(requestParameters: GetById3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseInvoiceResponse> {
         const response = await this.getById3Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getOrdersForStaffTodayRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseListInvoiceResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/invoices/staff/today`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseListInvoiceResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getOrdersForStaffToday(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseListInvoiceResponse> {
+        const response = await this.getOrdersForStaffTodayRaw(initOverrides);
         return await response.value();
     }
 
