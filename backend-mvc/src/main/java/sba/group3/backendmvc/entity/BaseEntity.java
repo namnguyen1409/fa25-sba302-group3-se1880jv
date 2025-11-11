@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.*;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.springframework.data.annotation.CreatedBy;
@@ -26,6 +27,15 @@ import java.util.UUID;
 @FieldNameConstants
 @SuperBuilder
 @Indexed
+//@FilterDef(
+//        name = "deletedFilter",
+//        parameters = @ParamDef(name = "showDeleted", type = Boolean.class)
+//)
+//@Filter(
+//        name = "deletedFilter",
+//        condition = "deleted = false or :showDeleted = true"
+//)
+//@Where(clause = "deleted = false")
 public abstract class BaseEntity {
     @Id
     @GenericField

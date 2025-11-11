@@ -1,10 +1,7 @@
 package sba.group3.backendmvc.entity.auth;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.user.User;
@@ -37,6 +34,7 @@ public class MfaConfig extends BaseEntity {
     @Column(name = "contact")
     private String contact;
 
+    @Builder.Default
     @Column(name = "is_primary", nullable = false)
     private Boolean primary = false;
 
@@ -61,6 +59,7 @@ public class MfaConfig extends BaseEntity {
     @Column(name = "attestation_format")
     private String attestationFormat;
 
+    @Builder.Default
     @Column(name = "revoked", nullable = false)
     private boolean revoked = false;
 }

@@ -29,6 +29,7 @@ public class LabTestResult extends BaseEntity {
     @JoinColumn(name = "lab_test_id")
     LabTest labTest;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30)
     LabStatus status = LabStatus.PENDING;
@@ -39,7 +40,7 @@ public class LabTestResult extends BaseEntity {
     @Column(name = "unit", length = 50)
     String unit;
 
-    @Column(name = "reference_range", length = 100)
+    @Column(name = "reference_range", length = 500)
     String referenceRange;
 
     @Column(name = "remark", columnDefinition = "TEXT")

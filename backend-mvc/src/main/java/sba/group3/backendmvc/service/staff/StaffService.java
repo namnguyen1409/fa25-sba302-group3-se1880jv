@@ -5,6 +5,9 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface StaffService {
@@ -17,4 +20,10 @@ public interface StaffService {
     void delete(UUID id);
 
     StaffResponse getById(UUID id);
+
+    List<StaffResponse> findDoctorsBySpecialty(UUID specialtyId);
+
+    List<StaffResponse> findAvailableDoctors(UUID specialtyId, LocalDate date, LocalTime time);
+
+    StaffResponse autoPickDoctor(UUID specialtyId);
 }

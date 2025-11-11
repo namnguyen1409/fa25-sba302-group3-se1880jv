@@ -9,3 +9,5 @@ create schema if not exists "medical_staff_management";
 create schema if not exists "organization";
 create schema if not exists "patient";
 create schema if not exists "pharmacy";
+create schema if not exists "content_management";
+create table "user_management".users()

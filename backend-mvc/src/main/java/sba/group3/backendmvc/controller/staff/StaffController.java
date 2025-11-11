@@ -5,25 +5,34 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
+import sba.group3.backendmvc.dto.request.staff.StaffScheduleRequest;
+import sba.group3.backendmvc.dto.request.staff.StaffScheduleTemplateRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleResponse;
 import sba.group3.backendmvc.dto.response.staff.StaffScheduleTemplateResponse;
+import sba.group3.backendmvc.entity.staff.ScheduleStatus;
 import sba.group3.backendmvc.service.staff.StaffScheduleService;
 import sba.group3.backendmvc.service.staff.StaffScheduleTemplateService;
 import sba.group3.backendmvc.service.staff.StaffService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/staff")
+@RequestMapping("/api/admin/staffs")
 @Tag(name = "Staff Management", description = "APIs for managing staff by admin")
 public class StaffController {
 
@@ -113,10 +122,29 @@ public class StaffController {
         );
     }
 
+    @PostMapping("/schedule/filter")
+    public ResponseEntity<CustomApiResponse<Page<StaffScheduleResponse>>> getMySchedule(
+            @AuthenticationPrincipal Jwt jwt,
+            @RequestBody SearchFilter filter
+    ) {
+        var staffId = UUID.fromString(jwt.getClaim("staffId"));
+        filter.addMandatoryCondition(
+                new sba.group3.backendmvc.dto.filter.Filter("staff.id", null, "eq", staffId)
+        );
+
+        log.info("Filtering staff schedule for staffId {} with filter: {}", staffId, filter);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Page<StaffScheduleResponse>>builder()
+                        .data(staffScheduleService.filter(filter))
+                        .message("Staff schedule retrieved successfully")
+                        .build()
+        );
+    }
+
     @PostMapping("/{staffId}/schedule")
     public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> createStaffSchedule(
             @PathVariable UUID staffId,
-            @RequestBody @Validated StaffScheduleResponse request
+            @RequestBody @Validated StaffScheduleRequest request
     ) {
         log.info("Creating staff schedule for staffId {}: {}", staffId, request);
         StaffScheduleResponse response = staffScheduleService.create(staffId, request);
@@ -131,7 +159,7 @@ public class StaffController {
     @PutMapping("/schedule/{scheduleId}")
     public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> updateStaffSchedule(
             @PathVariable UUID scheduleId,
-            @RequestBody @Validated StaffScheduleResponse request
+            @RequestBody @Validated StaffScheduleRequest request
     ) {
         log.info("Updating staff schedule with id {}: {}", scheduleId, request);
         StaffScheduleResponse response = staffScheduleService.update(scheduleId, request);
@@ -156,6 +184,81 @@ public class StaffController {
         );
     }
 
+
+    @GetMapping("/{staffId}/schedule")
+    public ResponseEntity<CustomApiResponse<List<StaffScheduleResponse>>> range(
+            @PathVariable UUID staffId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+
+        return ResponseEntity.ok(
+                CustomApiResponse.<List<StaffScheduleResponse>>builder()
+                        .data(staffScheduleService.getByStaffAndRange(staffId, from, to))
+                        .build()
+        );
+    }
+
+    @GetMapping("/schedule")
+    public ResponseEntity<CustomApiResponse<List<StaffScheduleResponse>>> myRange(
+            @AuthenticationPrincipal Jwt jwt,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+
+        var staffId = UUID.fromString(jwt.getClaim("staffId"));
+
+        return ResponseEntity.ok(
+                CustomApiResponse.<List<StaffScheduleResponse>>builder()
+                        .data(staffScheduleService.getByStaffAndRange(staffId, from, to))
+                        .build()
+        );
+    }
+
+    @PostMapping("/{staffId}/schedule/generate")
+    public ResponseEntity<CustomApiResponse<Void>> generate(
+            @PathVariable UUID staffId,
+            @RequestBody(required = false) StaffScheduleGenerateRequest req) {
+
+        int days = (req == null || req.daysAhead() == null) ? 30 : req.daysAhead();
+        staffScheduleService.generate(staffId, days);
+        return ResponseEntity.ok(CustomApiResponse.<Void>builder().message("Generated").build());
+    }
+
+    @PatchMapping("/schedule/{scheduleId}/status")
+    public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> markStatus(
+            @PathVariable UUID scheduleId,
+            @RequestParam ScheduleStatus status,
+            @RequestParam(required = false) String note) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<StaffScheduleResponse>builder()
+                        .data(staffScheduleService.markStatus(scheduleId, status, note))
+                        .build()
+        );
+    }
+
+    @PostMapping("/schedule/day-off")
+    public ResponseEntity<CustomApiResponse<StaffScheduleResponse>> dayOff(
+            @RequestBody @Validated StaffScheduleDayOffRequest req) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<StaffScheduleResponse>builder()
+                        .data(staffScheduleService.createDayOff(req))
+                        .build()
+        );
+    }
+
+    public record StaffScheduleDayOffRequest(
+            UUID staffId,
+            LocalDate date,
+            LocalTime startTime,
+            LocalTime endTime,
+            UUID roomId,
+            String reason
+    ) {}
+
+    public record StaffScheduleGenerateRequest(
+            java.util.UUID staffId,
+            Integer daysAhead // default 30
+    ) {}
+
     @PostMapping("/{staffId}/schedule-template/filter")
     public ResponseEntity<CustomApiResponse<Page<StaffScheduleTemplateResponse>>> getStaffScheduleTemplate(
             @PathVariable UUID staffId,
@@ -176,7 +279,7 @@ public class StaffController {
     @PostMapping("/{staffId}/schedule-template")
     public ResponseEntity<CustomApiResponse<StaffScheduleTemplateResponse>> createStaffScheduleTemplate(
             @PathVariable UUID staffId,
-            @RequestBody @Validated StaffScheduleTemplateResponse request
+            @RequestBody @Validated StaffScheduleTemplateRequest request
     ) {
         log.info("Creating staff schedule template for staffId {}: {}", staffId, request);
         StaffScheduleTemplateResponse response = staffScheduleTemplateService.create(staffId, request);
@@ -191,7 +294,7 @@ public class StaffController {
     @PutMapping("/schedule-template/{templateId}")
     public ResponseEntity<CustomApiResponse<StaffScheduleTemplateResponse>> updateStaffScheduleTemplate(
             @PathVariable UUID templateId,
-            @RequestBody @Validated StaffScheduleTemplateResponse request
+            @RequestBody @Validated StaffScheduleTemplateRequest request
     ) {
         log.info("Updating staff schedule template with id {}: {}", templateId, request);
         StaffScheduleTemplateResponse response = staffScheduleTemplateService.update(templateId, request);

@@ -11,7 +11,11 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    global: "window",
+  },
   server: {
-    allowedHosts: ["sba301.telecomic.top"]
+    allowedHosts: ["sba301.telecomic.top"],
+    
   }
 })

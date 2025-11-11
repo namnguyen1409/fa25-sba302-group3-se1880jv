@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import type { MeResponse, LoginRequest } from "@/types/auth";
+import type {  LoginRequest } from "@/types/auth";
 import { authApi } from "@/api/authApi";
 import { toast } from "sonner";
+import type { MeResponse } from "@/api";
 
 interface AuthContextType {
   user: MeResponse | null;
@@ -63,7 +64,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
         setAccessToken(accessToken);
         const me = await authApi.me();
         setUser(me);
-        if (me.roles.some(role => role.name !== "ROLE_PATIENT")) {
+        if (me.roles && Array.from(me.roles).some(role => role.name !== "ROLE_PATIENT")) {
           window.location.href = "/staff";
         } else {
           window.location.href = "/";

@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Giám đốc",
+    "description": "Quản lý toàn bộ hoạt động của phòng khám."
+  },
+  {
+    "title": "Phó Giám đốc",
+    "description": "Hỗ trợ giám đốc quản lý các bộ phận."
+  },
+  {
+    "title": "Trưởng phòng Hành chính",
+    "description": "Quản lý nhân sự, hành chính và tổng hợp."
+  },
+  {
+    "title": "Trưởng phòng Kế toán",
+    "description": "Phụ trách công tác kế toán – tài chính."
+  },
+  {
+    "title": "Bác sĩ Nội tổng quát",
+    "description": "Khám và điều trị bệnh nội khoa."
+  },
+  {
+    "title": "Bác sĩ Nhi",
+    "description": "Khám và điều trị bệnh cho trẻ em."
+  },
+  {
+    "title": "Bác sĩ Tai Mũi Họng",
+    "description": "Khám và điều trị chuyên khoa Tai Mũi Họng."
+  },
+  {
+    "title": "Bác sĩ Ngoại tổng quát",
+    "description": "Khám và điều trị bệnh ngoại khoa."
+  },
+  {
+    "title": "Điều dưỡng",
+    "description": "Thực hiện chăm sóc bệnh nhân và hỗ trợ bác sĩ."
+  },
+  {
+    "title": "Điều dưỡng trưởng",
+    "description": "Quản lý hoạt động của bộ phận điều dưỡng."
+  },
+  {
+    "title": "Kỹ thuật viên xét nghiệm",
+    "description": "Thực hiện các xét nghiệm cận lâm sàng."
+  },
+  {
+    "title": "Kỹ thuật viên chẩn đoán hình ảnh",
+    "description": "Thực hiện siêu âm, X-quang, CT, MRI."
+  },
+  {
+    "title": "Kỹ thuật viên nội soi",
+    "description": "Thực hiện nội soi tiêu hóa."
+  },
+  {
+    "title": "Dược sĩ",
+    "description": "Quản lý cấp phát thuốc và tư vấn sử dụng thuốc."
+  },
+  {
+    "title": "Lễ tân",
+    "description": "Tiếp nhận bệnh nhân và hướng dẫn dịch vụ."
+  },
+  {
+    "title": "Thu ngân",
+    "description": "Thực hiện tính tiền dịch vụ và thu phí."
+  }
+]

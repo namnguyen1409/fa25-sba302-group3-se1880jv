@@ -12,20 +12,31 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   ActivitySquareIcon,
-  Bell,
   LogOutIcon,
   Menu,
   MonitorCheckIcon,
+  MoonIcon,
   PanelLeftClose,
   PanelLeftOpen,
   SettingsIcon,
   ShieldCheckIcon,
+  SunIcon,
   UserCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@/components/theme-provider";
 
-export function StaffHeader({ toggleMobile, toggleCollapse, collapsed }: { toggleMobile: () => void; toggleCollapse: () => void; collapsed: boolean }) {
+export function StaffHeader({
+  toggleMobile,
+  toggleCollapse,
+  collapsed,
+}: {
+  toggleMobile: () => void;
+  toggleCollapse: () => void;
+  collapsed: boolean;
+}) {
   const { user, logout } = useAuth();
+  const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
   const settingItems = [
     {
@@ -61,7 +72,6 @@ export function StaffHeader({ toggleMobile, toggleCollapse, collapsed }: { toggl
 
   return (
     <header className="w-full h-14 border-b flex items-center justify-between px-4 bg-background">
- 
       {/* mobile hamburger */}
       <button
         className="lg:hidden p-2 rounded-md hover:bg-muted"
@@ -75,11 +85,27 @@ export function StaffHeader({ toggleMobile, toggleCollapse, collapsed }: { toggl
         className="hidden lg:block p-2 rounded-md hover:bg-muted"
         onClick={toggleCollapse}
       >
-        {collapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
+        {collapsed ? (
+          <PanelLeftOpen className="h-5 w-5" />
+        ) : (
+          <PanelLeftClose className="h-5 w-5" />
+        )}
       </button>
       <div className="font-semibold text-lg">Clinic Panel</div>
       <div className="flex items-center gap-4">
-        <Bell className="w-5 h-5" />
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="h-10 w-10"
+        >
+          {theme === "dark" ? (
+            <SunIcon className="h-4 w-4" />
+          ) : (
+            <MoonIcon className="h-4 w-4" />
+          )}
+        </Button>
+
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -93,7 +119,7 @@ export function StaffHeader({ toggleMobile, toggleCollapse, collapsed }: { toggl
                     }
                   />
                   <AvatarFallback>
-                    {user.username[0].toUpperCase()}
+                    {user.username ? user.username[0].toUpperCase() : ""}
                   </AvatarFallback>
                 </Avatar>
               </Button>

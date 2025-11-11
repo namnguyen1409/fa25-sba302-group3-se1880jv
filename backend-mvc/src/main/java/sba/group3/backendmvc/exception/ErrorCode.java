@@ -33,7 +33,22 @@ public enum ErrorCode {
     MFA_CONFIG_NOT_FOUND(7001, "MFA configuration not found", HttpStatus.NOT_FOUND),
     RESET_PASSWORD_TOKEN_INVALID_OR_EXPIRED(8001, "Reset password token is invalid or expired", HttpStatus.BAD_REQUEST),
     OTP_CHALLENGE_NOT_FOUND(9001, "OTP challenge not found", HttpStatus.NOT_FOUND),
-    MFA_TYPE_NOT_FOUND(7002, "MFA type not found", HttpStatus.NOT_FOUND);
+    MFA_TYPE_NOT_FOUND(7002, "MFA type not found", HttpStatus.NOT_FOUND),
+    RESOURCE_NOT_FOUND(4008, "Resource not found", HttpStatus.NOT_FOUND),
+    BAD_REQUEST(4009, "Bad request", HttpStatus.BAD_REQUEST),
+    ROLE_NOT_FOUND(40010, "Role not found", HttpStatus.NOT_FOUND),
+    STAFF_ALREADY_EXISTS_FOR_USER(40011, "Staff already exists for user", HttpStatus.CONFLICT),
+    SCHEDULE_NOT_FOUND(40012, "Schedule not found", HttpStatus.NOT_FOUND),
+    STAFF_NOT_FOUND(40013, "Staff not found", HttpStatus.NOT_FOUND),
+    ROOM_NOT_FOUND(40014, "Room not found", HttpStatus.NOT_FOUND),
+    SCHEDULE_TEMPLATE_DUPLICATE_DAY(40015, "Schedule template for this day already exists", HttpStatus.CONFLICT),
+    SCHEDULE_TIME_OVERLAP(40016, "Schedule time overlaps with existing schedule", HttpStatus.CONFLICT),
+    NOT_FOUND(40017, "Entity not found", HttpStatus.NOT_FOUND),
+    SCHEDULE_TIME_INVALID(40018, "Schedule time is invalid", HttpStatus.BAD_REQUEST),
+    SCHEDULE_ROOM_CONFLICT(40019, "Schedule room conflict", HttpStatus.CONFLICT),
+    QUEUE_TICKET_NOT_FOUND(40020, "Queue ticket not found", HttpStatus.NOT_FOUND),
+    EMAIL_ALREADY_USED(40021, "", HttpStatus.CONFLICT);
+
     int code;
     String message;
     HttpStatus httpStatus;

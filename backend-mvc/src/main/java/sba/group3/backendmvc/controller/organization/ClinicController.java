@@ -18,6 +18,8 @@ import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
 import sba.group3.backendmvc.service.organization.ClinicService;
 import sba.group3.backendmvc.service.organization.DepartmentService;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/organization/clinics")
@@ -28,6 +30,17 @@ public class ClinicController {
     ClinicService clinicService;
     DepartmentService departmentService;
 
+    @GetMapping
+    public ResponseEntity<CustomApiResponse<ClinicResponse>> getDefaultClinic() {
+        log.info("Fetching default clinic");
+        return ResponseEntity.ok(
+                CustomApiResponse.<ClinicResponse>builder()
+                        .data(clinicService.getDefaultClinic())
+                        .message("Default clinic fetched successfully")
+                        .build()
+        );
+    }
+
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<ClinicResponse>>> filter(
             @RequestBody SearchFilter filter) {
@@ -37,6 +50,7 @@ public class ClinicController {
                         .build()
         );
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomApiResponse<ClinicResponse>> getClinicById(
@@ -80,7 +94,7 @@ public class ClinicController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomApiResponse<ClinicResponse>> update(
-            @PathVariable String id,
+            @PathVariable UUID id,
             @RequestBody @Validated ClinicRequest clinicRequest) {
         log.info("Updating clinic with ID {}: {}", id, clinicRequest);
         return ResponseEntity.ok(

@@ -7,9 +7,11 @@ import sba.group3.backendmvc.entity.staff.StaffSchedule;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StaffScheduleMapper {
+    @Mapping(source = "roomId", target = "room.id")
     @Mapping(source = "staffId", target = "staff.id")
     StaffSchedule toEntity(StaffScheduleRequest staffScheduleRequest);
 
+    @Mapping(source = "room.id", target = "roomId")
     @Mapping(source = "staff.id", target = "staffId")
     StaffScheduleRequest toDto(StaffSchedule staffSchedule);
 

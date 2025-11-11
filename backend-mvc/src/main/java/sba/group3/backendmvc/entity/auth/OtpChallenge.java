@@ -49,6 +49,7 @@ public class OtpChallenge extends BaseEntity {
     @Column(name = "verified", nullable = false)
     boolean verified = false;
 
+    @Builder.Default
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private Map<String, Object> metadata = new HashMap<>();

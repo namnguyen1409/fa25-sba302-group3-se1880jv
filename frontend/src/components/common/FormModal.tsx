@@ -40,10 +40,12 @@ export interface FormFieldConfig {
   required?: boolean;
   placeholder?: string;
   options?: Option[];
+  defaultValue?: any;
   renderFormItem?: (props: {
     value: any;
     onChange: (v: any) => void;
     watch: (name: string) => any;
+    setValue?: (name: string, value: any) => void;
   }) => React.ReactNode;
 }
 
@@ -110,7 +112,7 @@ export const FormModal: React.FC<FormModalProps> = ({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className={`${
-          big ? "max-w-4xl" : "max-w-lg"
+          big ? "min-w-4xl" : "max-w-lg"
         } max-h-[80vh] overflow-y-auto`}
       >
         <DialogHeader>
@@ -138,13 +140,14 @@ export const FormModal: React.FC<FormModalProps> = ({
                                 value,
                                 onChange,
                                 watch,
+                                setValue: form.setValue,
                               })}
                             </>
                           )}
                         />
                       ) : f.type === "select" ? (
                         <Select
-                          value={field.value}
+                          value={field.value || f.defaultValue || ""}
                           onValueChange={field.onChange}
                         >
                           <SelectTrigger>

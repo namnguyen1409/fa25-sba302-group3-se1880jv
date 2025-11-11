@@ -11,10 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
-import sba.group3.backendmvc.dto.request.staff.PositionRequest;
 import sba.group3.backendmvc.dto.request.staff.SpecialtyRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
-import sba.group3.backendmvc.dto.response.staff.PositionResponse;
 import sba.group3.backendmvc.dto.response.staff.SpecialtyResponse;
 import sba.group3.backendmvc.service.staff.SpecialtyService;
 

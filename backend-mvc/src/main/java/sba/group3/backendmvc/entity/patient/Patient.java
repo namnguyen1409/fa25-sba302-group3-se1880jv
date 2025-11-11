@@ -46,6 +46,7 @@ public class Patient extends BaseEntity {
     @Column(name = "blood_type", length = 20)
     BloodType bloodType;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20)
     PatientStatus status = PatientStatus.ACTIVE;
@@ -65,6 +66,7 @@ public class Patient extends BaseEntity {
     @Column(name = "init_password", length = 255)
     private String initPassword;
 
+    @Builder.Default
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Set<MedicalRecord> medicalRecords = new HashSet<>();
 

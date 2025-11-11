@@ -10,6 +10,8 @@ import sba.group3.backendmvc.entity.organization.Department;
 import sba.group3.backendmvc.entity.user.User;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,7 +34,7 @@ public class Staff extends BaseEntity {
     @JoinColumn(name = "department_id")
     Department department;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "specialty_id")
     Specialty specialty;
 
@@ -44,7 +46,7 @@ public class Staff extends BaseEntity {
     @JoinColumn(name = "position_id")
     Position position;
 
-    @Column(name = "license_number", unique = true)
+    @Column(name = "license_number")
     String licenseNumber;
 
     @Column(name = "experience_years")
@@ -61,5 +63,15 @@ public class Staff extends BaseEntity {
 
     @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "phone", unique = true)
+    private String phone;
+
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "staff", orphanRemoval = true)
+    private Set<StaffSchedule> staffSchedules = new LinkedHashSet<>();
 
 }

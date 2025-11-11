@@ -7,6 +7,8 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.auth.OAuthAccount;
+import sba.group3.backendmvc.entity.patient.Patient;
+import sba.group3.backendmvc.entity.staff.Staff;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -49,6 +51,12 @@ public class User extends BaseEntity {
     @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     UserProfile userProfile;
 
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Staff staff;
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Patient patient;
+
     @Builder.Default
     @Column(name = "first_login", nullable = false)
     boolean firstLogin = true;
@@ -60,6 +68,7 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<OAuthAccount> OAuthAccounts = new LinkedHashSet<>();
 

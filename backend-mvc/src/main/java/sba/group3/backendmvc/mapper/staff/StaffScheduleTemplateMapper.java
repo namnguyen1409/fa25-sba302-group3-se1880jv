@@ -7,6 +7,7 @@ import sba.group3.backendmvc.entity.staff.StaffScheduleTemplate;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StaffScheduleTemplateMapper {
+    @Mapping(source = "roomId", target = "room.id")
     @Mapping(source = "staffJoinedDate", target = "staff.joinedDate")
     @Mapping(source = "staffBio", target = "staff.bio")
     @Mapping(source = "staffEducation", target = "staff.education")

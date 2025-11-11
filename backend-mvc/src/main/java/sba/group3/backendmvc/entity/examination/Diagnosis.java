@@ -7,6 +7,7 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.common.IcdCode;
 
 import java.util.Objects;
 
@@ -24,11 +25,9 @@ public class Diagnosis extends BaseEntity {
     @JoinColumn(name = "examination_id")
     Examination examination;
 
-    @Column(name = "icd_code", length = 10)
-    String icdCode;
-
-    @Column(name = "disease_name", nullable = false, length = 255)
-    String diseaseName;
+    @ManyToOne
+    @JoinColumn(name = "icd_code_id")
+    private IcdCode icdCode;
 
     @Column(name = "note", columnDefinition = "TEXT")
     String note;

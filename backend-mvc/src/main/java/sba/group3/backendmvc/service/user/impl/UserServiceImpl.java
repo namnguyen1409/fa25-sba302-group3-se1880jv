@@ -9,16 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.response.user.UserResponse;
-import sba.group3.backendmvc.entity.staff.Staff;
-import sba.group3.backendmvc.entity.user.User;
-import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.mapper.user.UserMapper;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.user.RoleService;
 import sba.group3.backendmvc.service.user.UserService;
 
-import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 @Service

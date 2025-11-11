@@ -38,6 +38,19 @@ public class Clinic extends BaseEntity {
     @Column(name = "email", length = 100)
     String email;
 
+    @Column(name = "tax_code", length = 50)
+    String taxCode;
+
+    @Column(name = "website", length = 150)
+    String website;
+
+    @Column(name = "account_number", length = 50)
+    String accountNumber;
+
+    @Column(name = "bank_name", length = 150)
+    String bankName;
+
+    @Builder.Default
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Department> departments = new HashSet<>();
 }

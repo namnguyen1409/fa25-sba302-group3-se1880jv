@@ -38,4 +38,8 @@ public class PrescriptionItem extends BaseEntity {
 
     @Column(name = "instruction", columnDefinition = "TEXT")
     String instruction;
+
+    @Column(name = "quantity")
+    Integer quantity;
+
 }

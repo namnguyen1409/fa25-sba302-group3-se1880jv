@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;
+import sba.group3.backendmvc.dto.request.auth.RegisterRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.auth.AuthResponse;
 import sba.group3.backendmvc.dto.response.user.MeResponse;
@@ -42,6 +43,31 @@ public class AuthController {
                                 .build()
                 );
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<CustomApiResponse<AuthResponse>> register(
+            @RequestBody @Validated RegisterRequest registerRequest
+    ) {
+        return ResponseEntity.ok(
+                CustomApiResponse.<AuthResponse>builder()
+                        .data(authService.register(registerRequest))
+                        .build()
+        );
+    }
+
+    @PostMapping("/activate")
+    public ResponseEntity<CustomApiResponse<String>> activateAccount(
+            @RequestBody String token
+    ) {
+        authService.activateAccount(token);
+
+        return ResponseEntity.ok(
+                CustomApiResponse.<String>builder()
+                        .data("Tài khoản đã được kích hoạt thành công.")
+                        .build()
+        );
+    }
+
 
     @PostMapping("/oauth")
     public ResponseEntity<CustomApiResponse<AuthResponse>> loginWithOAuth(

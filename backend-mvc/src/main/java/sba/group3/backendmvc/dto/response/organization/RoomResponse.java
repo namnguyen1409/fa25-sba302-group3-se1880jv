@@ -1,5 +1,7 @@
 package sba.group3.backendmvc.dto.response.organization;
 
+import sba.group3.backendmvc.entity.organization.RoomType;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -8,10 +10,10 @@ import java.util.UUID;
  */
 public record RoomResponse(UUID id,
                            String name,
-                           String roomType,
+                           RoomType roomType,
                            Integer floorNumber,
                            Integer capacity,
                            String description,
-                            DepartmentSimpleResponse department
+                           DepartmentSimpleResponse department
 ) implements Serializable {
 }

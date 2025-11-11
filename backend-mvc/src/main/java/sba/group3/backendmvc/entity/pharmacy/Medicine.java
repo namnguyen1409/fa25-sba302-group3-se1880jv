@@ -1,6 +1,8 @@
 package sba.group3.backendmvc.entity.pharmacy;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
@@ -22,10 +24,10 @@ public class Medicine extends BaseEntity {
     @Column(name = "code", nullable = false, unique = true, length = 30)
     String code;
 
-    @Column(name = "name", nullable = false, length = 150)
+    @Column(name = "name", nullable = false, length = 100)
     String name; // Tên thuốc thương mại (biệt dược)
 
-    @Column(name = "active_ingredient", length = 150)
+    @Column(name = "active_ingredient", length = 500)
     String activeIngredient; // Thành phần hoạt chất
 
     @Column(name = "dosage_form", length = 100)

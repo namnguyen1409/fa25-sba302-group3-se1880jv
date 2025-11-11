@@ -5,11 +5,13 @@ import sba.group3.backendmvc.entity.staff.StaffType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * DTO for {@link sba.group3.backendmvc.entity.staff.Staff}
  */
 public record StaffResponse(SpecialtyResponse specialty, StaffType staffType, PositionResponse position,
                             String licenseNumber, Integer experienceYears, String education, String bio,
-                            LocalDate joinedDate, String email, DepartmentResponse department) implements Serializable {
+                            LocalDate joinedDate, String email, DepartmentResponse department, UUID id, String phone,
+                            String fullName) implements Serializable {
 }

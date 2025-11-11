@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
-import sba.group3.backendmvc.entity.appointment.Appointment;
+import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.entity.laboratory.LabOrder;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
@@ -32,12 +32,16 @@ public class Examination extends BaseEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "staff_id")
-    Staff staff; // bác sĩ khám
+    Staff staff;
+
+    @OneToOne(mappedBy = "examination", orphanRemoval = true)
+    QueueTicket queueTicket;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", length = 50)
     ExaminationType type;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 32)
     ExaminationStatus status = ExaminationStatus.ONGOING;
@@ -48,21 +52,26 @@ public class Examination extends BaseEntity {
     @Column(name = "diagnosis_summary", columnDefinition = "TEXT")
     String diagnosisSummary;
 
+    @Builder.Default
     @Column(name = "examination_date", nullable = false)
     LocalDateTime examinationDate = LocalDateTime.now();
 
     @OneToOne(mappedBy = "examination", cascade = CascadeType.ALL)
     Prescription prescription;
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<ServiceOrder> serviceOrders = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<VitalSign> vitalSigns = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", orphanRemoval = true)
     Set<Diagnosis> diagnoses = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "examination", orphanRemoval = true)
     Set<LabOrder> labOrders = new LinkedHashSet<>();
 

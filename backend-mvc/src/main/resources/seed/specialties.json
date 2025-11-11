@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Nội khoa",
+    "description": "Khám và điều trị bệnh lý nội khoa",
+    "department": "Khoa Nội tổng quát"
+  },
+  {
+    "name": "Nhi khoa",
+    "description": "Khám chữa bệnh cho trẻ em",
+    "department": "Khoa Nhi"
+  },
+  {
+    "name": "Điều dưỡng",
+    "description": "Chăm sóc bệnh nhân",
+    "department": "Khoa Khám bệnh"
+  },
+  {
+    "name": "Tai Mũi Họng",
+    "description": "Khám các bệnh lý tai mũi họng",
+    "department": "Khoa Tai Mũi Họng"
+  },
+  {
+    "name": "Siêu âm",
+    "description": "Chẩn đoán hình ảnh bằng siêu âm",
+    "department": "Khoa Chẩn đoán hình ảnh"
+  },
+  {
+    "name": "X-quang",
+    "description": "Chẩn đoán hình ảnh X-quang",
+    "department": "Khoa Chẩn đoán hình ảnh"
+  },
+  {
+    "name": "Hóa sinh",
+    "description": "Xét nghiệm hóa sinh – huyết học",
+    "department": "Khoa Xét nghiệm"
+  },
+  {
+    "name": "Dược lâm sàng",
+    "description": "Tư vấn và quản lý thuốc",
+    "department": "Khoa Dược"
+  },
+  {
+    "name": "Tiếp nhận",
+    "description": "Tiếp nhận và hướng dẫn bệnh nhân",
+    "department": "Khoa Hành chính – Quản trị"
+  },
+  {
+    "name": "Thu ngân",
+    "description": "Thanh toán viện phí",
+    "department": "Khoa Hành chính – Quản trị"
+  },
+  {
+    "name": "Quản lý",
+    "description": "Quản lý vận hành phòng khám",
+    "department": "Khoa Hành chính – Quản trị"
+  }
+]

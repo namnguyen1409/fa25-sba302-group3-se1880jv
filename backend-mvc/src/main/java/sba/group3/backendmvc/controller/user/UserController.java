@@ -27,7 +27,7 @@ public class UserController {
 
     UserService userService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<UserResponse>>> filter(
             @RequestBody SearchFilter filter) {
@@ -39,7 +39,7 @@ public class UserController {
         );
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
     @PostMapping("/{userId}/lock")
     public ResponseEntity<CustomApiResponse<Void>> lockUserAccount(
             @PathVariable UUID userId
@@ -52,7 +52,7 @@ public class UserController {
         );
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
     @PostMapping("/{userId}/unlock")
     public ResponseEntity<CustomApiResponse<Void>> unlockUserAccount(
             @PathVariable UUID userId

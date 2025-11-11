@@ -3,7 +3,8 @@ package sba.group3.backendmvc.entity.staff;
 public enum StaffType {
     DOCTOR,
     NURSE,
-    TECHNICIAN,        // lab + imaging chung
+    TECHNICIAN,
+    LAB_TECHNICIAN,
     PHARMACIST,
     RECEPTIONIST,
     CASHIER,

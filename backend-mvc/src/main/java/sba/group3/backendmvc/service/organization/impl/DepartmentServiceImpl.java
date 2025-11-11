@@ -9,6 +9,7 @@ import sba.group3.backendmvc.dto.request.organization.DepartmentRequest;
 import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
 import sba.group3.backendmvc.entity.organization.Department;
 import sba.group3.backendmvc.mapper.organization.DepartmentMapper;
+import sba.group3.backendmvc.repository.organization.ClinicRepository;
 import sba.group3.backendmvc.repository.organization.DepartmentRepository;
 import sba.group3.backendmvc.service.organization.DepartmentService;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class DepartmentServiceImpl implements DepartmentService {
     DepartmentRepository departmentRepository;
     DepartmentMapper departmentMapper;
+    private final ClinicRepository clinicRepository;
 
     @Override
     public Page<DepartmentResponse> filter(SearchFilter filter) {
@@ -39,7 +41,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentResponse createDepartment(DepartmentRequest departmentRequest) {
-        return departmentMapper.toDto(departmentRepository.save(departmentMapper.toEntity(departmentRequest)));
+        var entity = departmentMapper.toEntity(departmentRequest);
+        entity.setClinic(clinicRepository.getReferenceById(departmentRequest.clinicId()));
+        return departmentMapper.toDto(departmentRepository.save(entity));
     }
 
     @Override

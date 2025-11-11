@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
         CustomApiResponse<Void> customApiResponse = new CustomApiResponse<>();
 
         customApiResponse.setCode(ErrorCode.UNCATEGORIZED.getCode());
-        customApiResponse.setMessage(ErrorCode.UNCATEGORIZED.getMessage());
+        customApiResponse.setMessage(exception.getMessage());
         log.error("Unhandled exception {}", (Object) exception.getStackTrace());
         return ResponseEntity.badRequest().body(customApiResponse);
     }
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     ResponseEntity<CustomApiResponse<Object>> handlingAccessDeniedException() {
         ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
 
-        return ResponseEntity.status(errorCode.getCode())
+        return ResponseEntity.status(errorCode.getHttpStatus())
                 .body(CustomApiResponse.builder()
                         .code(errorCode.getCode())
                         .message(errorCode.getMessage())
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(errorCode.getHttpStatus())
                 .body(CustomApiResponse.builder()
                         .code(errorCode.getCode())
-                        .message(errorCode.getMessage())
+                        .message(exception.getMessage())
                         .build());
     }
 

@@ -3,30 +3,45 @@ package sba.group3.backendmvc.service.staff.impl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.staff.StaffRequest;
 import sba.group3.backendmvc.dto.response.staff.StaffResponse;
-import sba.group3.backendmvc.entity.organization.Department;
+import sba.group3.backendmvc.entity.staff.Staff;
+import sba.group3.backendmvc.entity.staff.StaffSchedule;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.staff.StaffMapper;
+import sba.group3.backendmvc.repository.appointment.QueueTicketRepository;
 import sba.group3.backendmvc.repository.organization.DepartmentRepository;
 import sba.group3.backendmvc.repository.staff.PositionRepository;
+import sba.group3.backendmvc.repository.staff.SpecialtyRepository;
 import sba.group3.backendmvc.repository.staff.StaffRepository;
+import sba.group3.backendmvc.repository.staff.StaffScheduleRepository;
 import sba.group3.backendmvc.repository.user.RoleRepository;
 import sba.group3.backendmvc.repository.user.UserProfileRepository;
 import sba.group3.backendmvc.repository.user.UserRepository;
 import sba.group3.backendmvc.service.infrastructure.EmailSender;
+import sba.group3.backendmvc.service.infrastructure.EmailTemplateService;
 import sba.group3.backendmvc.service.staff.StaffService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -40,27 +55,39 @@ public class StaffServiceImpl implements StaffService {
     UserProfileRepository userProfileRepository;
     RoleRepository roleRepository;
     EmailSender emailSender;
+    QueueTicketRepository queueTicketRepository;
+    SpecialtyRepository specialtyRepository;
+    EmailTemplateService emailTemplateService;
+    StaffScheduleRepository staffScheduleRepository;
 
     @Override
     public Page<StaffResponse> filter(SearchFilter filter) {
         return staffRepository.search(filter).map(staffMapper::toDto1);
     }
 
+    @Transactional
     @Override
     public StaffResponse create(StaffRequest request) {
+
+        // 1. Find user by email
         var existingUserOpt = userRepository.findByEmail(request.email());
 
         User user;
         boolean isNewUser = false;
-        String rawPassword = generateRandomPassword(10);
+        String rawPassword = null;
+
         if (existingUserOpt.isPresent()) {
             user = existingUserOpt.get();
 
+            // User đã tồn tại nhưng đã được gán Staff rồi
             if (staffRepository.existsByUser_Id(user.getId())) {
-                throw new AppException(ErrorCode.UNCATEGORIZED);
+                throw new AppException(ErrorCode.STAFF_ALREADY_EXISTS_FOR_USER);
             }
 
         } else {
+            // 2. Tạo user mới
+            rawPassword = generateRandomPassword(10);
+
             user = User.builder()
                     .username(request.email())
                     .email(request.email())
@@ -71,46 +98,87 @@ public class StaffServiceImpl implements StaffService {
 
             user = userRepository.save(user);
 
-            UserProfile profile = UserProfile.builder()
+            // 3. Tạo profile
+            var profile = UserProfile.builder()
                     .user(user)
                     .fullName(request.fullName())
                     .phone(request.phone())
                     .build();
             userProfileRepository.save(profile);
+
             isNewUser = true;
         }
 
-        var roleName = "ROLE_" + request.staffType().name();
+        // 4. Gán role
+        String roleName = "ROLE_" + request.staffType().name();
         Role role = roleRepository.findByName(roleName);
+
+        if (role == null) {
+            throw new AppException(ErrorCode.ROLE_NOT_FOUND);
+        }
+
         user.getRoles().add(role);
         userRepository.save(user);
 
+        // 5. Tạo staff
         var staff = staffMapper.toEntity(request);
         staff.setUser(user);
-        var position = positionRepository.getReferenceById(request.positionId());
-        staff.setPosition(position);
-        Department department = departmentRepository.getReferenceById(request.departmentId());
-        staff.setDepartment(department);
+
+        staff.setPosition(positionRepository.getReferenceById(request.positionId()));
+
+        staff.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
+
+        staff.setSpecialty(specialtyRepository.getReferenceById(request.specialtyId()));
+
         staffRepository.save(staff);
+
+        // 6. Gửi email sau khi transaction commit
         if (isNewUser) {
-            emailSender.send(
-                    user.getEmail(),
-                    "Your Account Credentials",
-                    "Dear " + request.fullName() + ",\n\n" +
-                            "An account has been created for you.\n" +
-                            "Username: " + user.getUsername() + "\n" +
-                            "Password: " + rawPassword + "\n\n" +
-                            "Please change your password upon first login.\n\n" +
-                            "Best regards,\n" +
-                            "Medical Staff Management Team"
+            String email = user.getEmail();
+            String fullName = request.fullName();
+            String pwd = rawPassword;
+
+            TransactionSynchronizationManager.registerSynchronization(
+                    new TransactionSynchronization() {
+                        @Override
+                        public void afterCommit() {
+                            log.info("Sending account credentials email to {}", email);
+
+                            var model = Map.of(
+                                    "fullName", fullName,
+                                    "username", email,
+                                    "password", pwd
+                            );
+
+                            String body = emailTemplateService.render(
+                                    "account-created.ftl",
+                                    model
+                            );
+
+                            emailSender.send(
+                                    email,
+                                    "Your Account Credentials",
+                                    body
+                            );
+                        }
+                    }
             );
+
         }
+
         return staffMapper.toDto1(staff);
     }
 
+
+    @Transactional
     @Override
     public StaffResponse update(UUID id, StaffRequest request) {
         var entity = staffRepository.findById(id).orElseThrow();
+        if (entity.getStaffType() != request.staffType()) {
+            entity.getUser().getRoles().remove(roleRepository.findByName("ROLE_" + entity.getStaffType().name()));
+            entity.getUser().getRoles().add(roleRepository.findByName("ROLE_" + request.staffType().name()));
+            userRepository.save(entity.getUser());
+        }
         staffMapper.partialUpdate(request, entity);
         if (request.positionId() != null) {
             entity.setPosition(positionRepository.getReferenceById(request.positionId()));
@@ -118,6 +186,10 @@ public class StaffServiceImpl implements StaffService {
         if (request.departmentId() != null) {
             entity.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
         }
+        if (request.specialtyId() != null) {
+            entity.setSpecialty(specialtyRepository.getReferenceById(request.specialtyId()));
+        }
+
         var updatedEntity = staffRepository.save(entity);
         return staffMapper.toDto1(updatedEntity);
     }
@@ -134,6 +206,92 @@ public class StaffServiceImpl implements StaffService {
         var entity = staffRepository.findById(id).orElseThrow();
         return staffMapper.toDto1(entity);
     }
+
+    @Override
+    public List<StaffResponse> findDoctorsBySpecialty(UUID specialtyId) {
+        var doctors = staffRepository.findBySpecialty_IdAndStaffType(specialtyId, sba.group3.backendmvc.entity.staff.StaffType.DOCTOR);
+        return doctors.stream().map(staffMapper::toDto1).toList();
+    }
+
+    @Override
+    public List<StaffResponse> findAvailableDoctors(UUID specialtyId, LocalDate date, LocalTime time) {
+
+        // 1) Bác sĩ đang trực trong giờ hiện tại (start ≤ now ≤ end)
+        var activeSchedules = staffScheduleRepository.findActiveSchedules(
+                specialtyId, date, time
+        );
+
+        if (!activeSchedules.isEmpty()) {
+            return activeSchedules.stream()
+                    .map(StaffSchedule::getStaff)
+                    .distinct()
+                    .map(staffMapper::toDto1)
+                    .toList();
+        }
+
+        // 2) Nếu bệnh nhân đến sớm → lấy danh sách bác sĩ có lịch hôm nay
+        var todaySchedules = staffScheduleRepository.findAllByStaff_Specialty_IdAndDate(
+                specialtyId, date
+        );
+
+        return todaySchedules.stream()
+                .map(StaffSchedule::getStaff)
+                .distinct()
+                .map(staffMapper::toDto1)
+                .toList();
+    }
+
+
+    @Override
+    public StaffResponse autoPickDoctor(UUID specialtyId) {
+
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+
+        // 1) Lấy lịch bác sĩ đang trực ngay lúc này
+        var activeSchedules = staffScheduleRepository.findActiveSchedules(specialtyId, today, now);
+
+        List<Staff> candidates;
+
+        if (!activeSchedules.isEmpty()) {
+            candidates = activeSchedules.stream()
+                    .map(StaffSchedule::getStaff)
+                    .distinct()
+                    .toList();
+        } else {
+            // 2) Không có ai đang trực → lấy bác sĩ có lịch hôm nay
+            var todaySchedules = staffScheduleRepository.findAllByStaff_Specialty_IdAndDate(
+                    specialtyId, today
+            );
+
+            if (todaySchedules.isEmpty()) {
+                throw new AppException(ErrorCode.RESOURCE_NOT_FOUND,
+                        "Hôm nay không có bác sĩ trực cho chuyên khoa này");
+            }
+
+            // Lọc người chưa hết giờ làm
+            candidates = todaySchedules.stream()
+                    .filter(s -> s.getEndTime().isAfter(now))
+                    .map(StaffSchedule::getStaff)
+                    .distinct()
+                    .toList();
+
+            if (candidates.isEmpty()) {
+                throw new AppException(ErrorCode.BAD_REQUEST,
+                        "Tất cả bác sĩ đã kết thúc ca trực hôm nay");
+            }
+        }
+
+        // 3) Pick bác sĩ có ít bệnh nhân chờ nhất hôm nay
+        var selected = candidates.stream()
+                .min(Comparator.comparing(doc ->
+                        queueTicketRepository.countWaitingTodayByDoctor(doc.getId())
+                ))
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+
+        return staffMapper.toDto1(selected);
+    }
+
 
     private String generateRandomPassword(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!";

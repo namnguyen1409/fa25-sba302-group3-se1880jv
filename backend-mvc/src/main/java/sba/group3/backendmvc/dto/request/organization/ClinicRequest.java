@@ -1,7 +1,6 @@
 package sba.group3.backendmvc.dto.request.organization;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import sba.group3.backendmvc.dto.response.common.AddressResponse;
 
@@ -16,17 +15,9 @@ public record ClinicRequest(
         String description,
         @NotNull(message = "Phone number is required")
         @Size(max = 15, message = "Phone number must not exceed 15 characters")
-        @Pattern(
-                regexp = "^(?:\\+84|0)(?:3[2-9]|5[2689]|7[06-9]|8[1-9]|9\\d)\\d{7}$",
-                message = "Invalid Vietnamese phone number format"
-        )
         String phone,
         AddressResponse address,
         @Size(max = 100, message = "Email must not exceed 100 characters")
-        @Pattern(
-                regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
-                message = "Invalid email format"
-        )
-        String email
-) implements Serializable {
+        String email,
+        String taxCode, String website, String accountNumber, String bankName) implements Serializable {
 }

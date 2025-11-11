@@ -1,9 +1,9 @@
 package sba.group3.backendmvc.mapper.examination;
 
 import org.mapstruct.*;
+import sba.group3.backendmvc.dto.request.examination.ServiceOrderItemRequest;
 import sba.group3.backendmvc.dto.response.examination.ServiceOrderItemResponse;
 import sba.group3.backendmvc.entity.examination.ServiceOrderItem;
-import sba.group3.backendmvc.dto.request.examination.ServiceOrderItemRequest;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {ServiceCatalogMapper.class})
 public interface ServiceOrderItemMapper {

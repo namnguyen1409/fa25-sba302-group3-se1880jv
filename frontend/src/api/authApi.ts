@@ -1,6 +1,6 @@
 import type { FinishLoginPasskeyRequest, StartPasskeyLoginResponse } from "@/types/auth.dto";
 import { apiClient } from "./client";
-import type { MeResponse } from "@/types/auth";
+import type { MeResponse } from "./models";
 
 export interface LoginRequest {
     username: string;
@@ -79,4 +79,8 @@ export const authApi = {
         apiClient.post<AuthResponse>("/auth/mfa/switch", payload),
     resendMfa: (payload: { challengeId: string }) =>
         apiClient.post<AuthResponse>("/auth/mfa/resend", payload),
+    register: (payload: any) =>
+        apiClient.post("/auth/register", payload),
+    activateAccount: (token: string) =>
+        apiClient.post<{ message: string }>("/auth/activate", { token }),
 };

@@ -10,19 +10,21 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sba.group3.backendmvc.dto.response.CustomApiResponse;
+import sba.group3.backendmvc.dto.response.common.FileAttachmentResponse;
 import sba.group3.backendmvc.entity.common.FileAttachment;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.repository.common.FileAttachmentRepository;
+import sba.group3.backendmvc.service.infrastructure.FileStorageService;
+import sba.group3.backendmvc.service.infrastructure.FileUploadService;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,6 +36,7 @@ public class FileController {
 
     FileAttachmentRepository fileAttachmentRepository;
     MinioClient minioClient;
+    FileUploadService fileUploadService;
 
     @GetMapping("/view/{id}")
     public ResponseEntity<Resource> viewFile(@PathVariable UUID id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
@@ -52,5 +55,18 @@ public class FileController {
                 .body(new InputStreamResource(stream));
     }
 
+
+    @GetMapping
+    public ResponseEntity<CustomApiResponse<List<FileAttachmentResponse>>> getFiles(
+            @RequestParam String entityType,
+            @RequestParam String entityId
+    ) {
+        var files = fileUploadService.getAttachments(entityType, entityId);
+        return ResponseEntity.ok(
+                CustomApiResponse.<List<FileAttachmentResponse>>builder()
+                        .data(files)
+                        .build()
+        );
+    }
 
 }

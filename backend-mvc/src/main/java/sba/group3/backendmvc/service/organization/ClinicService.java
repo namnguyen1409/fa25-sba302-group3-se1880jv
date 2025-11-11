@@ -4,13 +4,16 @@ import org.springframework.data.domain.Page;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.organization.ClinicRequest;
 import sba.group3.backendmvc.dto.response.organization.ClinicResponse;
-import sba.group3.backendmvc.dto.response.organization.DepartmentResponse;
+
+import java.util.UUID;
 
 
 public interface ClinicService {
     Page<ClinicResponse> filter(SearchFilter filter);
     ClinicResponse getClinicById(String id);
     ClinicResponse createClinic(ClinicRequest clinic);
-    ClinicResponse updateClinic(String id, ClinicRequest clinic);
+    ClinicResponse updateClinic(UUID id, ClinicRequest clinic);
     void deleteClinic(String id);
+
+    ClinicResponse getDefaultClinic();
 }

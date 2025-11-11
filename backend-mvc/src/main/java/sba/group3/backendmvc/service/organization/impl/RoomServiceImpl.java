@@ -9,6 +9,7 @@ import sba.group3.backendmvc.dto.request.organization.RoomRequest;
 import sba.group3.backendmvc.dto.response.organization.RoomResponse;
 import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.mapper.organization.RoomMapper;
+import sba.group3.backendmvc.repository.organization.DepartmentRepository;
 import sba.group3.backendmvc.repository.organization.RoomRepository;
 import sba.group3.backendmvc.service.organization.RoomService;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class RoomServiceImpl implements RoomService {
     RoomRepository roomRepository;
     RoomMapper roomMapper;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public Page<RoomResponse> filter(SearchFilter filter) {
@@ -39,7 +41,9 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomResponse createRoom(RoomRequest request) {
-        return roomMapper.toDto(roomRepository.save(roomMapper.toEntity(request)));
+        var entity = roomMapper.toEntity(request);
+        entity.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
+        return roomMapper.toDto(roomRepository.save(entity));
     }
 
     @Override
@@ -47,6 +51,9 @@ public class RoomServiceImpl implements RoomService {
         Room existingRoom = roomRepository.findById(UUID.fromString(id))
                 .orElseThrow(() -> new RuntimeException("Room not found"));
         roomMapper.partialUpdate(request, existingRoom);
+        if (request.departmentId() != null) {
+            existingRoom.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
+        }
         return roomMapper.toDto(roomRepository.save(existingRoom));
     }
 
