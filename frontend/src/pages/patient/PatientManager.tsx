@@ -1,10 +1,10 @@
-
 import React, { useCallback } from "react";
 import {
   EntityTableWrapper,
   type FilterGroup,
   type SortRequest,
   type PageResponse,
+  type FormField,
 } from "@/components/common/EntityTableWrapper";
 import { toast } from "sonner";
 import DynamicInfo from "@/components/common/DynamicInfo";
@@ -15,9 +15,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useConfirm } from "@/hooks/useConfirm";
 import { PatientApi, type PatientResponse } from "@/api/patient/PatientApi";
 import { Eye } from "lucide-react";
+import * as yup from "yup";
 
 const fetchPatient = async (
   page: number,
@@ -34,7 +34,6 @@ const fetchPatient = async (
     );
 
     return { data: res };
-
   } catch (err) {
     toast.error("Failed to load patients");
     throw err;
@@ -42,33 +41,28 @@ const fetchPatient = async (
 };
 
 export default function PatientManagementPage() {
-  const [selectRow, setSelectRow] = React.useState<PatientResponse | null>(null);
+  const [selectRow, setSelectRow] = React.useState<PatientResponse | null>(
+    null
+  );
+  const [selectForForm, setSelectForForm] =
+    React.useState<PatientResponse | null>(null);
+  const [formType, setFormType] = React.useState<
+    "create" | "update" | "hidden"
+  >("hidden");
   const [showViewModal, setShowViewModal] = React.useState(false);
   const tableRef = React.useRef<any>(null);
-
-  const { confirm, ConfirmDialog } = useConfirm();
 
   const handleViewDetails = (row: PatientResponse) => {
     setSelectRow(row);
     setShowViewModal(true);
   };
 
+  const handleUpdate = (row: PatientResponse) => {
+    setSelectForForm(row);
+    setFormType("update");
+  };
+
   const fetchData = useCallback(fetchPatient, []);
-  
-  /**
-   * "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "patientCode": "string",
-        "fullName": "string",
-        "dateOfBirth": "2025-11-01",
-        "gender": "MALE",
-        "bloodType": "A_POSITIVE",
-        "status": "ACTIVE",
-        "phone": "string",
-        "email": "string",
-        "address": "string",
-        "insuranceNumber": "string",
-        "initPassword": "string"
-   */
 
   const columns = [
     { title: "Patient Code", dataIndex: "patientCode", sortable: true },
@@ -83,11 +77,114 @@ export default function PatientManagementPage() {
     { title: "Insurance Number", dataIndex: "insuranceNumber", sortable: true },
   ];
 
+  const formFieldConfigs: FormField[] = [
+    { name: "fullName", label: "Full Name", type: "text", required: true },
+    {
+      name: "dateOfBirth",
+      label: "Date of Birth",
+      type: "date",
+      required: true,
+    },
+    {
+      name: "gender",
+      label: "Gender",
+      type: "select",
+      required: true,
+      options: [
+        { value: "MALE", label: "Male" },
+        { value: "FEMALE", label: "Female" },
+      ],
+    },
+    {
+      name: "bloodType",
+      label: "Blood Type",
+      type: "select",
+      required: false,
+      options: [
+        { value: "A_POSITIVE", label: "A+" },
+        { value: "A_NEGATIVE", label: "A-" },
+        { value: "B_POSITIVE", label: "B+" },
+        { value: "B_NEGATIVE", label: "B-" },
+        { value: "AB_POSITIVE", label: "AB+" },
+        { value: "AB_NEGATIVE", label: "AB-" },
+        { value: "O_POSITIVE", label: "O+" },
+        { value: "O_NEGATIVE", label: "O-" },
+      ],
+    },
+    {
+      name: "status",
+      label: "Status",
+      type: "select",
+      required: true,
+      options: [
+        { value: "ACTIVE", label: "Active" },
+        { value: "INACTIVE", label: "Inactive" },
+        { value: "DECEASED", label: "Deceased" },
+      ],
+    },
+    { name: "phone", label: "Phone", type: "text" },
+    { name: "email", label: "Email", type: "text", required: true },
+    { name: "address", label: "Address", type: "text" },
+    { name: "insuranceNumber", label: "Insurance Number", type: "text" },
+  ];
+
+  const formModalProps = {
+    open: formType !== "hidden",
+    onClose: () => setFormType("hidden"),
+    title: formType === "create" ? "Create Patient" : "Update Patient",
+    formFields: formFieldConfigs,
+    defaultValues: selectForForm || {},
+    big: true,
+    schema: yup.object(
+      Object.fromEntries(
+        formFieldConfigs.map((f) => [
+          f.name,
+          f.required
+            ? f.type === "number"
+              ? yup
+                  .number()
+                  .typeError(`${f.label} must be a number`)
+                  .required(`${f.label} is required`)
+              : f.type === "date"
+              ? yup
+                  .date()
+                  .typeError(`${f.label} must be a valid date`)
+                  .required(`${f.label} is required`)
+              : yup.string().required(`${f.label} is required`)
+            : yup.mixed(),
+        ])
+      )
+    ),
+    onSubmit: async (data: any) => {
+      try {
+        const payload = {
+          ...data,
+          dateOfBirth: data.dateOfBirth
+            ? new Date(data.dateOfBirth).toISOString().split("T")[0]
+            : null,
+        };
+
+        if (formType === "create") {
+          await PatientApi.createPatient(payload);
+          toast.success("Patient created successfully");
+        } else if (formType === "update" && selectForForm) {
+          await PatientApi.updatePatient(selectForForm.id, payload);
+          toast.success("Patient updated successfully");
+        }
+
+        setFormType("hidden");
+        tableRef.current?.reload();
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to submit patient data");
+      }
+    },
+  };
 
   return (
     <>
       <EntityTableWrapper<PatientResponse>
-        ref = {tableRef}
+        ref={tableRef}
         title="Patient Management"
         fetchData={fetchData}
         columns={columns}
@@ -102,9 +199,22 @@ export default function PatientManagementPage() {
             >
               <Eye className="w-4 h-4" />
             </Button>
+            <Button variant="outline" onClick={() => handleUpdate(row)}>
+              Edit
+            </Button>
           </>
         )}
-    
+        formModalProps={formModalProps}
+        headerExtra={
+          <Button
+            onClick={() => {
+              setSelectForForm(null);
+              setFormType("create");
+            }}
+          >
+            Add Patient
+          </Button>
+        }
         footerExtra={(ctx) => (
           <div>
             <strong>Total Patients: </strong> {ctx.totalElements}
@@ -138,9 +248,6 @@ export default function PatientManagementPage() {
           )}
         </DialogContent>
       </Dialog>
-
-
-      <ConfirmDialog />
     </>
   );
 }

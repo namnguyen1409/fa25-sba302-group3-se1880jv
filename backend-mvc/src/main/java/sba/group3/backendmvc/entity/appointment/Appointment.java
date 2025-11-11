@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.organization.Room;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
@@ -58,4 +59,5 @@ public class Appointment extends BaseEntity {
 
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     QueueTicket queueTicket;
+
 }
