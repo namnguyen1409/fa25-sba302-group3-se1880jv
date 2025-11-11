@@ -1,5 +1,5 @@
 import type { PageResponse } from "@/components/common/EntityTableWrapper";
-import type { LabTestResultResponse } from "../models";
+import type { LabTestResultResponse } from "@/api";
 import { apiClient } from "../client";
 
 export const LabResultApi = {

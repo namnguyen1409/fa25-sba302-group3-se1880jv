@@ -2,52 +2,72 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getPatientByDay**](#getpatientbyday) | **GET** /api/admin/report/patient-by-day | |
-|[**getPatientByHour**](#getpatientbyhour) | **GET** /api/admin/report/patient-by-hour | |
-|[**getQueueStatusToday**](#getqueuestatustoday) | **GET** /api/admin/report/queue-status-today | |
-|[**getRevenueDaily**](#getrevenuedaily) | **GET** /api/admin/report/revenue-daily | |
-|[**getServiceUsage**](#getserviceusage) | **GET** /api/admin/report/service-usage | |
-|[**getSpecialtyDistribution**](#getspecialtydistribution) | **GET** /api/admin/report/patient-specialty | |
-|[**getStaffWorkload**](#getstaffworkload) | **GET** /api/admin/report/staff-workload | |
-|[**getTodaySummary**](#gettodaysummary) | **GET** /api/admin/report/today | |
+| [**getPatientByDay**](ReportAPIApi.md#getpatientbyday) | **GET** /api/admin/report/patient-by-day |  |
+| [**getPatientByHour**](ReportAPIApi.md#getpatientbyhour) | **GET** /api/admin/report/patient-by-hour |  |
+| [**getQueueStatusToday**](ReportAPIApi.md#getqueuestatustoday) | **GET** /api/admin/report/queue-status-today |  |
+| [**getRevenueDaily**](ReportAPIApi.md#getrevenuedaily) | **GET** /api/admin/report/revenue-daily |  |
+| [**getServiceUsage**](ReportAPIApi.md#getserviceusage) | **GET** /api/admin/report/service-usage |  |
+| [**getSpecialtyDistribution**](ReportAPIApi.md#getspecialtydistribution) | **GET** /api/admin/report/patient-specialty |  |
+| [**getStaffWorkload**](ReportAPIApi.md#getstaffworkload) | **GET** /api/admin/report/staff-workload |  |
+| [**getTodaySummary**](ReportAPIApi.md#gettodaysummary) | **GET** /api/admin/report/today |  |
 
-# **getPatientByDay**
-> CustomApiResponseListPatientByDayResponse getPatientByDay()
+
+
+## getPatientByDay
+
+> CustomApiResponseListPatientByDayResponse getPatientByDay(from, to)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetPatientByDayRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-let from: string; // (default to undefined)
-let to: string; // (default to undefined)
+  const body = {
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies GetPatientByDayRequest;
 
-const { status, data } = await apiInstance.getPatientByDay(
-    from,
-    to
-);
+  try {
+    const data = await api.getPatientByDay(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **from** | [**string**] |  | defaults to undefined|
-| **to** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListPatientByDayResponse**
+[**CustomApiResponseListPatientByDayResponse**](CustomApiResponseListPatientByDayResponse.md)
 
 ### Authorization
 
@@ -55,44 +75,62 @@ const { status, data } = await apiInstance.getPatientByDay(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getPatientByHour**
+
+## getPatientByHour
+
 > CustomApiResponseListPatientByHourResponse getPatientByHour()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetPatientByHourRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-const { status, data } = await apiInstance.getPatientByHour();
+  try {
+    const data = await api.getPatientByHour();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListPatientByHourResponse**
+[**CustomApiResponseListPatientByHourResponse**](CustomApiResponseListPatientByHourResponse.md)
 
 ### Authorization
 
@@ -100,44 +138,62 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getQueueStatusToday**
+
+## getQueueStatusToday
+
 > CustomApiResponseMapStringLong getQueueStatusToday()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetQueueStatusTodayRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-const { status, data } = await apiInstance.getQueueStatusToday();
+  try {
+    const data = await api.getQueueStatusToday();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseMapStringLong**
+[**CustomApiResponseMapStringLong**](CustomApiResponseMapStringLong.md)
 
 ### Authorization
 
@@ -145,54 +201,73 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getRevenueDaily**
-> CustomApiResponseListRevenueDailyResponse getRevenueDaily()
+
+## getRevenueDaily
+
+> CustomApiResponseListRevenueDailyResponse getRevenueDaily(from, to)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetRevenueDailyRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-let from: string; // (default to undefined)
-let to: string; // (default to undefined)
+  const body = {
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies GetRevenueDailyRequest;
 
-const { status, data } = await apiInstance.getRevenueDaily(
-    from,
-    to
-);
+  try {
+    const data = await api.getRevenueDaily(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
+
+| Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **from** | [**string**] |  | defaults to undefined|
-| **to** | [**string**] |  | defaults to undefined|
-
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListRevenueDailyResponse**
+[**CustomApiResponseListRevenueDailyResponse**](CustomApiResponseListRevenueDailyResponse.md)
 
 ### Authorization
 
@@ -200,54 +275,73 @@ const { status, data } = await apiInstance.getRevenueDaily(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getServiceUsage**
-> CustomApiResponseListServiceUsageResponse getServiceUsage()
+
+## getServiceUsage
+
+> CustomApiResponseListServiceUsageResponse getServiceUsage(from, to)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetServiceUsageRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-let from: string; // (default to undefined)
-let to: string; // (default to undefined)
+  const body = {
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies GetServiceUsageRequest;
 
-const { status, data } = await apiInstance.getServiceUsage(
-    from,
-    to
-);
+  try {
+    const data = await api.getServiceUsage(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **from** | [**string**] |  | defaults to undefined|
-| **to** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListServiceUsageResponse**
+[**CustomApiResponseListServiceUsageResponse**](CustomApiResponseListServiceUsageResponse.md)
 
 ### Authorization
 
@@ -255,44 +349,62 @@ const { status, data } = await apiInstance.getServiceUsage(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getSpecialtyDistribution**
+
+## getSpecialtyDistribution
+
 > CustomApiResponseListSpecialtyDistributionResponse getSpecialtyDistribution()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetSpecialtyDistributionRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-const { status, data } = await apiInstance.getSpecialtyDistribution();
+  try {
+    const data = await api.getSpecialtyDistribution();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListSpecialtyDistributionResponse**
+[**CustomApiResponseListSpecialtyDistributionResponse**](CustomApiResponseListSpecialtyDistributionResponse.md)
 
 ### Authorization
 
@@ -300,54 +412,73 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getStaffWorkload**
-> CustomApiResponseListStaffWorkloadResponse getStaffWorkload()
+
+## getStaffWorkload
+
+> CustomApiResponseListStaffWorkloadResponse getStaffWorkload(from, to)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetStaffWorkloadRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-let from: string; // (default to undefined)
-let to: string; // (default to undefined)
+  const body = {
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies GetStaffWorkloadRequest;
 
-const { status, data } = await apiInstance.getStaffWorkload(
-    from,
-    to
-);
+  try {
+    const data = await api.getStaffWorkload(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
+
+| Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **from** | [**string**] |  | defaults to undefined|
-| **to** | [**string**] |  | defaults to undefined|
-
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListStaffWorkloadResponse**
+[**CustomApiResponseListStaffWorkloadResponse**](CustomApiResponseListStaffWorkloadResponse.md)
 
 ### Authorization
 
@@ -355,44 +486,62 @@ const { status, data } = await apiInstance.getStaffWorkload(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getTodaySummary**
+
+## getTodaySummary
+
 > CustomApiResponseTodaySummaryResponse getTodaySummary()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ReportAPIApi,
-    Configuration
-} from './api';
+  Configuration,
+  ReportAPIApi,
+} from '';
+import type { GetTodaySummaryRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ReportAPIApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReportAPIApi(config);
 
-const { status, data } = await apiInstance.getTodaySummary();
+  try {
+    const data = await api.getTodaySummary();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseTodaySummaryResponse**
+[**CustomApiResponseTodaySummaryResponse**](CustomApiResponseTodaySummaryResponse.md)
 
 ### Authorization
 
@@ -400,16 +549,16 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

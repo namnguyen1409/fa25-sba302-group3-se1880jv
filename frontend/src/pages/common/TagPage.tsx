@@ -18,8 +18,8 @@ export default function TagPage() {
           filters: [
             {
               field: "tags",
-              operator: "in",
-              value: [tag],
+              operator: "member",
+              value: tag,
             },
           ],
         })

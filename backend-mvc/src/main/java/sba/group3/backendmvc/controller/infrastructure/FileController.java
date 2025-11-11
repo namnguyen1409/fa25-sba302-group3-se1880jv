@@ -6,6 +6,8 @@ import io.minio.errors.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -38,6 +40,10 @@ public class FileController {
     MinioClient minioClient;
     FileUploadService fileUploadService;
 
+    @NonFinal
+    @Value("${minio.bucket}")
+    String bucket;
+
     @GetMapping("/view/{id}")
     public ResponseEntity<Resource> viewFile(@PathVariable UUID id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         FileAttachment file = fileAttachmentRepository.findById(id)
@@ -45,7 +51,7 @@ public class FileController {
 
         InputStream stream = minioClient.getObject(
                 GetObjectArgs.builder()
-                        .bucket("clinic-files")
+                        .bucket(bucket)
                         .object(file.getFileName())
                         .build()
         );

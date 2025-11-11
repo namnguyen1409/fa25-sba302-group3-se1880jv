@@ -11,10 +11,13 @@ import { toast } from "sonner";
 import { useReactToPrint } from "react-to-print";
 import { useClinic } from "@/context/ClinicContext";
 import { PharmacyApi } from "@/api/pharmacy/PharmacyApi";
-import type { DispenseRecordResponse } from "@/api/models/DispenseRecordResponse";
+import type { DispenseRecordResponse } from "@/api";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DispenseRecordDetailPage() {
   const { id } = useParams();
+  const { user } = useAuth();
+
   const [record, setRecord] = useState<DispenseRecordResponse | null>(null);
 
   const { clinicInfo } = useClinic();
@@ -23,9 +26,9 @@ export default function DispenseRecordDetailPage() {
 
   const handlePrint = useReactToPrint({
     contentRef: printRef,
+    documentTitle: "Don_Thuoc",
   });
 
-  // Load data
   useEffect(() => {
     async function load() {
       try {
@@ -58,69 +61,78 @@ export default function DispenseRecordDetailPage() {
 
   return (
     <div className="p-6 flex justify-center">
-      <Button
-        variant="link"
-        className="mb-4 p-0 underline"
-        onClick={() => navigate(-1)}
-      > 
-        &larr; Quay lại
-      </Button>
-      <Card className="p-6 w-[700px] shadow">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-xl font-bold">ĐƠN THUỐC</h1>
-          <Badge variant="secondary">{record.status}</Badge>
+
+      <Card className="p-6 w-[760px] shadow border">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold tracking-wide">ĐƠN THUỐC</h1>
+          <Badge variant={record.status === "DISPENSED" ? "default" : "secondary"}>
+            {record.status}
+          </Badge>
+          <Button
+            variant="link"
+            className="mb-4 p-0 underline"
+            onClick={() => navigate(-1)}
+          >
+            &larr; Quay lại
+          </Button>
         </div>
 
-        <div ref={printRef}>
-          {/* ----------- CLINIC INFO ----------- */}
-          <div className="text-center mb-4">
-            <div className="font-bold text-lg">{clinicInfo?.name}</div>
+        <div ref={printRef} className="print:p-0">
+          {/* Clinic Info */}
+          <div className="text-center mb-6">
+            <div className="font-bold text-xl">{clinicInfo?.name}</div>
             <div className="text-muted-foreground text-sm">
-              {clinicInfo?.address?.street}, {clinicInfo?.address?.districtName}
-              , {clinicInfo?.address?.city}
+              {clinicInfo?.address?.street}, {clinicInfo?.address?.districtName},{" "}
+              {clinicInfo?.address?.city}
             </div>
-            <div>Điện thoại: {clinicInfo?.phone}</div>
+            <div className="text-sm">Điện thoại: {clinicInfo?.phone}</div>
           </div>
 
-          {/* ----------- PATIENT INFO ----------- */}
-          <div className="border p-4 rounded mb-6 text-sm">
-            <div>
-              <b>Bệnh nhân:</b> {patient?.fullName}
-            </div>
-            <div>
-              <b>Mã BN:</b> {patient?.patientCode}
-            </div>
-            <div>
-              <b>Địa chỉ:</b> {patient?.address}
-            </div>
-          </div>
-          {/* ----------- Thong tin nguoi pp ----------- */}
-          <div className="mb-6 text-sm">
-            <div>
-              <b>Người phát:</b> {dispensedBy?.fullName}
-            </div>
-            <div>
-              <b>Phòng:</b> {room?.name}
-            </div>
-            <div>
-              <b>Ngày phát:</b> {new Date(record.dispensedAt!).toLocaleString()}
+          {/* Patient Info */}
+          <div className="border p-4 rounded mb-6 text-sm bg-white">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <b>Bệnh nhân:</b> {patient?.fullName}
+              </div>
+              <div>
+                <b>Mã BN:</b> {patient?.patientCode}
+              </div>
+              <div className="sm:col-span-2">
+                <b>Địa chỉ:</b> {patient?.address}
+              </div>
             </div>
           </div>
 
-          {/* ----------- PRESCRIPTION LIST ----------- */}
-          <div className="mb-3 font-semibold">Danh sách thuốc</div>
+          {/* Dispense Info */}
+          <div className="border p-4 rounded mb-6 text-sm bg-white">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <b>Người phát:</b> {dispensedBy?.fullName}
+              </div>
+              <div>
+                <b>Phòng:</b> {room?.name}
+              </div>
+              <div className="sm:col-span-2">
+                <b>Ngày phát:</b>{" "}
+                {new Date(record.dispensedAt!).toLocaleString()}
+              </div>
+            </div>
+          </div>
 
-          <table className="w-full border-collapse text-sm">
+          {/* Medicine List */}
+          <div className="mb-3 font-semibold text-base">Danh sách thuốc</div>
+
+          <table className="w-full border-collapse text-sm print:text-[12px]">
             <thead>
-              <tr className="border">
-                <th className="border p-2 w-12 text-center">STT</th>
+              <tr className="border bg-gray-100">
+                <th className="border p-2 text-center w-12">#</th>
                 <th className="border p-2">Tên thuốc</th>
                 <th className="border p-2 w-32">Liều dùng</th>
                 <th className="border p-2 w-40">Hướng dẫn</th>
-                <th className="border p-2 w-16 text-center">SL</th>
+                <th className="border p-2 text-center w-16">SL</th>
               </tr>
             </thead>
-
             <tbody>
               {prescription?.items?.map((it, idx) => (
                 <tr key={it.id} className="border">
@@ -134,26 +146,28 @@ export default function DispenseRecordDetailPage() {
             </tbody>
           </table>
 
-          {/* ----------- FOOTER NOTE ----------- */}
-          <div className="mt-4 text-xs italic text-muted-foreground">
+          <div className="mt-4 text-xs italic text-muted-foreground text-center">
             Vui lòng kiểm tra thuốc trước khi rời quầy.
           </div>
         </div>
 
-        {/* ----------- ACTION BUTTONS ----------- */}
-        <div className="flex justify-end gap-3 mt-6">
-          <Button onClick={handlePrint}>
-            <FileDown className="h-4 w-4 mr-2" />
-            In đơn
-          </Button>
-
-          {record.status !== "DISPENSED" && (
-            <Button variant="default" onClick={markDone}>
-              <Check className="h-4 w-4 mr-2" />
-              Đã phát xong
+        {/* Action Buttons */}
+        {user?.staff && (
+          <div className="flex justify-end gap-3 mt-6">
+            <Button onClick={handlePrint}>
+              <FileDown className="h-4 w-4 mr-2" />
+              In đơn
             </Button>
-          )}
-        </div>
+
+            {user.staff.id === record.dispensedBy?.id &&
+              record.status !== "DISPENSED" && (
+                <Button variant="default" onClick={markDone}>
+                  <Check className="h-4 w-4 mr-2" />
+                  Đã phát xong
+                </Button>
+              )}
+          </div>
+        )}
       </Card>
     </div>
   );

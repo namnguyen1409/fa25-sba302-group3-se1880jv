@@ -1,38 +1,52 @@
+
 # DeviceSessionResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to undefined]
-**createdBy** | **string** |  | [optional] [default to undefined]
-**deviceName** | **string** |  | [optional] [default to undefined]
-**ipAddress** | **string** |  | [optional] [default to undefined]
-**userAgent** | **string** |  | [optional] [default to undefined]
-**trusted** | **boolean** |  | [optional] [default to undefined]
-**expiresIn** | **string** |  | [optional] [default to undefined]
-**revoked** | **boolean** |  | [optional] [default to undefined]
-**rememberMe** | **boolean** |  | [optional] [default to undefined]
-**lastLoginAt** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`id` | string
+`createdBy` | string
+`deviceName` | string
+`ipAddress` | string
+`userAgent` | string
+`trusted` | boolean
+`expiresIn` | Date
+`revoked` | boolean
+`rememberMe` | boolean
+`lastLoginAt` | Date
 
 ## Example
 
 ```typescript
-import { DeviceSessionResponse } from './api';
+import type { DeviceSessionResponse } from ''
 
-const instance: DeviceSessionResponse = {
-    id,
-    createdBy,
-    deviceName,
-    ipAddress,
-    userAgent,
-    trusted,
-    expiresIn,
-    revoked,
-    rememberMe,
-    lastLoginAt,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "id": null,
+  "createdBy": null,
+  "deviceName": null,
+  "ipAddress": null,
+  "userAgent": null,
+  "trusted": null,
+  "expiresIn": null,
+  "revoked": null,
+  "rememberMe": null,
+  "lastLoginAt": null,
+} satisfies DeviceSessionResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as DeviceSessionResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

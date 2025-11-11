@@ -7,6 +7,7 @@ import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.appointment.QueueTicket;
+import sba.group3.backendmvc.entity.billing.Invoice;
 import sba.group3.backendmvc.entity.laboratory.LabOrder;
 import sba.group3.backendmvc.entity.patient.Patient;
 import sba.group3.backendmvc.entity.staff.Staff;
@@ -74,5 +75,8 @@ public class Examination extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "examination", orphanRemoval = true)
     Set<LabOrder> labOrders = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "examination", orphanRemoval = true)
+    private Invoice invoice;
 
 }

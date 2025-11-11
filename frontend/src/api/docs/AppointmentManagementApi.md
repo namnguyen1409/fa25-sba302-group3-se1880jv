@@ -2,47 +2,66 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**create10**](#create10) | **POST** /api/appointments | |
-|[**delete10**](#delete10) | **DELETE** /api/appointments/{appointmentId} | |
-|[**filter11**](#filter11) | **POST** /api/appointments/filter | |
-|[**getById6**](#getbyid6) | **GET** /api/appointments/{appointmentId} | |
-|[**update10**](#update10) | **PUT** /api/appointments/{appointmentId} | |
+| [**create10**](AppointmentManagementApi.md#create10) | **POST** /api/appointments |  |
+| [**delete10**](AppointmentManagementApi.md#delete10) | **DELETE** /api/appointments/{appointmentId} |  |
+| [**filter11**](AppointmentManagementApi.md#filter11) | **POST** /api/appointments/filter |  |
+| [**getById6**](AppointmentManagementApi.md#getbyid6) | **GET** /api/appointments/{appointmentId} |  |
+| [**update10**](AppointmentManagementApi.md#update10) | **PUT** /api/appointments/{appointmentId} |  |
 
-# **create10**
+
+
+## create10
+
 > CustomApiResponseAppointmentResponse create10(appointmentRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AppointmentManagementApi,
-    Configuration,
-    AppointmentRequest
-} from './api';
+  Configuration,
+  AppointmentManagementApi,
+} from '';
+import type { Create10Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AppointmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AppointmentManagementApi(config);
 
-let appointmentRequest: AppointmentRequest; //
+  const body = {
+    // AppointmentRequest
+    appointmentRequest: ...,
+  } satisfies Create10Request;
 
-const { status, data } = await apiInstance.create10(
-    appointmentRequest
-);
+  try {
+    const data = await api.create10(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **appointmentRequest** | **AppointmentRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **appointmentRequest** | [AppointmentRequest](AppointmentRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAppointmentResponse**
+[**CustomApiResponseAppointmentResponse**](CustomApiResponseAppointmentResponse.md)
 
 ### Authorization
 
@@ -50,51 +69,70 @@ const { status, data } = await apiInstance.create10(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete10**
-> CustomApiResponseVoid delete10()
+
+## delete10
+
+> CustomApiResponseVoid delete10(appointmentId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AppointmentManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  AppointmentManagementApi,
+} from '';
+import type { Delete10Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AppointmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AppointmentManagementApi(config);
 
-let appointmentId: string; // (default to undefined)
+  const body = {
+    // string
+    appointmentId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies Delete10Request;
 
-const { status, data } = await apiInstance.delete10(
-    appointmentId
-);
+  try {
+    const data = await api.delete10(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **appointmentId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **appointmentId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -102,52 +140,70 @@ const { status, data } = await apiInstance.delete10(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter11**
+
+## filter11
+
 > CustomApiResponsePageAppointmentResponse filter11(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AppointmentManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  AppointmentManagementApi,
+} from '';
+import type { Filter11Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AppointmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AppointmentManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter11Request;
 
-const { status, data } = await apiInstance.filter11(
-    searchFilter
-);
+  try {
+    const data = await api.filter11(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageAppointmentResponse**
+[**CustomApiResponsePageAppointmentResponse**](CustomApiResponsePageAppointmentResponse.md)
 
 ### Authorization
 
@@ -155,51 +211,70 @@ const { status, data } = await apiInstance.filter11(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getById6**
-> CustomApiResponseAppointmentResponse getById6()
+
+## getById6
+
+> CustomApiResponseAppointmentResponse getById6(appointmentId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AppointmentManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  AppointmentManagementApi,
+} from '';
+import type { GetById6Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AppointmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AppointmentManagementApi(config);
 
-let appointmentId: string; // (default to undefined)
+  const body = {
+    // string
+    appointmentId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetById6Request;
 
-const { status, data } = await apiInstance.getById6(
-    appointmentId
-);
+  try {
+    const data = await api.getById6(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **appointmentId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **appointmentId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseAppointmentResponse**
+[**CustomApiResponseAppointmentResponse**](CustomApiResponseAppointmentResponse.md)
 
 ### Authorization
 
@@ -207,55 +282,73 @@ const { status, data } = await apiInstance.getById6(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update10**
-> CustomApiResponseAppointmentResponse update10(appointmentRequest)
+
+## update10
+
+> CustomApiResponseAppointmentResponse update10(appointmentId, appointmentRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AppointmentManagementApi,
-    Configuration,
-    AppointmentRequest
-} from './api';
+  Configuration,
+  AppointmentManagementApi,
+} from '';
+import type { Update10Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AppointmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AppointmentManagementApi(config);
 
-let appointmentId: string; // (default to undefined)
-let appointmentRequest: AppointmentRequest; //
+  const body = {
+    // string
+    appointmentId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // AppointmentRequest
+    appointmentRequest: ...,
+  } satisfies Update10Request;
 
-const { status, data } = await apiInstance.update10(
-    appointmentId,
-    appointmentRequest
-);
+  try {
+    const data = await api.update10(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **appointmentRequest** | **AppointmentRequest**|  | |
-| **appointmentId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **appointmentId** | `string` |  | [Defaults to `undefined`] |
+| **appointmentRequest** | [AppointmentRequest](AppointmentRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAppointmentResponse**
+[**CustomApiResponseAppointmentResponse**](CustomApiResponseAppointmentResponse.md)
 
 ### Authorization
 
@@ -263,16 +356,16 @@ const { status, data } = await apiInstance.update10(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

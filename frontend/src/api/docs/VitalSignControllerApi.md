@@ -2,49 +2,68 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**createVital**](#createvital) | **POST** /api/examinations/{id}/vitals | |
-|[**filterVitals**](#filtervitals) | **POST** /api/examinations/{id}/vitals/filter | |
-|[**getVitals**](#getvitals) | **GET** /api/examinations/{id}/vitals | |
-|[**saveOrUpdateVitals**](#saveorupdatevitals) | **PUT** /api/examinations/{id}/vitals/{vitalId} | |
+| [**createVital**](VitalSignControllerApi.md#createvital) | **POST** /api/examinations/{id}/vitals |  |
+| [**filterVitals**](VitalSignControllerApi.md#filtervitals) | **POST** /api/examinations/{id}/vitals/filter |  |
+| [**getVitals**](VitalSignControllerApi.md#getvitals) | **GET** /api/examinations/{id}/vitals |  |
+| [**saveOrUpdateVitals**](VitalSignControllerApi.md#saveorupdatevitals) | **PUT** /api/examinations/{id}/vitals/{vitalId} |  |
 
-# **createVital**
-> CustomApiResponseVitalSignResponse createVital(vitalSignRequest)
+
+
+## createVital
+
+> CustomApiResponseVitalSignResponse createVital(id, vitalSignRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    VitalSignControllerApi,
-    Configuration,
-    VitalSignRequest
-} from './api';
+  Configuration,
+  VitalSignControllerApi,
+} from '';
+import type { CreateVitalRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new VitalSignControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new VitalSignControllerApi(config);
 
-let id: string; // (default to undefined)
-let vitalSignRequest: VitalSignRequest; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // VitalSignRequest
+    vitalSignRequest: ...,
+  } satisfies CreateVitalRequest;
 
-const { status, data } = await apiInstance.createVital(
-    id,
-    vitalSignRequest
-);
+  try {
+    const data = await api.createVital(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **vitalSignRequest** | **VitalSignRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **vitalSignRequest** | [VitalSignRequest](VitalSignRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVitalSignResponse**
+[**CustomApiResponseVitalSignResponse**](CustomApiResponseVitalSignResponse.md)
 
 ### Authorization
 
@@ -52,55 +71,73 @@ const { status, data } = await apiInstance.createVital(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filterVitals**
-> CustomApiResponsePageVitalSignResponse filterVitals(searchFilter)
+
+## filterVitals
+
+> CustomApiResponsePageVitalSignResponse filterVitals(id, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    VitalSignControllerApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  VitalSignControllerApi,
+} from '';
+import type { FilterVitalsRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new VitalSignControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new VitalSignControllerApi(config);
 
-let id: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies FilterVitalsRequest;
 
-const { status, data } = await apiInstance.filterVitals(
-    id,
-    searchFilter
-);
+  try {
+    const data = await api.filterVitals(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageVitalSignResponse**
+[**CustomApiResponsePageVitalSignResponse**](CustomApiResponsePageVitalSignResponse.md)
 
 ### Authorization
 
@@ -108,51 +145,70 @@ const { status, data } = await apiInstance.filterVitals(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getVitals**
-> CustomApiResponseVitalSignResponse getVitals()
+
+## getVitals
+
+> CustomApiResponseVitalSignResponse getVitals(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    VitalSignControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  VitalSignControllerApi,
+} from '';
+import type { GetVitalsRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new VitalSignControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new VitalSignControllerApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetVitalsRequest;
 
-const { status, data } = await apiInstance.getVitals(
-    id
-);
+  try {
+    const data = await api.getVitals(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVitalSignResponse**
+[**CustomApiResponseVitalSignResponse**](CustomApiResponseVitalSignResponse.md)
 
 ### Authorization
 
@@ -160,58 +216,76 @@ const { status, data } = await apiInstance.getVitals(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **saveOrUpdateVitals**
-> CustomApiResponseVitalSignResponse saveOrUpdateVitals(vitalSignRequest)
+
+## saveOrUpdateVitals
+
+> CustomApiResponseVitalSignResponse saveOrUpdateVitals(id, vitalId, vitalSignRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    VitalSignControllerApi,
-    Configuration,
-    VitalSignRequest
-} from './api';
+  Configuration,
+  VitalSignControllerApi,
+} from '';
+import type { SaveOrUpdateVitalsRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new VitalSignControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new VitalSignControllerApi(config);
 
-let id: string; // (default to undefined)
-let vitalId: string; // (default to undefined)
-let vitalSignRequest: VitalSignRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // string
+    vitalId: vitalId_example,
+    // VitalSignRequest
+    vitalSignRequest: ...,
+  } satisfies SaveOrUpdateVitalsRequest;
 
-const { status, data } = await apiInstance.saveOrUpdateVitals(
-    id,
-    vitalId,
-    vitalSignRequest
-);
+  try {
+    const data = await api.saveOrUpdateVitals(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **vitalSignRequest** | **VitalSignRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
-| **vitalId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **vitalId** | `string` |  | [Defaults to `undefined`] |
+| **vitalSignRequest** | [VitalSignRequest](VitalSignRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVitalSignResponse**
+[**CustomApiResponseVitalSignResponse**](CustomApiResponseVitalSignResponse.md)
 
 ### Authorization
 
@@ -219,16 +293,16 @@ const { status, data } = await apiInstance.saveOrUpdateVitals(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

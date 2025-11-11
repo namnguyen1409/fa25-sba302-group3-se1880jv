@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState, type RefObject } from "react";
-import type { ExaminationResponse, PrescriptionItemResponse } from "@/api";
+import { useCallback, useRef, useState } from "react";
+import type { PrescriptionItemResponse } from "@/api";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -16,8 +16,7 @@ import { SearchSelect } from "@/components/common/SearchSelect";
 import { MedicineApi } from "@/api/medicine/MedicineApi";
 import * as yup from "yup";
 import { useReactToPrint } from "react-to-print";
-import type { ContentNode } from "react-to-print/lib/types/ContentNode";
-import { PrescriptionPrintView } from "../PrescriptionPrintView";
+import type { ExaminationResponse } from "@/api/models";
 
 export default function PrescriptionTab({
   exam,
@@ -241,8 +240,6 @@ export default function PrescriptionTab({
                   In đơn thuốc
                 </Button>
               </>
-              
-
             }
           />
           <FormModal
@@ -257,13 +254,6 @@ export default function PrescriptionTab({
             onSubmit={handleSubmit}
             schema={schema}
           />
-          <div ref={printRef} className="absolute">
-            <PrescriptionPrintView
-              patient={exam.patient}
-              items={exam.prescription.items}
-  
-            />
-          </div>
         </>
       )}
     </div>

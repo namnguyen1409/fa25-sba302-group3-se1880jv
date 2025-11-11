@@ -1,6 +1,6 @@
 import { type PageResponse } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { InvoiceResponse } from "../models";
+import type { InvoiceResponse } from "@/api";
 
 export const InvoiceApi = {
     getInvoicesForStaffToday: () =>

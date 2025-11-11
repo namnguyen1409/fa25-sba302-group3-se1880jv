@@ -1,6 +1,6 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { RoomRequest, RoomResponse } from "../models";
+import type { RoomRequest, RoomResponse } from "@/api";
 
 export const RoomApi = {
     search: (keyword: string) => apiClient.post<PageResponse<RoomResponse>>("/organization/rooms/filter", {

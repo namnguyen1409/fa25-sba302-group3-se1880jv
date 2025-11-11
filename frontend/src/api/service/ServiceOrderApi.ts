@@ -1,6 +1,6 @@
 import type { PageResponse } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { ServiceOrderResponse } from "../models";
+import type { ServiceOrderResponse } from "@/api";
 
 export const ServiceOrderApi = {
 

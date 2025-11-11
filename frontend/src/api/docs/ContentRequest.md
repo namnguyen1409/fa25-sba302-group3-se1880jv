@@ -1,32 +1,46 @@
+
 # ContentRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**title** | **string** |  | [optional] [default to undefined]
-**slug** | **string** |  | [optional] [default to undefined]
-**body** | **string** |  | [optional] [default to undefined]
-**excerpt** | **string** |  | [optional] [default to undefined]
-**coverImageUrl** | **string** |  | [optional] [default to undefined]
-**status** | **string** |  | [optional] [default to undefined]
-**tags** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`title` | string
+`slug` | string
+`body` | string
+`excerpt` | string
+`coverImageUrl` | string
+`status` | string
+`tags` | Set&lt;string&gt;
 
 ## Example
 
 ```typescript
-import { ContentRequest } from './api';
+import type { ContentRequest } from ''
 
-const instance: ContentRequest = {
-    title,
-    slug,
-    body,
-    excerpt,
-    coverImageUrl,
-    status,
-    tags,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "title": null,
+  "slug": null,
+  "body": null,
+  "excerpt": null,
+  "coverImageUrl": null,
+  "status": null,
+  "tags": null,
+} satisfies ContentRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as ContentRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

@@ -31,9 +31,6 @@ public class FileUploadController {
 
     HttpServletRequest request;
 
-    /**
-     * ✅ Upload 1 file kết quả
-     */
     @PostMapping(
             value = "/upload",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE

@@ -1,42 +1,56 @@
+
 # StaffRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**phone** | **string** |  | [optional] [default to undefined]
-**fullName** | **string** |  | [optional] [default to undefined]
-**departmentId** | **string** |  | [optional] [default to undefined]
-**specialtyId** | **string** |  | [optional] [default to undefined]
-**staffType** | **string** |  | [optional] [default to undefined]
-**positionId** | **string** |  | [optional] [default to undefined]
-**licenseNumber** | **string** |  | [optional] [default to undefined]
-**experienceYears** | **number** |  | [optional] [default to undefined]
-**education** | **string** |  | [optional] [default to undefined]
-**bio** | **string** |  | [optional] [default to undefined]
-**joinedDate** | **string** |  | [optional] [default to undefined]
-**email** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`phone` | string
+`fullName` | string
+`departmentId` | string
+`specialtyId` | string
+`staffType` | string
+`positionId` | string
+`licenseNumber` | string
+`experienceYears` | number
+`education` | string
+`bio` | string
+`joinedDate` | Date
+`email` | string
 
 ## Example
 
 ```typescript
-import { StaffRequest } from './api';
+import type { StaffRequest } from ''
 
-const instance: StaffRequest = {
-    phone,
-    fullName,
-    departmentId,
-    specialtyId,
-    staffType,
-    positionId,
-    licenseNumber,
-    experienceYears,
-    education,
-    bio,
-    joinedDate,
-    email,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "phone": null,
+  "fullName": null,
+  "departmentId": null,
+  "specialtyId": null,
+  "staffType": null,
+  "positionId": null,
+  "licenseNumber": null,
+  "experienceYears": null,
+  "education": null,
+  "bio": null,
+  "joinedDate": null,
+  "email": null,
+} satisfies StaffRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as StaffRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

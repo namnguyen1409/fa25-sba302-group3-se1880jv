@@ -1,38 +1,52 @@
+
 # PublicKeyCredentialCreationOptions
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**rp** | [**RelyingPartyIdentity**](RelyingPartyIdentity.md) |  | [optional] [default to undefined]
-**user** | [**UserIdentity**](UserIdentity.md) |  | [optional] [default to undefined]
-**challenge** | **string** |  | [optional] [default to undefined]
-**pubKeyCredParams** | [**Array&lt;PublicKeyCredentialParameters&gt;**](PublicKeyCredentialParameters.md) |  | [optional] [default to undefined]
-**timeout** | **number** |  | [optional] [default to undefined]
-**hints** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
-**excludeCredentials** | [**Set&lt;PublicKeyCredentialDescriptor&gt;**](PublicKeyCredentialDescriptor.md) |  | [optional] [default to undefined]
-**authenticatorSelection** | [**AuthenticatorSelectionCriteria**](AuthenticatorSelectionCriteria.md) |  | [optional] [default to undefined]
-**attestation** | **string** |  | [optional] [default to undefined]
-**extensions** | [**RegistrationExtensionInputs**](RegistrationExtensionInputs.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`rp` | [RelyingPartyIdentity](RelyingPartyIdentity.md)
+`user` | [UserIdentity](UserIdentity.md)
+`challenge` | string
+`pubKeyCredParams` | [Array&lt;PublicKeyCredentialParameters&gt;](PublicKeyCredentialParameters.md)
+`timeout` | number
+`hints` | Array&lt;string&gt;
+`excludeCredentials` | [Set&lt;PublicKeyCredentialDescriptor&gt;](PublicKeyCredentialDescriptor.md)
+`authenticatorSelection` | [AuthenticatorSelectionCriteria](AuthenticatorSelectionCriteria.md)
+`attestation` | string
+`extensions` | [RegistrationExtensionInputs](RegistrationExtensionInputs.md)
 
 ## Example
 
 ```typescript
-import { PublicKeyCredentialCreationOptions } from './api';
+import type { PublicKeyCredentialCreationOptions } from ''
 
-const instance: PublicKeyCredentialCreationOptions = {
-    rp,
-    user,
-    challenge,
-    pubKeyCredParams,
-    timeout,
-    hints,
-    excludeCredentials,
-    authenticatorSelection,
-    attestation,
-    extensions,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "rp": null,
+  "user": null,
+  "challenge": null,
+  "pubKeyCredParams": null,
+  "timeout": null,
+  "hints": null,
+  "excludeCredentials": null,
+  "authenticatorSelection": null,
+  "attestation": null,
+  "extensions": null,
+} satisfies PublicKeyCredentialCreationOptions
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as PublicKeyCredentialCreationOptions
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

@@ -1,24 +1,38 @@
+
 # EmergencyContactRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**fullName** | **string** |  | [default to undefined]
-**relationship** | **string** |  | [optional] [default to undefined]
-**phone** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`fullName` | string
+`relationship` | string
+`phone` | string
 
 ## Example
 
 ```typescript
-import { EmergencyContactRequest } from './api';
+import type { EmergencyContactRequest } from ''
 
-const instance: EmergencyContactRequest = {
-    fullName,
-    relationship,
-    phone,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "fullName": null,
+  "relationship": null,
+  "phone": null,
+} satisfies EmergencyContactRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as EmergencyContactRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

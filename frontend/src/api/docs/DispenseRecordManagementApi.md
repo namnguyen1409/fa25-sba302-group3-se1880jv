@@ -2,48 +2,67 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**create8**](#create8) | **POST** /api/dispense-records | |
-|[**delete8**](#delete8) | **DELETE** /api/dispense-records/{recordId} | |
-|[**filter8**](#filter8) | **POST** /api/dispense-records/filter | |
-|[**getById4**](#getbyid4) | **GET** /api/dispense-records/{recordId} | |
-|[**getOrdersForStaffToday1**](#getordersforstafftoday1) | **GET** /api/dispense-records/staff/today | |
-|[**update8**](#update8) | **PUT** /api/dispense-records/{recordId} | |
+| [**create8**](DispenseRecordManagementApi.md#create8) | **POST** /api/dispense-records |  |
+| [**delete8**](DispenseRecordManagementApi.md#delete8) | **DELETE** /api/dispense-records/{recordId} |  |
+| [**filter8**](DispenseRecordManagementApi.md#filter8) | **POST** /api/dispense-records/filter |  |
+| [**getById4**](DispenseRecordManagementApi.md#getbyid4) | **GET** /api/dispense-records/{recordId} |  |
+| [**getOrdersForStaffToday1**](DispenseRecordManagementApi.md#getordersforstafftoday1) | **GET** /api/dispense-records/staff/today |  |
+| [**update8**](DispenseRecordManagementApi.md#update8) | **PUT** /api/dispense-records/{recordId} |  |
 
-# **create8**
+
+
+## create8
+
 > CustomApiResponseDispenseRecordResponse create8(dispenseRecordRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    DispenseRecordManagementApi,
-    Configuration,
-    DispenseRecordRequest
-} from './api';
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { Create8Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DispenseRecordManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
 
-let dispenseRecordRequest: DispenseRecordRequest; //
+  const body = {
+    // DispenseRecordRequest
+    dispenseRecordRequest: ...,
+  } satisfies Create8Request;
 
-const { status, data } = await apiInstance.create8(
-    dispenseRecordRequest
-);
+  try {
+    const data = await api.create8(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **dispenseRecordRequest** | **DispenseRecordRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **dispenseRecordRequest** | [DispenseRecordRequest](DispenseRecordRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseDispenseRecordResponse**
+[**CustomApiResponseDispenseRecordResponse**](CustomApiResponseDispenseRecordResponse.md)
 
 ### Authorization
 
@@ -51,51 +70,70 @@ const { status, data } = await apiInstance.create8(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete8**
-> CustomApiResponseVoid delete8()
+
+## delete8
+
+> CustomApiResponseVoid delete8(recordId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DispenseRecordManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { Delete8Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DispenseRecordManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
 
-let recordId: string; // (default to undefined)
+  const body = {
+    // string
+    recordId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies Delete8Request;
 
-const { status, data } = await apiInstance.delete8(
-    recordId
-);
+  try {
+    const data = await api.delete8(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **recordId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **recordId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -103,52 +141,70 @@ const { status, data } = await apiInstance.delete8(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter8**
+
+## filter8
+
 > CustomApiResponsePageDispenseRecordResponse filter8(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    DispenseRecordManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { Filter8Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DispenseRecordManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter8Request;
 
-const { status, data } = await apiInstance.filter8(
-    searchFilter
-);
+  try {
+    const data = await api.filter8(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageDispenseRecordResponse**
+[**CustomApiResponsePageDispenseRecordResponse**](CustomApiResponsePageDispenseRecordResponse.md)
 
 ### Authorization
 
@@ -156,51 +212,70 @@ const { status, data } = await apiInstance.filter8(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getById4**
-> CustomApiResponseDispenseRecordResponse getById4()
+
+## getById4
+
+> CustomApiResponseDispenseRecordResponse getById4(recordId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DispenseRecordManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { GetById4Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DispenseRecordManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
 
-let recordId: string; // (default to undefined)
+  const body = {
+    // string
+    recordId: recordId_example,
+  } satisfies GetById4Request;
 
-const { status, data } = await apiInstance.getById4(
-    recordId
-);
+  try {
+    const data = await api.getById4(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **recordId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **recordId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseDispenseRecordResponse**
+[**CustomApiResponseDispenseRecordResponse**](CustomApiResponseDispenseRecordResponse.md)
 
 ### Authorization
 
@@ -208,44 +283,62 @@ const { status, data } = await apiInstance.getById4(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getOrdersForStaffToday1**
+
+## getOrdersForStaffToday1
+
 > CustomApiResponseListDispenseRecordResponse getOrdersForStaffToday1()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    DispenseRecordManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { GetOrdersForStaffToday1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DispenseRecordManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
 
-const { status, data } = await apiInstance.getOrdersForStaffToday1();
+  try {
+    const data = await api.getOrdersForStaffToday1();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListDispenseRecordResponse**
+[**CustomApiResponseListDispenseRecordResponse**](CustomApiResponseListDispenseRecordResponse.md)
 
 ### Authorization
 
@@ -253,55 +346,73 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update8**
-> CustomApiResponseDispenseRecordResponse update8(dispenseRecordRequest)
+
+## update8
+
+> CustomApiResponseDispenseRecordResponse update8(recordId, dispenseRecordRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DispenseRecordManagementApi,
-    Configuration,
-    DispenseRecordRequest
-} from './api';
+  Configuration,
+  DispenseRecordManagementApi,
+} from '';
+import type { Update8Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DispenseRecordManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DispenseRecordManagementApi(config);
 
-let recordId: string; // (default to undefined)
-let dispenseRecordRequest: DispenseRecordRequest; //
+  const body = {
+    // string
+    recordId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // DispenseRecordRequest
+    dispenseRecordRequest: ...,
+  } satisfies Update8Request;
 
-const { status, data } = await apiInstance.update8(
-    recordId,
-    dispenseRecordRequest
-);
+  try {
+    const data = await api.update8(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
+
+| Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **dispenseRecordRequest** | **DispenseRecordRequest**|  | |
-| **recordId** | [**string**] |  | defaults to undefined|
-
+| **recordId** | `string` |  | [Defaults to `undefined`] |
+| **dispenseRecordRequest** | [DispenseRecordRequest](DispenseRecordRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseDispenseRecordResponse**
+[**CustomApiResponseDispenseRecordResponse**](CustomApiResponseDispenseRecordResponse.md)
 
 ### Authorization
 
@@ -309,16 +420,16 @@ const { status, data } = await apiInstance.update8(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

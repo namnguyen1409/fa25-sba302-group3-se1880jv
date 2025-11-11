@@ -1,7 +1,7 @@
 
 import { apiClient } from "../client";
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
-import type { SpecialtyRequest, SpecialtyResponse } from "../models";
+import type { SpecialtyRequest, SpecialtyResponse } from "@/api";
 
 
 export const SpecialtyApi = {

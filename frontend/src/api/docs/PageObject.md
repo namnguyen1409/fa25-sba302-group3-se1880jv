@@ -1,40 +1,54 @@
+
 # PageObject
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**totalPages** | **number** |  | [optional] [default to undefined]
-**totalElements** | **number** |  | [optional] [default to undefined]
-**pageable** | [**PageableObject**](PageableObject.md) |  | [optional] [default to undefined]
-**size** | **number** |  | [optional] [default to undefined]
-**content** | [**Array&lt;ServiceOrderResponse&gt;**](ServiceOrderResponse.md) |  | [optional] [default to undefined]
-**number** | **number** |  | [optional] [default to undefined]
-**sort** | [**SortObject**](SortObject.md) |  | [optional] [default to undefined]
-**first** | **boolean** |  | [optional] [default to undefined]
-**last** | **boolean** |  | [optional] [default to undefined]
-**numberOfElements** | **number** |  | [optional] [default to undefined]
-**empty** | **boolean** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`totalPages` | number
+`totalElements` | number
+`pageable` | [PageableObject](PageableObject.md)
+`size` | number
+`content` | [Array&lt;ServiceOrderResponse&gt;](ServiceOrderResponse.md)
+`number` | number
+`sort` | [SortObject](SortObject.md)
+`first` | boolean
+`last` | boolean
+`numberOfElements` | number
+`empty` | boolean
 
 ## Example
 
 ```typescript
-import { PageObject } from './api';
+import type { PageObject } from ''
 
-const instance: PageObject = {
-    totalPages,
-    totalElements,
-    pageable,
-    size,
-    content,
-    number,
-    sort,
-    first,
-    last,
-    numberOfElements,
-    empty,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "totalPages": null,
+  "totalElements": null,
+  "pageable": null,
+  "size": null,
+  "content": null,
+  "number": null,
+  "sort": null,
+  "first": null,
+  "last": null,
+  "numberOfElements": null,
+  "empty": null,
+} satisfies PageObject
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as PageObject
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

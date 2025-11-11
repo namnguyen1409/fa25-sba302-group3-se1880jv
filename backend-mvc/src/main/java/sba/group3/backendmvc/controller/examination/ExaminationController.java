@@ -45,7 +45,6 @@ public class ExaminationController {
     private final LabOrderService labOrderService;
     private final JwtService jwtService;
 
-    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE', 'RECEPTIONIST')")
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<ExaminationResponse>>> getExaminations(
             @RequestBody SearchFilter filter,
@@ -64,6 +63,14 @@ public class ExaminationController {
 
     private void applyRoleBasedMandatoryFilter(SearchFilter filter, JwtServiceImpl.AuthInfo info) {
         if (info.role().contains("ROLE_SYSTEM_ADMIN") || info.role().contains("ROLE_MANAGER")) {
+            return;
+        }
+        if (info.role().contains("ROLE_PATIENT")) {
+            filter.addMandatoryCondition(Filter.builder()
+                    .field(Examination.Fields.patient + ".id")
+                    .operator("eq")
+                    .value(info.patientId())
+                    .build());
             return;
         }
 

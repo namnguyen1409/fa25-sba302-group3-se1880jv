@@ -1,5 +1,5 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
-import type { DepartmentRequest, DepartmentResponse } from "../models";
+import type { DepartmentRequest, DepartmentResponse } from "@/api";
 import { apiClient } from "../client";
 
 export const DepartmentApi = {

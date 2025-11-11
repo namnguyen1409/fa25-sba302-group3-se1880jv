@@ -14,7 +14,6 @@ import { Card } from "@/components/ui/card";
 
 import { ExaminationApi } from "@/api/examination/ExaminationApi";
 import type {
-  ExaminationResponse,
   ServiceOrderResponse,
 } from "@/api";
 
@@ -22,6 +21,7 @@ import { ServiceOrderPrintTable } from "./ServiceOrderPrintTable";
 import { useNavigate } from "react-router-dom";
 import { ServiceSearchModal } from "./ServiceSearchModal";
 import { toast } from "sonner";
+import type { ExaminationResponse } from "@/api/models";
 
 export default function ServiceOrdersTab({
   exam,

@@ -1,44 +1,60 @@
+
 # ExaminationResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to undefined]
-**patient** | [**PatientResponse**](PatientResponse.md) |  | [optional] [default to undefined]
-**staff** | [**StaffResponse**](StaffResponse.md) |  | [optional] [default to undefined]
-**type** | **string** |  | [optional] [default to undefined]
-**status** | **string** |  | [optional] [default to undefined]
-**symptom** | **string** |  | [optional] [default to undefined]
-**diagnosisSummary** | **string** |  | [optional] [default to undefined]
-**examinationDate** | **string** |  | [optional] [default to undefined]
-**prescription** | [**PrescriptionResponse**](PrescriptionResponse.md) |  | [optional] [default to undefined]
-**serviceOrders** | [**Set&lt;ServiceOrderResponse&gt;**](ServiceOrderResponse.md) |  | [optional] [default to undefined]
-**vitalSigns** | [**Set&lt;VitalSignResponse&gt;**](VitalSignResponse.md) |  | [optional] [default to undefined]
-**diagnoses** | [**Set&lt;DiagnosisResponse&gt;**](DiagnosisResponse.md) |  | [optional] [default to undefined]
-**labOrders** | [**Set&lt;LabOrderResponse&gt;**](LabOrderResponse.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`id` | string
+`patient` | [PatientResponse](PatientResponse.md)
+`staff` | [StaffResponse](StaffResponse.md)
+`type` | string
+`status` | string
+`symptom` | string
+`diagnosisSummary` | string
+`examinationDate` | Date
+`prescription` | [PrescriptionResponse](PrescriptionResponse.md)
+`serviceOrders` | [Set&lt;ServiceOrderResponse&gt;](ServiceOrderResponse.md)
+`vitalSigns` | [Set&lt;VitalSignResponse&gt;](VitalSignResponse.md)
+`diagnoses` | [Set&lt;DiagnosisResponse&gt;](DiagnosisResponse.md)
+`labOrders` | [Set&lt;LabOrderResponse&gt;](LabOrderResponse.md)
+`invoiceId` | string
 
 ## Example
 
 ```typescript
-import { ExaminationResponse } from './api';
+import type { ExaminationResponse } from ''
 
-const instance: ExaminationResponse = {
-    id,
-    patient,
-    staff,
-    type,
-    status,
-    symptom,
-    diagnosisSummary,
-    examinationDate,
-    prescription,
-    serviceOrders,
-    vitalSigns,
-    diagnoses,
-    labOrders,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "id": null,
+  "patient": null,
+  "staff": null,
+  "type": null,
+  "status": null,
+  "symptom": null,
+  "diagnosisSummary": null,
+  "examinationDate": null,
+  "prescription": null,
+  "serviceOrders": null,
+  "vitalSigns": null,
+  "diagnoses": null,
+  "labOrders": null,
+  "invoiceId": null,
+} satisfies ExaminationResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as ExaminationResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

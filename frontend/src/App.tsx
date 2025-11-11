@@ -57,6 +57,8 @@ import NewsDetailPage from "./pages/common/NewsDetailPage";
 import StaffListPage from "./pages/common/StaffListPage";
 import StaffDetailPublicPage from "./pages/common/StaffDetailPage";
 import TagPage from "./pages/common/TagPage";
+import PatientHistoryPage from "./pages/common/PatientHistoryPage";
+import PatientHistoryDetailPage from "./pages/common/PatientHistoryDetailPage";
 function App() {
   return (
     <AppProvider>
@@ -103,6 +105,27 @@ function App() {
                 <Route path="devices" element={<AccountDevicesPage />} />
                 <Route path="login-activity" element={<LoginActivityPage />} />
               </Route>
+            </Route>
+
+            <Route
+              path="/patient"
+              element={
+                <ProtectedRoute>
+                  <PublicLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<PatientHistoryPage />} />
+              <Route path="history" element={<PatientHistoryPage />} />
+              <Route
+                path="history/:id"
+                element={<PatientHistoryDetailPage />}
+              />
+              <Route
+                path="prescription/:id"
+                element={<DispenseRecordDetailPage />}
+              />
+              <Route path="invoice/:id" element={<BillingDetailPage />} />
             </Route>
 
             <Route

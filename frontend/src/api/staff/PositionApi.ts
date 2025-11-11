@@ -1,5 +1,5 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
-import type { PositionRequest, PositionResponse } from "../models";
+import type { PositionRequest, PositionResponse } from "@/api";
 import { apiClient } from "../client";
 
 export const PositionApi = {

@@ -584,7 +584,7 @@ public class AuthServiceImpl implements AuthService {
                 "client_id", githubClientId,
                 "client_secret", githubClientSecret,
                 "code", code,
-                "redirect_uri", "http://localhost:5173/oauth/callback/github"
+                "redirect_uri", frontendUrl + "/oauth/callback/github"
         );
 
         RestTemplate restTemplate = new RestTemplate();

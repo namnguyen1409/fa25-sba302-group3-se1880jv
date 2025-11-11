@@ -1,32 +1,46 @@
+
 # PublicKeyCredentialRequestOptions
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**challenge** | **string** |  | [optional] [default to undefined]
-**timeout** | **number** |  | [optional] [default to undefined]
-**hints** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
-**rpId** | **string** |  | [optional] [default to undefined]
-**allowCredentials** | [**Array&lt;PublicKeyCredentialDescriptor&gt;**](PublicKeyCredentialDescriptor.md) |  | [optional] [default to undefined]
-**userVerification** | **string** |  | [optional] [default to undefined]
-**extensions** | [**AssertionExtensionInputs**](AssertionExtensionInputs.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`challenge` | string
+`timeout` | number
+`hints` | Array&lt;string&gt;
+`rpId` | string
+`allowCredentials` | [Array&lt;PublicKeyCredentialDescriptor&gt;](PublicKeyCredentialDescriptor.md)
+`userVerification` | string
+`extensions` | [AssertionExtensionInputs](AssertionExtensionInputs.md)
 
 ## Example
 
 ```typescript
-import { PublicKeyCredentialRequestOptions } from './api';
+import type { PublicKeyCredentialRequestOptions } from ''
 
-const instance: PublicKeyCredentialRequestOptions = {
-    challenge,
-    timeout,
-    hints,
-    rpId,
-    allowCredentials,
-    userVerification,
-    extensions,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "challenge": null,
+  "timeout": null,
+  "hints": null,
+  "rpId": null,
+  "allowCredentials": null,
+  "userVerification": null,
+  "extensions": null,
+} satisfies PublicKeyCredentialRequestOptions
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as PublicKeyCredentialRequestOptions
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

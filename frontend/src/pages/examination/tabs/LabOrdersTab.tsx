@@ -10,7 +10,7 @@ import {
 
 import type { Column } from "@/components/common/ReuseAbleTable";
 import { ExaminationApi } from "@/api/examination/ExaminationApi";
-import type { ExaminationResponse, LabOrderResponse } from "@/api";
+import type { LabOrderResponse } from "@/api";
 
 import { LabTestSearchModal } from "./LabTestSearchModal";
 import { LabOrderPrintTable } from "./LabOrderPrintTable";
@@ -18,6 +18,7 @@ import { Card } from "@/components/ui/card";
 import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import type { ExaminationResponse } from "@/api/models";
 
 export default function LabOrdersTab({ exam }: { exam: ExaminationResponse }) {
   const tableRef = useRef<any>(null);

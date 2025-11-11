@@ -1,30 +1,44 @@
+
 # AppointmentRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**patientId** | **string** |  | [optional] [default to undefined]
-**specialtyId** | **string** |  | [optional] [default to undefined]
-**type** | **string** |  | [optional] [default to undefined]
-**status** | **string** |  | [optional] [default to undefined]
-**source** | **string** |  | [optional] [default to undefined]
-**note** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`patientId` | string
+`specialtyId` | string
+`type` | string
+`status` | string
+`source` | string
+`note` | string
 
 ## Example
 
 ```typescript
-import { AppointmentRequest } from './api';
+import type { AppointmentRequest } from ''
 
-const instance: AppointmentRequest = {
-    patientId,
-    specialtyId,
-    type,
-    status,
-    source,
-    note,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "patientId": null,
+  "specialtyId": null,
+  "type": null,
+  "status": null,
+  "source": null,
+  "note": null,
+} satisfies AppointmentRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as AppointmentRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

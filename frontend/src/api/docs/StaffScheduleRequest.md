@@ -1,36 +1,50 @@
+
 # StaffScheduleRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**staffId** | **string** |  | [optional] [default to undefined]
-**dayOfWeek** | **string** |  | [optional] [default to undefined]
-**startTime** | [**LocalTime**](LocalTime.md) |  | [optional] [default to undefined]
-**endTime** | [**LocalTime**](LocalTime.md) |  | [optional] [default to undefined]
-**available** | **boolean** |  | [optional] [default to undefined]
-**roomId** | **string** |  | [optional] [default to undefined]
-**date** | **string** |  | [optional] [default to undefined]
-**status** | **string** |  | [optional] [default to undefined]
-**note** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`staffId` | string
+`dayOfWeek` | string
+`startTime` | [LocalTime](LocalTime.md)
+`endTime` | [LocalTime](LocalTime.md)
+`available` | boolean
+`roomId` | string
+`date` | Date
+`status` | string
+`note` | string
 
 ## Example
 
 ```typescript
-import { StaffScheduleRequest } from './api';
+import type { StaffScheduleRequest } from ''
 
-const instance: StaffScheduleRequest = {
-    staffId,
-    dayOfWeek,
-    startTime,
-    endTime,
-    available,
-    roomId,
-    date,
-    status,
-    note,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "staffId": null,
+  "dayOfWeek": null,
+  "startTime": null,
+  "endTime": null,
+  "available": null,
+  "roomId": null,
+  "date": null,
+  "status": null,
+  "note": null,
+} satisfies StaffScheduleRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as StaffScheduleRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

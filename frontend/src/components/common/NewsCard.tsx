@@ -45,7 +45,7 @@ export function NewsCard({ item }: { item: ContentResponse }) {
           </span>
         </div>
 
-        {item.tags?.length > 0 && (
+        {item.tags && item.tags?.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
             {item?.tags?.map((t: string, index) => (
               <Link

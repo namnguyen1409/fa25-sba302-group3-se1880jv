@@ -2,58 +2,77 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**createExamination**](#createexamination) | **POST** /api/examinations | |
-|[**createLabOrder**](#createlaborder) | **POST** /api/examinations/{id}/lab/orders | |
-|[**createOrders**](#createorders) | **POST** /api/examinations/{examId}/services/orders | |
-|[**createPrescription**](#createprescription) | **POST** /api/examinations/{id}/prescription | |
-|[**createServiceOrder**](#createserviceorder) | **POST** /api/examinations/{id}/services | |
-|[**deletePrescriptionItem1**](#deleteprescriptionitem1) | **DELETE** /api/examinations/prescription/{prescriptionId} | |
-|[**deleteServiceOrderItem**](#deleteserviceorderitem) | **DELETE** /api/examinations/{id}/services/item/{itemId} | |
-|[**filterLabOrders**](#filterlaborders) | **POST** /api/examinations/{id}/lab/orders/filter | |
-|[**filterServiceOrders**](#filterserviceorders) | **POST** /api/examinations/{examId}/services/filter | |
-|[**getExaminationDetail**](#getexaminationdetail) | **GET** /api/examinations/{id} | |
-|[**getExaminations**](#getexaminations) | **POST** /api/examinations/filter | |
-|[**getPrescription**](#getprescription) | **GET** /api/examinations/{id}/prescription | |
-|[**getServiceOrders**](#getserviceorders) | **GET** /api/examinations/{id}/services | |
-|[**saveOrUpdatePrescription**](#saveorupdateprescription) | **PUT** /api/examinations/{id}/prescription/{prescriptionId} | |
-|[**saveOrUpdateServiceOrders**](#saveorupdateserviceorders) | **PUT** /api/examinations/{id}/services/{serviceOrderId} | |
-|[**updateExamination**](#updateexamination) | **PUT** /api/examinations/{id} | |
+| [**createExamination**](ExaminationControllerApi.md#createexamination) | **POST** /api/examinations |  |
+| [**createLabOrder**](ExaminationControllerApi.md#createlaborderoperation) | **POST** /api/examinations/{id}/lab/orders |  |
+| [**createOrders**](ExaminationControllerApi.md#createorders) | **POST** /api/examinations/{examId}/services/orders |  |
+| [**createPrescription**](ExaminationControllerApi.md#createprescription) | **POST** /api/examinations/{id}/prescription |  |
+| [**createServiceOrder**](ExaminationControllerApi.md#createserviceorder) | **POST** /api/examinations/{id}/services |  |
+| [**deletePrescriptionItem1**](ExaminationControllerApi.md#deleteprescriptionitem1) | **DELETE** /api/examinations/prescription/{prescriptionId} |  |
+| [**deleteServiceOrderItem**](ExaminationControllerApi.md#deleteserviceorderitem) | **DELETE** /api/examinations/{id}/services/item/{itemId} |  |
+| [**filterLabOrders**](ExaminationControllerApi.md#filterlaborders) | **POST** /api/examinations/{id}/lab/orders/filter |  |
+| [**filterServiceOrders**](ExaminationControllerApi.md#filterserviceorders) | **POST** /api/examinations/{examId}/services/filter |  |
+| [**getExaminationDetail**](ExaminationControllerApi.md#getexaminationdetail) | **GET** /api/examinations/{id} |  |
+| [**getExaminations**](ExaminationControllerApi.md#getexaminations) | **POST** /api/examinations/filter |  |
+| [**getPrescription**](ExaminationControllerApi.md#getprescription) | **GET** /api/examinations/{id}/prescription |  |
+| [**getServiceOrders**](ExaminationControllerApi.md#getserviceorders) | **GET** /api/examinations/{id}/services |  |
+| [**saveOrUpdatePrescription**](ExaminationControllerApi.md#saveorupdateprescription) | **PUT** /api/examinations/{id}/prescription/{prescriptionId} |  |
+| [**saveOrUpdateServiceOrders**](ExaminationControllerApi.md#saveorupdateserviceorders) | **PUT** /api/examinations/{id}/services/{serviceOrderId} |  |
+| [**updateExamination**](ExaminationControllerApi.md#updateexamination) | **PUT** /api/examinations/{id} |  |
 
-# **createExamination**
+
+
+## createExamination
+
 > CustomApiResponseExaminationResponse createExamination(examinationRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    ExaminationRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { CreateExaminationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let examinationRequest: ExaminationRequest; //
+  const body = {
+    // ExaminationRequest
+    examinationRequest: ...,
+  } satisfies CreateExaminationRequest;
 
-const { status, data } = await apiInstance.createExamination(
-    examinationRequest
-);
+  try {
+    const data = await api.createExamination(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **examinationRequest** | **ExaminationRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **examinationRequest** | [ExaminationRequest](ExaminationRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseExaminationResponse**
+[**CustomApiResponseExaminationResponse**](CustomApiResponseExaminationResponse.md)
 
 ### Authorization
 
@@ -61,55 +80,73 @@ const { status, data } = await apiInstance.createExamination(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **createLabOrder**
-> CustomApiResponseListLabOrderResponse createLabOrder(createLabOrderRequest)
+
+## createLabOrder
+
+> CustomApiResponseListLabOrderResponse createLabOrder(id, createLabOrderRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    CreateLabOrderRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { CreateLabOrderOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let createLabOrderRequest: CreateLabOrderRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // CreateLabOrderRequest
+    createLabOrderRequest: ...,
+  } satisfies CreateLabOrderOperationRequest;
 
-const { status, data } = await apiInstance.createLabOrder(
-    id,
-    createLabOrderRequest
-);
+  try {
+    const data = await api.createLabOrder(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **createLabOrderRequest** | **CreateLabOrderRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **createLabOrderRequest** | [CreateLabOrderRequest](CreateLabOrderRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseListLabOrderResponse**
+[**CustomApiResponseListLabOrderResponse**](CustomApiResponseListLabOrderResponse.md)
 
 ### Authorization
 
@@ -117,55 +154,73 @@ const { status, data } = await apiInstance.createLabOrder(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **createOrders**
-> CustomApiResponseListServiceOrderResponse createOrders(createServiceOrderRequest)
+
+## createOrders
+
+> CustomApiResponseListServiceOrderResponse createOrders(examId, createServiceOrderRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    CreateServiceOrderRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { CreateOrdersRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let examId: string; // (default to undefined)
-let createServiceOrderRequest: CreateServiceOrderRequest; //
+  const body = {
+    // string
+    examId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // CreateServiceOrderRequest
+    createServiceOrderRequest: ...,
+  } satisfies CreateOrdersRequest;
 
-const { status, data } = await apiInstance.createOrders(
-    examId,
-    createServiceOrderRequest
-);
+  try {
+    const data = await api.createOrders(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **createServiceOrderRequest** | **CreateServiceOrderRequest**|  | |
-| **examId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **examId** | `string` |  | [Defaults to `undefined`] |
+| **createServiceOrderRequest** | [CreateServiceOrderRequest](CreateServiceOrderRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseListServiceOrderResponse**
+[**CustomApiResponseListServiceOrderResponse**](CustomApiResponseListServiceOrderResponse.md)
 
 ### Authorization
 
@@ -173,55 +228,73 @@ const { status, data } = await apiInstance.createOrders(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **createPrescription**
-> CustomApiResponsePrescriptionResponse createPrescription(prescriptionRequest)
+
+## createPrescription
+
+> CustomApiResponsePrescriptionResponse createPrescription(id, prescriptionRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    PrescriptionRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { CreatePrescriptionRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let prescriptionRequest: PrescriptionRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // PrescriptionRequest
+    prescriptionRequest: ...,
+  } satisfies CreatePrescriptionRequest;
 
-const { status, data } = await apiInstance.createPrescription(
-    id,
-    prescriptionRequest
-);
+  try {
+    const data = await api.createPrescription(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **prescriptionRequest** | **PrescriptionRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **prescriptionRequest** | [PrescriptionRequest](PrescriptionRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePrescriptionResponse**
+[**CustomApiResponsePrescriptionResponse**](CustomApiResponsePrescriptionResponse.md)
 
 ### Authorization
 
@@ -229,55 +302,73 @@ const { status, data } = await apiInstance.createPrescription(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **createServiceOrder**
-> CustomApiResponseServiceOrderResponse createServiceOrder(serviceOrderRequest)
+
+## createServiceOrder
+
+> CustomApiResponseServiceOrderResponse createServiceOrder(id, serviceOrderRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    ServiceOrderRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { CreateServiceOrderRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let serviceOrderRequest: ServiceOrderRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // ServiceOrderRequest
+    serviceOrderRequest: ...,
+  } satisfies CreateServiceOrderRequest;
 
-const { status, data } = await apiInstance.createServiceOrder(
-    id,
-    serviceOrderRequest
-);
+  try {
+    const data = await api.createServiceOrder(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **serviceOrderRequest** | **ServiceOrderRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **serviceOrderRequest** | [ServiceOrderRequest](ServiceOrderRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseServiceOrderResponse**
+[**CustomApiResponseServiceOrderResponse**](CustomApiResponseServiceOrderResponse.md)
 
 ### Authorization
 
@@ -285,51 +376,70 @@ const { status, data } = await apiInstance.createServiceOrder(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **deletePrescriptionItem1**
-> CustomApiResponseVoid deletePrescriptionItem1()
+
+## deletePrescriptionItem1
+
+> CustomApiResponseVoid deletePrescriptionItem1(prescriptionId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { DeletePrescriptionItem1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let prescriptionId: string; // (default to undefined)
+  const body = {
+    // string
+    prescriptionId: prescriptionId_example,
+  } satisfies DeletePrescriptionItem1Request;
 
-const { status, data } = await apiInstance.deletePrescriptionItem1(
-    prescriptionId
-);
+  try {
+    const data = await api.deletePrescriptionItem1(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **prescriptionId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **prescriptionId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -337,54 +447,73 @@ const { status, data } = await apiInstance.deletePrescriptionItem1(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **deleteServiceOrderItem**
-> CustomApiResponseVoid deleteServiceOrderItem()
+
+## deleteServiceOrderItem
+
+> CustomApiResponseVoid deleteServiceOrderItem(id, itemId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { DeleteServiceOrderItemRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let itemId: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+    // string
+    itemId: itemId_example,
+  } satisfies DeleteServiceOrderItemRequest;
 
-const { status, data } = await apiInstance.deleteServiceOrderItem(
-    id,
-    itemId
-);
+  try {
+    const data = await api.deleteServiceOrderItem(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
-| **itemId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **itemId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -392,55 +521,73 @@ const { status, data } = await apiInstance.deleteServiceOrderItem(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filterLabOrders**
-> CustomApiResponsePageLabOrderResponse filterLabOrders(searchFilter)
+
+## filterLabOrders
+
+> CustomApiResponsePageLabOrderResponse filterLabOrders(id, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { FilterLabOrdersRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies FilterLabOrdersRequest;
 
-const { status, data } = await apiInstance.filterLabOrders(
-    id,
-    searchFilter
-);
+  try {
+    const data = await api.filterLabOrders(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageLabOrderResponse**
+[**CustomApiResponsePageLabOrderResponse**](CustomApiResponsePageLabOrderResponse.md)
 
 ### Authorization
 
@@ -448,55 +595,73 @@ const { status, data } = await apiInstance.filterLabOrders(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filterServiceOrders**
-> CustomApiResponsePageServiceOrderResponse filterServiceOrders(searchFilter)
+
+## filterServiceOrders
+
+> CustomApiResponsePageServiceOrderResponse filterServiceOrders(examId, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { FilterServiceOrdersRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let examId: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    examId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies FilterServiceOrdersRequest;
 
-const { status, data } = await apiInstance.filterServiceOrders(
-    examId,
-    searchFilter
-);
+  try {
+    const data = await api.filterServiceOrders(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **examId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **examId** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageServiceOrderResponse**
+[**CustomApiResponsePageServiceOrderResponse**](CustomApiResponsePageServiceOrderResponse.md)
 
 ### Authorization
 
@@ -504,51 +669,70 @@ const { status, data } = await apiInstance.filterServiceOrders(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getExaminationDetail**
-> CustomApiResponseExaminationResponse getExaminationDetail()
+
+## getExaminationDetail
+
+> CustomApiResponseExaminationResponse getExaminationDetail(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { GetExaminationDetailRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetExaminationDetailRequest;
 
-const { status, data } = await apiInstance.getExaminationDetail(
-    id
-);
+  try {
+    const data = await api.getExaminationDetail(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseExaminationResponse**
+[**CustomApiResponseExaminationResponse**](CustomApiResponseExaminationResponse.md)
 
 ### Authorization
 
@@ -556,52 +740,70 @@ const { status, data } = await apiInstance.getExaminationDetail(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getExaminations**
+
+## getExaminations
+
 > CustomApiResponsePageExaminationResponse getExaminations(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { GetExaminationsRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetExaminationsRequest;
 
-const { status, data } = await apiInstance.getExaminations(
-    searchFilter
-);
+  try {
+    const data = await api.getExaminations(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageExaminationResponse**
+[**CustomApiResponsePageExaminationResponse**](CustomApiResponsePageExaminationResponse.md)
 
 ### Authorization
 
@@ -609,51 +811,70 @@ const { status, data } = await apiInstance.getExaminations(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getPrescription**
-> CustomApiResponsePrescriptionResponse getPrescription()
+
+## getPrescription
+
+> CustomApiResponsePrescriptionResponse getPrescription(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { GetPrescriptionRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetPrescriptionRequest;
 
-const { status, data } = await apiInstance.getPrescription(
-    id
-);
+  try {
+    const data = await api.getPrescription(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponsePrescriptionResponse**
+[**CustomApiResponsePrescriptionResponse**](CustomApiResponsePrescriptionResponse.md)
 
 ### Authorization
 
@@ -661,51 +882,70 @@ const { status, data } = await apiInstance.getPrescription(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getServiceOrders**
-> CustomApiResponseServiceOrderResponse getServiceOrders()
+
+## getServiceOrders
+
+> CustomApiResponseServiceOrderResponse getServiceOrders(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { GetServiceOrdersRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetServiceOrdersRequest;
 
-const { status, data } = await apiInstance.getServiceOrders(
-    id
-);
+  try {
+    const data = await api.getServiceOrders(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseServiceOrderResponse**
+[**CustomApiResponseServiceOrderResponse**](CustomApiResponseServiceOrderResponse.md)
 
 ### Authorization
 
@@ -713,58 +953,76 @@ const { status, data } = await apiInstance.getServiceOrders(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **saveOrUpdatePrescription**
-> CustomApiResponsePrescriptionResponse saveOrUpdatePrescription(prescriptionRequest)
+
+## saveOrUpdatePrescription
+
+> CustomApiResponsePrescriptionResponse saveOrUpdatePrescription(id, prescriptionId, prescriptionRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    PrescriptionRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { SaveOrUpdatePrescriptionRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let prescriptionId: string; // (default to undefined)
-let prescriptionRequest: PrescriptionRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // string
+    prescriptionId: prescriptionId_example,
+    // PrescriptionRequest
+    prescriptionRequest: ...,
+  } satisfies SaveOrUpdatePrescriptionRequest;
 
-const { status, data } = await apiInstance.saveOrUpdatePrescription(
-    id,
-    prescriptionId,
-    prescriptionRequest
-);
+  try {
+    const data = await api.saveOrUpdatePrescription(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **prescriptionRequest** | **PrescriptionRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
-| **prescriptionId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **prescriptionId** | `string` |  | [Defaults to `undefined`] |
+| **prescriptionRequest** | [PrescriptionRequest](PrescriptionRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePrescriptionResponse**
+[**CustomApiResponsePrescriptionResponse**](CustomApiResponsePrescriptionResponse.md)
 
 ### Authorization
 
@@ -772,58 +1030,76 @@ const { status, data } = await apiInstance.saveOrUpdatePrescription(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **saveOrUpdateServiceOrders**
-> CustomApiResponseServiceOrderResponse saveOrUpdateServiceOrders(serviceOrderRequest)
+
+## saveOrUpdateServiceOrders
+
+> CustomApiResponseServiceOrderResponse saveOrUpdateServiceOrders(id, serviceOrderId, serviceOrderRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    ServiceOrderRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { SaveOrUpdateServiceOrdersRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let serviceOrderId: string; // (default to undefined)
-let serviceOrderRequest: ServiceOrderRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // string
+    serviceOrderId: serviceOrderId_example,
+    // ServiceOrderRequest
+    serviceOrderRequest: ...,
+  } satisfies SaveOrUpdateServiceOrdersRequest;
 
-const { status, data } = await apiInstance.saveOrUpdateServiceOrders(
-    id,
-    serviceOrderId,
-    serviceOrderRequest
-);
+  try {
+    const data = await api.saveOrUpdateServiceOrders(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **serviceOrderRequest** | **ServiceOrderRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
-| **serviceOrderId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **serviceOrderId** | `string` |  | [Defaults to `undefined`] |
+| **serviceOrderRequest** | [ServiceOrderRequest](ServiceOrderRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseServiceOrderResponse**
+[**CustomApiResponseServiceOrderResponse**](CustomApiResponseServiceOrderResponse.md)
 
 ### Authorization
 
@@ -831,55 +1107,73 @@ const { status, data } = await apiInstance.saveOrUpdateServiceOrders(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateExamination**
-> CustomApiResponseExaminationResponse updateExamination(examinationRequest)
+
+## updateExamination
+
+> CustomApiResponseExaminationResponse updateExamination(id, examinationRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ExaminationControllerApi,
-    Configuration,
-    ExaminationRequest
-} from './api';
+  Configuration,
+  ExaminationControllerApi,
+} from '';
+import type { UpdateExaminationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ExaminationControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ExaminationControllerApi(config);
 
-let id: string; // (default to undefined)
-let examinationRequest: ExaminationRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // ExaminationRequest
+    examinationRequest: ...,
+  } satisfies UpdateExaminationRequest;
 
-const { status, data } = await apiInstance.updateExamination(
-    id,
-    examinationRequest
-);
+  try {
+    const data = await api.updateExamination(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **examinationRequest** | **ExaminationRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **examinationRequest** | [ExaminationRequest](ExaminationRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseExaminationResponse**
+[**CustomApiResponseExaminationResponse**](CustomApiResponseExaminationResponse.md)
 
 ### Authorization
 
@@ -887,16 +1181,16 @@ const { status, data } = await apiInstance.updateExamination(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

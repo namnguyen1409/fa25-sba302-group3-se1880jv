@@ -26,6 +26,7 @@ public class MinioConfig {
     public MinioClient minioClient() {
         return MinioClient.builder()
                 .endpoint(endpoint)
+//                .endpoint("cms_minio", 9000, false)
                 .credentials(accessKey, secretKey)
                 .build();
     }

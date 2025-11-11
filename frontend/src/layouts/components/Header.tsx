@@ -1,5 +1,3 @@
-
-
 import * as React from "react";
 import {
   HomeIcon,
@@ -15,6 +13,7 @@ import {
   MonitorCheckIcon,
   ActivitySquareIcon,
   UserCircle,
+  FileTextIcon,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -66,8 +65,16 @@ export const Header: React.FC = () => {
   const navItems = [
     { path: "/", label: "Trang chủ", icon: HomeIcon },
     { path: "/staffs", label: "Bác sĩ", icon: StethoscopeIcon },
-    { path: "/booking", label: "Đặt lịch", icon: CalendarDaysIcon },
+    { path: "/patient/history", label: "Lịch sử khám", icon: FileTextIcon },
   ];
+
+  if (user?.staff) {
+    navItems.push({
+      path: "/staff",
+      label: "Bảng điều khiển",
+      icon: CalendarDaysIcon,
+    });
+  }
 
   const settingItems = [
     {
@@ -147,7 +154,7 @@ export const Header: React.FC = () => {
             <image
               href="https://cdn-icons-png.freepik.com/512/7922/7922906.png"
               className="h-8 w-8"
-              />
+            />
             <span className="hidden sm:inline">ClinicCare</span>
           </Link>
           {!isMobile && (

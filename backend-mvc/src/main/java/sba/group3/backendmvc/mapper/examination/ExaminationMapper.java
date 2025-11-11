@@ -22,6 +22,7 @@ public interface ExaminationMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Examination partialUpdate(ExaminationRequest examinationRequest, @MappingTarget Examination examination);
 
+    @Mapping(source = "invoiceId", target = "invoice.id")
     Examination toEntity(ExaminationResponse examinationResponse);
 
     @AfterMapping
@@ -52,6 +53,7 @@ public interface ExaminationMapper {
         examination.getLabOrders().forEach(labOrder -> labOrder.setExamination(examination));
     }
 
+    @Mapping(source = "invoice.id", target = "invoiceId")
     ExaminationResponse toDto1(Examination examination);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -2,46 +2,66 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getFiles**](#getfiles) | **GET** /api/files | |
-|[**viewFile**](#viewfile) | **GET** /api/files/view/{id} | |
+| [**getFiles**](FileManagementApi.md#getfiles) | **GET** /api/files |  |
+| [**viewFile**](FileManagementApi.md#viewfile) | **GET** /api/files/view/{id} |  |
 
-# **getFiles**
-> CustomApiResponseListFileAttachmentResponse getFiles()
+
+
+## getFiles
+
+> CustomApiResponseListFileAttachmentResponse getFiles(entityType, entityId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    FileManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  FileManagementApi,
+} from '';
+import type { GetFilesRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new FileManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new FileManagementApi(config);
 
-let entityType: string; // (default to undefined)
-let entityId: string; // (default to undefined)
+  const body = {
+    // string
+    entityType: entityType_example,
+    // string
+    entityId: entityId_example,
+  } satisfies GetFilesRequest;
 
-const { status, data } = await apiInstance.getFiles(
-    entityType,
-    entityId
-);
+  try {
+    const data = await api.getFiles(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **entityType** | [**string**] |  | defaults to undefined|
-| **entityId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **entityType** | `string` |  | [Defaults to `undefined`] |
+| **entityId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListFileAttachmentResponse**
+[**CustomApiResponseListFileAttachmentResponse**](CustomApiResponseListFileAttachmentResponse.md)
 
 ### Authorization
 
@@ -49,51 +69,70 @@ const { status, data } = await apiInstance.getFiles(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **viewFile**
-> File viewFile()
+
+## viewFile
+
+> Blob viewFile(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    FileManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  FileManagementApi,
+} from '';
+import type { ViewFileRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new FileManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new FileManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ViewFileRequest;
 
-const { status, data } = await apiInstance.viewFile(
-    id
-);
+  try {
+    const data = await api.viewFile(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**File**
+**Blob**
 
 ### Authorization
 
@@ -101,16 +140,16 @@ const { status, data } = await apiInstance.viewFile(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

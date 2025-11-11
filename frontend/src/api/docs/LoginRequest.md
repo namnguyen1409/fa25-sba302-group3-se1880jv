@@ -1,28 +1,42 @@
+
 # LoginRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**username** | **string** |  | [default to undefined]
-**password** | **string** |  | [default to undefined]
-**deviceId** | **string** |  | [default to undefined]
-**rememberMe** | **boolean** |  | [optional] [default to undefined]
-**deviceName** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`username` | string
+`password` | string
+`deviceId` | string
+`rememberMe` | boolean
+`deviceName` | string
 
 ## Example
 
 ```typescript
-import { LoginRequest } from './api';
+import type { LoginRequest } from ''
 
-const instance: LoginRequest = {
-    username,
-    password,
-    deviceId,
-    rememberMe,
-    deviceName,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "username": null,
+  "password": null,
+  "deviceId": null,
+  "rememberMe": null,
+  "deviceName": null,
+} satisfies LoginRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as LoginRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

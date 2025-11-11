@@ -2,47 +2,66 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**createIcdCode**](#createicdcode) | **POST** /api/common/icd-codes | |
-|[**deleteIcdCode**](#deleteicdcode) | **DELETE** /api/common/icd-codes/{id} | |
-|[**filter9**](#filter9) | **POST** /api/common/icd-codes/filter | |
-|[**getIcdCodeById**](#geticdcodebyid) | **GET** /api/common/icd-codes/{id} | |
-|[**updateIcdCode**](#updateicdcode) | **PUT** /api/common/icd-codes/{id} | |
+| [**createIcdCode**](ICDCodeManagementApi.md#createicdcode) | **POST** /api/common/icd-codes |  |
+| [**deleteIcdCode**](ICDCodeManagementApi.md#deleteicdcode) | **DELETE** /api/common/icd-codes/{id} |  |
+| [**filter9**](ICDCodeManagementApi.md#filter9) | **POST** /api/common/icd-codes/filter |  |
+| [**getIcdCodeById**](ICDCodeManagementApi.md#geticdcodebyid) | **GET** /api/common/icd-codes/{id} |  |
+| [**updateIcdCode**](ICDCodeManagementApi.md#updateicdcode) | **PUT** /api/common/icd-codes/{id} |  |
 
-# **createIcdCode**
+
+
+## createIcdCode
+
 > CustomApiResponseIcdCodeResponse createIcdCode(icdCodeRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ICDCodeManagementApi,
-    Configuration,
-    IcdCodeRequest
-} from './api';
+  Configuration,
+  ICDCodeManagementApi,
+} from '';
+import type { CreateIcdCodeRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ICDCodeManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ICDCodeManagementApi(config);
 
-let icdCodeRequest: IcdCodeRequest; //
+  const body = {
+    // IcdCodeRequest
+    icdCodeRequest: ...,
+  } satisfies CreateIcdCodeRequest;
 
-const { status, data } = await apiInstance.createIcdCode(
-    icdCodeRequest
-);
+  try {
+    const data = await api.createIcdCode(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **icdCodeRequest** | **IcdCodeRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **icdCodeRequest** | [IcdCodeRequest](IcdCodeRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseIcdCodeResponse**
+[**CustomApiResponseIcdCodeResponse**](CustomApiResponseIcdCodeResponse.md)
 
 ### Authorization
 
@@ -50,51 +69,70 @@ const { status, data } = await apiInstance.createIcdCode(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **deleteIcdCode**
-> CustomApiResponseVoid deleteIcdCode()
+
+## deleteIcdCode
+
+> CustomApiResponseVoid deleteIcdCode(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ICDCodeManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  ICDCodeManagementApi,
+} from '';
+import type { DeleteIcdCodeRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ICDCodeManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ICDCodeManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteIcdCodeRequest;
 
-const { status, data } = await apiInstance.deleteIcdCode(
-    id
-);
+  try {
+    const data = await api.deleteIcdCode(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -102,52 +140,70 @@ const { status, data } = await apiInstance.deleteIcdCode(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter9**
+
+## filter9
+
 > CustomApiResponsePageIcdCodeResponse filter9(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ICDCodeManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ICDCodeManagementApi,
+} from '';
+import type { Filter9Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ICDCodeManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ICDCodeManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter9Request;
 
-const { status, data } = await apiInstance.filter9(
-    searchFilter
-);
+  try {
+    const data = await api.filter9(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageIcdCodeResponse**
+[**CustomApiResponsePageIcdCodeResponse**](CustomApiResponsePageIcdCodeResponse.md)
 
 ### Authorization
 
@@ -155,51 +211,70 @@ const { status, data } = await apiInstance.filter9(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getIcdCodeById**
-> CustomApiResponseIcdCodeResponse getIcdCodeById()
+
+## getIcdCodeById
+
+> CustomApiResponseIcdCodeResponse getIcdCodeById(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ICDCodeManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  ICDCodeManagementApi,
+} from '';
+import type { GetIcdCodeByIdRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ICDCodeManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ICDCodeManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetIcdCodeByIdRequest;
 
-const { status, data } = await apiInstance.getIcdCodeById(
-    id
-);
+  try {
+    const data = await api.getIcdCodeById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseIcdCodeResponse**
+[**CustomApiResponseIcdCodeResponse**](CustomApiResponseIcdCodeResponse.md)
 
 ### Authorization
 
@@ -207,55 +282,73 @@ const { status, data } = await apiInstance.getIcdCodeById(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateIcdCode**
-> CustomApiResponseIcdCodeResponse updateIcdCode(icdCodeRequest)
+
+## updateIcdCode
+
+> CustomApiResponseIcdCodeResponse updateIcdCode(id, icdCodeRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ICDCodeManagementApi,
-    Configuration,
-    IcdCodeRequest
-} from './api';
+  Configuration,
+  ICDCodeManagementApi,
+} from '';
+import type { UpdateIcdCodeRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ICDCodeManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ICDCodeManagementApi(config);
 
-let id: string; // (default to undefined)
-let icdCodeRequest: IcdCodeRequest; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // IcdCodeRequest
+    icdCodeRequest: ...,
+  } satisfies UpdateIcdCodeRequest;
 
-const { status, data } = await apiInstance.updateIcdCode(
-    id,
-    icdCodeRequest
-);
+  try {
+    const data = await api.updateIcdCode(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **icdCodeRequest** | **IcdCodeRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **icdCodeRequest** | [IcdCodeRequest](IcdCodeRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseIcdCodeResponse**
+[**CustomApiResponseIcdCodeResponse**](CustomApiResponseIcdCodeResponse.md)
 
 ### Authorization
 
@@ -263,16 +356,16 @@ const { status, data } = await apiInstance.updateIcdCode(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

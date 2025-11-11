@@ -2,37 +2,56 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getAllDevices**](#getalldevices) | **GET** /api/account/devices | |
-|[**logoutAllDevices**](#logoutalldevices) | **POST** /api/account/devices/logout-all | |
-|[**logoutDevice**](#logoutdevice) | **POST** /api/account/devices/logout/{deviceSessionId} | |
+| [**getAllDevices**](AccountDeviceControllerApi.md#getalldevices) | **GET** /api/account/devices |  |
+| [**logoutAllDevices**](AccountDeviceControllerApi.md#logoutalldevices) | **POST** /api/account/devices/logout-all |  |
+| [**logoutDevice**](AccountDeviceControllerApi.md#logoutdevice) | **POST** /api/account/devices/logout/{deviceSessionId} |  |
 
-# **getAllDevices**
+
+
+## getAllDevices
+
 > CustomApiResponseListDeviceSessionResponse getAllDevices()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountDeviceControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountDeviceControllerApi,
+} from '';
+import type { GetAllDevicesRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountDeviceControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountDeviceControllerApi(config);
 
-const { status, data } = await apiInstance.getAllDevices();
+  try {
+    const data = await api.getAllDevices();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListDeviceSessionResponse**
+[**CustomApiResponseListDeviceSessionResponse**](CustomApiResponseListDeviceSessionResponse.md)
 
 ### Authorization
 
@@ -40,44 +59,62 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **logoutAllDevices**
+
+## logoutAllDevices
+
 > CustomApiResponseVoid logoutAllDevices()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountDeviceControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountDeviceControllerApi,
+} from '';
+import type { LogoutAllDevicesRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountDeviceControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountDeviceControllerApi(config);
 
-const { status, data } = await apiInstance.logoutAllDevices();
+  try {
+    const data = await api.logoutAllDevices();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -85,51 +122,70 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **logoutDevice**
-> CustomApiResponseVoid logoutDevice()
+
+## logoutDevice
+
+> CustomApiResponseVoid logoutDevice(deviceSessionId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AccountDeviceControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountDeviceControllerApi,
+} from '';
+import type { LogoutDeviceRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountDeviceControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountDeviceControllerApi(config);
 
-let deviceSessionId: string; // (default to undefined)
+  const body = {
+    // string
+    deviceSessionId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies LogoutDeviceRequest;
 
-const { status, data } = await apiInstance.logoutDevice(
-    deviceSessionId
-);
+  try {
+    const data = await api.logoutDevice(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
+
+| Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **deviceSessionId** | [**string**] |  | defaults to undefined|
-
+| **deviceSessionId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -137,16 +193,16 @@ const { status, data } = await apiInstance.logoutDevice(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

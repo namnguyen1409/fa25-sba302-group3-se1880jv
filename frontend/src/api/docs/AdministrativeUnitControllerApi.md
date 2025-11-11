@@ -2,45 +2,65 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getAdministrativeUnits**](#getadministrativeunits) | **GET** /api/common/administrative-units | |
+| [**getAdministrativeUnits**](AdministrativeUnitControllerApi.md#getadministrativeunits) | **GET** /api/common/administrative-units |  |
 
-# **getAdministrativeUnits**
-> CustomApiResponseListAdministrativeUnitResponse getAdministrativeUnits()
+
+
+## getAdministrativeUnits
+
+> CustomApiResponseListAdministrativeUnitResponse getAdministrativeUnits(level, parentCode)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AdministrativeUnitControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AdministrativeUnitControllerApi,
+} from '';
+import type { GetAdministrativeUnitsRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AdministrativeUnitControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrativeUnitControllerApi(config);
 
-let level: 'PROVINCE' | 'DISTRICT' | 'WARD'; // (default to undefined)
-let parentCode: string; // (optional) (default to undefined)
+  const body = {
+    // 'PROVINCE' | 'DISTRICT' | 'WARD'
+    level: level_example,
+    // string (optional)
+    parentCode: parentCode_example,
+  } satisfies GetAdministrativeUnitsRequest;
 
-const { status, data } = await apiInstance.getAdministrativeUnits(
-    level,
-    parentCode
-);
+  try {
+    const data = await api.getAdministrativeUnits(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **level** | [**&#39;PROVINCE&#39; | &#39;DISTRICT&#39; | &#39;WARD&#39;**]**Array<&#39;PROVINCE&#39; &#124; &#39;DISTRICT&#39; &#124; &#39;WARD&#39;>** |  | defaults to undefined|
-| **parentCode** | [**string**] |  | (optional) defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **level** | `PROVINCE`, `DISTRICT`, `WARD` |  | [Defaults to `undefined`] [Enum: PROVINCE, DISTRICT, WARD] |
+| **parentCode** | `string` |  | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListAdministrativeUnitResponse**
+[**CustomApiResponseListAdministrativeUnitResponse**](CustomApiResponseListAdministrativeUnitResponse.md)
 
 ### Authorization
 
@@ -48,16 +68,16 @@ const { status, data } = await apiInstance.getAdministrativeUnits(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

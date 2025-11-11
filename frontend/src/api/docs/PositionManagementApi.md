@@ -2,47 +2,66 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**create13**](#create13) | **POST** /api/admin/positions | |
-|[**delete13**](#delete13) | **DELETE** /api/admin/positions/{id} | |
-|[**filter15**](#filter15) | **POST** /api/admin/positions/filter | |
-|[**getById9**](#getbyid9) | **GET** /api/admin/positions/{id} | |
-|[**update13**](#update13) | **PUT** /api/admin/positions/{id} | |
+| [**create13**](PositionManagementApi.md#create13) | **POST** /api/admin/positions |  |
+| [**delete13**](PositionManagementApi.md#delete13) | **DELETE** /api/admin/positions/{id} |  |
+| [**filter15**](PositionManagementApi.md#filter15) | **POST** /api/admin/positions/filter |  |
+| [**getById9**](PositionManagementApi.md#getbyid9) | **GET** /api/admin/positions/{id} |  |
+| [**update13**](PositionManagementApi.md#update13) | **PUT** /api/admin/positions/{id} |  |
 
-# **create13**
+
+
+## create13
+
 > CustomApiResponsePositionResponse create13(positionRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    PositionManagementApi,
-    Configuration,
-    PositionRequest
-} from './api';
+  Configuration,
+  PositionManagementApi,
+} from '';
+import type { Create13Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new PositionManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new PositionManagementApi(config);
 
-let positionRequest: PositionRequest; //
+  const body = {
+    // PositionRequest
+    positionRequest: ...,
+  } satisfies Create13Request;
 
-const { status, data } = await apiInstance.create13(
-    positionRequest
-);
+  try {
+    const data = await api.create13(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **positionRequest** | **PositionRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **positionRequest** | [PositionRequest](PositionRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePositionResponse**
+[**CustomApiResponsePositionResponse**](CustomApiResponsePositionResponse.md)
 
 ### Authorization
 
@@ -50,51 +69,70 @@ const { status, data } = await apiInstance.create13(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete13**
-> CustomApiResponseVoid delete13()
+
+## delete13
+
+> CustomApiResponseVoid delete13(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    PositionManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  PositionManagementApi,
+} from '';
+import type { Delete13Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new PositionManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new PositionManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies Delete13Request;
 
-const { status, data } = await apiInstance.delete13(
-    id
-);
+  try {
+    const data = await api.delete13(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -102,52 +140,70 @@ const { status, data } = await apiInstance.delete13(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter15**
+
+## filter15
+
 > CustomApiResponsePagePositionResponse filter15(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    PositionManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  PositionManagementApi,
+} from '';
+import type { Filter15Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new PositionManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new PositionManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter15Request;
 
-const { status, data } = await apiInstance.filter15(
-    searchFilter
-);
+  try {
+    const data = await api.filter15(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePagePositionResponse**
+[**CustomApiResponsePagePositionResponse**](CustomApiResponsePagePositionResponse.md)
 
 ### Authorization
 
@@ -155,51 +211,70 @@ const { status, data } = await apiInstance.filter15(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getById9**
-> CustomApiResponsePositionResponse getById9()
+
+## getById9
+
+> CustomApiResponsePositionResponse getById9(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    PositionManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  PositionManagementApi,
+} from '';
+import type { GetById9Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new PositionManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new PositionManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetById9Request;
 
-const { status, data } = await apiInstance.getById9(
-    id
-);
+  try {
+    const data = await api.getById9(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponsePositionResponse**
+[**CustomApiResponsePositionResponse**](CustomApiResponsePositionResponse.md)
 
 ### Authorization
 
@@ -207,55 +282,73 @@ const { status, data } = await apiInstance.getById9(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update13**
-> CustomApiResponsePositionResponse update13(positionRequest)
+
+## update13
+
+> CustomApiResponsePositionResponse update13(id, positionRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    PositionManagementApi,
-    Configuration,
-    PositionRequest
-} from './api';
+  Configuration,
+  PositionManagementApi,
+} from '';
+import type { Update13Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new PositionManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new PositionManagementApi(config);
 
-let id: string; // (default to undefined)
-let positionRequest: PositionRequest; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // PositionRequest
+    positionRequest: ...,
+  } satisfies Update13Request;
 
-const { status, data } = await apiInstance.update13(
-    id,
-    positionRequest
-);
+  try {
+    const data = await api.update13(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **positionRequest** | **PositionRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **positionRequest** | [PositionRequest](PositionRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePositionResponse**
+[**CustomApiResponsePositionResponse**](CustomApiResponsePositionResponse.md)
 
 ### Authorization
 
@@ -263,16 +356,16 @@ const { status, data } = await apiInstance.update13(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

@@ -1,34 +1,48 @@
+
 # MfaConfigResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to undefined]
-**createdDate** | **string** |  | [optional] [default to undefined]
-**mfaType** | **string** |  | [optional] [default to undefined]
-**contact** | **string** |  | [optional] [default to undefined]
-**primary** | **boolean** |  | [optional] [default to undefined]
-**lastVerifiedAt** | **string** |  | [optional] [default to undefined]
-**deviceName** | **string** |  | [optional] [default to undefined]
-**revoked** | **boolean** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`id` | string
+`createdDate` | Date
+`mfaType` | string
+`contact` | string
+`primary` | boolean
+`lastVerifiedAt` | Date
+`deviceName` | string
+`revoked` | boolean
 
 ## Example
 
 ```typescript
-import { MfaConfigResponse } from './api';
+import type { MfaConfigResponse } from ''
 
-const instance: MfaConfigResponse = {
-    id,
-    createdDate,
-    mfaType,
-    contact,
-    primary,
-    lastVerifiedAt,
-    deviceName,
-    revoked,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "id": null,
+  "createdDate": null,
+  "mfaType": null,
+  "contact": null,
+  "primary": null,
+  "lastVerifiedAt": null,
+  "deviceName": null,
+  "revoked": null,
+} satisfies MfaConfigResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as MfaConfigResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

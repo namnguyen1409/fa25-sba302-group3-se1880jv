@@ -2,49 +2,69 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**archive**](#archive) | **POST** /api/cms/contents/{id}/archive | |
-|[**create9**](#create9) | **POST** /api/cms/contents | |
-|[**delete9**](#delete9) | **DELETE** /api/cms/contents/{id} | |
-|[**filter10**](#filter10) | **POST** /api/cms/contents/filter | |
-|[**getById5**](#getbyid5) | **GET** /api/cms/contents/{id} | |
-|[**getBySlug**](#getbyslug) | **GET** /api/cms/contents/slug/{slug} | |
-|[**publish**](#publish) | **POST** /api/cms/contents/{id}/publish | |
-|[**update9**](#update9) | **PUT** /api/cms/contents/{id} | |
+| [**archive**](CMSApi.md#archive) | **POST** /api/cms/contents/{id}/archive |  |
+| [**create9**](CMSApi.md#create9) | **POST** /api/cms/contents |  |
+| [**delete9**](CMSApi.md#delete9) | **DELETE** /api/cms/contents/{id} |  |
+| [**filter10**](CMSApi.md#filter10) | **POST** /api/cms/contents/filter |  |
+| [**getById5**](CMSApi.md#getbyid5) | **GET** /api/cms/contents/{id} |  |
+| [**getBySlug**](CMSApi.md#getbyslug) | **GET** /api/cms/contents/slug/{slug} |  |
+| [**publish**](CMSApi.md#publish) | **POST** /api/cms/contents/{id}/publish |  |
+| [**update9**](CMSApi.md#update9) | **PUT** /api/cms/contents/{id} |  |
 
-# **archive**
-> CustomApiResponseContentResponse archive()
+
+
+## archive
+
+> CustomApiResponseContentResponse archive(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { ArchiveRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ArchiveRequest;
 
-const { status, data } = await apiInstance.archive(
-    id
-);
+  try {
+    const data = await api.archive(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseContentResponse**
+[**CustomApiResponseContentResponse**](CustomApiResponseContentResponse.md)
 
 ### Authorization
 
@@ -52,52 +72,70 @@ const { status, data } = await apiInstance.archive(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **create9**
+
+## create9
+
 > CustomApiResponseContentResponse create9(contentRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration,
-    ContentRequest
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { Create9Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let contentRequest: ContentRequest; //
+  const body = {
+    // ContentRequest
+    contentRequest: ...,
+  } satisfies Create9Request;
 
-const { status, data } = await apiInstance.create9(
-    contentRequest
-);
+  try {
+    const data = await api.create9(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **contentRequest** | **ContentRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **contentRequest** | [ContentRequest](ContentRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseContentResponse**
+[**CustomApiResponseContentResponse**](CustomApiResponseContentResponse.md)
 
 ### Authorization
 
@@ -105,51 +143,70 @@ const { status, data } = await apiInstance.create9(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete9**
-> CustomApiResponseVoid delete9()
+
+## delete9
+
+> CustomApiResponseVoid delete9(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { Delete9Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies Delete9Request;
 
-const { status, data } = await apiInstance.delete9(
-    id
-);
+  try {
+    const data = await api.delete9(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -157,52 +214,70 @@ const { status, data } = await apiInstance.delete9(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter10**
+
+## filter10
+
 > CustomApiResponsePageContentResponse filter10(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { Filter10Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter10Request;
 
-const { status, data } = await apiInstance.filter10(
-    searchFilter
-);
+  try {
+    const data = await api.filter10(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageContentResponse**
+[**CustomApiResponsePageContentResponse**](CustomApiResponsePageContentResponse.md)
 
 ### Authorization
 
@@ -210,51 +285,70 @@ const { status, data } = await apiInstance.filter10(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getById5**
-> CustomApiResponseContentResponse getById5()
+
+## getById5
+
+> CustomApiResponseContentResponse getById5(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { GetById5Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetById5Request;
 
-const { status, data } = await apiInstance.getById5(
-    id
-);
+  try {
+    const data = await api.getById5(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseContentResponse**
+[**CustomApiResponseContentResponse**](CustomApiResponseContentResponse.md)
 
 ### Authorization
 
@@ -262,51 +356,70 @@ const { status, data } = await apiInstance.getById5(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getBySlug**
-> CustomApiResponseContentResponse getBySlug()
+
+## getBySlug
+
+> CustomApiResponseContentResponse getBySlug(slug)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { GetBySlugRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let slug: string; // (default to undefined)
+  const body = {
+    // string
+    slug: slug_example,
+  } satisfies GetBySlugRequest;
 
-const { status, data } = await apiInstance.getBySlug(
-    slug
-);
+  try {
+    const data = await api.getBySlug(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **slug** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **slug** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseContentResponse**
+[**CustomApiResponseContentResponse**](CustomApiResponseContentResponse.md)
 
 ### Authorization
 
@@ -314,51 +427,70 @@ const { status, data } = await apiInstance.getBySlug(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **publish**
-> CustomApiResponseContentResponse publish()
+
+## publish
+
+> CustomApiResponseContentResponse publish(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { PublishRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies PublishRequest;
 
-const { status, data } = await apiInstance.publish(
-    id
-);
+  try {
+    const data = await api.publish(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseContentResponse**
+[**CustomApiResponseContentResponse**](CustomApiResponseContentResponse.md)
 
 ### Authorization
 
@@ -366,55 +498,73 @@ const { status, data } = await apiInstance.publish(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update9**
-> CustomApiResponseContentResponse update9(contentRequest)
+
+## update9
+
+> CustomApiResponseContentResponse update9(id, contentRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    CMSApi,
-    Configuration,
-    ContentRequest
-} from './api';
+  Configuration,
+  CMSApi,
+} from '';
+import type { Update9Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new CMSApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CMSApi(config);
 
-let id: string; // (default to undefined)
-let contentRequest: ContentRequest; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // ContentRequest
+    contentRequest: ...,
+  } satisfies Update9Request;
 
-const { status, data } = await apiInstance.update9(
-    id,
-    contentRequest
-);
+  try {
+    const data = await api.update9(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **contentRequest** | **ContentRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **contentRequest** | [ContentRequest](ContentRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseContentResponse**
+[**CustomApiResponseContentResponse**](CustomApiResponseContentResponse.md)
 
 ### Authorization
 
@@ -422,16 +572,16 @@ const { status, data } = await apiInstance.update9(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

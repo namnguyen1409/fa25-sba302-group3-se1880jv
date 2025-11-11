@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 import { ExaminationApi } from "@/api/examination/ExaminationApi";
@@ -21,6 +21,8 @@ import { QueuePanel } from "./QueuePanel";
 
 export default function ExaminationPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [exam, setExam] = useState<ExaminationResponse | null>(null);
   const [activeTab, setActiveTab] = useState("clinical");
 
@@ -42,20 +44,14 @@ export default function ExaminationPage() {
     load();
   }, [id]);
 
-  if (!exam) return <div className="p-6">Đang tải...</div>;
+  if (!exam) return <div className="p-6 text-center">Đang tải...</div>;
 
   return (
     <div className="grid grid-cols-12 gap-6 p-4 md:p-6">
-      <div
-        className="
-        col-span-12 
-        md:col-span-4 
-        xl:col-span-3
-        order-1
-      "
-      >
+      {/* Left: Patient Info */}
+      <div className="col-span-12 md:col-span-4 xl:col-span-3 order-1">
         <Card className="p-4">
-          <h2 className="text-lg font-bold mb-2">Thông tin bệnh nhân</h2>
+          <h2 className="text-lg font-semibold mb-3">Thông tin bệnh nhân</h2>
 
           <DynamicInfo
             data={exam.patient}
@@ -70,18 +66,42 @@ export default function ExaminationPage() {
               { label: "BHYT", name: "insuranceNumber" },
             ]}
           />
-          
         </Card>
       </div>
-      <div
-        className="
-        col-span-12 
-        md:col-span-8 
-        xl:col-span-6
-        order-3 
-        xl:order-2
-      "
-      >
+
+      {/* Middle: Examination Content */}
+      <div className="col-span-12 md:col-span-8 xl:col-span-6 order-3 xl:order-2">
+        
+        {/* Header + Action Buttons */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Khám bệnh</h2>
+
+          {exam.status === "COMPLETED" && (
+            <div className="flex gap-2">
+              {exam.prescription?.dispenseRecordId && (
+                <button
+                  onClick={() =>
+                    navigate(`/staff/dispense/${exam.prescription?.dispenseRecordId}`)
+                  }
+                  className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  In đơn thuốc
+                </button>
+              )}
+
+              {exam.invoiceId && (
+                <button
+                  onClick={() => navigate(`/staff/billing/${exam.invoiceId}`)}
+                  className="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                >
+                  In hóa đơn
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Tabs */}
         <Tabs
           value={activeTab}
           onValueChange={(v) => {
@@ -92,15 +112,10 @@ export default function ExaminationPage() {
         >
           <TabsList
             className="
-              grid 
-              grid-cols-3 
-              sm:grid-cols-4 
-              md:grid-cols-6 
-              overflow-x-auto 
-              gap-1 
-              mb-4
-              scrollbar-thin
-              px-1
+              grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 
+              gap-1 mb-4 
+              overflow-x-auto scrollbar-thin
+              bg-muted p-1 rounded
             "
           >
             <TabsTrigger value="clinical">Lâm sàng</TabsTrigger>
@@ -137,16 +152,8 @@ export default function ExaminationPage() {
         </Tabs>
       </div>
 
-      {/* Queue Panel */}
-      <div
-        className="
-        col-span-12 
-        md:col-span-12 
-        xl:col-span-3
-        order-2 
-        xl:order-3
-      "
-      >
+      {/* Right: Queue Panel */}
+      <div className="col-span-12 md:col-span-12 xl:col-span-3 order-2 xl:order-3">
         <QueuePanel currentExamId={exam.id} />
       </div>
     </div>

@@ -53,7 +53,6 @@ export default function AccountSecurityPage() {
   const [addingPasskey, setAddingPasskey] = useState(false);
   const [emailChallengeId, setEmailChallengeId] = useState<string | null>(null);
 
-  // ===== useForm cho Đổi mật khẩu =====
   const {
     register,
     handleSubmit,
@@ -63,7 +62,7 @@ export default function AccountSecurityPage() {
     resolver: yupResolver(passwordSchema),
   });
 
-  // ===== useForm cho Email MFA =====
+
   const {
     register: registerEmail,
     handleSubmit: handleEmailSubmit,
@@ -99,7 +98,6 @@ export default function AccountSecurityPage() {
     } catch {}
   };
 
-  // ===== Global MFA toggle
   const handleToggleMfa = async () => {
     try {
       if (mfaEnabled) {
@@ -117,7 +115,6 @@ export default function AccountSecurityPage() {
     }
   };
 
-  // ===== TOTP
   const handleEnableTOTP = async () => {
     try {
       const res = await AccountApi.requestTOTP();
@@ -146,7 +143,6 @@ export default function AccountSecurityPage() {
     }
   };
 
-  // ===== Email MFA
   const handleInitEmailMfa = async (data: any) => {
     try {
       const res = await AccountApi.initEmailMfa(data.email.trim());
@@ -177,6 +173,7 @@ export default function AccountSecurityPage() {
     try {
       setAddingPasskey(true);
       const options = await AccountApi.startRegistration();
+      options.extensions = {};
       options.authenticatorSelection = { residentKey: "required", userVerification: "preferred" };
       const att = await startRegistration(options);
       await AccountApi.finishRegistration(JSON.stringify(att));

@@ -14,7 +14,8 @@ import { FormModal } from "@/components/common/FormModal";
 import * as yup from "yup";
 import { SearchSelect } from "@/components/common/SearchSelect";
 import { RoomApi } from "@/api/room/RoomApi";
-import { type StaffResponse } from "../../api/models/StaffResponse";
+import type { StaffResponse } from "@/api";
+// import { type StaffResponse } from "../@/api/models/StaffResponse";
 
 const locales = { vi };
 const localizer = dateFnsLocalizer({

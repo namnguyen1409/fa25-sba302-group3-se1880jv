@@ -45,6 +45,12 @@ export interface PrescriptionResponse {
      * @memberof PrescriptionResponse
      */
     items?: Set<PrescriptionItemResponse>;
+    /**
+     * 
+     * @type {string}
+     * @memberof PrescriptionResponse
+     */
+    dispenseRecordId?: string;
 }
 
 /**
@@ -67,6 +73,7 @@ export function PrescriptionResponseFromJSONTyped(json: any, ignoreDiscriminator
         'id': json['id'] == null ? undefined : json['id'],
         'note': json['note'] == null ? undefined : json['note'],
         'items': json['items'] == null ? undefined : (new Set((json['items'] as Array<any>).map(PrescriptionItemResponseFromJSON))),
+        'dispenseRecordId': json['dispenseRecordId'] == null ? undefined : json['dispenseRecordId'],
     };
 }
 
@@ -84,6 +91,7 @@ export function PrescriptionResponseToJSONTyped(value?: PrescriptionResponse | n
         'id': value['id'],
         'note': value['note'],
         'items': value['items'] == null ? undefined : (Array.from(value['items'] as Set<any>).map(PrescriptionItemResponseToJSON)),
+        'dispenseRecordId': value['dispenseRecordId'],
     };
 }
 

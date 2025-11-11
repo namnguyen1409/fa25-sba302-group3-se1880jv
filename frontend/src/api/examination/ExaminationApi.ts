@@ -12,7 +12,8 @@ import type {
     PrescriptionRequest,
     DiagnosisRequest,
     CreateServiceOrderRequest,
-} from "../models"
+} from "@/api"
+import type { LabOrderResponse } from "@/api"
 
 export const ExaminationApi = {
     getById: (id: string) =>
@@ -129,7 +130,7 @@ export const ExaminationApi = {
         filterGroup?: any,
         sorts?: any
     ) =>
-        apiClient.post<PageResponse<ServiceOrderResponse>>(
+        apiClient.post<PageResponse<LabOrderResponse>>(
             `/examinations/${id}/lab/orders/filter`,
             {
                 page,
@@ -138,13 +139,6 @@ export const ExaminationApi = {
                 sorts,
             }
         ),  
-    /**
-     * Filter / get paged examinations
-     * @param page page index
-     * @param size page size
-     * @param filterGroup optional filter group
-     * @param sorts optional sorts
-     */
     getExaminations: (
         page: number,
         size: number,

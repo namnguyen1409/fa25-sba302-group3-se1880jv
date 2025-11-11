@@ -1,6 +1,6 @@
 import type { PageResponse } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { ContentResponse } from "../models";
+import type { ContentResponse } from "@/api";
 
 export const ContentApi = {
     filter: (

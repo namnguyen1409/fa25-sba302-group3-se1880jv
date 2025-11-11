@@ -2,52 +2,72 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**activateAccount**](#activateaccount) | **POST** /api/auth/activate | |
-|[**confirmPasswordReset**](#confirmpasswordreset) | **POST** /api/auth/password/reset/confirm | |
-|[**getCurrentUser**](#getcurrentuser) | **GET** /api/auth/me | |
-|[**login**](#login) | **POST** /api/auth/login | |
-|[**loginWithOAuth**](#loginwithoauth) | **POST** /api/auth/oauth | |
-|[**logout**](#logout) | **POST** /api/auth/logout | |
-|[**refreshToken**](#refreshtoken) | **POST** /api/auth/refresh | |
-|[**register**](#register) | **POST** /api/auth/register | |
-|[**requestPasswordReset**](#requestpasswordreset) | **POST** /api/auth/password/reset/request | |
-|[**switchMfa**](#switchmfa) | **POST** /api/auth/mfa/switch | |
-|[**verifyMfa**](#verifymfa) | **POST** /api/auth/mfa/verify | |
+| [**activateAccount**](AuthenticationApi.md#activateaccount) | **POST** /api/auth/activate |  |
+| [**confirmPasswordReset**](AuthenticationApi.md#confirmpasswordreset) | **POST** /api/auth/password/reset/confirm |  |
+| [**getCurrentUser**](AuthenticationApi.md#getcurrentuser) | **GET** /api/auth/me |  |
+| [**login**](AuthenticationApi.md#loginoperation) | **POST** /api/auth/login |  |
+| [**loginWithOAuth**](AuthenticationApi.md#loginwithoauth) | **POST** /api/auth/oauth |  |
+| [**logout**](AuthenticationApi.md#logout) | **POST** /api/auth/logout |  |
+| [**refreshToken**](AuthenticationApi.md#refreshtoken) | **POST** /api/auth/refresh |  |
+| [**register**](AuthenticationApi.md#registeroperation) | **POST** /api/auth/register |  |
+| [**requestPasswordReset**](AuthenticationApi.md#requestpasswordreset) | **POST** /api/auth/password/reset/request |  |
+| [**switchMfa**](AuthenticationApi.md#switchmfaoperation) | **POST** /api/auth/mfa/switch |  |
+| [**verifyMfa**](AuthenticationApi.md#verifymfa) | **POST** /api/auth/mfa/verify |  |
 
-# **activateAccount**
+
+
+## activateAccount
+
 > CustomApiResponseString activateAccount(body)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { ActivateAccountRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let body: string; //
+  const body = {
+    // string
+    body: body_example,
+  } satisfies ActivateAccountRequest;
 
-const { status, data } = await apiInstance.activateAccount(
-    body
-);
+  try {
+    const data = await api.activateAccount(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **body** | **string**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **body** | `string` |  | |
 
 ### Return type
 
-**CustomApiResponseString**
+[**CustomApiResponseString**](CustomApiResponseString.md)
 
 ### Authorization
 
@@ -55,52 +75,70 @@ const { status, data } = await apiInstance.activateAccount(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **confirmPasswordReset**
+
+## confirmPasswordReset
+
 > CustomApiResponseVoid confirmPasswordReset(passwordResetConfirmRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    PasswordResetConfirmRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { ConfirmPasswordResetRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let passwordResetConfirmRequest: PasswordResetConfirmRequest; //
+  const body = {
+    // PasswordResetConfirmRequest
+    passwordResetConfirmRequest: ...,
+  } satisfies ConfirmPasswordResetRequest;
 
-const { status, data } = await apiInstance.confirmPasswordReset(
-    passwordResetConfirmRequest
-);
+  try {
+    const data = await api.confirmPasswordReset(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **passwordResetConfirmRequest** | **PasswordResetConfirmRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **passwordResetConfirmRequest** | [PasswordResetConfirmRequest](PasswordResetConfirmRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -108,44 +146,62 @@ const { status, data } = await apiInstance.confirmPasswordReset(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getCurrentUser**
+
+## getCurrentUser
+
 > CustomApiResponseMeResponse getCurrentUser()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { GetCurrentUserRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-const { status, data } = await apiInstance.getCurrentUser();
+  try {
+    const data = await api.getCurrentUser();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseMeResponse**
+[**CustomApiResponseMeResponse**](CustomApiResponseMeResponse.md)
 
 ### Authorization
 
@@ -153,52 +209,70 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **login**
+
+## login
+
 > CustomApiResponseAuthResponse login(loginRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    LoginRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { LoginOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let loginRequest: LoginRequest; //
+  const body = {
+    // LoginRequest
+    loginRequest: ...,
+  } satisfies LoginOperationRequest;
 
-const { status, data } = await apiInstance.login(
-    loginRequest
-);
+  try {
+    const data = await api.login(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **loginRequest** | **LoginRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **loginRequest** | [LoginRequest](LoginRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAuthResponse**
+[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
 
 ### Authorization
 
@@ -206,52 +280,70 @@ const { status, data } = await apiInstance.login(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **loginWithOAuth**
+
+## loginWithOAuth
+
 > CustomApiResponseAuthResponse loginWithOAuth(oAuthLoginRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    OAuthLoginRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { LoginWithOAuthRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let oAuthLoginRequest: OAuthLoginRequest; //
+  const body = {
+    // OAuthLoginRequest
+    oAuthLoginRequest: ...,
+  } satisfies LoginWithOAuthRequest;
 
-const { status, data } = await apiInstance.loginWithOAuth(
-    oAuthLoginRequest
-);
+  try {
+    const data = await api.loginWithOAuth(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **oAuthLoginRequest** | **OAuthLoginRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **oAuthLoginRequest** | [OAuthLoginRequest](OAuthLoginRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAuthResponse**
+[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
 
 ### Authorization
 
@@ -259,44 +351,62 @@ const { status, data } = await apiInstance.loginWithOAuth(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **logout**
+
+## logout
+
 > CustomApiResponseVoid logout()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { LogoutRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-const { status, data } = await apiInstance.logout();
+  try {
+    const data = await api.logout();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -304,44 +414,62 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **refreshToken**
+
+## refreshToken
+
 > CustomApiResponseAuthResponse refreshToken()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { RefreshTokenRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-const { status, data } = await apiInstance.refreshToken();
+  try {
+    const data = await api.refreshToken();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseAuthResponse**
+[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
 
 ### Authorization
 
@@ -349,52 +477,70 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **register**
+
+## register
+
 > CustomApiResponseAuthResponse register(registerRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    RegisterRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { RegisterOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let registerRequest: RegisterRequest; //
+  const body = {
+    // RegisterRequest
+    registerRequest: ...,
+  } satisfies RegisterOperationRequest;
 
-const { status, data } = await apiInstance.register(
-    registerRequest
-);
+  try {
+    const data = await api.register(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **registerRequest** | **RegisterRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **registerRequest** | [RegisterRequest](RegisterRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAuthResponse**
+[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
 
 ### Authorization
 
@@ -402,52 +548,70 @@ const { status, data } = await apiInstance.register(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **requestPasswordReset**
+
+## requestPasswordReset
+
 > CustomApiResponseVoid requestPasswordReset(passwordResetRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    PasswordResetRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { RequestPasswordResetRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let passwordResetRequest: PasswordResetRequest; //
+  const body = {
+    // PasswordResetRequest
+    passwordResetRequest: ...,
+  } satisfies RequestPasswordResetRequest;
 
-const { status, data } = await apiInstance.requestPasswordReset(
-    passwordResetRequest
-);
+  try {
+    const data = await api.requestPasswordReset(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **passwordResetRequest** | **PasswordResetRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **passwordResetRequest** | [PasswordResetRequest](PasswordResetRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -455,52 +619,70 @@ const { status, data } = await apiInstance.requestPasswordReset(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **switchMfa**
+
+## switchMfa
+
 > CustomApiResponseAuthResponse switchMfa(switchMfaRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    SwitchMfaRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { SwitchMfaOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let switchMfaRequest: SwitchMfaRequest; //
+  const body = {
+    // SwitchMfaRequest
+    switchMfaRequest: ...,
+  } satisfies SwitchMfaOperationRequest;
 
-const { status, data } = await apiInstance.switchMfa(
-    switchMfaRequest
-);
+  try {
+    const data = await api.switchMfa(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **switchMfaRequest** | **SwitchMfaRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **switchMfaRequest** | [SwitchMfaRequest](SwitchMfaRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAuthResponse**
+[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
 
 ### Authorization
 
@@ -508,52 +690,70 @@ const { status, data } = await apiInstance.switchMfa(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **verifyMfa**
+
+## verifyMfa
+
 > CustomApiResponseAuthResponse verifyMfa(mfaVerifyRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AuthenticationApi,
-    Configuration,
-    MfaVerifyRequest
-} from './api';
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { VerifyMfaRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AuthenticationApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
 
-let mfaVerifyRequest: MfaVerifyRequest; //
+  const body = {
+    // MfaVerifyRequest
+    mfaVerifyRequest: ...,
+  } satisfies VerifyMfaRequest;
 
-const { status, data } = await apiInstance.verifyMfa(
-    mfaVerifyRequest
-);
+  try {
+    const data = await api.verifyMfa(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **mfaVerifyRequest** | **MfaVerifyRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mfaVerifyRequest** | [MfaVerifyRequest](MfaVerifyRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAuthResponse**
+[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
 
 ### Authorization
 
@@ -561,16 +761,16 @@ const { status, data } = await apiInstance.verifyMfa(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

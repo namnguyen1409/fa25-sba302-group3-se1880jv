@@ -2,48 +2,67 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**create1**](#create1) | **POST** /api/organization/departments | |
-|[**delete1**](#delete1) | **DELETE** /api/organization/departments/{id} | |
-|[**filter2**](#filter2) | **POST** /api/organization/departments/filter | |
-|[**filterRoomsByDepartment**](#filterroomsbydepartment) | **POST** /api/organization/departments/{deptId}/rooms | |
-|[**getDepartmentById**](#getdepartmentbyid) | **GET** /api/organization/departments/{id} | |
-|[**update1**](#update1) | **PUT** /api/organization/departments/{id} | |
+| [**create1**](DepartmentManagementApi.md#create1) | **POST** /api/organization/departments |  |
+| [**delete1**](DepartmentManagementApi.md#delete1) | **DELETE** /api/organization/departments/{id} |  |
+| [**filter2**](DepartmentManagementApi.md#filter2) | **POST** /api/organization/departments/filter |  |
+| [**filterRoomsByDepartment**](DepartmentManagementApi.md#filterroomsbydepartment) | **POST** /api/organization/departments/{deptId}/rooms |  |
+| [**getDepartmentById**](DepartmentManagementApi.md#getdepartmentbyid) | **GET** /api/organization/departments/{id} |  |
+| [**update1**](DepartmentManagementApi.md#update1) | **PUT** /api/organization/departments/{id} |  |
 
-# **create1**
+
+
+## create1
+
 > CustomApiResponseDepartmentResponse create1(departmentRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    DepartmentManagementApi,
-    Configuration,
-    DepartmentRequest
-} from './api';
+  Configuration,
+  DepartmentManagementApi,
+} from '';
+import type { Create1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DepartmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DepartmentManagementApi(config);
 
-let departmentRequest: DepartmentRequest; //
+  const body = {
+    // DepartmentRequest
+    departmentRequest: ...,
+  } satisfies Create1Request;
 
-const { status, data } = await apiInstance.create1(
-    departmentRequest
-);
+  try {
+    const data = await api.create1(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **departmentRequest** | **DepartmentRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **departmentRequest** | [DepartmentRequest](DepartmentRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseDepartmentResponse**
+[**CustomApiResponseDepartmentResponse**](CustomApiResponseDepartmentResponse.md)
 
 ### Authorization
 
@@ -51,51 +70,70 @@ const { status, data } = await apiInstance.create1(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete1**
-> CustomApiResponseVoid delete1()
+
+## delete1
+
+> CustomApiResponseVoid delete1(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DepartmentManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  DepartmentManagementApi,
+} from '';
+import type { Delete1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DepartmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DepartmentManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies Delete1Request;
 
-const { status, data } = await apiInstance.delete1(
-    id
-);
+  try {
+    const data = await api.delete1(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -103,52 +141,70 @@ const { status, data } = await apiInstance.delete1(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter2**
+
+## filter2
+
 > CustomApiResponsePageDepartmentResponse filter2(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    DepartmentManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  DepartmentManagementApi,
+} from '';
+import type { Filter2Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DepartmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DepartmentManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter2Request;
 
-const { status, data } = await apiInstance.filter2(
-    searchFilter
-);
+  try {
+    const data = await api.filter2(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageDepartmentResponse**
+[**CustomApiResponsePageDepartmentResponse**](CustomApiResponsePageDepartmentResponse.md)
 
 ### Authorization
 
@@ -156,55 +212,73 @@ const { status, data } = await apiInstance.filter2(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filterRoomsByDepartment**
-> CustomApiResponsePageRoomResponse filterRoomsByDepartment(searchFilter)
+
+## filterRoomsByDepartment
+
+> CustomApiResponsePageRoomResponse filterRoomsByDepartment(deptId, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DepartmentManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  DepartmentManagementApi,
+} from '';
+import type { FilterRoomsByDepartmentRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DepartmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DepartmentManagementApi(config);
 
-let deptId: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    deptId: deptId_example,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies FilterRoomsByDepartmentRequest;
 
-const { status, data } = await apiInstance.filterRoomsByDepartment(
-    deptId,
-    searchFilter
-);
+  try {
+    const data = await api.filterRoomsByDepartment(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **deptId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **deptId** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageRoomResponse**
+[**CustomApiResponsePageRoomResponse**](CustomApiResponsePageRoomResponse.md)
 
 ### Authorization
 
@@ -212,51 +286,70 @@ const { status, data } = await apiInstance.filterRoomsByDepartment(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getDepartmentById**
-> CustomApiResponseDepartmentResponse getDepartmentById()
+
+## getDepartmentById
+
+> CustomApiResponseDepartmentResponse getDepartmentById(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DepartmentManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  DepartmentManagementApi,
+} from '';
+import type { GetDepartmentByIdRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DepartmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DepartmentManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetDepartmentByIdRequest;
 
-const { status, data } = await apiInstance.getDepartmentById(
-    id
-);
+  try {
+    const data = await api.getDepartmentById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseDepartmentResponse**
+[**CustomApiResponseDepartmentResponse**](CustomApiResponseDepartmentResponse.md)
 
 ### Authorization
 
@@ -264,55 +357,73 @@ const { status, data } = await apiInstance.getDepartmentById(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update1**
-> CustomApiResponseDepartmentResponse update1(departmentRequest)
+
+## update1
+
+> CustomApiResponseDepartmentResponse update1(id, departmentRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    DepartmentManagementApi,
-    Configuration,
-    DepartmentRequest
-} from './api';
+  Configuration,
+  DepartmentManagementApi,
+} from '';
+import type { Update1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new DepartmentManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DepartmentManagementApi(config);
 
-let id: string; // (default to undefined)
-let departmentRequest: DepartmentRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // DepartmentRequest
+    departmentRequest: ...,
+  } satisfies Update1Request;
 
-const { status, data } = await apiInstance.update1(
-    id,
-    departmentRequest
-);
+  try {
+    const data = await api.update1(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **departmentRequest** | **DepartmentRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **departmentRequest** | [DepartmentRequest](DepartmentRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseDepartmentResponse**
+[**CustomApiResponseDepartmentResponse**](CustomApiResponseDepartmentResponse.md)
 
 ### Authorization
 
@@ -320,16 +431,16 @@ const { status, data } = await apiInstance.update1(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

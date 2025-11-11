@@ -1,6 +1,6 @@
-import { filter } from "lodash";
+
 import { apiClient } from "../client";
-import type { DispenseRecordResponse } from "../models";
+import type { DispenseRecordResponse } from "@/api";
 import type { PageResponse } from "@/components/common/EntityTableWrapper";
 
 export const PharmacyApi = {

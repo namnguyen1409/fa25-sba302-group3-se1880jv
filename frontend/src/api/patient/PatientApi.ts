@@ -1,7 +1,7 @@
 
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { AllergyResponse, EmergencyContactResponse } from "../models";
+import type { AllergyResponse, EmergencyContactResponse } from "@/api";
 
 
 /**

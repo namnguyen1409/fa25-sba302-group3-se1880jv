@@ -36,7 +36,7 @@ public class SearchMetadataProvider {
     @PostConstruct
     public void init() {
         cachedMetadata.clear();
-        cachedMetadata.addAll(buildSearchableMetadata("com.example.a2namnvhe180863_se1880.entity"));
+        cachedMetadata.addAll(buildSearchableMetadata("sba.group3.backendmvc.entity"));
     }
 
     public EntityMeta getEntityMeta(Class<?> entityClass) {

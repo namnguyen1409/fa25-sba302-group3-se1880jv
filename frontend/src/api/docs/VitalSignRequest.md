@@ -1,32 +1,46 @@
+
 # VitalSignRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**examinationId** | **string** |  | [optional] [default to undefined]
-**temperature** | **number** |  | [optional] [default to undefined]
-**bloodPressure** | **string** |  | [optional] [default to undefined]
-**pulse** | **number** |  | [optional] [default to undefined]
-**respirationRate** | **number** |  | [optional] [default to undefined]
-**height** | **number** |  | [optional] [default to undefined]
-**weight** | **number** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`examinationId` | string
+`temperature` | number
+`bloodPressure` | string
+`pulse` | number
+`respirationRate` | number
+`height` | number
+`weight` | number
 
 ## Example
 
 ```typescript
-import { VitalSignRequest } from './api';
+import type { VitalSignRequest } from ''
 
-const instance: VitalSignRequest = {
-    examinationId,
-    temperature,
-    bloodPressure,
-    pulse,
-    respirationRate,
-    height,
-    weight,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "examinationId": null,
+  "temperature": null,
+  "bloodPressure": null,
+  "pulse": null,
+  "respirationRate": null,
+  "height": null,
+  "weight": null,
+} satisfies VitalSignRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as VitalSignRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

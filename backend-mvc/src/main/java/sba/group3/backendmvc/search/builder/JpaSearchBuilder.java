@@ -74,6 +74,27 @@ public final class JpaSearchBuilder {
                         yield cb.between((Path<Comparable>) path, from, to);
                     } else yield null;
                 }
+                case "member" -> cb.isMember(value.toString(), root.get(filter.getField()));
+                case "memberIn" -> {
+                    if (value instanceof List<?> vals) {
+                        List<Predicate> orPreds = new ArrayList<>();
+                        for (Object v : vals) {
+                            orPreds.add(cb.isMember(v.toString(), root.get(filter.getField())));
+                        }
+                        yield cb.or(orPreds.toArray(new Predicate[0]));
+                    }
+                    yield null;
+                }
+                case "memberAll" -> {
+                    if (value instanceof List<?> vals) {
+                        List<Predicate> andPreds = new ArrayList<>();
+                        for (Object v : vals) {
+                            andPreds.add(cb.isMember(v.toString(), root.get(filter.getField())));
+                        }
+                        yield cb.and(andPreds.toArray(new Predicate[0]));
+                    }
+                    yield null;
+                }
                 case "in" -> {
                     CriteriaBuilder.In<Object> inClause = cb.in(path);
                     if (value instanceof List<?> vals) {

@@ -21,7 +21,6 @@ export default function BillingHistoryPage() {
   const tableRef = React.useRef<any>(null);
   const navigate = useNavigate();
 
-  // ✅ Fetch lịch sử thu phí
   const fetchInvoices = async (
     page: number,
     size: number,
@@ -37,7 +36,6 @@ export default function BillingHistoryPage() {
     }
   };
 
-  // ✅ Các cột để hiển thị trong table
   const columns: Column<InvoiceResponse>[] = [
     {
       title: "Số hóa đơn",
@@ -87,8 +85,6 @@ export default function BillingHistoryPage() {
       sortable: true,
       render: (v) => v ?? "-",
     },
-
-    // ✅ Nút xem chi tiết
     {
       title: "Hành động",
       dataIndex: "actions",

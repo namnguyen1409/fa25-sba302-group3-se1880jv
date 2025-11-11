@@ -1,34 +1,48 @@
+
 # RegisterRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**username** | **string** |  | [optional] [default to undefined]
-**fullName** | **string** |  | [optional] [default to undefined]
-**email** | **string** |  | [optional] [default to undefined]
-**password** | **string** |  | [optional] [default to undefined]
-**phone** | **string** |  | [optional] [default to undefined]
-**dob** | **string** |  | [optional] [default to undefined]
-**gender** | **string** |  | [optional] [default to undefined]
-**address** | [**AddressResponse**](AddressResponse.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`username` | string
+`fullName` | string
+`email` | string
+`password` | string
+`phone` | string
+`dob` | Date
+`gender` | string
+`address` | [AddressResponse](AddressResponse.md)
 
 ## Example
 
 ```typescript
-import { RegisterRequest } from './api';
+import type { RegisterRequest } from ''
 
-const instance: RegisterRequest = {
-    username,
-    fullName,
-    email,
-    password,
-    phone,
-    dob,
-    gender,
-    address,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "username": null,
+  "fullName": null,
+  "email": null,
+  "password": null,
+  "phone": null,
+  "dob": null,
+  "gender": null,
+  "address": null,
+} satisfies RegisterRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as RegisterRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

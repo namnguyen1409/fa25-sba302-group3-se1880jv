@@ -1,30 +1,44 @@
+
 # PageableObject
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**pageNumber** | **number** |  | [optional] [default to undefined]
-**unpaged** | **boolean** |  | [optional] [default to undefined]
-**paged** | **boolean** |  | [optional] [default to undefined]
-**pageSize** | **number** |  | [optional] [default to undefined]
-**offset** | **number** |  | [optional] [default to undefined]
-**sort** | [**SortObject**](SortObject.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`unpaged` | boolean
+`paged` | boolean
+`pageSize` | number
+`pageNumber` | number
+`offset` | number
+`sort` | [SortObject](SortObject.md)
 
 ## Example
 
 ```typescript
-import { PageableObject } from './api';
+import type { PageableObject } from ''
 
-const instance: PageableObject = {
-    pageNumber,
-    unpaged,
-    paged,
-    pageSize,
-    offset,
-    sort,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "unpaged": null,
+  "paged": null,
+  "pageSize": null,
+  "pageNumber": null,
+  "offset": null,
+  "sort": null,
+} satisfies PageableObject
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as PageableObject
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

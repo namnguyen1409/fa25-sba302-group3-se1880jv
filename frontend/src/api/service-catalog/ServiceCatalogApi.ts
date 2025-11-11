@@ -1,6 +1,6 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { ServiceCatalogRequest, ServiceCatalogResponse } from "../models";
+import type { ServiceCatalogRequest, ServiceCatalogResponse } from "@/api";
 
 export const ServiceCatalogApi = {
     filter: (page: number, size: number, filterGroup?: FilterGroup, sorts?: SortRequest[]) =>

@@ -1,6 +1,6 @@
 import { apiClient } from "../client";
 import type { PageResponse, FilterGroup, SortRequest } from "@/components/common/EntityTableWrapper";
-import type { MedicineRequest, MedicineResponse } from "../models";
+import type { MedicineRequest, MedicineResponse } from "@/api";
 
 export const MedicineApi = {
   getMedicines: (

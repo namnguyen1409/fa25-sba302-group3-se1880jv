@@ -1,28 +1,42 @@
+
 # DepartmentResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to undefined]
-**name** | **string** |  | [optional] [default to undefined]
-**description** | **string** |  | [optional] [default to undefined]
-**clinic** | [**ClinicSimpleResponse**](ClinicSimpleResponse.md) |  | [optional] [default to undefined]
-**rooms** | [**Array&lt;RoomResponse&gt;**](RoomResponse.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`id` | string
+`name` | string
+`description` | string
+`clinic` | [ClinicSimpleResponse](ClinicSimpleResponse.md)
+`rooms` | [Array&lt;RoomResponse&gt;](RoomResponse.md)
 
 ## Example
 
 ```typescript
-import { DepartmentResponse } from './api';
+import type { DepartmentResponse } from ''
 
-const instance: DepartmentResponse = {
-    id,
-    name,
-    description,
-    clinic,
-    rooms,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "id": null,
+  "name": null,
+  "description": null,
+  "clinic": null,
+  "rooms": null,
+} satisfies DepartmentResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as DepartmentResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

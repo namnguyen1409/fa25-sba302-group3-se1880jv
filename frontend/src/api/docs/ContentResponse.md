@@ -1,46 +1,60 @@
+
 # ContentResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to undefined]
-**createdBy** | **string** |  | [optional] [default to undefined]
-**createdDate** | **string** |  | [optional] [default to undefined]
-**lastModifiedBy** | **string** |  | [optional] [default to undefined]
-**lastModifiedDate** | **string** |  | [optional] [default to undefined]
-**title** | **string** |  | [optional] [default to undefined]
-**slug** | **string** |  | [optional] [default to undefined]
-**body** | **string** |  | [optional] [default to undefined]
-**excerpt** | **string** |  | [optional] [default to undefined]
-**coverImageUrl** | **string** |  | [optional] [default to undefined]
-**status** | **string** |  | [optional] [default to undefined]
-**publishedAt** | **string** |  | [optional] [default to undefined]
-**tags** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
-**author** | [**StaffResponse**](StaffResponse.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`id` | string
+`createdBy` | string
+`createdDate` | Date
+`lastModifiedBy` | string
+`lastModifiedDate` | Date
+`title` | string
+`slug` | string
+`body` | string
+`excerpt` | string
+`coverImageUrl` | string
+`status` | string
+`publishedAt` | Date
+`tags` | Set&lt;string&gt;
+`author` | [StaffResponse](StaffResponse.md)
 
 ## Example
 
 ```typescript
-import { ContentResponse } from './api';
+import type { ContentResponse } from ''
 
-const instance: ContentResponse = {
-    id,
-    createdBy,
-    createdDate,
-    lastModifiedBy,
-    lastModifiedDate,
-    title,
-    slug,
-    body,
-    excerpt,
-    coverImageUrl,
-    status,
-    publishedAt,
-    tags,
-    author,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "id": null,
+  "createdBy": null,
+  "createdDate": null,
+  "lastModifiedBy": null,
+  "lastModifiedDate": null,
+  "title": null,
+  "slug": null,
+  "body": null,
+  "excerpt": null,
+  "coverImageUrl": null,
+  "status": null,
+  "publishedAt": null,
+  "tags": null,
+  "author": null,
+} satisfies ContentResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as ContentResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

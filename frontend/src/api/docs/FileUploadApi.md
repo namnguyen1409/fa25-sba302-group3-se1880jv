@@ -2,49 +2,69 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**uploadMultiple**](#uploadmultiple) | **POST** /api/files/upload-multiple | |
-|[**uploadSingle**](#uploadsingle) | **POST** /api/files/upload | |
+| [**uploadMultiple**](FileUploadApi.md#uploadmultiple) | **POST** /api/files/upload-multiple |  |
+| [**uploadSingle**](FileUploadApi.md#uploadsingle) | **POST** /api/files/upload |  |
 
-# **uploadMultiple**
-> CustomApiResponseListString uploadMultiple()
+
+
+## uploadMultiple
+
+> CustomApiResponseListString uploadMultiple(entityType, entityId, files)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    FileUploadApi,
-    Configuration
-} from './api';
+  Configuration,
+  FileUploadApi,
+} from '';
+import type { UploadMultipleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new FileUploadApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new FileUploadApi(config);
 
-let entityType: string; // (default to undefined)
-let entityId: string; // (default to undefined)
-let files: Array<File>; // (default to undefined)
+  const body = {
+    // string
+    entityType: entityType_example,
+    // string
+    entityId: entityId_example,
+    // Array<Blob>
+    files: /path/to/file.txt,
+  } satisfies UploadMultipleRequest;
 
-const { status, data } = await apiInstance.uploadMultiple(
-    entityType,
-    entityId,
-    files
-);
+  try {
+    const data = await api.uploadMultiple(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **entityType** | [**string**] |  | defaults to undefined|
-| **entityId** | [**string**] |  | defaults to undefined|
-| **files** | **Array&lt;File&gt;** |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **entityType** | `string` |  | [Defaults to `undefined`] |
+| **entityId** | `string` |  | [Defaults to `undefined`] |
+| **files** | `Array<Blob>` |  | |
 
 ### Return type
 
-**CustomApiResponseListString**
+[**CustomApiResponseListString**](CustomApiResponseListString.md)
 
 ### Authorization
 
@@ -52,57 +72,76 @@ const { status, data } = await apiInstance.uploadMultiple(
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
- - **Accept**: */*
+- **Content-Type**: `multipart/form-data`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **uploadSingle**
-> CustomApiResponseString uploadSingle()
+
+## uploadSingle
+
+> CustomApiResponseString uploadSingle(entityType, entityId, file)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    FileUploadApi,
-    Configuration
-} from './api';
+  Configuration,
+  FileUploadApi,
+} from '';
+import type { UploadSingleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new FileUploadApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new FileUploadApi(config);
 
-let entityType: string; // (default to undefined)
-let entityId: string; // (default to undefined)
-let file: File; // (default to undefined)
+  const body = {
+    // string
+    entityType: entityType_example,
+    // string
+    entityId: entityId_example,
+    // Blob
+    file: BINARY_DATA_HERE,
+  } satisfies UploadSingleRequest;
 
-const { status, data } = await apiInstance.uploadSingle(
-    entityType,
-    entityId,
-    file
-);
+  try {
+    const data = await api.uploadSingle(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **entityType** | [**string**] |  | defaults to undefined|
-| **entityId** | [**string**] |  | defaults to undefined|
-| **file** | [**File**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **entityType** | `string` |  | [Defaults to `undefined`] |
+| **entityId** | `string` |  | [Defaults to `undefined`] |
+| **file** | `Blob` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseString**
+[**CustomApiResponseString**](CustomApiResponseString.md)
 
 ### Authorization
 
@@ -110,16 +149,16 @@ const { status, data } = await apiInstance.uploadSingle(
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
- - **Accept**: */*
+- **Content-Type**: `multipart/form-data`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

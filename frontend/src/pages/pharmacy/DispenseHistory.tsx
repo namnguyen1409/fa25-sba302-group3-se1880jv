@@ -12,10 +12,9 @@ import type { Column } from "@/components/common/ReuseAbleTable";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { toast } from "sonner";
-
-import type { DispenseRecordResponse } from "@/api/models/DispenseRecordResponse";
 import { PharmacyApi } from "@/api/pharmacy/PharmacyApi";
 import { useNavigate } from "react-router-dom";
+import type { DispenseRecordResponse } from "@/api";
 
 export default function DispenseRecordHistoryPage() {
   const tableRef = React.useRef<any>(null);

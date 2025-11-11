@@ -37,7 +37,11 @@ public class SecurityConfig {
             "/ws/**",
             "/api/notifications/**",
             "/topic/**",
-            "/api/admin/report/**"
+            "/api/admin/report/**",
+            "/api/cms/contents/filter",
+            "/api/organization/clinics",
+            "/api/cms/contents/slug/**",
+            "/api/admin/staffs/filter",
     };
 
     @Bean
@@ -48,7 +52,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         var config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "https://sba301.telecomic.top"));
+        config.setAllowedOrigins(List.of("http://localhost:5173", "https://sba301.telecomic.top", "https://frontend.sba301.io.vn"));
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
@@ -78,7 +82,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**", "/endpoints/all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**", "/endpoints/all", "api/admin/staffs/**").permitAll()
                         .requestMatchers("/sse", "/sse/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2

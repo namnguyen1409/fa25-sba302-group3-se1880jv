@@ -19,5 +19,5 @@ public record ExaminationResponse(UUID id, PatientResponse patient, StaffRespons
                                   LocalDateTime examinationDate, PrescriptionResponse prescription,
                                   Set<ServiceOrderResponse> serviceOrders, Set<VitalSignResponse> vitalSigns,
                                   Set<DiagnosisResponse> diagnoses,
-                                  Set<LabOrderResponse> labOrders) implements Serializable {
+                                  Set<LabOrderResponse> labOrders, UUID invoiceId) implements Serializable {
 }

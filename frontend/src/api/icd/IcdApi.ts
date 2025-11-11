@@ -1,6 +1,6 @@
 import { type PageResponse, type FilterGroup, type SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import { type IcdCodeResponse, type IcdCodeRequest } from "../models";
+import { type IcdCodeResponse, type IcdCodeRequest } from "@/api";
 import { Search } from "lucide-react";
 
 

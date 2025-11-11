@@ -1,5 +1,5 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
-import type { StaffScheduleTemplateRequest, StaffScheduleTemplateResponse } from "../models";
+import type { StaffScheduleTemplateRequest, StaffScheduleTemplateResponse } from "@/api";
 import { apiClient } from "../client";
 
 export const StaffScheduleTemplateApi = {

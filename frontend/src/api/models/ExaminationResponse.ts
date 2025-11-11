@@ -147,6 +147,12 @@ export interface ExaminationResponse {
      * @memberof ExaminationResponse
      */
     labOrders?: Set<LabOrderResponse>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExaminationResponse
+     */
+    invoiceId?: string;
 }
 
 
@@ -202,6 +208,7 @@ export function ExaminationResponseFromJSONTyped(json: any, ignoreDiscriminator:
         'vitalSigns': json['vitalSigns'] == null ? undefined : (new Set((json['vitalSigns'] as Array<any>).map(VitalSignResponseFromJSON))),
         'diagnoses': json['diagnoses'] == null ? undefined : (new Set((json['diagnoses'] as Array<any>).map(DiagnosisResponseFromJSON))),
         'labOrders': json['labOrders'] == null ? undefined : (new Set((json['labOrders'] as Array<any>).map(LabOrderResponseFromJSON))),
+        'invoiceId': json['invoiceId'] == null ? undefined : json['invoiceId'],
     };
 }
 
@@ -229,6 +236,7 @@ export function ExaminationResponseToJSONTyped(value?: ExaminationResponse | nul
         'vitalSigns': value['vitalSigns'] == null ? undefined : (Array.from(value['vitalSigns'] as Set<any>).map(VitalSignResponseToJSON)),
         'diagnoses': value['diagnoses'] == null ? undefined : (Array.from(value['diagnoses'] as Set<any>).map(DiagnosisResponseToJSON)),
         'labOrders': value['labOrders'] == null ? undefined : (Array.from(value['labOrders'] as Set<any>).map(LabOrderResponseToJSON)),
+        'invoiceId': value['invoiceId'],
     };
 }
 

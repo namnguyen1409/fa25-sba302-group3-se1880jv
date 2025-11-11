@@ -2,43 +2,62 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getLoginHistory**](#getloginhistory) | **POST** /api/account/login-activity/filter | |
+| [**getLoginHistory**](AccountLoginActivityApi.md#getloginhistory) | **POST** /api/account/login-activity/filter |  |
 
-# **getLoginHistory**
+
+
+## getLoginHistory
+
 > CustomApiResponsePageLoginAttemptResponse getLoginHistory(searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AccountLoginActivityApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  AccountLoginActivityApi,
+} from '';
+import type { GetLoginHistoryRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountLoginActivityApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountLoginActivityApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetLoginHistoryRequest;
 
-const { status, data } = await apiInstance.getLoginHistory(
-    searchFilter
-);
+  try {
+    const data = await api.getLoginHistory(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageLoginAttemptResponse**
+[**CustomApiResponsePageLoginAttemptResponse**](CustomApiResponsePageLoginAttemptResponse.md)
 
 ### Authorization
 
@@ -46,16 +65,16 @@ const { status, data } = await apiInstance.getLoginHistory(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

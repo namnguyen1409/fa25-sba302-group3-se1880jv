@@ -1,28 +1,42 @@
+
 # Filter
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**field** | **string** |  | [optional] [default to undefined]
-**fields** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
-**operator** | **string** |  | [optional] [default to undefined]
-**value** | **object** |  | [optional] [default to undefined]
-**empty** | **boolean** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`field` | string
+`fields` | Array&lt;string&gt;
+`operator` | string
+`value` | object
+`empty` | boolean
 
 ## Example
 
 ```typescript
-import { Filter } from './api';
+import type { Filter } from ''
 
-const instance: Filter = {
-    field,
-    fields,
-    operator,
-    value,
-    empty,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "field": null,
+  "fields": null,
+  "operator": null,
+  "value": null,
+  "empty": null,
+} satisfies Filter
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as Filter
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

@@ -1,24 +1,38 @@
+
 # SortObject
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**sorted** | **boolean** |  | [optional] [default to undefined]
-**unsorted** | **boolean** |  | [optional] [default to undefined]
-**empty** | **boolean** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`sorted` | boolean
+`unsorted` | boolean
+`empty` | boolean
 
 ## Example
 
 ```typescript
-import { SortObject } from './api';
+import type { SortObject } from ''
 
-const instance: SortObject = {
-    sorted,
-    unsorted,
-    empty,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "sorted": null,
+  "unsorted": null,
+  "empty": null,
+} satisfies SortObject
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as SortObject
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

@@ -2,46 +2,65 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**updateServiceOrderItem**](#updateserviceorderitem) | **PUT** /api/service-order-items/{id} | |
+| [**updateServiceOrderItem**](ServiceOrderItemControllerApi.md#updateserviceorderitem) | **PUT** /api/service-order-items/{id} |  |
 
-# **updateServiceOrderItem**
-> CustomApiResponseObject updateServiceOrderItem(serviceOrderItemRequest)
+
+
+## updateServiceOrderItem
+
+> CustomApiResponseObject updateServiceOrderItem(id, serviceOrderItemRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ServiceOrderItemControllerApi,
-    Configuration,
-    ServiceOrderItemRequest
-} from './api';
+  Configuration,
+  ServiceOrderItemControllerApi,
+} from '';
+import type { UpdateServiceOrderItemRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ServiceOrderItemControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ServiceOrderItemControllerApi(config);
 
-let id: string; // (default to undefined)
-let serviceOrderItemRequest: ServiceOrderItemRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // ServiceOrderItemRequest
+    serviceOrderItemRequest: ...,
+  } satisfies UpdateServiceOrderItemRequest;
 
-const { status, data } = await apiInstance.updateServiceOrderItem(
-    id,
-    serviceOrderItemRequest
-);
+  try {
+    const data = await api.updateServiceOrderItem(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **serviceOrderItemRequest** | **ServiceOrderItemRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **serviceOrderItemRequest** | [ServiceOrderItemRequest](ServiceOrderItemRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseObject**
+[**CustomApiResponseObject**](CustomApiResponseObject.md)
 
 ### Authorization
 
@@ -49,16 +68,16 @@ const { status, data } = await apiInstance.updateServiceOrderItem(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

@@ -17,6 +17,7 @@ public interface PrescriptionMapper {
     @Mapping(source = "examinationId", target = "examination.id")
     Prescription partialUpdate(PrescriptionRequest prescriptionRequest, @MappingTarget Prescription prescription);
 
+    @Mapping(source = "dispenseRecordId", target = "dispenseRecord.id")
     Prescription toEntity(PrescriptionResponse prescriptionResponse);
 
     @AfterMapping
@@ -24,6 +25,7 @@ public interface PrescriptionMapper {
         prescription.getItems().forEach(item -> item.setPrescription(prescription));
     }
 
+    @Mapping(source = "dispenseRecord.id", target = "dispenseRecordId")
     PrescriptionResponse toDto1(Prescription prescription);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

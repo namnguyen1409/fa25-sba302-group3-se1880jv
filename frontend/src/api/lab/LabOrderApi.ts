@@ -1,5 +1,5 @@
 import { apiClient } from "../client";
-import type { LabOrderResponse } from "../models";
+import type { LabOrderResponse } from "@/api";
 import { type PageResponse } from '@/components/common/EntityTableWrapper';
 
 export const LabOrderApi = {

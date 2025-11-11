@@ -1,6 +1,6 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { StaffRequest, StaffResponse } from "../models";
+import type { StaffRequest, StaffResponse } from "@/api";
 
 export const StaffApi = {
     filter: (

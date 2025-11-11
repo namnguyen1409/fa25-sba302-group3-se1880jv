@@ -1,36 +1,50 @@
+
 # TodaySummaryResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**totalPatients** | **number** |  | [optional] [default to undefined]
-**completedExams** | **number** |  | [optional] [default to undefined]
-**waitingPatients** | **number** |  | [optional] [default to undefined]
-**inService** | **number** |  | [optional] [default to undefined]
-**invoices** | **number** |  | [optional] [default to undefined]
-**totalRevenue** | **number** |  | [optional] [default to undefined]
-**labOrders** | **number** |  | [optional] [default to undefined]
-**imagingOrders** | **number** |  | [optional] [default to undefined]
-**avgWaitingMinutes** | **number** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`totalPatients` | number
+`completedExams` | number
+`waitingPatients` | number
+`inService` | number
+`invoices` | number
+`totalRevenue` | number
+`labOrders` | number
+`imagingOrders` | number
+`avgWaitingMinutes` | number
 
 ## Example
 
 ```typescript
-import { TodaySummaryResponse } from './api';
+import type { TodaySummaryResponse } from ''
 
-const instance: TodaySummaryResponse = {
-    totalPatients,
-    completedExams,
-    waitingPatients,
-    inService,
-    invoices,
-    totalRevenue,
-    labOrders,
-    imagingOrders,
-    avgWaitingMinutes,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "totalPatients": null,
+  "completedExams": null,
+  "waitingPatients": null,
+  "inService": null,
+  "invoices": null,
+  "totalRevenue": null,
+  "labOrders": null,
+  "imagingOrders": null,
+  "avgWaitingMinutes": null,
+} satisfies TodaySummaryResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as TodaySummaryResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

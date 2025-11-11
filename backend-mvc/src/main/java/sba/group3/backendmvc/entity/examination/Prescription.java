@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
+import sba.group3.backendmvc.entity.pharmacy.DispenseRecord;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,4 +31,8 @@ public class Prescription extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<PrescriptionItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "prescription", orphanRemoval = true)
+    DispenseRecord dispenseRecord;
+
 }

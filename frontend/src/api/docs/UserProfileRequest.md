@@ -1,28 +1,42 @@
+
 # UserProfileRequest
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**fullName** | **string** |  | [optional] [default to undefined]
-**dateOfBirth** | **string** |  | [optional] [default to undefined]
-**address** | [**AddressResponse**](AddressResponse.md) |  | [optional] [default to undefined]
-**phone** | **string** |  | [optional] [default to undefined]
-**avatarUrl** | **string** |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`fullName` | string
+`dateOfBirth` | Date
+`address` | [AddressResponse](AddressResponse.md)
+`phone` | string
+`avatarUrl` | string
 
 ## Example
 
 ```typescript
-import { UserProfileRequest } from './api';
+import type { UserProfileRequest } from ''
 
-const instance: UserProfileRequest = {
-    fullName,
-    dateOfBirth,
-    address,
-    phone,
-    avatarUrl,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "fullName": null,
+  "dateOfBirth": null,
+  "address": null,
+  "phone": null,
+  "avatarUrl": null,
+} satisfies UserProfileRequest
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as UserProfileRequest
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+

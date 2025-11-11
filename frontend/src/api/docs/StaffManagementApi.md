@@ -2,61 +2,80 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**create11**](#create11) | **POST** /api/admin/staffs | |
-|[**createStaffSchedule**](#createstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule | |
-|[**createStaffScheduleTemplate**](#createstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template | |
-|[**dayOff**](#dayoff) | **POST** /api/admin/staffs/schedule/day-off | |
-|[**delete11**](#delete11) | **DELETE** /api/admin/staffs/{id} | |
-|[**deleteStaffSchedule**](#deletestaffschedule) | **DELETE** /api/admin/staffs/schedule/{scheduleId} | |
-|[**deleteStaffScheduleTemplate**](#deletestaffscheduletemplate) | **DELETE** /api/admin/staffs/schedule-template/{templateId} | |
-|[**filter13**](#filter13) | **POST** /api/admin/staffs/filter | |
-|[**generate**](#generate) | **POST** /api/admin/staffs/{staffId}/schedule/generate | |
-|[**getById7**](#getbyid7) | **GET** /api/admin/staffs/{id} | |
-|[**getMySchedule**](#getmyschedule) | **POST** /api/admin/staffs/schedule/filter | |
-|[**getStaffSchedule**](#getstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule/filter | |
-|[**getStaffScheduleTemplate**](#getstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template/filter | |
-|[**markStatus**](#markstatus) | **PATCH** /api/admin/staffs/schedule/{scheduleId}/status | |
-|[**myRange**](#myrange) | **GET** /api/admin/staffs/schedule | |
-|[**range**](#range) | **GET** /api/admin/staffs/{staffId}/schedule | |
-|[**update11**](#update11) | **PUT** /api/admin/staffs/{id} | |
-|[**updateStaffSchedule**](#updatestaffschedule) | **PUT** /api/admin/staffs/schedule/{scheduleId} | |
-|[**updateStaffScheduleTemplate**](#updatestaffscheduletemplate) | **PUT** /api/admin/staffs/schedule-template/{templateId} | |
+| [**create11**](StaffManagementApi.md#create11) | **POST** /api/admin/staffs |  |
+| [**createStaffSchedule**](StaffManagementApi.md#createstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule |  |
+| [**createStaffScheduleTemplate**](StaffManagementApi.md#createstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template |  |
+| [**dayOff**](StaffManagementApi.md#dayoff) | **POST** /api/admin/staffs/schedule/day-off |  |
+| [**delete11**](StaffManagementApi.md#delete11) | **DELETE** /api/admin/staffs/{id} |  |
+| [**deleteStaffSchedule**](StaffManagementApi.md#deletestaffschedule) | **DELETE** /api/admin/staffs/schedule/{scheduleId} |  |
+| [**deleteStaffScheduleTemplate**](StaffManagementApi.md#deletestaffscheduletemplate) | **DELETE** /api/admin/staffs/schedule-template/{templateId} |  |
+| [**filter13**](StaffManagementApi.md#filter13) | **POST** /api/admin/staffs/filter |  |
+| [**generate**](StaffManagementApi.md#generate) | **POST** /api/admin/staffs/{staffId}/schedule/generate |  |
+| [**getById7**](StaffManagementApi.md#getbyid7) | **GET** /api/admin/staffs/{id} |  |
+| [**getMySchedule**](StaffManagementApi.md#getmyschedule) | **POST** /api/admin/staffs/schedule/filter |  |
+| [**getStaffSchedule**](StaffManagementApi.md#getstaffschedule) | **POST** /api/admin/staffs/{staffId}/schedule/filter |  |
+| [**getStaffScheduleTemplate**](StaffManagementApi.md#getstaffscheduletemplate) | **POST** /api/admin/staffs/{staffId}/schedule-template/filter |  |
+| [**markStatus**](StaffManagementApi.md#markstatus) | **PATCH** /api/admin/staffs/schedule/{scheduleId}/status |  |
+| [**myRange**](StaffManagementApi.md#myrange) | **GET** /api/admin/staffs/schedule |  |
+| [**range**](StaffManagementApi.md#range) | **GET** /api/admin/staffs/{staffId}/schedule |  |
+| [**update11**](StaffManagementApi.md#update11) | **PUT** /api/admin/staffs/{id} |  |
+| [**updateStaffSchedule**](StaffManagementApi.md#updatestaffschedule) | **PUT** /api/admin/staffs/schedule/{scheduleId} |  |
+| [**updateStaffScheduleTemplate**](StaffManagementApi.md#updatestaffscheduletemplate) | **PUT** /api/admin/staffs/schedule-template/{templateId} |  |
 
-# **create11**
+
+
+## create11
+
 > CustomApiResponseStaffResponse create11(staffRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { Create11Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffRequest: StaffRequest; //
+  const body = {
+    // StaffRequest
+    staffRequest: ...,
+  } satisfies Create11Request;
 
-const { status, data } = await apiInstance.create11(
-    staffRequest
-);
+  try {
+    const data = await api.create11(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffRequest** | **StaffRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffRequest** | [StaffRequest](StaffRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffResponse**
+[**CustomApiResponseStaffResponse**](CustomApiResponseStaffResponse.md)
 
 ### Authorization
 
@@ -64,55 +83,73 @@ const { status, data } = await apiInstance.create11(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **createStaffSchedule**
-> CustomApiResponseStaffScheduleResponse createStaffSchedule(staffScheduleRequest)
+
+## createStaffSchedule
+
+> CustomApiResponseStaffScheduleResponse createStaffSchedule(staffId, staffScheduleRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffScheduleRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { CreateStaffScheduleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffId: string; // (default to undefined)
-let staffScheduleRequest: StaffScheduleRequest; //
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffScheduleRequest
+    staffScheduleRequest: ...,
+  } satisfies CreateStaffScheduleRequest;
 
-const { status, data } = await apiInstance.createStaffSchedule(
-    staffId,
-    staffScheduleRequest
-);
+  try {
+    const data = await api.createStaffSchedule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffScheduleRequest** | **StaffScheduleRequest**|  | |
-| **staffId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **staffScheduleRequest** | [StaffScheduleRequest](StaffScheduleRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffScheduleResponse**
+[**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -120,55 +157,73 @@ const { status, data } = await apiInstance.createStaffSchedule(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **createStaffScheduleTemplate**
-> CustomApiResponseStaffScheduleTemplateResponse createStaffScheduleTemplate(staffScheduleTemplateRequest)
+
+## createStaffScheduleTemplate
+
+> CustomApiResponseStaffScheduleTemplateResponse createStaffScheduleTemplate(staffId, staffScheduleTemplateRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffScheduleTemplateRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { CreateStaffScheduleTemplateRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffId: string; // (default to undefined)
-let staffScheduleTemplateRequest: StaffScheduleTemplateRequest; //
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffScheduleTemplateRequest
+    staffScheduleTemplateRequest: ...,
+  } satisfies CreateStaffScheduleTemplateRequest;
 
-const { status, data } = await apiInstance.createStaffScheduleTemplate(
-    staffId,
-    staffScheduleTemplateRequest
-);
+  try {
+    const data = await api.createStaffScheduleTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffScheduleTemplateRequest** | **StaffScheduleTemplateRequest**|  | |
-| **staffId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **staffScheduleTemplateRequest** | [StaffScheduleTemplateRequest](StaffScheduleTemplateRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffScheduleTemplateResponse**
+[**CustomApiResponseStaffScheduleTemplateResponse**](CustomApiResponseStaffScheduleTemplateResponse.md)
 
 ### Authorization
 
@@ -176,52 +231,70 @@ const { status, data } = await apiInstance.createStaffScheduleTemplate(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **dayOff**
+
+## dayOff
+
 > CustomApiResponseStaffScheduleResponse dayOff(staffScheduleDayOffRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffScheduleDayOffRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { DayOffRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffScheduleDayOffRequest: StaffScheduleDayOffRequest; //
+  const body = {
+    // StaffScheduleDayOffRequest
+    staffScheduleDayOffRequest: ...,
+  } satisfies DayOffRequest;
 
-const { status, data } = await apiInstance.dayOff(
-    staffScheduleDayOffRequest
-);
+  try {
+    const data = await api.dayOff(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffScheduleDayOffRequest** | **StaffScheduleDayOffRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffScheduleDayOffRequest** | [StaffScheduleDayOffRequest](StaffScheduleDayOffRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffScheduleResponse**
+[**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -229,51 +302,70 @@ const { status, data } = await apiInstance.dayOff(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete11**
-> CustomApiResponseVoid delete11()
+
+## delete11
+
+> CustomApiResponseVoid delete11(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { Delete11Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies Delete11Request;
 
-const { status, data } = await apiInstance.delete11(
-    id
-);
+  try {
+    const data = await api.delete11(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -281,51 +373,70 @@ const { status, data } = await apiInstance.delete11(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **deleteStaffSchedule**
-> CustomApiResponseVoid deleteStaffSchedule()
+
+## deleteStaffSchedule
+
+> CustomApiResponseVoid deleteStaffSchedule(scheduleId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { DeleteStaffScheduleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let scheduleId: string; // (default to undefined)
+  const body = {
+    // string
+    scheduleId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteStaffScheduleRequest;
 
-const { status, data } = await apiInstance.deleteStaffSchedule(
-    scheduleId
-);
+  try {
+    const data = await api.deleteStaffSchedule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **scheduleId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **scheduleId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -333,51 +444,70 @@ const { status, data } = await apiInstance.deleteStaffSchedule(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **deleteStaffScheduleTemplate**
-> CustomApiResponseVoid deleteStaffScheduleTemplate()
+
+## deleteStaffScheduleTemplate
+
+> CustomApiResponseVoid deleteStaffScheduleTemplate(templateId)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { DeleteStaffScheduleTemplateRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let templateId: string; // (default to undefined)
+  const body = {
+    // string
+    templateId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteStaffScheduleTemplateRequest;
 
-const { status, data } = await apiInstance.deleteStaffScheduleTemplate(
-    templateId
-);
+  try {
+    const data = await api.deleteStaffScheduleTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **templateId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -385,52 +515,70 @@ const { status, data } = await apiInstance.deleteStaffScheduleTemplate(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter13**
+
+## filter13
+
 > CustomApiResponsePageStaffResponse filter13(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { Filter13Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter13Request;
 
-const { status, data } = await apiInstance.filter13(
-    searchFilter
-);
+  try {
+    const data = await api.filter13(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageStaffResponse**
+[**CustomApiResponsePageStaffResponse**](CustomApiResponsePageStaffResponse.md)
 
 ### Authorization
 
@@ -438,55 +586,73 @@ const { status, data } = await apiInstance.filter13(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **generate**
-> CustomApiResponseVoid generate()
+
+## generate
+
+> CustomApiResponseVoid generate(staffId, staffScheduleGenerateRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffScheduleGenerateRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GenerateRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffId: string; // (default to undefined)
-let staffScheduleGenerateRequest: StaffScheduleGenerateRequest; // (optional)
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffScheduleGenerateRequest (optional)
+    staffScheduleGenerateRequest: ...,
+  } satisfies GenerateRequest;
 
-const { status, data } = await apiInstance.generate(
-    staffId,
-    staffScheduleGenerateRequest
-);
+  try {
+    const data = await api.generate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffScheduleGenerateRequest** | **StaffScheduleGenerateRequest**|  | |
-| **staffId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **staffScheduleGenerateRequest** | [StaffScheduleGenerateRequest](StaffScheduleGenerateRequest.md) |  | [Optional] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -494,51 +660,70 @@ const { status, data } = await apiInstance.generate(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getById7**
-> CustomApiResponseStaffResponse getById7()
+
+## getById7
+
+> CustomApiResponseStaffResponse getById7(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GetById7Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetById7Request;
 
-const { status, data } = await apiInstance.getById7(
-    id
-);
+  try {
+    const data = await api.getById7(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseStaffResponse**
+[**CustomApiResponseStaffResponse**](CustomApiResponseStaffResponse.md)
 
 ### Authorization
 
@@ -546,52 +731,70 @@ const { status, data } = await apiInstance.getById7(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getMySchedule**
+
+## getMySchedule
+
 > CustomApiResponsePageStaffScheduleResponse getMySchedule(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GetMyScheduleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetMyScheduleRequest;
 
-const { status, data } = await apiInstance.getMySchedule(
-    searchFilter
-);
+  try {
+    const data = await api.getMySchedule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageStaffScheduleResponse**
+[**CustomApiResponsePageStaffScheduleResponse**](CustomApiResponsePageStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -599,55 +802,73 @@ const { status, data } = await apiInstance.getMySchedule(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getStaffSchedule**
-> CustomApiResponsePageStaffScheduleResponse getStaffSchedule(searchFilter)
+
+## getStaffSchedule
+
+> CustomApiResponsePageStaffScheduleResponse getStaffSchedule(staffId, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GetStaffScheduleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffId: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetStaffScheduleRequest;
 
-const { status, data } = await apiInstance.getStaffSchedule(
-    staffId,
-    searchFilter
-);
+  try {
+    const data = await api.getStaffSchedule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **staffId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageStaffScheduleResponse**
+[**CustomApiResponsePageStaffScheduleResponse**](CustomApiResponsePageStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -655,55 +876,73 @@ const { status, data } = await apiInstance.getStaffSchedule(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getStaffScheduleTemplate**
-> CustomApiResponsePageStaffScheduleTemplateResponse getStaffScheduleTemplate(searchFilter)
+
+## getStaffScheduleTemplate
+
+> CustomApiResponsePageStaffScheduleTemplateResponse getStaffScheduleTemplate(staffId, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { GetStaffScheduleTemplateRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffId: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetStaffScheduleTemplateRequest;
 
-const { status, data } = await apiInstance.getStaffScheduleTemplate(
-    staffId,
-    searchFilter
-);
+  try {
+    const data = await api.getStaffScheduleTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **staffId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageStaffScheduleTemplateResponse**
+[**CustomApiResponsePageStaffScheduleTemplateResponse**](CustomApiResponsePageStaffScheduleTemplateResponse.md)
 
 ### Authorization
 
@@ -711,57 +950,76 @@ const { status, data } = await apiInstance.getStaffScheduleTemplate(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **markStatus**
-> CustomApiResponseStaffScheduleResponse markStatus()
+
+## markStatus
+
+> CustomApiResponseStaffScheduleResponse markStatus(scheduleId, status, note)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { MarkStatusRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let scheduleId: string; // (default to undefined)
-let status: 'AVAILABLE' | 'OFF' | 'CANCELLED' | 'CHANGED'; // (default to undefined)
-let note: string; // (optional) (default to undefined)
+  const body = {
+    // string
+    scheduleId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // 'AVAILABLE' | 'OFF' | 'CANCELLED' | 'CHANGED'
+    status: status_example,
+    // string (optional)
+    note: note_example,
+  } satisfies MarkStatusRequest;
 
-const { status, data } = await apiInstance.markStatus(
-    scheduleId,
-    status,
-    note
-);
+  try {
+    const data = await api.markStatus(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **scheduleId** | [**string**] |  | defaults to undefined|
-| **status** | [**&#39;AVAILABLE&#39; | &#39;OFF&#39; | &#39;CANCELLED&#39; | &#39;CHANGED&#39;**]**Array<&#39;AVAILABLE&#39; &#124; &#39;OFF&#39; &#124; &#39;CANCELLED&#39; &#124; &#39;CHANGED&#39;>** |  | defaults to undefined|
-| **note** | [**string**] |  | (optional) defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **scheduleId** | `string` |  | [Defaults to `undefined`] |
+| **status** | `AVAILABLE`, `OFF`, `CANCELLED`, `CHANGED` |  | [Defaults to `undefined`] [Enum: AVAILABLE, OFF, CANCELLED, CHANGED] |
+| **note** | `string` |  | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseStaffScheduleResponse**
+[**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -769,54 +1027,73 @@ const { status, data } = await apiInstance.markStatus(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **myRange**
-> CustomApiResponseListStaffScheduleResponse myRange()
+
+## myRange
+
+> CustomApiResponseListStaffScheduleResponse myRange(from, to)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { MyRangeRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let from: string; // (default to undefined)
-let to: string; // (default to undefined)
+  const body = {
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies MyRangeRequest;
 
-const { status, data } = await apiInstance.myRange(
-    from,
-    to
-);
+  try {
+    const data = await api.myRange(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **from** | [**string**] |  | defaults to undefined|
-| **to** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListStaffScheduleResponse**
+[**CustomApiResponseListStaffScheduleResponse**](CustomApiResponseListStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -824,57 +1101,76 @@ const { status, data } = await apiInstance.myRange(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **range**
-> CustomApiResponseListStaffScheduleResponse range()
+
+## range
+
+> CustomApiResponseListStaffScheduleResponse range(staffId, from, to)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { RangeRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let staffId: string; // (default to undefined)
-let from: string; // (default to undefined)
-let to: string; // (default to undefined)
+  const body = {
+    // string
+    staffId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // Date
+    from: 2013-10-20,
+    // Date
+    to: 2013-10-20,
+  } satisfies RangeRequest;
 
-const { status, data } = await apiInstance.range(
-    staffId,
-    from,
-    to
-);
+  try {
+    const data = await api.range(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffId** | [**string**] |  | defaults to undefined|
-| **from** | [**string**] |  | defaults to undefined|
-| **to** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **staffId** | `string` |  | [Defaults to `undefined`] |
+| **from** | `Date` |  | [Defaults to `undefined`] |
+| **to** | `Date` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseListStaffScheduleResponse**
+[**CustomApiResponseListStaffScheduleResponse**](CustomApiResponseListStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -882,55 +1178,73 @@ const { status, data } = await apiInstance.range(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update11**
-> CustomApiResponseStaffResponse update11(staffRequest)
+
+## update11
+
+> CustomApiResponseStaffResponse update11(id, staffRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { Update11Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let id: string; // (default to undefined)
-let staffRequest: StaffRequest; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffRequest
+    staffRequest: ...,
+  } satisfies Update11Request;
 
-const { status, data } = await apiInstance.update11(
-    id,
-    staffRequest
-);
+  try {
+    const data = await api.update11(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffRequest** | **StaffRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **staffRequest** | [StaffRequest](StaffRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffResponse**
+[**CustomApiResponseStaffResponse**](CustomApiResponseStaffResponse.md)
 
 ### Authorization
 
@@ -938,55 +1252,73 @@ const { status, data } = await apiInstance.update11(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateStaffSchedule**
-> CustomApiResponseStaffScheduleResponse updateStaffSchedule(staffScheduleRequest)
+
+## updateStaffSchedule
+
+> CustomApiResponseStaffScheduleResponse updateStaffSchedule(scheduleId, staffScheduleRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffScheduleRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { UpdateStaffScheduleRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let scheduleId: string; // (default to undefined)
-let staffScheduleRequest: StaffScheduleRequest; //
+  const body = {
+    // string
+    scheduleId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffScheduleRequest
+    staffScheduleRequest: ...,
+  } satisfies UpdateStaffScheduleRequest;
 
-const { status, data } = await apiInstance.updateStaffSchedule(
-    scheduleId,
-    staffScheduleRequest
-);
+  try {
+    const data = await api.updateStaffSchedule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffScheduleRequest** | **StaffScheduleRequest**|  | |
-| **scheduleId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **scheduleId** | `string` |  | [Defaults to `undefined`] |
+| **staffScheduleRequest** | [StaffScheduleRequest](StaffScheduleRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffScheduleResponse**
+[**CustomApiResponseStaffScheduleResponse**](CustomApiResponseStaffScheduleResponse.md)
 
 ### Authorization
 
@@ -994,55 +1326,73 @@ const { status, data } = await apiInstance.updateStaffSchedule(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateStaffScheduleTemplate**
-> CustomApiResponseStaffScheduleTemplateResponse updateStaffScheduleTemplate(staffScheduleTemplateRequest)
+
+## updateStaffScheduleTemplate
+
+> CustomApiResponseStaffScheduleTemplateResponse updateStaffScheduleTemplate(templateId, staffScheduleTemplateRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    StaffManagementApi,
-    Configuration,
-    StaffScheduleTemplateRequest
-} from './api';
+  Configuration,
+  StaffManagementApi,
+} from '';
+import type { UpdateStaffScheduleTemplateRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new StaffManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new StaffManagementApi(config);
 
-let templateId: string; // (default to undefined)
-let staffScheduleTemplateRequest: StaffScheduleTemplateRequest; //
+  const body = {
+    // string
+    templateId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // StaffScheduleTemplateRequest
+    staffScheduleTemplateRequest: ...,
+  } satisfies UpdateStaffScheduleTemplateRequest;
 
-const { status, data } = await apiInstance.updateStaffScheduleTemplate(
-    templateId,
-    staffScheduleTemplateRequest
-);
+  try {
+    const data = await api.updateStaffScheduleTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **staffScheduleTemplateRequest** | **StaffScheduleTemplateRequest**|  | |
-| **templateId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | `string` |  | [Defaults to `undefined`] |
+| **staffScheduleTemplateRequest** | [StaffScheduleTemplateRequest](StaffScheduleTemplateRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseStaffScheduleTemplateResponse**
+[**CustomApiResponseStaffScheduleTemplateResponse**](CustomApiResponseStaffScheduleTemplateResponse.md)
 
 ### Authorization
 
@@ -1050,16 +1400,16 @@ const { status, data } = await apiInstance.updateStaffScheduleTemplate(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

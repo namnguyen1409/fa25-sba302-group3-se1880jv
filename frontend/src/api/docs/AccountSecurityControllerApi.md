@@ -2,55 +2,74 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**changePassword**](#changepassword) | **POST** /api/account/security/password/change | |
-|[**confirmEmailMfa**](#confirmemailmfa) | **POST** /api/account/security/mfa/email/confirm | |
-|[**confirmTOTPSetup**](#confirmtotpsetup) | **POST** /api/account/security/mfa/totp | |
-|[**deleteMfaConfig**](#deletemfaconfig) | **POST** /api/account/security/mfa/delete | |
-|[**disableMfa**](#disablemfa) | **POST** /api/account/security/mfa/disable | |
-|[**enableMfa**](#enablemfa) | **POST** /api/account/security/mfa/enable | |
-|[**finishRegistration1**](#finishregistration1) | **POST** /api/account/security/mfa/passkey/registration/finish | |
-|[**firstLogin**](#firstlogin) | **POST** /api/account/security/first-login | |
-|[**generateMfaBackupCodes**](#generatemfabackupcodes) | **GET** /api/account/security/mfa/backup-codes | |
-|[**getMfaConfig**](#getmfaconfig) | **GET** /api/account/security/mfa | |
-|[**initEmailMfa**](#initemailmfa) | **POST** /api/account/security/mfa/email/init | |
-|[**requestTOTP**](#requesttotp) | **GET** /api/account/security/mfa/totp | |
-|[**startRegistration1**](#startregistration1) | **POST** /api/account/security/mfa/passkey/registration/start | |
+| [**changePassword**](AccountSecurityControllerApi.md#changepasswordoperation) | **POST** /api/account/security/password/change |  |
+| [**confirmEmailMfa**](AccountSecurityControllerApi.md#confirmemailmfa) | **POST** /api/account/security/mfa/email/confirm |  |
+| [**confirmTOTPSetup**](AccountSecurityControllerApi.md#confirmtotpsetup) | **POST** /api/account/security/mfa/totp |  |
+| [**deleteMfaConfig**](AccountSecurityControllerApi.md#deletemfaconfig) | **POST** /api/account/security/mfa/delete |  |
+| [**disableMfa**](AccountSecurityControllerApi.md#disablemfa) | **POST** /api/account/security/mfa/disable |  |
+| [**enableMfa**](AccountSecurityControllerApi.md#enablemfa) | **POST** /api/account/security/mfa/enable |  |
+| [**finishRegistration1**](AccountSecurityControllerApi.md#finishregistration1) | **POST** /api/account/security/mfa/passkey/registration/finish |  |
+| [**firstLogin**](AccountSecurityControllerApi.md#firstloginoperation) | **POST** /api/account/security/first-login |  |
+| [**generateMfaBackupCodes**](AccountSecurityControllerApi.md#generatemfabackupcodes) | **GET** /api/account/security/mfa/backup-codes |  |
+| [**getMfaConfig**](AccountSecurityControllerApi.md#getmfaconfig) | **GET** /api/account/security/mfa |  |
+| [**initEmailMfa**](AccountSecurityControllerApi.md#initemailmfa) | **POST** /api/account/security/mfa/email/init |  |
+| [**requestTOTP**](AccountSecurityControllerApi.md#requesttotp) | **GET** /api/account/security/mfa/totp |  |
+| [**startRegistration1**](AccountSecurityControllerApi.md#startregistration1) | **POST** /api/account/security/mfa/passkey/registration/start |  |
 
-# **changePassword**
+
+
+## changePassword
+
 > CustomApiResponseVoid changePassword(changePasswordRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    ChangePasswordRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { ChangePasswordOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let changePasswordRequest: ChangePasswordRequest; //
+  const body = {
+    // ChangePasswordRequest
+    changePasswordRequest: ...,
+  } satisfies ChangePasswordOperationRequest;
 
-const { status, data } = await apiInstance.changePassword(
-    changePasswordRequest
-);
+  try {
+    const data = await api.changePassword(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **changePasswordRequest** | **ChangePasswordRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **changePasswordRequest** | [ChangePasswordRequest](ChangePasswordRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -58,52 +77,70 @@ const { status, data } = await apiInstance.changePassword(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **confirmEmailMfa**
+
+## confirmEmailMfa
+
 > CustomApiResponseMfaConfigResponse confirmEmailMfa(mfaConfirmRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    MfaConfirmRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { ConfirmEmailMfaRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let mfaConfirmRequest: MfaConfirmRequest; //
+  const body = {
+    // MfaConfirmRequest
+    mfaConfirmRequest: ...,
+  } satisfies ConfirmEmailMfaRequest;
 
-const { status, data } = await apiInstance.confirmEmailMfa(
-    mfaConfirmRequest
-);
+  try {
+    const data = await api.confirmEmailMfa(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **mfaConfirmRequest** | **MfaConfirmRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mfaConfirmRequest** | [MfaConfirmRequest](MfaConfirmRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseMfaConfigResponse**
+[**CustomApiResponseMfaConfigResponse**](CustomApiResponseMfaConfigResponse.md)
 
 ### Authorization
 
@@ -111,52 +148,70 @@ const { status, data } = await apiInstance.confirmEmailMfa(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **confirmTOTPSetup**
+
+## confirmTOTPSetup
+
 > CustomApiResponseVoid confirmTOTPSetup(tOTPConfirmRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    TOTPConfirmRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { ConfirmTOTPSetupRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let tOTPConfirmRequest: TOTPConfirmRequest; //
+  const body = {
+    // TOTPConfirmRequest
+    tOTPConfirmRequest: ...,
+  } satisfies ConfirmTOTPSetupRequest;
 
-const { status, data } = await apiInstance.confirmTOTPSetup(
-    tOTPConfirmRequest
-);
+  try {
+    const data = await api.confirmTOTPSetup(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **tOTPConfirmRequest** | **TOTPConfirmRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tOTPConfirmRequest** | [TOTPConfirmRequest](TOTPConfirmRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -164,52 +219,70 @@ const { status, data } = await apiInstance.confirmTOTPSetup(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **deleteMfaConfig**
+
+## deleteMfaConfig
+
 > CustomApiResponseVoid deleteMfaConfig(mfaDeleteRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    MfaDeleteRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { DeleteMfaConfigRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let mfaDeleteRequest: MfaDeleteRequest; //
+  const body = {
+    // MfaDeleteRequest
+    mfaDeleteRequest: ...,
+  } satisfies DeleteMfaConfigRequest;
 
-const { status, data } = await apiInstance.deleteMfaConfig(
-    mfaDeleteRequest
-);
+  try {
+    const data = await api.deleteMfaConfig(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **mfaDeleteRequest** | **MfaDeleteRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mfaDeleteRequest** | [MfaDeleteRequest](MfaDeleteRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -217,52 +290,70 @@ const { status, data } = await apiInstance.deleteMfaConfig(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **disableMfa**
+
+## disableMfa
+
 > CustomApiResponseVoid disableMfa(mfaDisableRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    MfaDisableRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { DisableMfaRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let mfaDisableRequest: MfaDisableRequest; //
+  const body = {
+    // MfaDisableRequest
+    mfaDisableRequest: ...,
+  } satisfies DisableMfaRequest;
 
-const { status, data } = await apiInstance.disableMfa(
-    mfaDisableRequest
-);
+  try {
+    const data = await api.disableMfa(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **mfaDisableRequest** | **MfaDisableRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mfaDisableRequest** | [MfaDisableRequest](MfaDisableRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -270,44 +361,62 @@ const { status, data } = await apiInstance.disableMfa(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **enableMfa**
+
+## enableMfa
+
 > CustomApiResponseVoid enableMfa()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { EnableMfaRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-const { status, data } = await apiInstance.enableMfa();
+  try {
+    const data = await api.enableMfa();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -315,52 +424,70 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **finishRegistration1**
+
+## finishRegistration1
+
 > CustomApiResponseVoid finishRegistration1(finishPasskeyRegistrationRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    FinishPasskeyRegistrationRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { FinishRegistration1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let finishPasskeyRegistrationRequest: FinishPasskeyRegistrationRequest; //
+  const body = {
+    // FinishPasskeyRegistrationRequest
+    finishPasskeyRegistrationRequest: ...,
+  } satisfies FinishRegistration1Request;
 
-const { status, data } = await apiInstance.finishRegistration1(
-    finishPasskeyRegistrationRequest
-);
+  try {
+    const data = await api.finishRegistration1(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **finishPasskeyRegistrationRequest** | **FinishPasskeyRegistrationRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **finishPasskeyRegistrationRequest** | [FinishPasskeyRegistrationRequest](FinishPasskeyRegistrationRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -368,52 +495,70 @@ const { status, data } = await apiInstance.finishRegistration1(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **firstLogin**
+
+## firstLogin
+
 > CustomApiResponseVoid firstLogin(firstLoginRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    FirstLoginRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { FirstLoginOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let firstLoginRequest: FirstLoginRequest; //
+  const body = {
+    // FirstLoginRequest
+    firstLoginRequest: ...,
+  } satisfies FirstLoginOperationRequest;
 
-const { status, data } = await apiInstance.firstLogin(
-    firstLoginRequest
-);
+  try {
+    const data = await api.firstLogin(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **firstLoginRequest** | **FirstLoginRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **firstLoginRequest** | [FirstLoginRequest](FirstLoginRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -421,44 +566,62 @@ const { status, data } = await apiInstance.firstLogin(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **generateMfaBackupCodes**
+
+## generateMfaBackupCodes
+
 > CustomApiResponseListString generateMfaBackupCodes()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { GenerateMfaBackupCodesRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-const { status, data } = await apiInstance.generateMfaBackupCodes();
+  try {
+    const data = await api.generateMfaBackupCodes();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListString**
+[**CustomApiResponseListString**](CustomApiResponseListString.md)
 
 ### Authorization
 
@@ -466,44 +629,62 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getMfaConfig**
+
+## getMfaConfig
+
 > CustomApiResponseListMfaConfigResponse getMfaConfig()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { GetMfaConfigRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-const { status, data } = await apiInstance.getMfaConfig();
+  try {
+    const data = await api.getMfaConfig();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListMfaConfigResponse**
+[**CustomApiResponseListMfaConfigResponse**](CustomApiResponseListMfaConfigResponse.md)
 
 ### Authorization
 
@@ -511,52 +692,70 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **initEmailMfa**
+
+## initEmailMfa
+
 > CustomApiResponseMfaInitResponse initEmailMfa(mfaEmailInitRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration,
-    MfaEmailInitRequest
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { InitEmailMfaRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-let mfaEmailInitRequest: MfaEmailInitRequest; //
+  const body = {
+    // MfaEmailInitRequest
+    mfaEmailInitRequest: ...,
+  } satisfies InitEmailMfaRequest;
 
-const { status, data } = await apiInstance.initEmailMfa(
-    mfaEmailInitRequest
-);
+  try {
+    const data = await api.initEmailMfa(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **mfaEmailInitRequest** | **MfaEmailInitRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mfaEmailInitRequest** | [MfaEmailInitRequest](MfaEmailInitRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseMfaInitResponse**
+[**CustomApiResponseMfaInitResponse**](CustomApiResponseMfaInitResponse.md)
 
 ### Authorization
 
@@ -564,44 +763,62 @@ const { status, data } = await apiInstance.initEmailMfa(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **requestTOTP**
+
+## requestTOTP
+
 > CustomApiResponseMfaSetupResponse requestTOTP()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { RequestTOTPRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-const { status, data } = await apiInstance.requestTOTP();
+  try {
+    const data = await api.requestTOTP();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseMfaSetupResponse**
+[**CustomApiResponseMfaSetupResponse**](CustomApiResponseMfaSetupResponse.md)
 
 ### Authorization
 
@@ -609,44 +826,62 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **startRegistration1**
+
+## startRegistration1
+
 > CustomApiResponsePublicKeyCredentialCreationOptions startRegistration1()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSecurityControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSecurityControllerApi,
+} from '';
+import type { StartRegistration1Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSecurityControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSecurityControllerApi(config);
 
-const { status, data } = await apiInstance.startRegistration1();
+  try {
+    const data = await api.startRegistration1();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponsePublicKeyCredentialCreationOptions**
+[**CustomApiResponsePublicKeyCredentialCreationOptions**](CustomApiResponsePublicKeyCredentialCreationOptions.md)
 
 ### Authorization
 
@@ -654,16 +889,16 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

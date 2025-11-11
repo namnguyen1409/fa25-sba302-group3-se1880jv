@@ -1,5 +1,5 @@
 import { apiClient } from "../client";
-import type { QueueTicketResponse } from "../models";
+import type { QueueTicketResponse } from "@/api";
 
 export const QueueApi = {
     getQueuesForDoctorToday: () =>

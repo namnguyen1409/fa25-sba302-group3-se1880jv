@@ -2,49 +2,68 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**create2**](#create2) | **POST** /api/organization/clinics | |
-|[**delete2**](#delete2) | **DELETE** /api/organization/clinics/{id} | |
-|[**filter3**](#filter3) | **POST** /api/organization/clinics/filter | |
-|[**filterDepartmentsByClinic**](#filterdepartmentsbyclinic) | **POST** /api/organization/clinics/{clinicId}/departments/filter | |
-|[**getClinicById**](#getclinicbyid) | **GET** /api/organization/clinics/{id} | |
-|[**getDefaultClinic**](#getdefaultclinic) | **GET** /api/organization/clinics | |
-|[**update2**](#update2) | **PUT** /api/organization/clinics/{id} | |
+| [**create2**](ClinicManagementApi.md#create2) | **POST** /api/organization/clinics |  |
+| [**delete2**](ClinicManagementApi.md#delete2) | **DELETE** /api/organization/clinics/{id} |  |
+| [**filter3**](ClinicManagementApi.md#filter3) | **POST** /api/organization/clinics/filter |  |
+| [**filterDepartmentsByClinic**](ClinicManagementApi.md#filterdepartmentsbyclinic) | **POST** /api/organization/clinics/{clinicId}/departments/filter |  |
+| [**getClinicById**](ClinicManagementApi.md#getclinicbyid) | **GET** /api/organization/clinics/{id} |  |
+| [**getDefaultClinic**](ClinicManagementApi.md#getdefaultclinic) | **GET** /api/organization/clinics |  |
+| [**update2**](ClinicManagementApi.md#update2) | **PUT** /api/organization/clinics/{id} |  |
 
-# **create2**
+
+
+## create2
+
 > CustomApiResponseClinicResponse create2(clinicRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration,
-    ClinicRequest
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { Create2Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-let clinicRequest: ClinicRequest; //
+  const body = {
+    // ClinicRequest
+    clinicRequest: ...,
+  } satisfies Create2Request;
 
-const { status, data } = await apiInstance.create2(
-    clinicRequest
-);
+  try {
+    const data = await api.create2(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **clinicRequest** | **ClinicRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **clinicRequest** | [ClinicRequest](ClinicRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseClinicResponse**
+[**CustomApiResponseClinicResponse**](CustomApiResponseClinicResponse.md)
 
 ### Authorization
 
@@ -52,51 +71,70 @@ const { status, data } = await apiInstance.create2(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **delete2**
-> CustomApiResponseVoid delete2()
+
+## delete2
+
+> CustomApiResponseVoid delete2(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { Delete2Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies Delete2Request;
 
-const { status, data } = await apiInstance.delete2(
-    id
-);
+  try {
+    const data = await api.delete2(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -104,52 +142,70 @@ const { status, data } = await apiInstance.delete2(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filter3**
+
+## filter3
+
 > CustomApiResponsePageClinicResponse filter3(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { Filter3Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies Filter3Request;
 
-const { status, data } = await apiInstance.filter3(
-    searchFilter
-);
+  try {
+    const data = await api.filter3(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageClinicResponse**
+[**CustomApiResponsePageClinicResponse**](CustomApiResponsePageClinicResponse.md)
 
 ### Authorization
 
@@ -157,55 +213,73 @@ const { status, data } = await apiInstance.filter3(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **filterDepartmentsByClinic**
-> CustomApiResponsePageDepartmentResponse filterDepartmentsByClinic(searchFilter)
+
+## filterDepartmentsByClinic
+
+> CustomApiResponsePageDepartmentResponse filterDepartmentsByClinic(clinicId, searchFilter)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { FilterDepartmentsByClinicRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-let clinicId: string; // (default to undefined)
-let searchFilter: SearchFilter; //
+  const body = {
+    // string
+    clinicId: clinicId_example,
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies FilterDepartmentsByClinicRequest;
 
-const { status, data } = await apiInstance.filterDepartmentsByClinic(
-    clinicId,
-    searchFilter
-);
+  try {
+    const data = await api.filterDepartmentsByClinic(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
-| **clinicId** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **clinicId** | `string` |  | [Defaults to `undefined`] |
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageDepartmentResponse**
+[**CustomApiResponsePageDepartmentResponse**](CustomApiResponsePageDepartmentResponse.md)
 
 ### Authorization
 
@@ -213,51 +287,70 @@ const { status, data } = await apiInstance.filterDepartmentsByClinic(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getClinicById**
-> CustomApiResponseClinicResponse getClinicById()
+
+## getClinicById
+
+> CustomApiResponseClinicResponse getClinicById(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { GetClinicByIdRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetClinicByIdRequest;
 
-const { status, data } = await apiInstance.getClinicById(
-    id
-);
+  try {
+    const data = await api.getClinicById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseClinicResponse**
+[**CustomApiResponseClinicResponse**](CustomApiResponseClinicResponse.md)
 
 ### Authorization
 
@@ -265,44 +358,62 @@ const { status, data } = await apiInstance.getClinicById(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getDefaultClinic**
+
+## getDefaultClinic
+
 > CustomApiResponseClinicResponse getDefaultClinic()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { GetDefaultClinicRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-const { status, data } = await apiInstance.getDefaultClinic();
+  try {
+    const data = await api.getDefaultClinic();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseClinicResponse**
+[**CustomApiResponseClinicResponse**](CustomApiResponseClinicResponse.md)
 
 ### Authorization
 
@@ -310,55 +421,73 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **update2**
-> CustomApiResponseClinicResponse update2(clinicRequest)
+
+## update2
+
+> CustomApiResponseClinicResponse update2(id, clinicRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ClinicManagementApi,
-    Configuration,
-    ClinicRequest
-} from './api';
+  Configuration,
+  ClinicManagementApi,
+} from '';
+import type { Update2Request } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ClinicManagementApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ClinicManagementApi(config);
 
-let id: string; // (default to undefined)
-let clinicRequest: ClinicRequest; //
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // ClinicRequest
+    clinicRequest: ...,
+  } satisfies Update2Request;
 
-const { status, data } = await apiInstance.update2(
-    id,
-    clinicRequest
-);
+  try {
+    const data = await api.update2(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
+
+| Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **clinicRequest** | **ClinicRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
-
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **clinicRequest** | [ClinicRequest](ClinicRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseClinicResponse**
+[**CustomApiResponseClinicResponse**](CustomApiResponseClinicResponse.md)
 
 ### Authorization
 
@@ -366,16 +495,16 @@ const { status, data } = await apiInstance.update2(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

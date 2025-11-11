@@ -2,38 +2,57 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getAccountSettings**](#getaccountsettings) | **GET** /api/account/settings | |
-|[**updateEmailRequest**](#updateemailrequest) | **PATCH** /api/account/settings/email/request-change | |
-|[**updateUsername**](#updateusername) | **PATCH** /api/account/settings/username | |
-|[**verifyEmailChange**](#verifyemailchange) | **GET** /api/account/settings/email/verify-change | |
+| [**getAccountSettings**](AccountSettingApi.md#getaccountsettings) | **GET** /api/account/settings |  |
+| [**updateEmailRequest**](AccountSettingApi.md#updateemailrequest) | **PATCH** /api/account/settings/email/request-change |  |
+| [**updateUsername**](AccountSettingApi.md#updateusernameoperation) | **PATCH** /api/account/settings/username |  |
+| [**verifyEmailChange**](AccountSettingApi.md#verifyemailchange) | **GET** /api/account/settings/email/verify-change |  |
 
-# **getAccountSettings**
+
+
+## getAccountSettings
+
 > CustomApiResponseAccountSettingResponse getAccountSettings()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSettingApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSettingApi,
+} from '';
+import type { GetAccountSettingsRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSettingApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSettingApi(config);
 
-const { status, data } = await apiInstance.getAccountSettings();
+  try {
+    const data = await api.getAccountSettings();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseAccountSettingResponse**
+[**CustomApiResponseAccountSettingResponse**](CustomApiResponseAccountSettingResponse.md)
 
 ### Authorization
 
@@ -41,52 +60,70 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateEmailRequest**
+
+## updateEmailRequest
+
 > CustomApiResponseVoid updateEmailRequest(updateEmailRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSettingApi,
-    Configuration,
-    UpdateEmailRequest
-} from './api';
+  Configuration,
+  AccountSettingApi,
+} from '';
+import type { UpdateEmailRequestRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSettingApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSettingApi(config);
 
-let updateEmailRequest: UpdateEmailRequest; //
+  const body = {
+    // UpdateEmailRequest
+    updateEmailRequest: ...,
+  } satisfies UpdateEmailRequestRequest;
 
-const { status, data } = await apiInstance.updateEmailRequest(
-    updateEmailRequest
-);
+  try {
+    const data = await api.updateEmailRequest(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **updateEmailRequest** | **UpdateEmailRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateEmailRequest** | [UpdateEmailRequest](UpdateEmailRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -94,52 +131,70 @@ const { status, data } = await apiInstance.updateEmailRequest(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateUsername**
+
+## updateUsername
+
 > CustomApiResponseAccountSettingResponse updateUsername(updateUsernameRequest)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSettingApi,
-    Configuration,
-    UpdateUsernameRequest
-} from './api';
+  Configuration,
+  AccountSettingApi,
+} from '';
+import type { UpdateUsernameOperationRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSettingApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSettingApi(config);
 
-let updateUsernameRequest: UpdateUsernameRequest; //
+  const body = {
+    // UpdateUsernameRequest
+    updateUsernameRequest: ...,
+  } satisfies UpdateUsernameOperationRequest;
 
-const { status, data } = await apiInstance.updateUsername(
-    updateUsernameRequest
-);
+  try {
+    const data = await api.updateUsername(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **updateUsernameRequest** | **UpdateUsernameRequest**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateUsernameRequest** | [UpdateUsernameRequest](UpdateUsernameRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseAccountSettingResponse**
+[**CustomApiResponseAccountSettingResponse**](CustomApiResponseAccountSettingResponse.md)
 
 ### Authorization
 
@@ -147,51 +202,70 @@ const { status, data } = await apiInstance.updateUsername(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **verifyEmailChange**
-> CustomApiResponseVoid verifyEmailChange()
+
+## verifyEmailChange
+
+> CustomApiResponseVoid verifyEmailChange(token)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    AccountSettingApi,
-    Configuration
-} from './api';
+  Configuration,
+  AccountSettingApi,
+} from '';
+import type { VerifyEmailChangeRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new AccountSettingApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AccountSettingApi(config);
 
-let token: string; // (default to undefined)
+  const body = {
+    // string
+    token: token_example,
+  } satisfies VerifyEmailChangeRequest;
 
-const { status, data } = await apiInstance.verifyEmailChange(
-    token
-);
+  try {
+    const data = await api.verifyEmailChange(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **token** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **token** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseVoid**
+[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
 
 ### Authorization
 
@@ -199,16 +273,16 @@ const { status, data } = await apiInstance.verifyEmailChange(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

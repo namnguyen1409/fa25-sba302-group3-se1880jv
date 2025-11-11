@@ -2,45 +2,65 @@
 
 All URIs are relative to *http://localhost:9999*
 
-|Method | HTTP request | Description|
+| Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-|[**getServiceOrderDetail**](#getserviceorderdetail) | **GET** /api/service-orders/{id} | |
-|[**getServiceOrdersForFilters**](#getserviceordersforfilters) | **POST** /api/service-orders/filter | |
-|[**getServiceOrdersForStaffToday**](#getserviceordersforstafftoday) | **GET** /api/service-orders/staff/today | |
-|[**updateServiceOrder**](#updateserviceorder) | **PUT** /api/service-orders/{id} | |
+| [**getServiceOrderDetail**](ServiceOrderControllerApi.md#getserviceorderdetail) | **GET** /api/service-orders/{id} |  |
+| [**getServiceOrdersForFilters**](ServiceOrderControllerApi.md#getserviceordersforfilters) | **POST** /api/service-orders/filter |  |
+| [**getServiceOrdersForStaffToday**](ServiceOrderControllerApi.md#getserviceordersforstafftoday) | **GET** /api/service-orders/staff/today |  |
+| [**updateServiceOrder**](ServiceOrderControllerApi.md#updateserviceorder) | **PUT** /api/service-orders/{id} |  |
 
-# **getServiceOrderDetail**
-> CustomApiResponseServiceOrderResponse getServiceOrderDetail()
+
+
+## getServiceOrderDetail
+
+> CustomApiResponseServiceOrderResponse getServiceOrderDetail(id)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ServiceOrderControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ServiceOrderControllerApi,
+} from '';
+import type { GetServiceOrderDetailRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ServiceOrderControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ServiceOrderControllerApi(config);
 
-let id: string; // (default to undefined)
+  const body = {
+    // string
+    id: id_example,
+  } satisfies GetServiceOrderDetailRequest;
 
-const { status, data } = await apiInstance.getServiceOrderDetail(
-    id
-);
+  try {
+    const data = await api.getServiceOrderDetail(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] |  | defaults to undefined|
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
-**CustomApiResponseServiceOrderResponse**
+[**CustomApiResponseServiceOrderResponse**](CustomApiResponseServiceOrderResponse.md)
 
 ### Authorization
 
@@ -48,52 +68,70 @@ const { status, data } = await apiInstance.getServiceOrderDetail(
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getServiceOrdersForFilters**
+
+## getServiceOrdersForFilters
+
 > CustomApiResponsePageServiceOrderResponse getServiceOrdersForFilters(searchFilter)
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ServiceOrderControllerApi,
-    Configuration,
-    SearchFilter
-} from './api';
+  Configuration,
+  ServiceOrderControllerApi,
+} from '';
+import type { GetServiceOrdersForFiltersRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ServiceOrderControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ServiceOrderControllerApi(config);
 
-let searchFilter: SearchFilter; //
+  const body = {
+    // SearchFilter
+    searchFilter: ...,
+  } satisfies GetServiceOrdersForFiltersRequest;
 
-const { status, data } = await apiInstance.getServiceOrdersForFilters(
-    searchFilter
-);
+  try {
+    const data = await api.getServiceOrdersForFilters(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **searchFilter** | **SearchFilter**|  | |
 
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
 
 ### Return type
 
-**CustomApiResponsePageServiceOrderResponse**
+[**CustomApiResponsePageServiceOrderResponse**](CustomApiResponsePageServiceOrderResponse.md)
 
 ### Authorization
 
@@ -101,44 +139,62 @@ const { status, data } = await apiInstance.getServiceOrdersForFilters(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **getServiceOrdersForStaffToday**
+
+## getServiceOrdersForStaffToday
+
 > CustomApiResponseListServiceOrderResponse getServiceOrdersForStaffToday()
 
 
+
 ### Example
 
-```typescript
+```ts
 import {
-    ServiceOrderControllerApi,
-    Configuration
-} from './api';
+  Configuration,
+  ServiceOrderControllerApi,
+} from '';
+import type { GetServiceOrdersForStaffTodayRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ServiceOrderControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ServiceOrderControllerApi(config);
 
-const { status, data } = await apiInstance.getServiceOrdersForStaffToday();
+  try {
+    const data = await api.getServiceOrdersForStaffToday();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
 
+This endpoint does not need any parameter.
 
 ### Return type
 
-**CustomApiResponseListServiceOrderResponse**
+[**CustomApiResponseListServiceOrderResponse**](CustomApiResponseListServiceOrderResponse.md)
 
 ### Authorization
 
@@ -146,55 +202,73 @@ This endpoint does not have any parameters.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-# **updateServiceOrder**
-> CustomApiResponseServiceOrderResponse updateServiceOrder(serviceOrderRequest)
+
+## updateServiceOrder
+
+> CustomApiResponseServiceOrderResponse updateServiceOrder(id, serviceOrderRequest)
+
 
 
 ### Example
 
-```typescript
+```ts
 import {
-    ServiceOrderControllerApi,
-    Configuration,
-    ServiceOrderRequest
-} from './api';
+  Configuration,
+  ServiceOrderControllerApi,
+} from '';
+import type { UpdateServiceOrderRequest } from '';
 
-const configuration = new Configuration();
-const apiInstance = new ServiceOrderControllerApi(configuration);
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ServiceOrderControllerApi(config);
 
-let id: string; // (default to undefined)
-let serviceOrderRequest: ServiceOrderRequest; //
+  const body = {
+    // string
+    id: id_example,
+    // ServiceOrderRequest
+    serviceOrderRequest: ...,
+  } satisfies UpdateServiceOrderRequest;
 
-const { status, data } = await apiInstance.updateServiceOrder(
-    id,
-    serviceOrderRequest
-);
+  try {
+    const data = await api.updateServiceOrder(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
 ```
 
 ### Parameters
 
-|Name | Type | Description  | Notes|
+
+| Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **serviceOrderRequest** | **ServiceOrderRequest**|  | |
-| **id** | [**string**] |  | defaults to undefined|
-
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **serviceOrderRequest** | [ServiceOrderRequest](ServiceOrderRequest.md) |  | |
 
 ### Return type
 
-**CustomApiResponseServiceOrderResponse**
+[**CustomApiResponseServiceOrderResponse**](CustomApiResponseServiceOrderResponse.md)
 
 ### Authorization
 
@@ -202,16 +276,16 @@ const { status, data } = await apiInstance.updateServiceOrder(
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: `application/json`
+- **Accept**: `*/*`
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**200** | OK |  -  |
+| **400** | Bad Request |  -  |
+| **401** | Unauthorized |  -  |
+| **200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

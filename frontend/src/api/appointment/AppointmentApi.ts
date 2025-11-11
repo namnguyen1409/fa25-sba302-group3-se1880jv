@@ -1,6 +1,6 @@
 import type { FilterGroup, PageResponse, SortRequest } from "@/components/common/EntityTableWrapper";
 import { apiClient } from "../client";
-import type { AppointmentRequest, AppointmentResponse } from "../models";
+import type { AppointmentRequest, AppointmentResponse } from "@/api";
 
 export const AppointmentApi = {
   getAppointments: (

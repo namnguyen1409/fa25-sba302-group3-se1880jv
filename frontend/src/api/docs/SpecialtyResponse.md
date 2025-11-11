@@ -1,26 +1,40 @@
+
 # SpecialtyResponse
 
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to undefined]
-**name** | **string** |  | [optional] [default to undefined]
-**description** | **string** |  | [optional] [default to undefined]
-**department** | [**DepartmentResponse**](DepartmentResponse.md) |  | [optional] [default to undefined]
+Name | Type
+------------ | -------------
+`id` | string
+`name` | string
+`description` | string
+`department` | [DepartmentResponse](DepartmentResponse.md)
 
 ## Example
 
 ```typescript
-import { SpecialtyResponse } from './api';
+import type { SpecialtyResponse } from ''
 
-const instance: SpecialtyResponse = {
-    id,
-    name,
-    description,
-    department,
-};
+// TODO: Update the object below with actual values
+const example = {
+  "id": null,
+  "name": null,
+  "description": null,
+  "department": null,
+} satisfies SpecialtyResponse
+
+console.log(example)
+
+// Convert the instance to a JSON string
+const exampleJSON: string = JSON.stringify(example)
+console.log(exampleJSON)
+
+// Parse the JSON string back to an object
+const exampleParsed = JSON.parse(exampleJSON) as SpecialtyResponse
+console.log(exampleParsed)
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
