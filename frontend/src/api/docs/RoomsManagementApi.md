@@ -2,66 +2,46 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**_delete**](RoomsManagementApi.md#_delete) | **DELETE** /api/organization/rooms/{id} |  |
-| [**create**](RoomsManagementApi.md#create) | **POST** /api/organization/rooms |  |
-| [**filter1**](RoomsManagementApi.md#filter1) | **POST** /api/organization/rooms/filter |  |
-| [**getRoomById**](RoomsManagementApi.md#getroombyid) | **GET** /api/organization/rooms/{id} |  |
-| [**update**](RoomsManagementApi.md#update) | **PUT** /api/organization/rooms/{id} |  |
+|[**_delete**](#_delete) | **DELETE** /api/organization/rooms/{id} | |
+|[**create**](#create) | **POST** /api/organization/rooms | |
+|[**filter1**](#filter1) | **POST** /api/organization/rooms/filter | |
+|[**getRoomById**](#getroombyid) | **GET** /api/organization/rooms/{id} | |
+|[**update**](#update) | **PUT** /api/organization/rooms/{id} | |
 
-
-
-## _delete
-
-> CustomApiResponseVoid _delete(id)
-
+# **_delete**
+> CustomApiResponseVoid _delete()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  RoomsManagementApi,
-} from '';
-import type { DeleteRequest } from '';
+    RoomsManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new RoomsManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new RoomsManagementApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-  } satisfies DeleteRequest;
+let id: string; // (default to undefined)
 
-  try {
-    const data = await api._delete(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance._delete(
+    id
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -69,70 +49,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## create
-
+# **create**
 > CustomApiResponseRoomResponse create(roomRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  RoomsManagementApi,
-} from '';
-import type { CreateRequest } from '';
+    RoomsManagementApi,
+    Configuration,
+    RoomRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new RoomsManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new RoomsManagementApi(configuration);
 
-  const body = {
-    // RoomRequest
-    roomRequest: ...,
-  } satisfies CreateRequest;
+let roomRequest: RoomRequest; //
 
-  try {
-    const data = await api.create(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.create(
+    roomRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **roomRequest** | [RoomRequest](RoomRequest.md) |  | |
+| **roomRequest** | **RoomRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseRoomResponse**](CustomApiResponseRoomResponse.md)
+**CustomApiResponseRoomResponse**
 
 ### Authorization
 
@@ -140,70 +102,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filter1
-
+# **filter1**
 > CustomApiResponsePageRoomResponse filter1(searchFilter)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  RoomsManagementApi,
-} from '';
-import type { Filter1Request } from '';
+    RoomsManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new RoomsManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new RoomsManagementApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies Filter1Request;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filter1(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filter1(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePageRoomResponse**](CustomApiResponsePageRoomResponse.md)
+**CustomApiResponsePageRoomResponse**
 
 ### Authorization
 
@@ -211,70 +155,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getRoomById
-
-> CustomApiResponseRoomResponse getRoomById(id)
-
+# **getRoomById**
+> CustomApiResponseRoomResponse getRoomById()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  RoomsManagementApi,
-} from '';
-import type { GetRoomByIdRequest } from '';
+    RoomsManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new RoomsManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new RoomsManagementApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-  } satisfies GetRoomByIdRequest;
+let id: string; // (default to undefined)
 
-  try {
-    const data = await api.getRoomById(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getRoomById(
+    id
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseRoomResponse**](CustomApiResponseRoomResponse.md)
+**CustomApiResponseRoomResponse**
 
 ### Authorization
 
@@ -282,73 +207,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## update
-
-> CustomApiResponseRoomResponse update(id, roomRequest)
-
+# **update**
+> CustomApiResponseRoomResponse update(roomRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  RoomsManagementApi,
-} from '';
-import type { UpdateRequest } from '';
+    RoomsManagementApi,
+    Configuration,
+    RoomRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new RoomsManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new RoomsManagementApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-    // RoomRequest
-    roomRequest: ...,
-  } satisfies UpdateRequest;
+let id: string; // (default to undefined)
+let roomRequest: RoomRequest; //
 
-  try {
-    const data = await api.update(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.update(
+    id,
+    roomRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **roomRequest** | [RoomRequest](RoomRequest.md) |  | |
+| **roomRequest** | **RoomRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseRoomResponse**](CustomApiResponseRoomResponse.md)
+**CustomApiResponseRoomResponse**
 
 ### Authorization
 
@@ -356,16 +263,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

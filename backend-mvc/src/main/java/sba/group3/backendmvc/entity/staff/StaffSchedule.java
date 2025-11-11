@@ -9,7 +9,6 @@ import org.hibernate.proxy.HibernateProxy;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.organization.Room;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -44,6 +43,7 @@ public class StaffSchedule extends BaseEntity {
     @Column(name = "end_time", nullable = false)
     LocalTime endTime;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     ScheduleStatus status = ScheduleStatus.AVAILABLE;

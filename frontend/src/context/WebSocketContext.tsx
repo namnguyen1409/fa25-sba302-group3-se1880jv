@@ -34,13 +34,16 @@ export const WebSocketProvider = ({
   const seenTechOrdersRef = useRef<Record<string, boolean>>({});
   const seenLabOrdersRef = useRef<Record<string, boolean>>({});
   const seenInvoiceOrdersRef = useRef<Record<string, boolean>>({});
+  const seenDispenseOrdersRef = useRef<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!user?.staff?.id) return;
 
     connect();
 
-    return () => stompClient.current?.deactivate();
+    return () => {
+      void stompClient.current?.deactivate();
+    };
   }, [user?.staff?.id]);
 
   const connect = () => {
@@ -60,10 +63,13 @@ export const WebSocketProvider = ({
         seenTechOrdersRef.current = {};
         seenLabOrdersRef.current = {};
         seenInvoiceOrdersRef.current = {};
+        seenDispenseOrdersRef.current = {};
+        
 
         subscribeDoctorQueue(client);
         subscribeTechnicianOrders(client);
         subscribeLabOrders(client);
+        subcribeDispenseOrders(client);
         subscribeInvoiceOrders(client);
       },
 
@@ -188,6 +194,29 @@ export const WebSocketProvider = ({
 
       window.dispatchEvent(new CustomEvent("cashier-invoice", { detail: data }));
       console.log("[WS][Invoice] event:", data);
+    });
+  };
+
+  const subcribeDispenseOrders = (client: Client) => {
+    if (![...user?.roles!].some((r) => r.name === "ROLE_PHARMACIST"))
+      return;
+
+    const staffId = user?.staff?.id;
+    const destination = `/topic/dispense/${staffId}/orders`;
+
+    console.log("[WS] Dispense subscribe →", destination);
+
+    client.subscribe(destination, (msg) => {
+      const data = JSON.parse(msg.body);
+      const id = data.id;
+
+      if (!seenDispenseOrdersRef.current[id]) {
+        seenDispenseOrdersRef.current[id] = true;
+        toast.info("Có order phát thuốc mới!");
+      }
+
+      window.dispatchEvent(new CustomEvent("pharmacist-dispense", { detail: data }));
+      console.log("[WS][Dispense] event:", data);
     });
   };
 

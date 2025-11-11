@@ -18,6 +18,7 @@ import type {
   CustomApiResponseAuthResponse,
   CustomApiResponseMeResponse,
   CustomApiResponseObject,
+  CustomApiResponseString,
   CustomApiResponseVoid,
   GetServiceOrderDetail400Response,
   LoginRequest,
@@ -25,6 +26,7 @@ import type {
   OAuthLoginRequest,
   PasswordResetConfirmRequest,
   PasswordResetRequest,
+  RegisterRequest,
   SwitchMfaRequest,
 } from '../models/index';
 import {
@@ -34,6 +36,8 @@ import {
     CustomApiResponseMeResponseToJSON,
     CustomApiResponseObjectFromJSON,
     CustomApiResponseObjectToJSON,
+    CustomApiResponseStringFromJSON,
+    CustomApiResponseStringToJSON,
     CustomApiResponseVoidFromJSON,
     CustomApiResponseVoidToJSON,
     GetServiceOrderDetail400ResponseFromJSON,
@@ -48,9 +52,15 @@ import {
     PasswordResetConfirmRequestToJSON,
     PasswordResetRequestFromJSON,
     PasswordResetRequestToJSON,
+    RegisterRequestFromJSON,
+    RegisterRequestToJSON,
     SwitchMfaRequestFromJSON,
     SwitchMfaRequestToJSON,
 } from '../models/index';
+
+export interface ActivateAccountRequest {
+    body: string;
+}
 
 export interface ConfirmPasswordResetRequest {
     passwordResetConfirmRequest: PasswordResetConfirmRequest;
@@ -62,6 +72,10 @@ export interface LoginOperationRequest {
 
 export interface LoginWithOAuthRequest {
     oAuthLoginRequest: OAuthLoginRequest;
+}
+
+export interface RegisterOperationRequest {
+    registerRequest: RegisterRequest;
 }
 
 export interface RequestPasswordResetRequest {
@@ -80,6 +94,51 @@ export interface VerifyMfaRequest {
  * 
  */
 export class AuthenticationApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async activateAccountRaw(requestParameters: ActivateAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseString>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling activateAccount().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/auth/activate`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['body'] as any,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseStringFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async activateAccount(requestParameters: ActivateAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseString> {
+        const response = await this.activateAccountRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */
@@ -318,6 +377,51 @@ export class AuthenticationApi extends runtime.BaseAPI {
      */
     async refreshToken(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAuthResponse> {
         const response = await this.refreshTokenRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async registerRaw(requestParameters: RegisterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAuthResponse>> {
+        if (requestParameters['registerRequest'] == null) {
+            throw new runtime.RequiredError(
+                'registerRequest',
+                'Required parameter "registerRequest" was null or undefined when calling register().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/auth/register`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: RegisterRequestToJSON(requestParameters['registerRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseAuthResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async register(requestParameters: RegisterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAuthResponse> {
+        const response = await this.registerRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

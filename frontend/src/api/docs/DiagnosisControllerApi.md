@@ -2,68 +2,49 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**addDiagnosis**](DiagnosisControllerApi.md#adddiagnosis) | **POST** /api/examinations/{id}/diagnosis |  |
-| [**deleteDiagnosis**](DiagnosisControllerApi.md#deletediagnosis) | **DELETE** /api/examinations/{id}/diagnosis/{diagnosisId} |  |
-| [**filterDiagnosis**](DiagnosisControllerApi.md#filterdiagnosis) | **POST** /api/examinations/{id}/diagnosis/filter |  |
-| [**getDiagnosisList**](DiagnosisControllerApi.md#getdiagnosislist) | **GET** /api/examinations/{id}/diagnosis |  |
+|[**addDiagnosis**](#adddiagnosis) | **POST** /api/examinations/{id}/diagnosis | |
+|[**deleteDiagnosis**](#deletediagnosis) | **DELETE** /api/examinations/{id}/diagnosis/{diagnosisId} | |
+|[**filterDiagnosis**](#filterdiagnosis) | **POST** /api/examinations/{id}/diagnosis/filter | |
+|[**getDiagnosisList**](#getdiagnosislist) | **GET** /api/examinations/{id}/diagnosis | |
 
-
-
-## addDiagnosis
-
-> CustomApiResponseDiagnosisResponse addDiagnosis(id, diagnosisRequest)
-
+# **addDiagnosis**
+> CustomApiResponseDiagnosisResponse addDiagnosis(diagnosisRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  DiagnosisControllerApi,
-} from '';
-import type { AddDiagnosisRequest } from '';
+    DiagnosisControllerApi,
+    Configuration,
+    DiagnosisRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new DiagnosisControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new DiagnosisControllerApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-    // DiagnosisRequest
-    diagnosisRequest: ...,
-  } satisfies AddDiagnosisRequest;
+let id: string; // (default to undefined)
+let diagnosisRequest: DiagnosisRequest; //
 
-  try {
-    const data = await api.addDiagnosis(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.addDiagnosis(
+    id,
+    diagnosisRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **diagnosisRequest** | [DiagnosisRequest](DiagnosisRequest.md) |  | |
+| **diagnosisRequest** | **DiagnosisRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseDiagnosisResponse**](CustomApiResponseDiagnosisResponse.md)
+**CustomApiResponseDiagnosisResponse**
 
 ### Authorization
 
@@ -71,73 +52,54 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## deleteDiagnosis
-
-> CustomApiResponseVoid deleteDiagnosis(id, diagnosisId)
-
+# **deleteDiagnosis**
+> CustomApiResponseVoid deleteDiagnosis()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  DiagnosisControllerApi,
-} from '';
-import type { DeleteDiagnosisRequest } from '';
+    DiagnosisControllerApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new DiagnosisControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new DiagnosisControllerApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-    // string
-    diagnosisId: diagnosisId_example,
-  } satisfies DeleteDiagnosisRequest;
+let id: string; // (default to undefined)
+let diagnosisId: string; // (default to undefined)
 
-  try {
-    const data = await api.deleteDiagnosis(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.deleteDiagnosis(
+    id,
+    diagnosisId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **diagnosisId** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+| **diagnosisId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -145,73 +107,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filterDiagnosis
-
-> CustomApiResponsePageDiagnosisResponse filterDiagnosis(id, searchFilter)
-
+# **filterDiagnosis**
+> CustomApiResponsePageDiagnosisResponse filterDiagnosis(searchFilter)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  DiagnosisControllerApi,
-} from '';
-import type { FilterDiagnosisRequest } from '';
+    DiagnosisControllerApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new DiagnosisControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new DiagnosisControllerApi(configuration);
 
-  const body = {
-    // string
-    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies FilterDiagnosisRequest;
+let id: string; // (default to undefined)
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filterDiagnosis(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filterDiagnosis(
+    id,
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePageDiagnosisResponse**](CustomApiResponsePageDiagnosisResponse.md)
+**CustomApiResponsePageDiagnosisResponse**
 
 ### Authorization
 
@@ -219,70 +163,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getDiagnosisList
-
-> CustomApiResponseDiagnosisResponse getDiagnosisList(id)
-
+# **getDiagnosisList**
+> CustomApiResponseDiagnosisResponse getDiagnosisList()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  DiagnosisControllerApi,
-} from '';
-import type { GetDiagnosisListRequest } from '';
+    DiagnosisControllerApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new DiagnosisControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new DiagnosisControllerApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-  } satisfies GetDiagnosisListRequest;
+let id: string; // (default to undefined)
 
-  try {
-    const data = await api.getDiagnosisList(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getDiagnosisList(
+    id
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseDiagnosisResponse**](CustomApiResponseDiagnosisResponse.md)
+**CustomApiResponseDiagnosisResponse**
 
 ### Authorization
 
@@ -290,16 +215,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

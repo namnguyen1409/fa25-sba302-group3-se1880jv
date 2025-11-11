@@ -9,6 +9,7 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 public final class JpaSearchBuilder {
@@ -182,6 +183,7 @@ public final class JpaSearchBuilder {
         if (targetType.isInstance(value)) return value;
 
         try {
+            if (targetType.equals(UUID.class)) return UUID.fromString((String) value);
             if (targetType.equals(Integer.class)) return Integer.valueOf(value.toString());
             if (targetType.equals(Long.class)) return Long.valueOf(value.toString());
             if (targetType.equals(Double.class)) return Double.valueOf(value.toString());

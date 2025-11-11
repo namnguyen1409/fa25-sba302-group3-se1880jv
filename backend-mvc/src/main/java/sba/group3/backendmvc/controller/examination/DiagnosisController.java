@@ -4,16 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.DiagnosisRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.examination.DiagnosisResponse;
 import sba.group3.backendmvc.service.examination.DiagnosisService;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +22,7 @@ import java.util.UUID;
 public class DiagnosisController {
     private final DiagnosisService diagnosisService;
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{id}/diagnosis/filter")
     public ResponseEntity<CustomApiResponse<Page<DiagnosisResponse>>> filterDiagnosis(
             @PathVariable("id") UUID examinationId,
@@ -44,6 +44,7 @@ public class DiagnosisController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @GetMapping("/{id}/diagnosis")
     public ResponseEntity<CustomApiResponse<DiagnosisResponse>> getDiagnosisList(
             @PathVariable("id") String examinationId
@@ -57,7 +58,7 @@ public class DiagnosisController {
         );
     }
 
-
+    @PreAuthorize("hasRole('DOCTOR')")
     @PostMapping("/{id}/diagnosis")
     public ResponseEntity<CustomApiResponse<DiagnosisResponse>> addDiagnosis(
             @PathVariable("id") String id,
@@ -74,6 +75,7 @@ public class DiagnosisController {
     }
 
 
+    @PreAuthorize("hasRole('DOCTOR')")
     @DeleteMapping("/{id}/diagnosis/{diagnosisId}")
     public ResponseEntity<CustomApiResponse<Void>> deleteDiagnosis(
             @PathVariable("id") String examinationId,

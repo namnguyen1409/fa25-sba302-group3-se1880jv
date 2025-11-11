@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type RefObject } from "react";
 import type { ExaminationResponse, PrescriptionItemResponse } from "@/api";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -15,6 +15,9 @@ import { FormModal } from "@/components/common/FormModal";
 import { SearchSelect } from "@/components/common/SearchSelect";
 import { MedicineApi } from "@/api/medicine/MedicineApi";
 import * as yup from "yup";
+import { useReactToPrint } from "react-to-print";
+import type { ContentNode } from "react-to-print/lib/types/ContentNode";
+import { PrescriptionPrintView } from "../PrescriptionPrintView";
 
 export default function PrescriptionTab({
   exam,
@@ -34,7 +37,9 @@ export default function PrescriptionTab({
 
   const tableRef = useRef<any>(null);
 
-  // ✅ Tạo mới đơn thuốc
+  const printRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({ contentRef: printRef });
+
   const handleAddPrescription = async () => {
     try {
       const res = await ExaminationApi.createPrescription(exam.id!, {
@@ -47,14 +52,12 @@ export default function PrescriptionTab({
     }
   };
 
-  // ✅ Load danh sách item
   const fetchPrescriptionItems = async (
     page: number,
     size: number,
     filterGroup?: FilterGroup | null,
     sorts?: SortRequest[]
   ) => {
-    // If there's no prescription, return an empty page-shaped result to satisfy the expected return type
     if (!prescription) {
       return {
         data: {
@@ -74,7 +77,6 @@ export default function PrescriptionTab({
         filterGroup,
         sorts,
       });
-      // EntityTableWrapper expects an object with a `data` property
       return { data: res };
     } catch {
       toast.error("Không thể tải danh sách thuốc");
@@ -120,8 +122,6 @@ export default function PrescriptionTab({
       dataIndex: "instruction",
     },
   ];
-
-  // ✅ Form fields
   const formFieldConfigs: FormFieldConfig[] = [
     {
       name: "medicineId",
@@ -226,19 +226,25 @@ export default function PrescriptionTab({
               </>
             )}
             headerExtra={
-              <Button
-                size="sm"
-                onClick={() => {
-                  setSelectForForm(null);
-                  setFormType("create");
-                }}
-              >
-                Thêm thuốc
-              </Button>
+              <>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    setSelectForForm(null);
+                    setFormType("create");
+                  }}
+                >
+                  Thêm thuốc
+                </Button>
+
+                <Button size="sm" onClick={handlePrint}>
+                  In đơn thuốc
+                </Button>
+              </>
+              
+
             }
           />
-
-          {/* ✅ Modal thêm/sửa */}
           <FormModal
             open={formType !== "hidden"}
             onClose={() => {
@@ -251,6 +257,13 @@ export default function PrescriptionTab({
             onSubmit={handleSubmit}
             schema={schema}
           />
+          <div ref={printRef} className="absolute">
+            <PrescriptionPrintView
+              patient={exam.patient}
+              items={exam.prescription.items}
+  
+            />
+          </div>
         </>
       )}
     </div>

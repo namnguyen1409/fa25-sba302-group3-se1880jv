@@ -2,56 +2,37 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**getProfile**](AccountProfileControllerApi.md#getprofile) | **GET** /api/account/profile |  |
-| [**updateAvatar**](AccountProfileControllerApi.md#updateavatar) | **POST** /api/account/profile/avatar |  |
-| [**updateProfile**](AccountProfileControllerApi.md#updateprofile) | **PUT** /api/account/profile |  |
+|[**getProfile**](#getprofile) | **GET** /api/account/profile | |
+|[**updateAvatar**](#updateavatar) | **POST** /api/account/profile/avatar | |
+|[**updateProfile**](#updateprofile) | **PUT** /api/account/profile | |
 
-
-
-## getProfile
-
+# **getProfile**
 > CustomApiResponseUserProfileResponse getProfile()
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  AccountProfileControllerApi,
-} from '';
-import type { GetProfileRequest } from '';
+    AccountProfileControllerApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new AccountProfileControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new AccountProfileControllerApi(configuration);
 
-  try {
-    const data = await api.getProfile();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getProfile();
 ```
 
 ### Parameters
+This endpoint does not have any parameters.
 
-This endpoint does not need any parameter.
 
 ### Return type
 
-[**CustomApiResponseUserProfileResponse**](CustomApiResponseUserProfileResponse.md)
+**CustomApiResponseUserProfileResponse**
 
 ### Authorization
 
@@ -59,70 +40,51 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## updateAvatar
-
-> CustomApiResponseUserProfileResponse updateAvatar(file)
-
+# **updateAvatar**
+> CustomApiResponseUserProfileResponse updateAvatar()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  AccountProfileControllerApi,
-} from '';
-import type { UpdateAvatarRequest } from '';
+    AccountProfileControllerApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new AccountProfileControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new AccountProfileControllerApi(configuration);
 
-  const body = {
-    // Blob
-    file: BINARY_DATA_HERE,
-  } satisfies UpdateAvatarRequest;
+let file: File; // (default to undefined)
 
-  try {
-    const data = await api.updateAvatar(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.updateAvatar(
+    file
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **file** | `Blob` |  | [Defaults to `undefined`] |
+| **file** | [**File**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseUserProfileResponse**](CustomApiResponseUserProfileResponse.md)
+**CustomApiResponseUserProfileResponse**
 
 ### Authorization
 
@@ -130,71 +92,53 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `multipart/form-data`
-- **Accept**: `*/*`
+ - **Content-Type**: multipart/form-data
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## updateProfile
-
+# **updateProfile**
 > CustomApiResponseUserProfileResponse updateProfile(userProfileRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  AccountProfileControllerApi,
-} from '';
-import type { UpdateProfileRequest } from '';
+    AccountProfileControllerApi,
+    Configuration,
+    UserProfileRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new AccountProfileControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new AccountProfileControllerApi(configuration);
 
-  const body = {
-    // UserProfileRequest
-    userProfileRequest: ...,
-  } satisfies UpdateProfileRequest;
+let userProfileRequest: UserProfileRequest; //
 
-  try {
-    const data = await api.updateProfile(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.updateProfile(
+    userProfileRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userProfileRequest** | [UserProfileRequest](UserProfileRequest.md) |  | |
+| **userProfileRequest** | **UserProfileRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseUserProfileResponse**](CustomApiResponseUserProfileResponse.md)
+**CustomApiResponseUserProfileResponse**
 
 ### Authorization
 
@@ -202,16 +146,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -2,7 +2,6 @@ package sba.group3.backendmvc.repository.billing;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import sba.group3.backendmvc.controller.report.ReportController;
 import sba.group3.backendmvc.entity.billing.Invoice;
 import sba.group3.backendmvc.repository.BaseRepository;
 

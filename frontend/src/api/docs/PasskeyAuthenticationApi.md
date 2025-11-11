@@ -2,65 +2,46 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**finishLogin**](PasskeyAuthenticationApi.md#finishloginoperation) | **POST** /api/auth/passkeys/login/finish |  |
-| [**finishRegistration**](PasskeyAuthenticationApi.md#finishregistration) | **POST** /api/auth/passkeys/register/finish |  |
-| [**startLogin**](PasskeyAuthenticationApi.md#startlogin) | **POST** /api/auth/passkeys/login/start |  |
-| [**startRegistration**](PasskeyAuthenticationApi.md#startregistration) | **POST** /api/auth/passkeys/register/start |  |
+|[**finishLogin**](#finishlogin) | **POST** /api/auth/passkeys/login/finish | |
+|[**finishRegistration**](#finishregistration) | **POST** /api/auth/passkeys/register/finish | |
+|[**startLogin**](#startlogin) | **POST** /api/auth/passkeys/login/start | |
+|[**startRegistration**](#startregistration) | **POST** /api/auth/passkeys/register/start | |
 
-
-
-## finishLogin
-
+# **finishLogin**
 > CustomApiResponseAuthResponse finishLogin(finishLoginRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PasskeyAuthenticationApi,
-} from '';
-import type { FinishLoginOperationRequest } from '';
+    PasskeyAuthenticationApi,
+    Configuration,
+    FinishLoginRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PasskeyAuthenticationApi(config);
+const configuration = new Configuration();
+const apiInstance = new PasskeyAuthenticationApi(configuration);
 
-  const body = {
-    // FinishLoginRequest
-    finishLoginRequest: ...,
-  } satisfies FinishLoginOperationRequest;
+let finishLoginRequest: FinishLoginRequest; //
 
-  try {
-    const data = await api.finishLogin(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.finishLogin(
+    finishLoginRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **finishLoginRequest** | [FinishLoginRequest](FinishLoginRequest.md) |  | |
+| **finishLoginRequest** | **FinishLoginRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseAuthResponse**](CustomApiResponseAuthResponse.md)
+**CustomApiResponseAuthResponse**
 
 ### Authorization
 
@@ -68,70 +49,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## finishRegistration
-
-> CustomApiResponseVoid finishRegistration(credential)
-
+# **finishRegistration**
+> CustomApiResponseVoid finishRegistration()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PasskeyAuthenticationApi,
-} from '';
-import type { FinishRegistrationRequest } from '';
+    PasskeyAuthenticationApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PasskeyAuthenticationApi(config);
+const configuration = new Configuration();
+const apiInstance = new PasskeyAuthenticationApi(configuration);
 
-  const body = {
-    // string
-    credential: credential_example,
-  } satisfies FinishRegistrationRequest;
+let credential: string; // (default to undefined)
 
-  try {
-    const data = await api.finishRegistration(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.finishRegistration(
+    credential
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **credential** | `string` |  | [Defaults to `undefined`] |
+| **credential** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -139,62 +101,44 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## startLogin
-
+# **startLogin**
 > CustomApiResponseStartPasskeyLoginResponse startLogin()
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PasskeyAuthenticationApi,
-} from '';
-import type { StartLoginRequest } from '';
+    PasskeyAuthenticationApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PasskeyAuthenticationApi(config);
+const configuration = new Configuration();
+const apiInstance = new PasskeyAuthenticationApi(configuration);
 
-  try {
-    const data = await api.startLogin();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.startLogin();
 ```
 
 ### Parameters
+This endpoint does not have any parameters.
 
-This endpoint does not need any parameter.
 
 ### Return type
 
-[**CustomApiResponseStartPasskeyLoginResponse**](CustomApiResponseStartPasskeyLoginResponse.md)
+**CustomApiResponseStartPasskeyLoginResponse**
 
 ### Authorization
 
@@ -202,62 +146,44 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## startRegistration
-
+# **startRegistration**
 > CustomApiResponsePublicKeyCredentialCreationOptions startRegistration()
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PasskeyAuthenticationApi,
-} from '';
-import type { StartRegistrationRequest } from '';
+    PasskeyAuthenticationApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PasskeyAuthenticationApi(config);
+const configuration = new Configuration();
+const apiInstance = new PasskeyAuthenticationApi(configuration);
 
-  try {
-    const data = await api.startRegistration();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.startRegistration();
 ```
 
 ### Parameters
+This endpoint does not have any parameters.
 
-This endpoint does not need any parameter.
 
 ### Return type
 
-[**CustomApiResponsePublicKeyCredentialCreationOptions**](CustomApiResponsePublicKeyCredentialCreationOptions.md)
+**CustomApiResponsePublicKeyCredentialCreationOptions**
 
 ### Authorization
 
@@ -265,16 +191,16 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

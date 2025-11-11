@@ -1,5 +1,5 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import "./App.css"
+import "./App.css";
 import Login from "./pages/auth/Login";
 import { Toaster } from "./components/ui/sonner";
 import OAuthCallback from "./pages/auth/OAuthCallback";
@@ -50,13 +50,18 @@ import BillingHistoryPage from "./pages/bill/BillingHistoryPage";
 import ClinicProfilePage from "./pages/clinic/ClinicSettingPage";
 import ReportDashboard from "./pages/report/ReportDashboard";
 import RegisterPage from "./pages/auth/Register";
+import ContentManagementPage from "./pages/cms/ContentManagementPage";
+import ContentEditPage from "./pages/cms/ContentEditPage";
+import HomePage from "./pages/common/HomePage";
+import NewsDetailPage from "./pages/common/NewsDetailPage";
+import StaffListPage from "./pages/common/StaffListPage";
+import StaffDetailPublicPage from "./pages/common/StaffDetailPage";
+import TagPage from "./pages/common/TagPage";
 function App() {
   return (
     <AppProvider>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <BrowserRouter>
-
-
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -76,7 +81,12 @@ function App() {
               element={<OAuthCallback />}
             />
             <Route path="/" element={<PublicLayout />}>
-              <Route index element={<div>Home Page</div>} />
+              <Route index element={<HomePage />} />
+              <Route path="news" element={<HomePage />} />
+              <Route path="news/:slugOrId" element={<NewsDetailPage />} />
+              <Route path="staffs" element={<StaffListPage />} />
+              <Route path="staffs/:id" element={<StaffDetailPublicPage />} />
+              <Route path="tag/:tag" element={<TagPage />} />
 
               <Route
                 path="account"
@@ -95,13 +105,19 @@ function App() {
               </Route>
             </Route>
 
-            <Route path="/staff" element={
-              <ProtectedRoute>
-                <StaffLayout />
-              </ProtectedRoute>
-              }>
+            <Route
+              path="/staff"
+              element={
+                <ProtectedRoute>
+                  <StaffLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<div>Staff Dashboard</div>} />
-              <Route path="appointments" element={<AppointmentManagementPage />} />
+              <Route
+                path="appointments"
+                element={<AppointmentManagementPage />}
+              />
               <Route path="users" element={<UserManagementPage />} />
               <Route path="patients" element={<PatientManagementPage />} />
               <Route path="patients/:id" element={<PatientDetailPage />} />
@@ -109,30 +125,59 @@ function App() {
               <Route path="staffs" element={<StaffManagementPage />} />
               <Route path="staffs/:id" element={<StaffDetailPage />} />
               <Route path="positions" element={<PositionManagementPage />} />
-              <Route path="departments" element={<DepartmentManagementPage />} />
+              <Route
+                path="departments"
+                element={<DepartmentManagementPage />}
+              />
               <Route path="rooms" element={<RoomManagementPage />} />
               <Route path="medications" element={<MedicineManagementPage />} />
               <Route path="specialties" element={<SpecialtyManagementPage />} />
-              <Route path="service-catalogs" element={<ServiceCatalogManagementPage />} />
+              <Route
+                path="service-catalogs"
+                element={<ServiceCatalogManagementPage />}
+              />
               <Route path="lab-tests" element={<LabTestManagementPage />} />
               <Route path="queue" element={<DoctorQueuePage />} />
               <Route path="service-queue" element={<TechnicianOrderPage />} />
-              <Route path="service/orders/:id" element={<TechnicianOrderResultPage />} />
-              <Route path="service-orders" element={<ServiceOrderHistoryPage />} />
+              <Route
+                path="service/orders/:id"
+                element={<TechnicianOrderResultPage />}
+              />
+              <Route
+                path="service-orders"
+                element={<ServiceOrderHistoryPage />}
+              />
               <Route path="lab-orders" element={<TechnicianLabOrderPage />} />
-              <Route path="lab/orders/:id" element={<TechnicianLabOrderResultPage />} />
-              <Route path="lab-orders-history" element={<LabOrderHistoryPage />} />
+              <Route
+                path="lab/orders/:id"
+                element={<TechnicianLabOrderResultPage />}
+              />
+              <Route
+                path="lab-orders-history"
+                element={<LabOrderHistoryPage />}
+              />
               <Route path="examinations/:id" element={<ExaminationPage />} />
-              <Route path="examinations" element={<ExaminationManagementPage />} />
+              <Route
+                path="examinations"
+                element={<ExaminationManagementPage />}
+              />
               <Route path="billing/queue" element={<BillOrderPage />} />
               <Route path="billing/history" element={<BillingHistoryPage />} />
               <Route path="billing/:id" element={<BillingDetailPage />} />
               <Route path="prescriptions" element={<DispenseRecordPage />} />
-              <Route path="dispense/:id" element={<DispenseRecordDetailPage />} />
-              <Route path="dispense-history" element={<DispenseRecordHistoryPage />} />
+              <Route
+                path="dispense/:id"
+                element={<DispenseRecordDetailPage />}
+              />
+              <Route
+                path="dispense-history"
+                element={<DispenseRecordHistoryPage />}
+              />
               <Route path="schedule" element={<StaffMySchedulePage />} />
               <Route path="settings" element={<ClinicProfilePage />} />
               <Route path="reports" element={<ReportDashboard />} />
+              <Route path="contents" element={<ContentManagementPage />} />
+              <Route path="contents/:id" element={<ContentEditPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

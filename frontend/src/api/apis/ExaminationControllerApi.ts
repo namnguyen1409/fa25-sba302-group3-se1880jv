@@ -94,8 +94,7 @@ export interface CreateServiceOrderRequest {
     serviceOrderRequest: ServiceOrderRequest;
 }
 
-export interface DeletePrescriptionItemRequest {
-    id: string;
+export interface DeletePrescriptionItem1Request {
     prescriptionId: string;
 }
 
@@ -411,18 +410,11 @@ export class ExaminationControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async deletePrescriptionItemRaw(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling deletePrescriptionItem().'
-            );
-        }
-
+    async deletePrescriptionItem1Raw(requestParameters: DeletePrescriptionItem1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
         if (requestParameters['prescriptionId'] == null) {
             throw new runtime.RequiredError(
                 'prescriptionId',
-                'Required parameter "prescriptionId" was null or undefined when calling deletePrescriptionItem().'
+                'Required parameter "prescriptionId" was null or undefined when calling deletePrescriptionItem1().'
             );
         }
 
@@ -439,8 +431,7 @@ export class ExaminationControllerApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api/examinations/{id}/prescription/{prescriptionId}`;
-        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        let urlPath = `/api/examinations/prescription/{prescriptionId}`;
         urlPath = urlPath.replace(`{${"prescriptionId"}}`, encodeURIComponent(String(requestParameters['prescriptionId'])));
 
         const response = await this.request({
@@ -455,8 +446,8 @@ export class ExaminationControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async deletePrescriptionItem(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.deletePrescriptionItemRaw(requestParameters, initOverrides);
+    async deletePrescriptionItem1(requestParameters: DeletePrescriptionItem1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.deletePrescriptionItem1Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

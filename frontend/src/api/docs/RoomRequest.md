@@ -1,44 +1,30 @@
-
 # RoomRequest
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`name` | string
-`roomType` | string
-`floorNumber` | number
-`capacity` | number
-`description` | string
-`departmentId` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [default to undefined]
+**roomType** | **string** |  | [default to undefined]
+**floorNumber** | **number** |  | [optional] [default to undefined]
+**capacity** | **number** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**departmentId** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import type { RoomRequest } from ''
+import { RoomRequest } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "name": null,
-  "roomType": null,
-  "floorNumber": null,
-  "capacity": null,
-  "description": null,
-  "departmentId": null,
-} satisfies RoomRequest
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as RoomRequest
-console.log(exampleParsed)
+const instance: RoomRequest = {
+    name,
+    roomType,
+    floorNumber,
+    capacity,
+    description,
+    departmentId,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

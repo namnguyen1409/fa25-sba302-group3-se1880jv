@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,10 @@ import sba.group3.backendmvc.dto.filter.*;
 import sba.group3.backendmvc.dto.request.billing.InvoiceRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.billing.InvoiceResponse;
-import sba.group3.backendmvc.dto.response.laboratory.LabOrderResponse;
 import sba.group3.backendmvc.entity.BaseEntity;
 import sba.group3.backendmvc.entity.billing.Invoice;
-import sba.group3.backendmvc.entity.examination.ServiceOrder;
-import sba.group3.backendmvc.entity.examination.ServiceOrderStatus;
+import sba.group3.backendmvc.service.auth.JwtService;
+import sba.group3.backendmvc.service.auth.impl.JwtServiceImpl;
 import sba.group3.backendmvc.service.billing.InvoiceService;
 
 import java.time.Instant;
@@ -37,7 +37,9 @@ import java.util.UUID;
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
+    private final JwtService jwtService;
 
+    @PreAuthorize("hasAnyRole('CASHIER','MANAGER','SYSTEM_ADMIN')")
     @GetMapping("/staff/today")
     public ResponseEntity<CustomApiResponse<List<InvoiceResponse>>> getOrdersForStaffToday(
             @AuthenticationPrincipal Jwt jwt
@@ -91,11 +93,15 @@ public class InvoiceController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('SYSTEM_ADMIN','MANAGER','CASHIER','DOCTOR','NURSE','PATIENT')")
     @PostMapping("/filter")
     public ResponseEntity<CustomApiResponse<Page<InvoiceResponse>>> filter(
-            @RequestBody SearchFilter filter
+            @RequestBody SearchFilter filter,
+            @AuthenticationPrincipal Jwt jwt
     ) {
         log.info("Filtering invoices with filter: {}", filter);
+        JwtServiceImpl.AuthInfo info = jwtService.extract(jwt);
+        applyRoleBasedMandatoryFilter(filter, info);
         return ResponseEntity.ok(
                 CustomApiResponse.<Page<InvoiceResponse>>builder()
                          .data(invoiceService.filter(filter))
@@ -103,6 +109,29 @@ public class InvoiceController {
         );
     }
 
+    private void applyRoleBasedMandatoryFilter(SearchFilter filter, JwtServiceImpl.AuthInfo info) {
+        if (info.role().contains("ROLE_SYSTEM_ADMIN") || info.role().contains("ROLE_MANAGER")) {
+            return;
+        }
+        if (info.role().contains("ROLE_PATIENT")) {
+            filter.addMandatoryCondition(Filter.builder()
+                    .field(Invoice.Fields.patient + ".id")
+                    .operator("eq")
+                    .value(info.userId())
+                    .build());
+            return;
+        }
+        if (info.role().contains("ROLE_CASHIER")) {
+            filter.addMandatoryCondition(Filter.builder()
+                    .field(Invoice.Fields.assignedStaff + ".id")
+                    .operator("eq")
+                    .value(info.staffId())
+                    .build());
+        }
+    }
+
+
+    @PreAuthorize("hasAnyRole('SYSTEM_ADMIN','MANAGER','CASHIER','DOCTOR','NURSE','PATIENT')")
     @GetMapping("/{invoiceId}")
     public ResponseEntity<CustomApiResponse<InvoiceResponse>> getById(
             @PathVariable UUID invoiceId
@@ -115,6 +144,7 @@ public class InvoiceController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('SYSTEM_ADMIN', 'MANAGER', 'CASHIER', 'RECEPTIONIST')")
     @PostMapping
     public ResponseEntity<CustomApiResponse<InvoiceResponse>> create(
             @RequestBody InvoiceRequest invoiceRequest
@@ -127,6 +157,7 @@ public class InvoiceController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('SYSTEM_ADMIN', 'MANAGER', 'CASHIER', 'RECEPTIONIST')")
     @PutMapping("/{invoiceId}")
     public ResponseEntity<CustomApiResponse<InvoiceResponse>> update(
             @PathVariable UUID invoiceId,
@@ -140,6 +171,7 @@ public class InvoiceController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('SYSTEM_ADMIN', 'MANAGER', 'CASHIER', 'RECEPTIONIST')")
     @DeleteMapping("/{invoiceId}")
     public ResponseEntity<CustomApiResponse<Void>> delete(
             @PathVariable UUID invoiceId

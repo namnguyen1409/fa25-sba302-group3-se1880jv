@@ -12,7 +12,6 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ServiceCatalogRequest;
 import sba.group3.backendmvc.dto.response.examination.ServiceCatalogResponse;
 import sba.group3.backendmvc.entity.examination.ServiceCatalog;
-import sba.group3.backendmvc.entity.laboratory.LabTest;
 import sba.group3.backendmvc.mapper.examination.ServiceCatalogMapper;
 import sba.group3.backendmvc.repository.examination.ServiceCatalogRepository;
 import sba.group3.backendmvc.service.examination.ServiceCatalogService;

@@ -47,13 +47,12 @@ export default function TechnicianOrderResultPage() {
 
     async function init() {
       try {
-        const orderRes = await ServiceOrderApi.getById(id);
+        const orderRes = await ServiceOrderApi.getById(id!);
         setOrder(orderRes);
 
         const mapData: any = {};
 
         for (const item of orderRes.items ?? []) {
-          // ✅ fetch file riêng cho từng item
           const files = await FileApi.getByEntity(
             "SERVICE_ORDER_ITEM",
             item.id!
@@ -113,7 +112,6 @@ export default function TechnicianOrderResultPage() {
 
       toast.success("Đã lưu kết quả");
 
-      // ✅ reload file
       const files = await FileApi.getByEntity("SERVICE_ORDER_ITEM", item.id!);
 
       setResults((prev) => ({
@@ -221,7 +219,6 @@ export default function TechnicianOrderResultPage() {
                   )}
                 </div>
 
-                {/* Save button – KỸ THUẬT VIÊN mới thấy */}
                 {!readonly && (
                   <Button onClick={() => saveItem(item)}>Lưu kết quả</Button>
                 )}

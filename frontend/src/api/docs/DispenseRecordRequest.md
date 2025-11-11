@@ -1,44 +1,30 @@
-
 # DispenseRecordRequest
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`prescriptionId` | string
-`dispensedById` | string
-`status` | string
-`dispensedAt` | Date
-`totalCost` | number
-`note` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**prescriptionId** | **string** |  | [optional] [default to undefined]
+**dispensedById** | **string** |  | [optional] [default to undefined]
+**status** | **string** |  | [optional] [default to undefined]
+**dispensedAt** | **string** |  | [optional] [default to undefined]
+**totalCost** | **number** |  | [optional] [default to undefined]
+**note** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { DispenseRecordRequest } from ''
+import { DispenseRecordRequest } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "prescriptionId": null,
-  "dispensedById": null,
-  "status": null,
-  "dispensedAt": null,
-  "totalCost": null,
-  "note": null,
-} satisfies DispenseRecordRequest
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as DispenseRecordRequest
-console.log(exampleParsed)
+const instance: DispenseRecordRequest = {
+    prescriptionId,
+    dispensedById,
+    status,
+    dispensedAt,
+    totalCost,
+    note,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

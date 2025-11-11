@@ -1,36 +1,22 @@
-
 # PasswordResetConfirmRequest
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`token` | string
-`newPassword` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**token** | **string** |  | [optional] [default to undefined]
+**newPassword** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { PasswordResetConfirmRequest } from ''
+import { PasswordResetConfirmRequest } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "token": null,
-  "newPassword": null,
-} satisfies PasswordResetConfirmRequest
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as PasswordResetConfirmRequest
-console.log(exampleParsed)
+const instance: PasswordResetConfirmRequest = {
+    token,
+    newPassword,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -13,8 +13,6 @@ import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.examination.ServiceCatalogResponse;
 import sba.group3.backendmvc.service.examination.ServiceCatalogService;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @Slf4j

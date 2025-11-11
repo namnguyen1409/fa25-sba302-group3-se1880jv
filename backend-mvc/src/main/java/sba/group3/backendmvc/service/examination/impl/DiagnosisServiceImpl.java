@@ -8,7 +8,6 @@ import sba.group3.backendmvc.dto.request.examination.DiagnosisRequest;
 import sba.group3.backendmvc.dto.response.examination.DiagnosisResponse;
 import sba.group3.backendmvc.entity.examination.Diagnosis;
 import sba.group3.backendmvc.entity.examination.Examination;
-import sba.group3.backendmvc.entity.examination.ServiceCatalog;
 import sba.group3.backendmvc.mapper.examination.DiagnosisMapper;
 import sba.group3.backendmvc.repository.common.IcdCodeRepository;
 import sba.group3.backendmvc.repository.examination.DiagnosisRepository;

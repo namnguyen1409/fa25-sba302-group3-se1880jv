@@ -1,38 +1,24 @@
-
 # PublicKeyCredentialDescriptor
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`type` | string
-`id` | string
-`transports` | Set&lt;string&gt;
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**type** | **string** |  | [optional] [default to undefined]
+**id** | **string** |  | [optional] [default to undefined]
+**transports** | **Set&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { PublicKeyCredentialDescriptor } from ''
+import { PublicKeyCredentialDescriptor } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "type": null,
-  "id": null,
-  "transports": null,
-} satisfies PublicKeyCredentialDescriptor
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as PublicKeyCredentialDescriptor
-console.log(exampleParsed)
+const instance: PublicKeyCredentialDescriptor = {
+    type,
+    id,
+    transports,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

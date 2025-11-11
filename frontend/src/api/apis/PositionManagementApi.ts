@@ -40,23 +40,23 @@ import {
     SearchFilterToJSON,
 } from '../models/index';
 
-export interface Create12Request {
+export interface Create13Request {
     positionRequest: PositionRequest;
 }
 
-export interface Delete12Request {
+export interface Delete13Request {
     id: string;
 }
 
-export interface Filter14Request {
+export interface Filter15Request {
     searchFilter: SearchFilter;
 }
 
-export interface GetById8Request {
+export interface GetById9Request {
     id: string;
 }
 
-export interface Update12Request {
+export interface Update13Request {
     id: string;
     positionRequest: PositionRequest;
 }
@@ -68,11 +68,11 @@ export class PositionManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create12Raw(requestParameters: Create12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePositionResponse>> {
+    async create13Raw(requestParameters: Create13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePositionResponse>> {
         if (requestParameters['positionRequest'] == null) {
             throw new runtime.RequiredError(
                 'positionRequest',
-                'Required parameter "positionRequest" was null or undefined when calling create12().'
+                'Required parameter "positionRequest" was null or undefined when calling create13().'
             );
         }
 
@@ -106,18 +106,18 @@ export class PositionManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create12(requestParameters: Create12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePositionResponse> {
-        const response = await this.create12Raw(requestParameters, initOverrides);
+    async create13(requestParameters: Create13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePositionResponse> {
+        const response = await this.create13Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async delete12Raw(requestParameters: Delete12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+    async delete13Raw(requestParameters: Delete13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling delete12().'
+                'Required parameter "id" was null or undefined when calling delete13().'
             );
         }
 
@@ -149,18 +149,18 @@ export class PositionManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async delete12(requestParameters: Delete12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.delete12Raw(requestParameters, initOverrides);
+    async delete13(requestParameters: Delete13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.delete13Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async filter14Raw(requestParameters: Filter14Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePagePositionResponse>> {
+    async filter15Raw(requestParameters: Filter15Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePagePositionResponse>> {
         if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
                 'searchFilter',
-                'Required parameter "searchFilter" was null or undefined when calling filter14().'
+                'Required parameter "searchFilter" was null or undefined when calling filter15().'
             );
         }
 
@@ -194,18 +194,18 @@ export class PositionManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter14(requestParameters: Filter14Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePagePositionResponse> {
-        const response = await this.filter14Raw(requestParameters, initOverrides);
+    async filter15(requestParameters: Filter15Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePagePositionResponse> {
+        const response = await this.filter15Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async getById8Raw(requestParameters: GetById8Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePositionResponse>> {
+    async getById9Raw(requestParameters: GetById9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePositionResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling getById8().'
+                'Required parameter "id" was null or undefined when calling getById9().'
             );
         }
 
@@ -237,25 +237,25 @@ export class PositionManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async getById8(requestParameters: GetById8Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePositionResponse> {
-        const response = await this.getById8Raw(requestParameters, initOverrides);
+    async getById9(requestParameters: GetById9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePositionResponse> {
+        const response = await this.getById9Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async update12Raw(requestParameters: Update12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePositionResponse>> {
+    async update13Raw(requestParameters: Update13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePositionResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling update12().'
+                'Required parameter "id" was null or undefined when calling update13().'
             );
         }
 
         if (requestParameters['positionRequest'] == null) {
             throw new runtime.RequiredError(
                 'positionRequest',
-                'Required parameter "positionRequest" was null or undefined when calling update12().'
+                'Required parameter "positionRequest" was null or undefined when calling update13().'
             );
         }
 
@@ -290,8 +290,8 @@ export class PositionManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async update12(requestParameters: Update12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePositionResponse> {
-        const response = await this.update12Raw(requestParameters, initOverrides);
+    async update13(requestParameters: Update13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePositionResponse> {
+        const response = await this.update13Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

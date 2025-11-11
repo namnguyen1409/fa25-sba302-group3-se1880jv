@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.entity.common.Address;
 import sba.group3.backendmvc.entity.organization.Clinic;
 import sba.group3.backendmvc.entity.organization.Department;
-import sba.group3.backendmvc.entity.organization.Room;
-import sba.group3.backendmvc.entity.organization.RoomType;
 import sba.group3.backendmvc.entity.staff.Specialty;
 import sba.group3.backendmvc.entity.staff.Staff;
 import sba.group3.backendmvc.entity.staff.StaffType;
@@ -32,8 +30,6 @@ import sba.group3.backendmvc.service.user.RoleService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-
-import static com.ibm.icu.impl.PluralRulesLoader.loader;
 
 
 @Service

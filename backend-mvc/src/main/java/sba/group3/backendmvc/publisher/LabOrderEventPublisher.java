@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-import sba.group3.backendmvc.dto.response.examination.ServiceOrderResponse;
 import sba.group3.backendmvc.dto.response.laboratory.LabOrderResponse;
 
 @Component

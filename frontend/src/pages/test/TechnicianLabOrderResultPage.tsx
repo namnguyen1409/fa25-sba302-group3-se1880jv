@@ -24,9 +24,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import { useAuth } from "@/context/AuthContext";
+
 export default function TechnicianLabOrderResultPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+  const readonly = user?.staff?.staffType !== "LAB_TECHNICIAN";
 
   const [order, setOrder] = useState<LabOrderResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -54,7 +59,6 @@ export default function TechnicianLabOrderResultPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  // ✅ Load danh sách kết quả xét nghiệm
   const fetchData = async (page: any, size: any, filterGroup: any, sorts: any) => {
     if (!id) {
       return {
@@ -124,9 +128,9 @@ export default function TechnicianLabOrderResultPage() {
     setOpenModal(true);
   };
 
-  // ✅ Lưu kết quả
   const saveResult = async () => {
     if (!selectedTest) return;
+    if (readonly) return;
 
     try {
       await LabResultApi.update(selectedTest.id!, {
@@ -138,21 +142,27 @@ export default function TechnicianLabOrderResultPage() {
 
       toast.success("Đã lưu kết quả xét nghiệm");
 
-      // reload order
       const updated = await LabOrderApi.getById(id!);
       setOrder(updated);
 
-      // ✅ reload bảng
       tableRef.current?.reload();
 
-      setSavedLocal(true);
+      const refreshed =
+        updated.results?.find((r: any) => r.id === selectedTest.id) ?? null;
+
+      setSelectedTest(refreshed);
+      setSavedLocal(false);
     } catch {
       toast.error("Không thể lưu kết quả");
     }
   };
 
+  // ============================
+  // Verify result
+  // ============================
   const verifyResult = async () => {
     if (!selectedTest) return;
+    if (readonly) return;
 
     try {
       await LabResultApi.verify(selectedTest.id!);
@@ -168,8 +178,7 @@ export default function TechnicianLabOrderResultPage() {
 
       setSelectedTest(refreshed);
       setSavedLocal(false);
-    } catch (err) {
-      console.error(err);
+    } catch {
       toast.error("Không thể xác nhận kết quả");
     }
   };
@@ -203,21 +212,21 @@ export default function TechnicianLabOrderResultPage() {
             title="Danh sách xét nghiệm"
             columns={columns}
             fetchData={fetchData}
-            renderRowActions={(row) => (
-              <Button
-                size="sm"
-                variant="outline"
-                disabled={row.status === "VERIFIED"}
-                onClick={() => openResultModal(row)}
-              >
-                Nhập kết quả
-              </Button>
-            )}
+            renderRowActions={(row) =>
+              !readonly && row.status !== "VERIFIED" ? (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => openResultModal(row)}
+                >
+                  Nhập kết quả
+                </Button>
+              ) : null
+            }
           />
         </CardContent>
       </Card>
 
-      {/* MODAL */}
       <Dialog open={openModal} onOpenChange={setOpenModal}>
         <DialogContent className="max-w-xl">
           <DialogHeader>
@@ -231,7 +240,7 @@ export default function TechnicianLabOrderResultPage() {
               <label className="font-medium">Kết quả</label>
               <Input
                 value={formData.resultValue}
-                disabled={selectedTest?.status === "VERIFIED"}
+                disabled={readonly || selectedTest?.status === "VERIFIED"}
                 onChange={(e) =>
                   setFormData({ ...formData, resultValue: e.target.value })
                 }
@@ -252,7 +261,7 @@ export default function TechnicianLabOrderResultPage() {
               <label className="font-medium">Ghi chú</label>
               <Textarea
                 value={formData.remark}
-                disabled={selectedTest?.status === "VERIFIED"}
+                disabled={readonly || selectedTest?.status === "VERIFIED"}
                 onChange={(e) =>
                   setFormData({ ...formData, remark: e.target.value })
                 }
@@ -265,11 +274,9 @@ export default function TechnicianLabOrderResultPage() {
               Hủy
             </Button>
 
-            {/* ✅ Ẩn Save/Verify khi VERIFIED */}
-            {selectedTest?.status !== "VERIFIED" && (
+            {!readonly && selectedTest?.status !== "VERIFIED" && (
               <>
                 <Button onClick={saveResult}>Lưu kết quả</Button>
-
                 <Button variant="ghost" onClick={verifyResult} className="ml-2">
                   Xác nhận
                 </Button>

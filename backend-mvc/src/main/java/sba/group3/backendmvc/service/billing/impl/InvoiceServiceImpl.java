@@ -24,6 +24,7 @@ import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.billing.InvoiceMapper;
 import sba.group3.backendmvc.publisher.InvoiceEventPublisher;
 import sba.group3.backendmvc.repository.billing.InvoiceRepository;
+import sba.group3.backendmvc.repository.examination.ServiceOrderItemRepository;
 import sba.group3.backendmvc.repository.laboratory.LabOrderRepository;
 import sba.group3.backendmvc.repository.staff.StaffScheduleRepository;
 import sba.group3.backendmvc.service.billing.InvoiceService;
@@ -47,6 +48,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final StaffScheduleRepository staffScheduleRepository;
     private final LabOrderRepository labOrderRepository;
     private final InvoiceEventPublisher invoiceEventPublisher;
+    private final ServiceOrderItemRepository serviceOrderItemRepository;
 
     @Override
     public Page<InvoiceResponse> filter(SearchFilter filter) {
@@ -104,7 +106,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 
         for (ServiceOrder order : exam.getServiceOrders()) {
-            for (ServiceOrderItem item : order.getItems()) {
+            for (ServiceOrderItem item : serviceOrderItemRepository.findAllByServiceOrder_IdAndDeletedIsFalse(order.getId())) {
                 BigDecimal price = item.getPrice();
                 total = total.add(price);
 

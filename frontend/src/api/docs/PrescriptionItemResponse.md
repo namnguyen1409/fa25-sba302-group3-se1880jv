@@ -1,46 +1,32 @@
-
 # PrescriptionItemResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`medicine` | [MedicineResponse](MedicineResponse.md)
-`dosage` | string
-`frequency` | string
-`duration` | string
-`instruction` | string
-`quantity` | number
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**medicine** | [**MedicineResponse**](MedicineResponse.md) |  | [optional] [default to undefined]
+**dosage** | **string** |  | [optional] [default to undefined]
+**frequency** | **string** |  | [optional] [default to undefined]
+**duration** | **string** |  | [optional] [default to undefined]
+**instruction** | **string** |  | [optional] [default to undefined]
+**quantity** | **number** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { PrescriptionItemResponse } from ''
+import { PrescriptionItemResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "medicine": null,
-  "dosage": null,
-  "frequency": null,
-  "duration": null,
-  "instruction": null,
-  "quantity": null,
-} satisfies PrescriptionItemResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as PrescriptionItemResponse
-console.log(exampleParsed)
+const instance: PrescriptionItemResponse = {
+    id,
+    medicine,
+    dosage,
+    frequency,
+    duration,
+    instruction,
+    quantity,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

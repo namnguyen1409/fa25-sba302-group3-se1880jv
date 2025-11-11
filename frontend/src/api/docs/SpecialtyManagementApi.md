@@ -2,66 +2,47 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**create11**](SpecialtyManagementApi.md#create11) | **POST** /api/admin/specialties |  |
-| [**delete11**](SpecialtyManagementApi.md#delete11) | **DELETE** /api/admin/specialties/{id} |  |
-| [**filter13**](SpecialtyManagementApi.md#filter13) | **POST** /api/admin/specialties/filter |  |
-| [**getById7**](SpecialtyManagementApi.md#getbyid7) | **GET** /api/admin/specialties/{id} |  |
-| [**update11**](SpecialtyManagementApi.md#update11) | **PUT** /api/admin/specialties/{id} |  |
+|[**create12**](#create12) | **POST** /api/admin/specialties | |
+|[**delete12**](#delete12) | **DELETE** /api/admin/specialties/{id} | |
+|[**filter14**](#filter14) | **POST** /api/admin/specialties/filter | |
+|[**getById8**](#getbyid8) | **GET** /api/admin/specialties/{id} | |
+|[**update12**](#update12) | **PUT** /api/admin/specialties/{id} | |
 
-
-
-## create11
-
-> CustomApiResponseSpecialtyResponse create11(specialtyRequest)
-
+# **create12**
+> CustomApiResponseSpecialtyResponse create12(specialtyRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  SpecialtyManagementApi,
-} from '';
-import type { Create11Request } from '';
+    SpecialtyManagementApi,
+    Configuration,
+    SpecialtyRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new SpecialtyManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new SpecialtyManagementApi(configuration);
 
-  const body = {
-    // SpecialtyRequest
-    specialtyRequest: ...,
-  } satisfies Create11Request;
+let specialtyRequest: SpecialtyRequest; //
 
-  try {
-    const data = await api.create11(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.create12(
+    specialtyRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **specialtyRequest** | [SpecialtyRequest](SpecialtyRequest.md) |  | |
+| **specialtyRequest** | **SpecialtyRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseSpecialtyResponse**](CustomApiResponseSpecialtyResponse.md)
+**CustomApiResponseSpecialtyResponse**
 
 ### Authorization
 
@@ -69,70 +50,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## delete11
-
-> CustomApiResponseVoid delete11(id)
-
+# **delete12**
+> CustomApiResponseVoid delete12()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  SpecialtyManagementApi,
-} from '';
-import type { Delete11Request } from '';
+    SpecialtyManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new SpecialtyManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new SpecialtyManagementApi(configuration);
 
-  const body = {
-    // string
-    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies Delete11Request;
+let id: string; // (default to undefined)
 
-  try {
-    const data = await api.delete11(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.delete12(
+    id
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -140,70 +102,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filter13
-
-> CustomApiResponsePageSpecialtyResponse filter13(searchFilter)
-
+# **filter14**
+> CustomApiResponsePageSpecialtyResponse filter14(searchFilter)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  SpecialtyManagementApi,
-} from '';
-import type { Filter13Request } from '';
+    SpecialtyManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new SpecialtyManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new SpecialtyManagementApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies Filter13Request;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filter13(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filter14(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePageSpecialtyResponse**](CustomApiResponsePageSpecialtyResponse.md)
+**CustomApiResponsePageSpecialtyResponse**
 
 ### Authorization
 
@@ -211,70 +155,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getById7
-
-> CustomApiResponseSpecialtyResponse getById7(id)
-
+# **getById8**
+> CustomApiResponseSpecialtyResponse getById8()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  SpecialtyManagementApi,
-} from '';
-import type { GetById7Request } from '';
+    SpecialtyManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new SpecialtyManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new SpecialtyManagementApi(configuration);
 
-  const body = {
-    // string
-    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies GetById7Request;
+let id: string; // (default to undefined)
 
-  try {
-    const data = await api.getById7(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getById8(
+    id
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseSpecialtyResponse**](CustomApiResponseSpecialtyResponse.md)
+**CustomApiResponseSpecialtyResponse**
 
 ### Authorization
 
@@ -282,73 +207,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## update11
-
-> CustomApiResponseSpecialtyResponse update11(id, specialtyRequest)
-
+# **update12**
+> CustomApiResponseSpecialtyResponse update12(specialtyRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  SpecialtyManagementApi,
-} from '';
-import type { Update11Request } from '';
+    SpecialtyManagementApi,
+    Configuration,
+    SpecialtyRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new SpecialtyManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new SpecialtyManagementApi(configuration);
 
-  const body = {
-    // string
-    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // SpecialtyRequest
-    specialtyRequest: ...,
-  } satisfies Update11Request;
+let id: string; // (default to undefined)
+let specialtyRequest: SpecialtyRequest; //
 
-  try {
-    const data = await api.update11(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.update12(
+    id,
+    specialtyRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **specialtyRequest** | [SpecialtyRequest](SpecialtyRequest.md) |  | |
+| **specialtyRequest** | **SpecialtyRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseSpecialtyResponse**](CustomApiResponseSpecialtyResponse.md)
+**CustomApiResponseSpecialtyResponse**
 
 ### Authorization
 
@@ -356,16 +263,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,60 +1,46 @@
-
 # MeResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`username` | string
-`email` | string
-`phone` | string
-`active` | boolean
-`locked` | boolean
-`mfaEnabled` | boolean
-`userProfile` | [SimpleProfileResponse](SimpleProfileResponse.md)
-`firstLogin` | boolean
-`roles` | [Set&lt;RoleNameResponse&gt;](RoleNameResponse.md)
-`device` | [DeviceInfo](DeviceInfo.md)
-`staff` | [StaffResponse](StaffResponse.md)
-`patient` | [PatientResponse](PatientResponse.md)
-`room` | [RoomResponse](RoomResponse.md)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**username** | **string** |  | [optional] [default to undefined]
+**email** | **string** |  | [optional] [default to undefined]
+**phone** | **string** |  | [optional] [default to undefined]
+**active** | **boolean** |  | [optional] [default to undefined]
+**locked** | **boolean** |  | [optional] [default to undefined]
+**mfaEnabled** | **boolean** |  | [optional] [default to undefined]
+**userProfile** | [**SimpleProfileResponse**](SimpleProfileResponse.md) |  | [optional] [default to undefined]
+**firstLogin** | **boolean** |  | [optional] [default to undefined]
+**roles** | [**Set&lt;RoleNameResponse&gt;**](RoleNameResponse.md) |  | [optional] [default to undefined]
+**device** | [**DeviceInfo**](DeviceInfo.md) |  | [optional] [default to undefined]
+**staff** | [**StaffResponse**](StaffResponse.md) |  | [optional] [default to undefined]
+**patient** | [**PatientResponse**](PatientResponse.md) |  | [optional] [default to undefined]
+**room** | [**RoomResponse**](RoomResponse.md) |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { MeResponse } from ''
+import { MeResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "username": null,
-  "email": null,
-  "phone": null,
-  "active": null,
-  "locked": null,
-  "mfaEnabled": null,
-  "userProfile": null,
-  "firstLogin": null,
-  "roles": null,
-  "device": null,
-  "staff": null,
-  "patient": null,
-  "room": null,
-} satisfies MeResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as MeResponse
-console.log(exampleParsed)
+const instance: MeResponse = {
+    id,
+    username,
+    email,
+    phone,
+    active,
+    locked,
+    mfaEnabled,
+    userProfile,
+    firstLogin,
+    roles,
+    device,
+    staff,
+    patient,
+    room,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.security.core.context.SecurityContextHolder;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.filter.SearchMode;
 import sba.group3.backendmvc.repository.BaseRepository;
@@ -108,7 +109,27 @@ public class BaseRepositoryImpl<T, ID extends Serializable>
 
 
     protected Specification<T> getBaseSpecification() {
-        return null;
+        return (root, query, cb) -> {
+            try {
+                // kiểm tra entity có field "deleted" không
+                root.get("deleted");
+                boolean isAdmin = SecurityContextHolder.getContext().getAuthentication()
+                        .getAuthorities()
+                        .stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_SYSTEM_ADMIN")
+                                || a.getAuthority().equals("ROLE_MANAGER"));
+
+                if (isAdmin) {
+                    return cb.conjunction();
+                }
+
+                return cb.equal(root.get("deleted"), false);
+            } catch (IllegalArgumentException e) {
+                // entity không có field deleted → bỏ qua
+                return cb.conjunction();
+            }
+        };
     }
+
 
 }

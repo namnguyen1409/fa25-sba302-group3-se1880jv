@@ -1,40 +1,26 @@
-
 # PatientByDayResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`year` | number
-`month` | number
-`day` | number
-`count` | number
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**year** | **number** |  | [optional] [default to undefined]
+**month** | **number** |  | [optional] [default to undefined]
+**day** | **number** |  | [optional] [default to undefined]
+**count** | **number** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { PatientByDayResponse } from ''
+import { PatientByDayResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "year": null,
-  "month": null,
-  "day": null,
-  "count": null,
-} satisfies PatientByDayResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as PatientByDayResponse
-console.log(exampleParsed)
+const instance: PatientByDayResponse = {
+    year,
+    month,
+    day,
+    count,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

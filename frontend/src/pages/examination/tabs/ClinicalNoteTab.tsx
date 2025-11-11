@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ExaminationApi } from "@/api/examination/ExaminationApi";
-import type { ExaminationResponse } from "@/api";
+import type { ExaminationResponse } from "@/api/models";
+// import type { ExaminationResponse } from "@/api";
 
 export default function ClinicalNoteTab({ exam, reload }
 : { exam: ExaminationResponse; reload: () => Promise<void> }

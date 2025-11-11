@@ -40,23 +40,23 @@ import {
     SpecialtyRequestToJSON,
 } from '../models/index';
 
-export interface Create11Request {
+export interface Create12Request {
     specialtyRequest: SpecialtyRequest;
 }
 
-export interface Delete11Request {
+export interface Delete12Request {
     id: string;
 }
 
-export interface Filter13Request {
+export interface Filter14Request {
     searchFilter: SearchFilter;
 }
 
-export interface GetById7Request {
+export interface GetById8Request {
     id: string;
 }
 
-export interface Update11Request {
+export interface Update12Request {
     id: string;
     specialtyRequest: SpecialtyRequest;
 }
@@ -68,11 +68,11 @@ export class SpecialtyManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create11Raw(requestParameters: Create11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseSpecialtyResponse>> {
+    async create12Raw(requestParameters: Create12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseSpecialtyResponse>> {
         if (requestParameters['specialtyRequest'] == null) {
             throw new runtime.RequiredError(
                 'specialtyRequest',
-                'Required parameter "specialtyRequest" was null or undefined when calling create11().'
+                'Required parameter "specialtyRequest" was null or undefined when calling create12().'
             );
         }
 
@@ -106,18 +106,18 @@ export class SpecialtyManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create11(requestParameters: Create11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseSpecialtyResponse> {
-        const response = await this.create11Raw(requestParameters, initOverrides);
+    async create12(requestParameters: Create12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseSpecialtyResponse> {
+        const response = await this.create12Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async delete11Raw(requestParameters: Delete11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+    async delete12Raw(requestParameters: Delete12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling delete11().'
+                'Required parameter "id" was null or undefined when calling delete12().'
             );
         }
 
@@ -149,18 +149,18 @@ export class SpecialtyManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async delete11(requestParameters: Delete11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.delete11Raw(requestParameters, initOverrides);
+    async delete12(requestParameters: Delete12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.delete12Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async filter13Raw(requestParameters: Filter13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageSpecialtyResponse>> {
+    async filter14Raw(requestParameters: Filter14Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageSpecialtyResponse>> {
         if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
                 'searchFilter',
-                'Required parameter "searchFilter" was null or undefined when calling filter13().'
+                'Required parameter "searchFilter" was null or undefined when calling filter14().'
             );
         }
 
@@ -194,18 +194,18 @@ export class SpecialtyManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter13(requestParameters: Filter13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageSpecialtyResponse> {
-        const response = await this.filter13Raw(requestParameters, initOverrides);
+    async filter14(requestParameters: Filter14Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageSpecialtyResponse> {
+        const response = await this.filter14Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async getById7Raw(requestParameters: GetById7Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseSpecialtyResponse>> {
+    async getById8Raw(requestParameters: GetById8Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseSpecialtyResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling getById7().'
+                'Required parameter "id" was null or undefined when calling getById8().'
             );
         }
 
@@ -237,25 +237,25 @@ export class SpecialtyManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async getById7(requestParameters: GetById7Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseSpecialtyResponse> {
-        const response = await this.getById7Raw(requestParameters, initOverrides);
+    async getById8(requestParameters: GetById8Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseSpecialtyResponse> {
+        const response = await this.getById8Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async update11Raw(requestParameters: Update11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseSpecialtyResponse>> {
+    async update12Raw(requestParameters: Update12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseSpecialtyResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling update11().'
+                'Required parameter "id" was null or undefined when calling update12().'
             );
         }
 
         if (requestParameters['specialtyRequest'] == null) {
             throw new runtime.RequiredError(
                 'specialtyRequest',
-                'Required parameter "specialtyRequest" was null or undefined when calling update11().'
+                'Required parameter "specialtyRequest" was null or undefined when calling update12().'
             );
         }
 
@@ -290,8 +290,8 @@ export class SpecialtyManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async update11(requestParameters: Update11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseSpecialtyResponse> {
-        const response = await this.update11Raw(requestParameters, initOverrides);
+    async update12(requestParameters: Update12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseSpecialtyResponse> {
+        const response = await this.update12Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

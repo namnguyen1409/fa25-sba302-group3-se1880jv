@@ -1,38 +1,24 @@
-
 # DepartmentRequest
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`name` | string
-`description` | string
-`clinicId` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**clinicId** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import type { DepartmentRequest } from ''
+import { DepartmentRequest } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "name": null,
-  "description": null,
-  "clinicId": null,
-} satisfies DepartmentRequest
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as DepartmentRequest
-console.log(exampleParsed)
+const instance: DepartmentRequest = {
+    name,
+    description,
+    clinicId,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

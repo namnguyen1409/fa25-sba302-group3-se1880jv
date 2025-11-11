@@ -70,10 +70,9 @@ export default function ExaminationPage() {
               { label: "BHYT", name: "insuranceNumber" },
             ]}
           />
+          
         </Card>
       </div>
-
-      {/* Tabs */}
       <div
         className="
         col-span-12 
@@ -91,7 +90,6 @@ export default function ExaminationPage() {
           }}
           className="w-full"
         >
-          {/* ✅ TabsList responsive */}
           <TabsList
             className="
               grid 

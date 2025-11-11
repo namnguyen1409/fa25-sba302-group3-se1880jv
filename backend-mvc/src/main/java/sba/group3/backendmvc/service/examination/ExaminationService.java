@@ -7,7 +7,6 @@ import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
 import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.entity.examination.Examination;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface ExaminationService {

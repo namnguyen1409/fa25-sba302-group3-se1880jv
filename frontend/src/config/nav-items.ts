@@ -18,7 +18,8 @@ import {
   Activity,
   MonitorCheck,
   BookOpenCheck,
-  Box
+  Box,
+  Paperclip
 } from "lucide-react";
 
 export const staffNavItems = (roles: string[]) => {
@@ -30,7 +31,6 @@ export const staffNavItems = (roles: string[]) => {
   const receptionist = [
     { label: "Appointments", to: "/staff/appointments", icon: CalendarCheck },
     { label: "Patients", to: "/staff/patients", icon: Users },
-    { label: "Queue", to: "/staff/queue", icon: ClipboardList },
   ];
 
   const nurse = [
@@ -40,7 +40,6 @@ export const staffNavItems = (roles: string[]) => {
   ];
 
   const doctor = [
-    
     { label: "My Patients", to: "/staff/patients", icon: Users },
     { label: "Examinations", to: "/staff/examinations", icon: Stethoscope },
     { label: "Queue", to: "/staff/queue", icon: ClipboardList },
@@ -73,6 +72,7 @@ export const staffNavItems = (roles: string[]) => {
     { label: "Departments", to: "/staff/departments", icon: Building2 },
     { label: "Rooms", to: "/staff/rooms", icon: Building2 },
     { label: "Reports", to: "/staff/reports", icon: Activity },
+    { label: "Content Management", to: "/staff/contents", icon: Paperclip },
   ];
 
 

@@ -7,6 +7,7 @@ import sba.group3.backendmvc.entity.appointment.AppointmentStatus;
 import sba.group3.backendmvc.entity.appointment.AppointmentType;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.UUID;
 
 /**
@@ -14,5 +15,5 @@ import java.util.UUID;
  */
 public record AppointmentResponse(UUID id, PatientResponse patient, SpecialtyResponse specialty, AppointmentType type,
                                   AppointmentStatus status, AppointmentSource source, String note,
-                                  QueueTicketResponse queueTicket) implements Serializable {
+                                  QueueTicketResponse queueTicket, Instant createdDate) implements Serializable {
 }

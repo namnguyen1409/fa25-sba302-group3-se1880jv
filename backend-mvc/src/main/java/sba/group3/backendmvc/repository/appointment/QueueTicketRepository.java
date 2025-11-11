@@ -6,9 +6,7 @@ import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.repository.BaseRepository;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public interface QueueTicketRepository extends BaseRepository<QueueTicket, UUID> {

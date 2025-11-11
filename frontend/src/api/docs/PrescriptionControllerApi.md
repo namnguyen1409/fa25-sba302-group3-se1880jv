@@ -2,67 +2,49 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**createPrescriptionForExamination**](PrescriptionControllerApi.md#createprescriptionforexamination) | **POST** /api/prescriptions/{id}/items/filter |  |
-| [**createPrescriptionItem**](PrescriptionControllerApi.md#createprescriptionitem) | **POST** /api/prescriptions/{id}/items |  |
-| [**updatePrescriptionItem**](PrescriptionControllerApi.md#updateprescriptionitem) | **PUT** /api/prescriptions/items/{itemId} |  |
+|[**createPrescriptionForExamination**](#createprescriptionforexamination) | **POST** /api/prescriptions/{id}/items/filter | |
+|[**createPrescriptionItem**](#createprescriptionitem) | **POST** /api/prescriptions/{id}/items | |
+|[**deletePrescriptionItem**](#deleteprescriptionitem) | **DELETE** /api/prescriptions/items/{itemId} | |
+|[**updatePrescriptionItem**](#updateprescriptionitem) | **PUT** /api/prescriptions/items/{itemId} | |
 
-
-
-## createPrescriptionForExamination
-
-> CustomApiResponsePagePrescriptionItemResponse createPrescriptionForExamination(id, searchFilter)
-
+# **createPrescriptionForExamination**
+> CustomApiResponsePagePrescriptionItemResponse createPrescriptionForExamination(searchFilter)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PrescriptionControllerApi,
-} from '';
-import type { CreatePrescriptionForExaminationRequest } from '';
+    PrescriptionControllerApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PrescriptionControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new PrescriptionControllerApi(configuration);
 
-  const body = {
-    // string
-    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies CreatePrescriptionForExaminationRequest;
+let id: string; // (default to undefined)
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.createPrescriptionForExamination(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.createPrescriptionForExamination(
+    id,
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePagePrescriptionItemResponse**](CustomApiResponsePagePrescriptionItemResponse.md)
+**CustomApiResponsePagePrescriptionItemResponse**
 
 ### Authorization
 
@@ -70,73 +52,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## createPrescriptionItem
-
-> CustomApiResponsePrescriptionItemResponse createPrescriptionItem(id, prescriptionItemRequest)
-
+# **createPrescriptionItem**
+> CustomApiResponsePrescriptionItemResponse createPrescriptionItem(prescriptionItemRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PrescriptionControllerApi,
-} from '';
-import type { CreatePrescriptionItemRequest } from '';
+    PrescriptionControllerApi,
+    Configuration,
+    PrescriptionItemRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PrescriptionControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new PrescriptionControllerApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-    // PrescriptionItemRequest
-    prescriptionItemRequest: ...,
-  } satisfies CreatePrescriptionItemRequest;
+let id: string; // (default to undefined)
+let prescriptionItemRequest: PrescriptionItemRequest; //
 
-  try {
-    const data = await api.createPrescriptionItem(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.createPrescriptionItem(
+    id,
+    prescriptionItemRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **prescriptionItemRequest** | [PrescriptionItemRequest](PrescriptionItemRequest.md) |  | |
+| **prescriptionItemRequest** | **PrescriptionItemRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePrescriptionItemResponse**](CustomApiResponsePrescriptionItemResponse.md)
+**CustomApiResponsePrescriptionItemResponse**
 
 ### Authorization
 
@@ -144,73 +108,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## updatePrescriptionItem
-
-> CustomApiResponsePrescriptionItemResponse updatePrescriptionItem(itemId, prescriptionItemRequest)
-
+# **deletePrescriptionItem**
+> CustomApiResponseVoid deletePrescriptionItem()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PrescriptionControllerApi,
-} from '';
-import type { UpdatePrescriptionItemRequest } from '';
+    PrescriptionControllerApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PrescriptionControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new PrescriptionControllerApi(configuration);
 
-  const body = {
-    // string
-    itemId: itemId_example,
-    // PrescriptionItemRequest
-    prescriptionItemRequest: ...,
-  } satisfies UpdatePrescriptionItemRequest;
+let itemId: string; // (default to undefined)
 
-  try {
-    const data = await api.updatePrescriptionItem(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.deletePrescriptionItem(
+    itemId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **itemId** | `string` |  | [Defaults to `undefined`] |
-| **prescriptionItemRequest** | [PrescriptionItemRequest](PrescriptionItemRequest.md) |  | |
+| **itemId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePrescriptionItemResponse**](CustomApiResponsePrescriptionItemResponse.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -218,16 +160,72 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updatePrescriptionItem**
+> CustomApiResponsePrescriptionItemResponse updatePrescriptionItem(prescriptionItemRequest)
+
+
+### Example
+
+```typescript
+import {
+    PrescriptionControllerApi,
+    Configuration,
+    PrescriptionItemRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new PrescriptionControllerApi(configuration);
+
+let itemId: string; // (default to undefined)
+let prescriptionItemRequest: PrescriptionItemRequest; //
+
+const { status, data } = await apiInstance.updatePrescriptionItem(
+    itemId,
+    prescriptionItemRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **prescriptionItemRequest** | **PrescriptionItemRequest**|  | |
+| **itemId** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**CustomApiResponsePrescriptionItemResponse**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

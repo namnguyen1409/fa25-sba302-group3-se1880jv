@@ -1,52 +1,38 @@
-
 # QueueTicketResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`assignedDoctor` | [StaffResponse](StaffResponse.md)
-`assignedRoom` | [RoomResponse](RoomResponse.md)
-`queueNumber` | string
-`status` | string
-`priority` | string
-`examinationId` | string
-`appointmentId` | string
-`appointmentPatient` | [PatientResponse](PatientResponse.md)
-`appointmentSpecialty` | [SpecialtyResponse](SpecialtyResponse.md)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**assignedDoctor** | [**StaffResponse**](StaffResponse.md) |  | [optional] [default to undefined]
+**assignedRoom** | [**RoomResponse**](RoomResponse.md) |  | [optional] [default to undefined]
+**queueNumber** | **string** |  | [optional] [default to undefined]
+**status** | **string** |  | [optional] [default to undefined]
+**priority** | **string** |  | [optional] [default to undefined]
+**examinationId** | **string** |  | [optional] [default to undefined]
+**appointmentId** | **string** |  | [optional] [default to undefined]
+**appointmentPatient** | [**PatientResponse**](PatientResponse.md) |  | [optional] [default to undefined]
+**appointmentSpecialty** | [**SpecialtyResponse**](SpecialtyResponse.md) |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { QueueTicketResponse } from ''
+import { QueueTicketResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "assignedDoctor": null,
-  "assignedRoom": null,
-  "queueNumber": null,
-  "status": null,
-  "priority": null,
-  "examinationId": null,
-  "appointmentId": null,
-  "appointmentPatient": null,
-  "appointmentSpecialty": null,
-} satisfies QueueTicketResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as QueueTicketResponse
-console.log(exampleParsed)
+const instance: QueueTicketResponse = {
+    id,
+    assignedDoctor,
+    assignedRoom,
+    queueNumber,
+    status,
+    priority,
+    examinationId,
+    appointmentId,
+    appointmentPatient,
+    appointmentSpecialty,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

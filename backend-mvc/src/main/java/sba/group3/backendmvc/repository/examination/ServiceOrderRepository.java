@@ -1,7 +1,6 @@
 package sba.group3.backendmvc.repository.examination;
 
 import org.springframework.data.jpa.repository.Query;
-import sba.group3.backendmvc.controller.report.ReportController;
 import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.examination.ServiceOrder;
 import sba.group3.backendmvc.entity.organization.RoomType;

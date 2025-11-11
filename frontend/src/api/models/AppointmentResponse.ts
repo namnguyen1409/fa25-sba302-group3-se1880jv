@@ -89,6 +89,12 @@ export interface AppointmentResponse {
      * @memberof AppointmentResponse
      */
     queueTicket?: QueueTicketResponse;
+    /**
+     * 
+     * @type {Date}
+     * @memberof AppointmentResponse
+     */
+    createdDate?: Date;
 }
 
 
@@ -155,6 +161,7 @@ export function AppointmentResponseFromJSONTyped(json: any, ignoreDiscriminator:
         'source': json['source'] == null ? undefined : json['source'],
         'note': json['note'] == null ? undefined : json['note'],
         'queueTicket': json['queueTicket'] == null ? undefined : QueueTicketResponseFromJSON(json['queueTicket']),
+        'createdDate': json['createdDate'] == null ? undefined : (new Date(json['createdDate'])),
     };
 }
 
@@ -177,6 +184,7 @@ export function AppointmentResponseToJSONTyped(value?: AppointmentResponse | nul
         'source': value['source'],
         'note': value['note'],
         'queueTicket': QueueTicketResponseToJSON(value['queueTicket']),
+        'createdDate': value['createdDate'] == null ? value['createdDate'] : value['createdDate'].toISOString(),
     };
 }
 

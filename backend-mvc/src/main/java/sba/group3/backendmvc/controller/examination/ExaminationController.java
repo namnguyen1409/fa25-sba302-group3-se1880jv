@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
 import sba.group3.backendmvc.dto.filter.Filter;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ExaminationRequest;
@@ -18,6 +20,10 @@ import sba.group3.backendmvc.dto.response.examination.ExaminationResponse;
 import sba.group3.backendmvc.dto.response.examination.PrescriptionResponse;
 import sba.group3.backendmvc.dto.response.examination.ServiceOrderResponse;
 import sba.group3.backendmvc.dto.response.laboratory.LabOrderResponse;
+import sba.group3.backendmvc.entity.billing.Invoice;
+import sba.group3.backendmvc.entity.examination.Examination;
+import sba.group3.backendmvc.service.auth.JwtService;
+import sba.group3.backendmvc.service.auth.impl.JwtServiceImpl;
 import sba.group3.backendmvc.service.examination.ExaminationService;
 import sba.group3.backendmvc.service.examination.PrescriptionService;
 import sba.group3.backendmvc.service.examination.ServiceOrderItemService;
@@ -37,10 +43,17 @@ public class ExaminationController {
     private final ServiceOrderItemService serviceOrderItemService;
     private final PrescriptionService prescriptionService;
     private final LabOrderService labOrderService;
+    private final JwtService jwtService;
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE', 'RECEPTIONIST')")
     @PostMapping("/filter")
-    public ResponseEntity<CustomApiResponse<Page<ExaminationResponse>>> getExaminations(@RequestBody SearchFilter filter) {
+    public ResponseEntity<CustomApiResponse<Page<ExaminationResponse>>> getExaminations(
+            @RequestBody SearchFilter filter,
+            @AuthenticationPrincipal Jwt jwt
+    ) {
         log.info("getExaminations called with filter: {}", filter);
+        JwtServiceImpl.AuthInfo info = jwtService.extract(jwt);
+        applyRoleBasedMandatoryFilter(filter, info);
         Page<ExaminationResponse> responseList = examinationService.filter(filter);
         return ResponseEntity.ok(
                 CustomApiResponse.<Page<ExaminationResponse>>builder()
@@ -48,6 +61,21 @@ public class ExaminationController {
                         .build()
         );
     }
+
+    private void applyRoleBasedMandatoryFilter(SearchFilter filter, JwtServiceImpl.AuthInfo info) {
+        if (info.role().contains("ROLE_SYSTEM_ADMIN") || info.role().contains("ROLE_MANAGER")) {
+            return;
+        }
+
+        if (info.role().contains("ROLE_DOCTOR")) {
+            filter.addMandatoryCondition(Filter.builder()
+                    .field(Examination.Fields.staff + ".id")
+                    .operator("eq")
+                    .value(info.staffId())
+                    .build());
+        }
+    }
+
 
     @PostMapping
     public ResponseEntity<CustomApiResponse<ExaminationResponse>> createExamination(
@@ -239,13 +267,12 @@ public class ExaminationController {
     }
 
 
-    @DeleteMapping("/{id}/prescription/{prescriptionId}")
+    @DeleteMapping("/prescription/{prescriptionId}")
     public ResponseEntity<CustomApiResponse<Void>> deletePrescriptionItem(
-            @PathVariable("id") String examinationId,
             @PathVariable("prescriptionId") String prescriptionId
     ) {
-        log.info("Deleting prescription item {} from examination {}", prescriptionId, examinationId);
-        prescriptionService.delete(examinationId);
+        log.info("Deleting prescription item {}", prescriptionId);
+        prescriptionService.delete(prescriptionId);
         return ResponseEntity.ok(
                 CustomApiResponse.<Void>builder()
                         .message("Prescription item deleted successfully")

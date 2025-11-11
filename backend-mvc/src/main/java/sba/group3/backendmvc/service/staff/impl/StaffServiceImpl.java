@@ -186,6 +186,9 @@ public class StaffServiceImpl implements StaffService {
         if (request.departmentId() != null) {
             entity.setDepartment(departmentRepository.getReferenceById(request.departmentId()));
         }
+        if (request.specialtyId() != null) {
+            entity.setSpecialty(specialtyRepository.getReferenceById(request.specialtyId()));
+        }
 
         var updatedEntity = staffRepository.save(entity);
         return staffMapper.toDto1(updatedEntity);

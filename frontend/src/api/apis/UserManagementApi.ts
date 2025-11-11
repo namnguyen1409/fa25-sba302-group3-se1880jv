@@ -34,7 +34,7 @@ import {
     SearchFilterToJSON,
 } from '../models/index';
 
-export interface Filter11Request {
+export interface Filter12Request {
     searchFilter: SearchFilter;
 }
 
@@ -53,11 +53,11 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter11Raw(requestParameters: Filter11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageUserResponse>> {
+    async filter12Raw(requestParameters: Filter12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageUserResponse>> {
         if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
                 'searchFilter',
-                'Required parameter "searchFilter" was null or undefined when calling filter11().'
+                'Required parameter "searchFilter" was null or undefined when calling filter12().'
             );
         }
 
@@ -91,8 +91,8 @@ export class UserManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter11(requestParameters: Filter11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageUserResponse> {
-        const response = await this.filter11Raw(requestParameters, initOverrides);
+    async filter12(requestParameters: Filter12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageUserResponse> {
+        const response = await this.filter12Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

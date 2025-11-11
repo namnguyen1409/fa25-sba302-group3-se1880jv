@@ -6,16 +6,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
-import sba.group3.backendmvc.dto.request.examination.PrescriptionRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.examination.PrescriptionItemRequest;
 import sba.group3.backendmvc.dto.response.examination.PrescriptionItemResponse;
-import sba.group3.backendmvc.dto.response.examination.PrescriptionResponse;
 import sba.group3.backendmvc.service.examination.PrescriptionItemService;
 import sba.group3.backendmvc.service.examination.PrescriptionService;
-import sba.group3.backendmvc.service.examination.impl.PrescriptionItemServiceImpl;
 
 import java.util.UUID;
 
@@ -74,6 +70,19 @@ public class PrescriptionController {
         return ResponseEntity.ok(
                 CustomApiResponse.<PrescriptionItemResponse>builder()
                         .data(response)
+                        .build()
+        );
+    }
+
+    @DeleteMapping("/items/{itemId}")
+    public ResponseEntity<CustomApiResponse<Void>> deletePrescriptionItem(
+            @PathVariable("itemId") String itemId
+    ) {
+        log.info("Deleting prescription item with id {}", itemId);
+        prescriptionItemService.delete(itemId);
+        return ResponseEntity.ok(
+                CustomApiResponse.<Void>builder()
+                        .message("Prescription item deleted successfully")
                         .build()
         );
     }

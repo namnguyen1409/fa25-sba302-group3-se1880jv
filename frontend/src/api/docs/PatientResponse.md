@@ -1,56 +1,42 @@
-
 # PatientResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`patientCode` | string
-`fullName` | string
-`dateOfBirth` | Date
-`gender` | string
-`bloodType` | string
-`status` | string
-`phone` | string
-`email` | string
-`address` | string
-`insuranceNumber` | string
-`initPassword` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**patientCode** | **string** |  | [optional] [default to undefined]
+**fullName** | **string** |  | [optional] [default to undefined]
+**dateOfBirth** | **string** |  | [optional] [default to undefined]
+**gender** | **string** |  | [optional] [default to undefined]
+**bloodType** | **string** |  | [optional] [default to undefined]
+**status** | **string** |  | [optional] [default to undefined]
+**phone** | **string** |  | [optional] [default to undefined]
+**email** | **string** |  | [optional] [default to undefined]
+**address** | **string** |  | [optional] [default to undefined]
+**insuranceNumber** | **string** |  | [optional] [default to undefined]
+**initPassword** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { PatientResponse } from ''
+import { PatientResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "patientCode": null,
-  "fullName": null,
-  "dateOfBirth": null,
-  "gender": null,
-  "bloodType": null,
-  "status": null,
-  "phone": null,
-  "email": null,
-  "address": null,
-  "insuranceNumber": null,
-  "initPassword": null,
-} satisfies PatientResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as PatientResponse
-console.log(exampleParsed)
+const instance: PatientResponse = {
+    id,
+    patientCode,
+    fullName,
+    dateOfBirth,
+    gender,
+    bloodType,
+    status,
+    phone,
+    email,
+    address,
+    insuranceNumber,
+    initPassword,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

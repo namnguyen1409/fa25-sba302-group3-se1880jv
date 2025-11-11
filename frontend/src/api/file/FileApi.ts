@@ -23,7 +23,7 @@ export const FileApi = {
   },
   
    getByEntity: async (entityType: string, entityId: string) => {
-    return apiClient.get(`/files`, {
+    return apiClient.get<any>(`/files`, {
       params: { entityType, entityId },
     });
   },

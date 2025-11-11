@@ -1,36 +1,22 @@
-
 # StartPasskeyLoginResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`requestId` | string
-`_requestOptions` | [PublicKeyCredentialRequestOptions](PublicKeyCredentialRequestOptions.md)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**requestId** | **string** |  | [optional] [default to undefined]
+**_requestOptions** | [**PublicKeyCredentialRequestOptions**](PublicKeyCredentialRequestOptions.md) |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { StartPasskeyLoginResponse } from ''
+import { StartPasskeyLoginResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "requestId": null,
-  "_requestOptions": null,
-} satisfies StartPasskeyLoginResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as StartPasskeyLoginResponse
-console.log(exampleParsed)
+const instance: StartPasskeyLoginResponse = {
+    requestId,
+    _requestOptions,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

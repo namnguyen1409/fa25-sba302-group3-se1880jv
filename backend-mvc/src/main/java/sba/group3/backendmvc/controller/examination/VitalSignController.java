@@ -4,17 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
 import sba.group3.backendmvc.dto.filter.Filter;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.VitalSignRequest;
 import sba.group3.backendmvc.dto.response.CustomApiResponse;
 import sba.group3.backendmvc.dto.response.examination.VitalSignResponse;
 import sba.group3.backendmvc.entity.BaseEntity;
-import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.examination.VitalSign;
 import sba.group3.backendmvc.service.examination.VitalSignService;
 

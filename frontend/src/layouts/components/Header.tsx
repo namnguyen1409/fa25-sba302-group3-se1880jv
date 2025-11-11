@@ -65,7 +65,7 @@ export const Header: React.FC = () => {
 
   const navItems = [
     { path: "/", label: "Trang chủ", icon: HomeIcon },
-    { path: "/doctors", label: "Bác sĩ", icon: StethoscopeIcon },
+    { path: "/staffs", label: "Bác sĩ", icon: StethoscopeIcon },
     { path: "/booking", label: "Đặt lịch", icon: CalendarDaysIcon },
   ];
 
@@ -208,7 +208,7 @@ export const Header: React.FC = () => {
                       }
                     />
                     <AvatarFallback>
-                      {user.username[0].toUpperCase()}
+                      {user?.username ? user.username[0].toUpperCase() : ""}
                     </AvatarFallback>
                   </Avatar>
                 </Button>

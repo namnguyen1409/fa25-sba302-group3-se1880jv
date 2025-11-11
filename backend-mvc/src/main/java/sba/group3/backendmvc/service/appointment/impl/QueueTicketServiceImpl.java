@@ -9,7 +9,6 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.response.appointment.QueueTicketResponse;
 import sba.group3.backendmvc.entity.appointment.QueueStatus;
 import sba.group3.backendmvc.entity.appointment.QueueTicket;
-import sba.group3.backendmvc.entity.billing.Invoice;
 import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.examination.ExaminationStatus;
 import sba.group3.backendmvc.exception.AppException;

@@ -2,69 +2,49 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**callQueueTicket**](QueueTicketManagementApi.md#callqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/call |  |
-| [**doneQueueTicket**](QueueTicketManagementApi.md#donequeueticket) | **POST** /api/queue-tickets/{queueTicketId}/done |  |
-| [**getQueueForDoctorToday**](QueueTicketManagementApi.md#getqueuefordoctortoday) | **GET** /api/queue-tickets/doctor/today |  |
-| [**requeueQueueTicket**](QueueTicketManagementApi.md#requeuequeueticket) | **POST** /api/queue-tickets/{queueTicketId}/requeue |  |
-| [**resumeQueueTicket**](QueueTicketManagementApi.md#resumequeueticket) | **POST** /api/queue-tickets/{queueTicketId}/resume |  |
-| [**skipQueueTicket**](QueueTicketManagementApi.md#skipqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/skip |  |
-| [**startQueueTicket**](QueueTicketManagementApi.md#startqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/start |  |
-| [**waitResultQueueTicket**](QueueTicketManagementApi.md#waitresultqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/wait-result |  |
+|[**callQueueTicket**](#callqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/call | |
+|[**doneQueueTicket**](#donequeueticket) | **POST** /api/queue-tickets/{queueTicketId}/done | |
+|[**getQueueForDoctorToday**](#getqueuefordoctortoday) | **GET** /api/queue-tickets/doctor/today | |
+|[**requeueQueueTicket**](#requeuequeueticket) | **POST** /api/queue-tickets/{queueTicketId}/requeue | |
+|[**resumeQueueTicket**](#resumequeueticket) | **POST** /api/queue-tickets/{queueTicketId}/resume | |
+|[**skipQueueTicket**](#skipqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/skip | |
+|[**startQueueTicket**](#startqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/start | |
+|[**waitResultQueueTicket**](#waitresultqueueticket) | **POST** /api/queue-tickets/{queueTicketId}/wait-result | |
 
-
-
-## callQueueTicket
-
-> CustomApiResponseQueueTicketResponse callQueueTicket(queueTicketId)
-
+# **callQueueTicket**
+> CustomApiResponseQueueTicketResponse callQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { CallQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies CallQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.callQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.callQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -72,70 +52,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## doneQueueTicket
-
-> CustomApiResponseQueueTicketResponse doneQueueTicket(queueTicketId)
-
+# **doneQueueTicket**
+> CustomApiResponseQueueTicketResponse doneQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { DoneQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies DoneQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.doneQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.doneQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -143,62 +104,44 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getQueueForDoctorToday
-
+# **getQueueForDoctorToday**
 > CustomApiResponseListQueueTicketResponse getQueueForDoctorToday()
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { GetQueueForDoctorTodayRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  try {
-    const data = await api.getQueueForDoctorToday();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getQueueForDoctorToday();
 ```
 
 ### Parameters
+This endpoint does not have any parameters.
 
-This endpoint does not need any parameter.
 
 ### Return type
 
-[**CustomApiResponseListQueueTicketResponse**](CustomApiResponseListQueueTicketResponse.md)
+**CustomApiResponseListQueueTicketResponse**
 
 ### Authorization
 
@@ -206,70 +149,51 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## requeueQueueTicket
-
-> CustomApiResponseQueueTicketResponse requeueQueueTicket(queueTicketId)
-
+# **requeueQueueTicket**
+> CustomApiResponseQueueTicketResponse requeueQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { RequeueQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies RequeueQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.requeueQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.requeueQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -277,70 +201,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## resumeQueueTicket
-
-> CustomApiResponseQueueTicketResponse resumeQueueTicket(queueTicketId)
-
+# **resumeQueueTicket**
+> CustomApiResponseQueueTicketResponse resumeQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { ResumeQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies ResumeQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.resumeQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.resumeQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -348,70 +253,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## skipQueueTicket
-
-> CustomApiResponseQueueTicketResponse skipQueueTicket(queueTicketId)
-
+# **skipQueueTicket**
+> CustomApiResponseQueueTicketResponse skipQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { SkipQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies SkipQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.skipQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.skipQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -419,70 +305,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## startQueueTicket
-
-> CustomApiResponseQueueTicketResponse startQueueTicket(queueTicketId)
-
+# **startQueueTicket**
+> CustomApiResponseQueueTicketResponse startQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { StartQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies StartQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.startQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.startQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -490,70 +357,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## waitResultQueueTicket
-
-> CustomApiResponseQueueTicketResponse waitResultQueueTicket(queueTicketId)
-
+# **waitResultQueueTicket**
+> CustomApiResponseQueueTicketResponse waitResultQueueTicket()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  QueueTicketManagementApi,
-} from '';
-import type { WaitResultQueueTicketRequest } from '';
+    QueueTicketManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new QueueTicketManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new QueueTicketManagementApi(configuration);
 
-  const body = {
-    // string
-    queueTicketId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies WaitResultQueueTicketRequest;
+let queueTicketId: string; // (default to undefined)
 
-  try {
-    const data = await api.waitResultQueueTicket(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.waitResultQueueTicket(
+    queueTicketId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **queueTicketId** | `string` |  | [Defaults to `undefined`] |
+| **queueTicketId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseQueueTicketResponse**](CustomApiResponseQueueTicketResponse.md)
+**CustomApiResponseQueueTicketResponse**
 
 ### Authorization
 
@@ -561,16 +409,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

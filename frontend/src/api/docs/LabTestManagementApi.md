@@ -2,66 +2,47 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**create4**](LabTestManagementApi.md#create4) | **POST** /api/lab-tests |  |
-| [**delete4**](LabTestManagementApi.md#delete4) | **DELETE** /api/lab-tests/{testId} |  |
-| [**filter5**](LabTestManagementApi.md#filter5) | **POST** /api/lab-tests/filter |  |
-| [**getById1**](LabTestManagementApi.md#getbyid1) | **GET** /api/lab-tests/{testId} |  |
-| [**update4**](LabTestManagementApi.md#update4) | **PUT** /api/lab-tests/{testId} |  |
+|[**create4**](#create4) | **POST** /api/lab-tests | |
+|[**delete4**](#delete4) | **DELETE** /api/lab-tests/{testId} | |
+|[**filter5**](#filter5) | **POST** /api/lab-tests/filter | |
+|[**getById1**](#getbyid1) | **GET** /api/lab-tests/{testId} | |
+|[**update4**](#update4) | **PUT** /api/lab-tests/{testId} | |
 
-
-
-## create4
-
+# **create4**
 > CustomApiResponseLabTestResponse create4(labTestRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  LabTestManagementApi,
-} from '';
-import type { Create4Request } from '';
+    LabTestManagementApi,
+    Configuration,
+    LabTestRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new LabTestManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new LabTestManagementApi(configuration);
 
-  const body = {
-    // LabTestRequest
-    labTestRequest: ...,
-  } satisfies Create4Request;
+let labTestRequest: LabTestRequest; //
 
-  try {
-    const data = await api.create4(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.create4(
+    labTestRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **labTestRequest** | [LabTestRequest](LabTestRequest.md) |  | |
+| **labTestRequest** | **LabTestRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseLabTestResponse**](CustomApiResponseLabTestResponse.md)
+**CustomApiResponseLabTestResponse**
 
 ### Authorization
 
@@ -69,70 +50,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## delete4
-
-> CustomApiResponseVoid delete4(testId)
-
+# **delete4**
+> CustomApiResponseVoid delete4()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  LabTestManagementApi,
-} from '';
-import type { Delete4Request } from '';
+    LabTestManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new LabTestManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new LabTestManagementApi(configuration);
 
-  const body = {
-    // string
-    testId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies Delete4Request;
+let testId: string; // (default to undefined)
 
-  try {
-    const data = await api.delete4(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.delete4(
+    testId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **testId** | `string` |  | [Defaults to `undefined`] |
+| **testId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -140,70 +102,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filter5
-
+# **filter5**
 > CustomApiResponsePageLabTestResponse filter5(searchFilter)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  LabTestManagementApi,
-} from '';
-import type { Filter5Request } from '';
+    LabTestManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new LabTestManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new LabTestManagementApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies Filter5Request;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filter5(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filter5(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePageLabTestResponse**](CustomApiResponsePageLabTestResponse.md)
+**CustomApiResponsePageLabTestResponse**
 
 ### Authorization
 
@@ -211,70 +155,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getById1
-
-> CustomApiResponseLabTestResponse getById1(testId)
-
+# **getById1**
+> CustomApiResponseLabTestResponse getById1()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  LabTestManagementApi,
-} from '';
-import type { GetById1Request } from '';
+    LabTestManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new LabTestManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new LabTestManagementApi(configuration);
 
-  const body = {
-    // string
-    testId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies GetById1Request;
+let testId: string; // (default to undefined)
 
-  try {
-    const data = await api.getById1(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getById1(
+    testId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **testId** | `string` |  | [Defaults to `undefined`] |
+| **testId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseLabTestResponse**](CustomApiResponseLabTestResponse.md)
+**CustomApiResponseLabTestResponse**
 
 ### Authorization
 
@@ -282,73 +207,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## update4
-
-> CustomApiResponseLabTestResponse update4(testId, labTestRequest)
-
+# **update4**
+> CustomApiResponseLabTestResponse update4(labTestRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  LabTestManagementApi,
-} from '';
-import type { Update4Request } from '';
+    LabTestManagementApi,
+    Configuration,
+    LabTestRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new LabTestManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new LabTestManagementApi(configuration);
 
-  const body = {
-    // string
-    testId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // LabTestRequest
-    labTestRequest: ...,
-  } satisfies Update4Request;
+let testId: string; // (default to undefined)
+let labTestRequest: LabTestRequest; //
 
-  try {
-    const data = await api.update4(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.update4(
+    testId,
+    labTestRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **testId** | `string` |  | [Defaults to `undefined`] |
-| **labTestRequest** | [LabTestRequest](LabTestRequest.md) |  | |
+| **labTestRequest** | **LabTestRequest**|  | |
+| **testId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseLabTestResponse**](CustomApiResponseLabTestResponse.md)
+**CustomApiResponseLabTestResponse**
 
 ### Authorization
 
@@ -356,16 +263,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

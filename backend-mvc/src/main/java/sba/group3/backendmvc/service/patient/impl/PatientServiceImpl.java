@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.patient.PatientRequest;
 import sba.group3.backendmvc.dto.response.patient.PatientResponse;
-import sba.group3.backendmvc.entity.organization.Department;
 import sba.group3.backendmvc.entity.user.Role;
 import sba.group3.backendmvc.entity.user.User;
 import sba.group3.backendmvc.entity.user.UserProfile;

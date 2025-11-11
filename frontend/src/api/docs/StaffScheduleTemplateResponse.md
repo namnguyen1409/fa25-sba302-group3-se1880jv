@@ -1,46 +1,32 @@
-
 # StaffScheduleTemplateResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`dayOfWeek` | string
-`startTime` | [LocalTime](LocalTime.md)
-`endTime` | [LocalTime](LocalTime.md)
-`active` | boolean
-`staff` | [StaffResponse](StaffResponse.md)
-`room` | [RoomResponse](RoomResponse.md)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**dayOfWeek** | **string** |  | [optional] [default to undefined]
+**startTime** | [**LocalTime**](LocalTime.md) |  | [optional] [default to undefined]
+**endTime** | [**LocalTime**](LocalTime.md) |  | [optional] [default to undefined]
+**active** | **boolean** |  | [optional] [default to undefined]
+**staff** | [**StaffResponse**](StaffResponse.md) |  | [optional] [default to undefined]
+**room** | [**RoomResponse**](RoomResponse.md) |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { StaffScheduleTemplateResponse } from ''
+import { StaffScheduleTemplateResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "dayOfWeek": null,
-  "startTime": null,
-  "endTime": null,
-  "active": null,
-  "staff": null,
-  "room": null,
-} satisfies StaffScheduleTemplateResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as StaffScheduleTemplateResponse
-console.log(exampleParsed)
+const instance: StaffScheduleTemplateResponse = {
+    id,
+    dayOfWeek,
+    startTime,
+    endTime,
+    active,
+    staff,
+    room,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

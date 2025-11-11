@@ -101,8 +101,8 @@ export const ExaminationApi = {
     updatePrescription: (id: string, prescriptionId: string, data: PrescriptionRequest) =>
         apiClient.put<PrescriptionResponse>(`/examinations/${id}/prescription/${prescriptionId}`, data),
 
-    deletePrescriptionItem: (id: string, prescriptionId: string) =>
-        apiClient.delete(`/examinations/${id}/prescription/${prescriptionId}`),
+    deletePrescriptionItem: (prescriptionId: string) =>
+        apiClient.delete(`/prescriptions/items/${prescriptionId}`),
     getPrescriptionItems: (prescriptionId: string, params: {
         page: number,
         size: number,

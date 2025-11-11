@@ -1,6 +1,5 @@
 package sba.group3.backendmvc.service.auth;
 
-import org.springframework.transaction.annotation.Transactional;
 import sba.group3.backendmvc.controller.auth.AuthController;
 import sba.group3.backendmvc.dto.request.auth.LoginRequest;
 import sba.group3.backendmvc.dto.request.auth.OAuthLoginRequest;

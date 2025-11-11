@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.response.examination.PrescriptionItemRequest;
 import sba.group3.backendmvc.dto.response.examination.PrescriptionItemResponse;
-import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.examination.PrescriptionItem;
 import sba.group3.backendmvc.mapper.examination.PrescriptionItemMapper;
 import sba.group3.backendmvc.repository.examination.PrescriptionItemRepository;

@@ -1,46 +1,32 @@
-
 # RoomResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`name` | string
-`roomType` | string
-`floorNumber` | number
-`capacity` | number
-`description` | string
-`department` | [DepartmentSimpleResponse](DepartmentSimpleResponse.md)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**name** | **string** |  | [optional] [default to undefined]
+**roomType** | **string** |  | [optional] [default to undefined]
+**floorNumber** | **number** |  | [optional] [default to undefined]
+**capacity** | **number** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**department** | [**DepartmentSimpleResponse**](DepartmentSimpleResponse.md) |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { RoomResponse } from ''
+import { RoomResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "name": null,
-  "roomType": null,
-  "floorNumber": null,
-  "capacity": null,
-  "description": null,
-  "department": null,
-} satisfies RoomResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as RoomResponse
-console.log(exampleParsed)
+const instance: RoomResponse = {
+    id,
+    name,
+    roomType,
+    floorNumber,
+    capacity,
+    description,
+    department,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

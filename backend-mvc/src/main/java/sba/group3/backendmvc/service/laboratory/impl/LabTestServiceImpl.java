@@ -13,7 +13,6 @@ import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.laboratory.LabTestRequest;
 import sba.group3.backendmvc.dto.response.laboratory.LabTestResponse;
 import sba.group3.backendmvc.entity.laboratory.LabTest;
-import sba.group3.backendmvc.entity.pharmacy.Medicine;
 import sba.group3.backendmvc.mapper.laboratory.LabTestMapper;
 import sba.group3.backendmvc.repository.laboratory.LabTestRepository;
 import sba.group3.backendmvc.service.laboratory.LabTestService;

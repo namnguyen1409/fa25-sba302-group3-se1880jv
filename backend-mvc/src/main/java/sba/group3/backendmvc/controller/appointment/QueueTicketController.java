@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class QueueTicketController {
 
     private final QueueTicketService queueTicketService;
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @GetMapping("/doctor/today")
     public ResponseEntity<CustomApiResponse<List<QueueTicketResponse>>> getQueueForDoctorToday(
             @AuthenticationPrincipal Jwt jwt
@@ -90,6 +92,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/call")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> callQueueTicket(
             @PathVariable UUID queueTicketId
@@ -102,6 +105,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/start")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> startQueueTicket(
             @PathVariable UUID queueTicketId
@@ -114,6 +118,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/skip")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> skipQueueTicket(
             @PathVariable UUID queueTicketId
@@ -126,6 +131,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/requeue")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> requeueQueueTicket(
             @PathVariable UUID queueTicketId
@@ -138,6 +144,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/wait-result")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> waitResultQueueTicket(
             @PathVariable UUID queueTicketId
@@ -150,6 +157,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/resume")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> resumeQueueTicket(
             @PathVariable UUID queueTicketId
@@ -162,6 +170,7 @@ public class QueueTicketController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
     @PostMapping("/{queueTicketId}/done")
     public ResponseEntity<CustomApiResponse<QueueTicketResponse>> doneQueueTicket(
             @PathVariable UUID queueTicketId

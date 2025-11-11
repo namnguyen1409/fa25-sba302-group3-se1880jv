@@ -4,7 +4,7 @@ import { ExaminationApi } from "@/api/examination/ExaminationApi";
 import type {
   DiagnosisRequest,
   DiagnosisResponse,
-  ExaminationResponse,
+  // ExaminationResponse,
   VitalSignResponse,
 } from "@/api";
 import {
@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import * as yup from "yup";
 import { SearchSelect } from "@/components/common/SearchSelect";
 import { IcdApi } from "@/api/icd/IcdApi";
+import type { ExaminationResponse } from "@/api/models";
 
 export default function DiagnosisTab({ exam }: { exam: ExaminationResponse }) {
   const tableRef = useRef<any>(null);

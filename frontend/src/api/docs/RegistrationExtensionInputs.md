@@ -1,46 +1,32 @@
-
 # RegistrationExtensionInputs
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`appidExclude` | [AppId](AppId.md)
-`credProps` | boolean
-`credentialProtectionPolicy` | string
-`enforceCredentialProtectionPolicy` | boolean
-`largeBlob` | [LargeBlobRegistrationInput](LargeBlobRegistrationInput.md)
-`prf` | [PrfRegistrationInput](PrfRegistrationInput.md)
-`uvm` | boolean
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**appidExclude** | [**AppId**](AppId.md) |  | [optional] [default to undefined]
+**credProps** | **boolean** |  | [optional] [default to undefined]
+**credentialProtectionPolicy** | **string** |  | [optional] [default to undefined]
+**enforceCredentialProtectionPolicy** | **boolean** |  | [optional] [default to undefined]
+**largeBlob** | [**LargeBlobRegistrationInput**](LargeBlobRegistrationInput.md) |  | [optional] [default to undefined]
+**prf** | [**PrfRegistrationInput**](PrfRegistrationInput.md) |  | [optional] [default to undefined]
+**uvm** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { RegistrationExtensionInputs } from ''
+import { RegistrationExtensionInputs } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "appidExclude": null,
-  "credProps": null,
-  "credentialProtectionPolicy": null,
-  "enforceCredentialProtectionPolicy": null,
-  "largeBlob": null,
-  "prf": null,
-  "uvm": null,
-} satisfies RegistrationExtensionInputs
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as RegistrationExtensionInputs
-console.log(exampleParsed)
+const instance: RegistrationExtensionInputs = {
+    appidExclude,
+    credProps,
+    credentialProtectionPolicy,
+    enforceCredentialProtectionPolicy,
+    largeBlob,
+    prf,
+    uvm,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

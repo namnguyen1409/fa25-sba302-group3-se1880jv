@@ -2,64 +2,45 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**filter11**](UserManagementApi.md#filter11) | **POST** /api/admin/users/filter |  |
-| [**lockUserAccount**](UserManagementApi.md#lockuseraccount) | **POST** /api/admin/users/{userId}/lock |  |
-| [**unlockUserAccount**](UserManagementApi.md#unlockuseraccount) | **POST** /api/admin/users/{userId}/unlock |  |
+|[**filter12**](#filter12) | **POST** /api/admin/users/filter | |
+|[**lockUserAccount**](#lockuseraccount) | **POST** /api/admin/users/{userId}/lock | |
+|[**unlockUserAccount**](#unlockuseraccount) | **POST** /api/admin/users/{userId}/unlock | |
 
-
-
-## filter11
-
-> CustomApiResponsePageUserResponse filter11(searchFilter)
-
+# **filter12**
+> CustomApiResponsePageUserResponse filter12(searchFilter)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  UserManagementApi,
-} from '';
-import type { Filter11Request } from '';
+    UserManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new UserManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new UserManagementApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies Filter11Request;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filter11(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filter12(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePageUserResponse**](CustomApiResponsePageUserResponse.md)
+**CustomApiResponsePageUserResponse**
 
 ### Authorization
 
@@ -67,70 +48,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## lockUserAccount
-
-> CustomApiResponseVoid lockUserAccount(userId)
-
+# **lockUserAccount**
+> CustomApiResponseVoid lockUserAccount()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  UserManagementApi,
-} from '';
-import type { LockUserAccountRequest } from '';
+    UserManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new UserManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new UserManagementApi(configuration);
 
-  const body = {
-    // string
-    userId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies LockUserAccountRequest;
+let userId: string; // (default to undefined)
 
-  try {
-    const data = await api.lockUserAccount(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.lockUserAccount(
+    userId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userId** | `string` |  | [Defaults to `undefined`] |
+| **userId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -138,70 +100,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## unlockUserAccount
-
-> CustomApiResponseVoid unlockUserAccount(userId)
-
+# **unlockUserAccount**
+> CustomApiResponseVoid unlockUserAccount()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  UserManagementApi,
-} from '';
-import type { UnlockUserAccountRequest } from '';
+    UserManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new UserManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new UserManagementApi(configuration);
 
-  const body = {
-    // string
-    userId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies UnlockUserAccountRequest;
+let userId: string; // (default to undefined)
 
-  try {
-    const data = await api.unlockUserAccount(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.unlockUserAccount(
+    userId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userId** | `string` |  | [Defaults to `undefined`] |
+| **userId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -209,16 +152,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

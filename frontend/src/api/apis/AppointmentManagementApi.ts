@@ -40,23 +40,23 @@ import {
     SearchFilterToJSON,
 } from '../models/index';
 
-export interface Create9Request {
+export interface Create10Request {
     appointmentRequest: AppointmentRequest;
 }
 
-export interface Delete9Request {
+export interface Delete10Request {
     appointmentId: string;
 }
 
-export interface Filter10Request {
+export interface Filter11Request {
     searchFilter: SearchFilter;
 }
 
-export interface GetById5Request {
+export interface GetById6Request {
     appointmentId: string;
 }
 
-export interface Update9Request {
+export interface Update10Request {
     appointmentId: string;
     appointmentRequest: AppointmentRequest;
 }
@@ -68,11 +68,11 @@ export class AppointmentManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create9Raw(requestParameters: Create9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAppointmentResponse>> {
+    async create10Raw(requestParameters: Create10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAppointmentResponse>> {
         if (requestParameters['appointmentRequest'] == null) {
             throw new runtime.RequiredError(
                 'appointmentRequest',
-                'Required parameter "appointmentRequest" was null or undefined when calling create9().'
+                'Required parameter "appointmentRequest" was null or undefined when calling create10().'
             );
         }
 
@@ -106,18 +106,18 @@ export class AppointmentManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create9(requestParameters: Create9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAppointmentResponse> {
-        const response = await this.create9Raw(requestParameters, initOverrides);
+    async create10(requestParameters: Create10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAppointmentResponse> {
+        const response = await this.create10Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async delete9Raw(requestParameters: Delete9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+    async delete10Raw(requestParameters: Delete10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
         if (requestParameters['appointmentId'] == null) {
             throw new runtime.RequiredError(
                 'appointmentId',
-                'Required parameter "appointmentId" was null or undefined when calling delete9().'
+                'Required parameter "appointmentId" was null or undefined when calling delete10().'
             );
         }
 
@@ -149,18 +149,18 @@ export class AppointmentManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async delete9(requestParameters: Delete9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.delete9Raw(requestParameters, initOverrides);
+    async delete10(requestParameters: Delete10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.delete10Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async filter10Raw(requestParameters: Filter10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageAppointmentResponse>> {
+    async filter11Raw(requestParameters: Filter11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageAppointmentResponse>> {
         if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
                 'searchFilter',
-                'Required parameter "searchFilter" was null or undefined when calling filter10().'
+                'Required parameter "searchFilter" was null or undefined when calling filter11().'
             );
         }
 
@@ -194,18 +194,18 @@ export class AppointmentManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter10(requestParameters: Filter10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageAppointmentResponse> {
-        const response = await this.filter10Raw(requestParameters, initOverrides);
+    async filter11(requestParameters: Filter11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageAppointmentResponse> {
+        const response = await this.filter11Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async getById5Raw(requestParameters: GetById5Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAppointmentResponse>> {
+    async getById6Raw(requestParameters: GetById6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAppointmentResponse>> {
         if (requestParameters['appointmentId'] == null) {
             throw new runtime.RequiredError(
                 'appointmentId',
-                'Required parameter "appointmentId" was null or undefined when calling getById5().'
+                'Required parameter "appointmentId" was null or undefined when calling getById6().'
             );
         }
 
@@ -237,25 +237,25 @@ export class AppointmentManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async getById5(requestParameters: GetById5Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAppointmentResponse> {
-        const response = await this.getById5Raw(requestParameters, initOverrides);
+    async getById6(requestParameters: GetById6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAppointmentResponse> {
+        const response = await this.getById6Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async update9Raw(requestParameters: Update9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAppointmentResponse>> {
+    async update10Raw(requestParameters: Update10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseAppointmentResponse>> {
         if (requestParameters['appointmentId'] == null) {
             throw new runtime.RequiredError(
                 'appointmentId',
-                'Required parameter "appointmentId" was null or undefined when calling update9().'
+                'Required parameter "appointmentId" was null or undefined when calling update10().'
             );
         }
 
         if (requestParameters['appointmentRequest'] == null) {
             throw new runtime.RequiredError(
                 'appointmentRequest',
-                'Required parameter "appointmentRequest" was null or undefined when calling update9().'
+                'Required parameter "appointmentRequest" was null or undefined when calling update10().'
             );
         }
 
@@ -290,8 +290,8 @@ export class AppointmentManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async update9(requestParameters: Update9Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAppointmentResponse> {
-        const response = await this.update9Raw(requestParameters, initOverrides);
+    async update10(requestParameters: Update10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseAppointmentResponse> {
+        const response = await this.update10Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

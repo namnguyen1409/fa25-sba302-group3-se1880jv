@@ -1,40 +1,26 @@
-
 # AuthenticatorSelectionCriteria
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`authenticatorAttachment` | string
-`requireResidentKey` | boolean
-`residentKey` | string
-`userVerification` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**authenticatorAttachment** | **string** |  | [optional] [default to undefined]
+**requireResidentKey** | **boolean** |  | [optional] [default to undefined]
+**residentKey** | **string** |  | [optional] [default to undefined]
+**userVerification** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { AuthenticatorSelectionCriteria } from ''
+import { AuthenticatorSelectionCriteria } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "authenticatorAttachment": null,
-  "requireResidentKey": null,
-  "residentKey": null,
-  "userVerification": null,
-} satisfies AuthenticatorSelectionCriteria
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as AuthenticatorSelectionCriteria
-console.log(exampleParsed)
+const instance: AuthenticatorSelectionCriteria = {
+    authenticatorAttachment,
+    requireResidentKey,
+    residentKey,
+    userVerification,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

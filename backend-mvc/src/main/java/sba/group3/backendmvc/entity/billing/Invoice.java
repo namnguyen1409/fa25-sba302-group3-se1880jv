@@ -46,7 +46,7 @@ public class Invoice extends BaseEntity {
 
     @Builder.Default
     @Column(name = "paid", nullable = false)
-    Boolean paid = false; // ✅ chỉ để xác nhận bằng tay
+    Boolean paid = false;
 
     @Column(name = "note", columnDefinition = "TEXT")
     String note;

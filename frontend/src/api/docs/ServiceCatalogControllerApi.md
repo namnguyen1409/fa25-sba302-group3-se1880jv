@@ -2,65 +2,46 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**create7**](ServiceCatalogControllerApi.md#create7) | **POST** /api/examinations/service-catalog |  |
-| [**delete7**](ServiceCatalogControllerApi.md#delete7) | **DELETE** /api/examinations/service-catalog/{id} |  |
-| [**getListServiceCatalogs**](ServiceCatalogControllerApi.md#getlistservicecatalogs) | **POST** /api/examinations/service-catalog/filter |  |
-| [**update7**](ServiceCatalogControllerApi.md#update7) | **PUT** /api/examinations/service-catalog/{id} |  |
+|[**create7**](#create7) | **POST** /api/examinations/service-catalog | |
+|[**delete7**](#delete7) | **DELETE** /api/examinations/service-catalog/{id} | |
+|[**getListServiceCatalogs**](#getlistservicecatalogs) | **POST** /api/examinations/service-catalog/filter | |
+|[**update7**](#update7) | **PUT** /api/examinations/service-catalog/{id} | |
 
-
-
-## create7
-
+# **create7**
 > CustomApiResponseServiceCatalogResponse create7(serviceCatalogRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  ServiceCatalogControllerApi,
-} from '';
-import type { Create7Request } from '';
+    ServiceCatalogControllerApi,
+    Configuration,
+    ServiceCatalogRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new ServiceCatalogControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new ServiceCatalogControllerApi(configuration);
 
-  const body = {
-    // ServiceCatalogRequest
-    serviceCatalogRequest: ...,
-  } satisfies Create7Request;
+let serviceCatalogRequest: ServiceCatalogRequest; //
 
-  try {
-    const data = await api.create7(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.create7(
+    serviceCatalogRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **serviceCatalogRequest** | [ServiceCatalogRequest](ServiceCatalogRequest.md) |  | |
+| **serviceCatalogRequest** | **ServiceCatalogRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseServiceCatalogResponse**](CustomApiResponseServiceCatalogResponse.md)
+**CustomApiResponseServiceCatalogResponse**
 
 ### Authorization
 
@@ -68,70 +49,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## delete7
-
-> CustomApiResponseVoid delete7(id)
-
+# **delete7**
+> CustomApiResponseVoid delete7()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  ServiceCatalogControllerApi,
-} from '';
-import type { Delete7Request } from '';
+    ServiceCatalogControllerApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new ServiceCatalogControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new ServiceCatalogControllerApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-  } satisfies Delete7Request;
+let id: string; // (default to undefined)
 
-  try {
-    const data = await api.delete7(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.delete7(
+    id
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -139,70 +101,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getListServiceCatalogs
-
+# **getListServiceCatalogs**
 > CustomApiResponsePageServiceCatalogResponse getListServiceCatalogs(searchFilter)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  ServiceCatalogControllerApi,
-} from '';
-import type { GetListServiceCatalogsRequest } from '';
+    ServiceCatalogControllerApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new ServiceCatalogControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new ServiceCatalogControllerApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies GetListServiceCatalogsRequest;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.getListServiceCatalogs(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getListServiceCatalogs(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePageServiceCatalogResponse**](CustomApiResponsePageServiceCatalogResponse.md)
+**CustomApiResponsePageServiceCatalogResponse**
 
 ### Authorization
 
@@ -210,73 +154,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## update7
-
-> CustomApiResponseServiceCatalogResponse update7(id, serviceCatalogRequest)
-
+# **update7**
+> CustomApiResponseServiceCatalogResponse update7(serviceCatalogRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  ServiceCatalogControllerApi,
-} from '';
-import type { Update7Request } from '';
+    ServiceCatalogControllerApi,
+    Configuration,
+    ServiceCatalogRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new ServiceCatalogControllerApi(config);
+const configuration = new Configuration();
+const apiInstance = new ServiceCatalogControllerApi(configuration);
 
-  const body = {
-    // string
-    id: id_example,
-    // ServiceCatalogRequest
-    serviceCatalogRequest: ...,
-  } satisfies Update7Request;
+let id: string; // (default to undefined)
+let serviceCatalogRequest: ServiceCatalogRequest; //
 
-  try {
-    const data = await api.update7(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.update7(
+    id,
+    serviceCatalogRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
-| **serviceCatalogRequest** | [ServiceCatalogRequest](ServiceCatalogRequest.md) |  | |
+| **serviceCatalogRequest** | **ServiceCatalogRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseServiceCatalogResponse**](CustomApiResponseServiceCatalogResponse.md)
+**CustomApiResponseServiceCatalogResponse**
 
 ### Authorization
 
@@ -284,16 +210,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

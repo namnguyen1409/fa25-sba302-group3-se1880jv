@@ -36,7 +36,6 @@ public class FileController {
 
     FileAttachmentRepository fileAttachmentRepository;
     MinioClient minioClient;
-    FileStorageService fileStorageService;
     FileUploadService fileUploadService;
 
     @GetMapping("/view/{id}")

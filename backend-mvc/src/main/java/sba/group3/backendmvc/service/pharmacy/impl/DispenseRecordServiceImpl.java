@@ -17,6 +17,7 @@ import sba.group3.backendmvc.entity.staff.StaffSchedule;
 import sba.group3.backendmvc.exception.AppException;
 import sba.group3.backendmvc.exception.ErrorCode;
 import sba.group3.backendmvc.mapper.pharmacy.DispenseRecordMapper;
+import sba.group3.backendmvc.publisher.DispenseEventPublisher;
 import sba.group3.backendmvc.repository.pharmacy.DispenseRecordRepository;
 import sba.group3.backendmvc.repository.staff.StaffScheduleRepository;
 import sba.group3.backendmvc.service.pharmacy.DispenseRecordService;
@@ -28,15 +29,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class DispenseRecordServiceImpl implements DispenseRecordService {
-    private final DispenseRecordRepository dispenseRecordRepository;
-    private final DispenseRecordMapper dispenseRecordMapper;
-    private final StaffScheduleRepository staffScheduleRepository;
+    DispenseRecordRepository dispenseRecordRepository;
+    DispenseRecordMapper dispenseRecordMapper;
+    StaffScheduleRepository staffScheduleRepository;
+    DispenseEventPublisher dispenseEventPublisher;
 
     @Override
     public Page<DispenseRecordResponse> filter(SearchFilter filter) {
@@ -83,6 +84,7 @@ public class DispenseRecordServiceImpl implements DispenseRecordService {
         Room pharmacyRoom = pharmacySchedule.getRoom();
 
         BigDecimal totalCost = prescription.getItems().stream()
+                .filter(item -> !item.getDeleted())
                 .map(item -> item.getMedicine().getPrice()
                         .multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -95,13 +97,14 @@ public class DispenseRecordServiceImpl implements DispenseRecordService {
                 .totalCost(totalCost)
                 .status(DispenseStatus.PENDING)
                 .build();
+        dispenseEventPublisher.publishNewOrder(dispenseRecordMapper.toDto(record));
 
         return dispenseRecordRepository.save(record);
     }
 
     @Override
     public List<DispenseRecordResponse> filterList(SearchFilter filter) {
-        return dispenseRecordRepository.searchAll(filter).stream().map(dispenseRecordMapper::toDto).collect(Collectors.toList());
+        return dispenseRecordRepository.searchAll(filter).stream().map(dispenseRecordMapper::toDto).toList();
     }
 
     public StaffSchedule pickLeastBusySchedule(RoomType roomType) {

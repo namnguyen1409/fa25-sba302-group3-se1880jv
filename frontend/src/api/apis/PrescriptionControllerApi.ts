@@ -18,6 +18,7 @@ import type {
   CustomApiResponseObject,
   CustomApiResponsePagePrescriptionItemResponse,
   CustomApiResponsePrescriptionItemResponse,
+  CustomApiResponseVoid,
   GetServiceOrderDetail400Response,
   PrescriptionItemRequest,
   SearchFilter,
@@ -29,6 +30,8 @@ import {
     CustomApiResponsePagePrescriptionItemResponseToJSON,
     CustomApiResponsePrescriptionItemResponseFromJSON,
     CustomApiResponsePrescriptionItemResponseToJSON,
+    CustomApiResponseVoidFromJSON,
+    CustomApiResponseVoidToJSON,
     GetServiceOrderDetail400ResponseFromJSON,
     GetServiceOrderDetail400ResponseToJSON,
     PrescriptionItemRequestFromJSON,
@@ -45,6 +48,10 @@ export interface CreatePrescriptionForExaminationRequest {
 export interface CreatePrescriptionItemRequest {
     id: string;
     prescriptionItemRequest: PrescriptionItemRequest;
+}
+
+export interface DeletePrescriptionItemRequest {
+    itemId: string;
 }
 
 export interface UpdatePrescriptionItemRequest {
@@ -160,6 +167,49 @@ export class PrescriptionControllerApi extends runtime.BaseAPI {
      */
     async createPrescriptionItem(requestParameters: CreatePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePrescriptionItemResponse> {
         const response = await this.createPrescriptionItemRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deletePrescriptionItemRaw(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+        if (requestParameters['itemId'] == null) {
+            throw new runtime.RequiredError(
+                'itemId',
+                'Required parameter "itemId" was null or undefined when calling deletePrescriptionItem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/prescriptions/items/{itemId}`;
+        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomApiResponseVoidFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async deletePrescriptionItem(requestParameters: DeletePrescriptionItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.deletePrescriptionItemRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

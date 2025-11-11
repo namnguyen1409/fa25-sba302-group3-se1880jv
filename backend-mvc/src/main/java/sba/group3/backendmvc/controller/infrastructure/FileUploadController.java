@@ -1,6 +1,7 @@
 package sba.group3.backendmvc.controller.infrastructure;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,6 +29,8 @@ public class FileUploadController {
 
     FileUploadService fileUploadService;
 
+    HttpServletRequest request;
+
     /**
      * ✅ Upload 1 file kết quả
      */
@@ -40,11 +43,16 @@ public class FileUploadController {
             @RequestParam("entityType") String entityType,
             @RequestParam("entityId") String entityId
     ) {
+        String baseUrl = request.getRequestURL().toString()
+                .replace(request.getRequestURI(), "");
+
         try {
             String fileUrl = fileUploadService.upload(file, entityType, entityId);
             return ResponseEntity.ok(
                     CustomApiResponse.<String>builder()
-                            .data(fileUrl)
+                            .data(
+                                    baseUrl + fileUrl
+                            )
                             .message("Upload successful")
                             .build()
             );

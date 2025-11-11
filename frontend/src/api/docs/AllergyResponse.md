@@ -1,40 +1,26 @@
-
 # AllergyResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`substance` | string
-`reaction` | string
-`severity` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**substance** | **string** |  | [optional] [default to undefined]
+**reaction** | **string** |  | [optional] [default to undefined]
+**severity** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { AllergyResponse } from ''
+import { AllergyResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "substance": null,
-  "reaction": null,
-  "severity": null,
-} satisfies AllergyResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as AllergyResponse
-console.log(exampleParsed)
+const instance: AllergyResponse = {
+    id,
+    substance,
+    reaction,
+    severity,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

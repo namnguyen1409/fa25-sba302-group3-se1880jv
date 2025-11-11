@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ExaminationApi } from "@/api/examination/ExaminationApi";
-import type { ExaminationResponse, VitalSignResponse } from "@/api";
+import type {  VitalSignResponse } from "@/api";
 import {
   EntityTableWrapper,
   type FilterGroup,
@@ -10,6 +10,7 @@ import {
 import { FormModal } from "@/components/common/FormModal";
 import { toast } from "sonner";
 import * as yup from "yup";
+import type { ExaminationResponse } from "@/api/models";
 
 export default function VitalSignsTab({ exam }: { exam: ExaminationResponse }) {
   const tableRef = useRef<any>(null);

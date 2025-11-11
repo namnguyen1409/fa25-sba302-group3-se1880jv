@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.dto.filter.SearchFilter;
 import sba.group3.backendmvc.dto.request.examination.ServiceOrderItemRequest;
 import sba.group3.backendmvc.dto.response.examination.ServiceOrderItemResponse;
-import sba.group3.backendmvc.entity.examination.Examination;
 import sba.group3.backendmvc.entity.examination.ServiceOrderItem;
 import sba.group3.backendmvc.mapper.examination.ServiceOrderItemMapper;
 import sba.group3.backendmvc.repository.examination.ServiceCatalogRepository;

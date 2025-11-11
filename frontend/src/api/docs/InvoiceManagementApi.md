@@ -2,67 +2,48 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**create6**](InvoiceManagementApi.md#create6) | **POST** /api/invoices |  |
-| [**delete6**](InvoiceManagementApi.md#delete6) | **DELETE** /api/invoices/{invoiceId} |  |
-| [**filter7**](InvoiceManagementApi.md#filter7) | **POST** /api/invoices/filter |  |
-| [**getById3**](InvoiceManagementApi.md#getbyid3) | **GET** /api/invoices/{invoiceId} |  |
-| [**getOrdersForStaffToday**](InvoiceManagementApi.md#getordersforstafftoday) | **GET** /api/invoices/staff/today |  |
-| [**update6**](InvoiceManagementApi.md#update6) | **PUT** /api/invoices/{invoiceId} |  |
+|[**create6**](#create6) | **POST** /api/invoices | |
+|[**delete6**](#delete6) | **DELETE** /api/invoices/{invoiceId} | |
+|[**filter7**](#filter7) | **POST** /api/invoices/filter | |
+|[**getById3**](#getbyid3) | **GET** /api/invoices/{invoiceId} | |
+|[**getOrdersForStaffToday**](#getordersforstafftoday) | **GET** /api/invoices/staff/today | |
+|[**update6**](#update6) | **PUT** /api/invoices/{invoiceId} | |
 
-
-
-## create6
-
+# **create6**
 > CustomApiResponseInvoiceResponse create6(invoiceRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  InvoiceManagementApi,
-} from '';
-import type { Create6Request } from '';
+    InvoiceManagementApi,
+    Configuration,
+    InvoiceRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new InvoiceManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new InvoiceManagementApi(configuration);
 
-  const body = {
-    // InvoiceRequest
-    invoiceRequest: ...,
-  } satisfies Create6Request;
+let invoiceRequest: InvoiceRequest; //
 
-  try {
-    const data = await api.create6(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.create6(
+    invoiceRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invoiceRequest** | [InvoiceRequest](InvoiceRequest.md) |  | |
+| **invoiceRequest** | **InvoiceRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponseInvoiceResponse**](CustomApiResponseInvoiceResponse.md)
+**CustomApiResponseInvoiceResponse**
 
 ### Authorization
 
@@ -70,70 +51,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## delete6
-
-> CustomApiResponseVoid delete6(invoiceId)
-
+# **delete6**
+> CustomApiResponseVoid delete6()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  InvoiceManagementApi,
-} from '';
-import type { Delete6Request } from '';
+    InvoiceManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new InvoiceManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new InvoiceManagementApi(configuration);
 
-  const body = {
-    // string
-    invoiceId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies Delete6Request;
+let invoiceId: string; // (default to undefined)
 
-  try {
-    const data = await api.delete6(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.delete6(
+    invoiceId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invoiceId** | `string` |  | [Defaults to `undefined`] |
+| **invoiceId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -141,70 +103,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filter7
-
+# **filter7**
 > CustomApiResponsePageInvoiceResponse filter7(searchFilter)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  InvoiceManagementApi,
-} from '';
-import type { Filter7Request } from '';
+    InvoiceManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new InvoiceManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new InvoiceManagementApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies Filter7Request;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filter7(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filter7(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePageInvoiceResponse**](CustomApiResponsePageInvoiceResponse.md)
+**CustomApiResponsePageInvoiceResponse**
 
 ### Authorization
 
@@ -212,70 +156,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getById3
-
-> CustomApiResponseInvoiceResponse getById3(invoiceId)
-
+# **getById3**
+> CustomApiResponseInvoiceResponse getById3()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  InvoiceManagementApi,
-} from '';
-import type { GetById3Request } from '';
+    InvoiceManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new InvoiceManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new InvoiceManagementApi(configuration);
 
-  const body = {
-    // string
-    invoiceId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies GetById3Request;
+let invoiceId: string; // (default to undefined)
 
-  try {
-    const data = await api.getById3(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getById3(
+    invoiceId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invoiceId** | `string` |  | [Defaults to `undefined`] |
+| **invoiceId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseInvoiceResponse**](CustomApiResponseInvoiceResponse.md)
+**CustomApiResponseInvoiceResponse**
 
 ### Authorization
 
@@ -283,62 +208,44 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getOrdersForStaffToday
-
+# **getOrdersForStaffToday**
 > CustomApiResponseListInvoiceResponse getOrdersForStaffToday()
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  InvoiceManagementApi,
-} from '';
-import type { GetOrdersForStaffTodayRequest } from '';
+    InvoiceManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new InvoiceManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new InvoiceManagementApi(configuration);
 
-  try {
-    const data = await api.getOrdersForStaffToday();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getOrdersForStaffToday();
 ```
 
 ### Parameters
+This endpoint does not have any parameters.
 
-This endpoint does not need any parameter.
 
 ### Return type
 
-[**CustomApiResponseListInvoiceResponse**](CustomApiResponseListInvoiceResponse.md)
+**CustomApiResponseListInvoiceResponse**
 
 ### Authorization
 
@@ -346,73 +253,55 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## update6
-
-> CustomApiResponseInvoiceResponse update6(invoiceId, invoiceRequest)
-
+# **update6**
+> CustomApiResponseInvoiceResponse update6(invoiceRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  InvoiceManagementApi,
-} from '';
-import type { Update6Request } from '';
+    InvoiceManagementApi,
+    Configuration,
+    InvoiceRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new InvoiceManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new InvoiceManagementApi(configuration);
 
-  const body = {
-    // string
-    invoiceId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // InvoiceRequest
-    invoiceRequest: ...,
-  } satisfies Update6Request;
+let invoiceId: string; // (default to undefined)
+let invoiceRequest: InvoiceRequest; //
 
-  try {
-    const data = await api.update6(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.update6(
+    invoiceId,
+    invoiceRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invoiceId** | `string` |  | [Defaults to `undefined`] |
-| **invoiceRequest** | [InvoiceRequest](InvoiceRequest.md) |  | |
+| **invoiceRequest** | **InvoiceRequest**|  | |
+| **invoiceId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseInvoiceResponse**](CustomApiResponseInvoiceResponse.md)
+**CustomApiResponseInvoiceResponse**
 
 ### Authorization
 
@@ -420,16 +309,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

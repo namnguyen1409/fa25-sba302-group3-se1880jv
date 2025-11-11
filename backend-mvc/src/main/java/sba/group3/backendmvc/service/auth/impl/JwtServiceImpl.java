@@ -6,10 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
-import org.springframework.security.oauth2.jwt.JwsHeader;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
 import sba.group3.backendmvc.entity.user.Permission;
 import sba.group3.backendmvc.entity.user.Role;
@@ -19,6 +16,7 @@ import sba.group3.backendmvc.service.auth.JwtService;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -97,5 +95,32 @@ public class JwtServiceImpl implements JwtService {
                         .map(Permission::getName)
         ).distinct().collect(Collectors.joining(" "));
     }
+
+    @Override
+    public AuthInfo extract(Jwt jwt) {
+        UUID userId = UUID.fromString(jwt.getSubject());
+        String role = jwt.getClaimAsString("scope");
+
+        UUID staffId = null;
+        if (jwt.getClaimAsString("staffId") != null && !jwt.getClaimAsString("staffId").isBlank()) {
+            staffId = UUID.fromString(jwt.getClaimAsString("staffId"));
+        }
+
+        UUID patientId = null;
+        if (jwt.getClaimAsString("patientId") != null && !jwt.getClaimAsString("patientId").isBlank()) {
+            patientId = UUID.fromString(jwt.getClaimAsString("patientId"));
+        }
+
+        return new AuthInfo(userId, role, staffId, patientId);
+    }
+
+    public record AuthInfo(
+            UUID userId,
+            String role,
+            UUID staffId,
+            UUID patientId
+    ) {}
+
+
 
 }

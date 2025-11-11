@@ -2,78 +2,58 @@
 
 All URIs are relative to *http://localhost:9999*
 
-| Method | HTTP request | Description |
+|Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-| [**checkPatientExistence**](PatientManagementApi.md#checkpatientexistence) | **GET** /api/patients/check |  |
-| [**createAllergy**](PatientManagementApi.md#createallergy) | **POST** /api/patients/{patientId}/allergies |  |
-| [**createEmergencyContact**](PatientManagementApi.md#createemergencycontact) | **POST** /api/patients/{patientId}/emergency-contacts |  |
-| [**createPatient**](PatientManagementApi.md#createpatient) | **POST** /api/patients |  |
-| [**deleteAllergy**](PatientManagementApi.md#deleteallergy) | **DELETE** /api/patients/allergies/{allergyId} |  |
-| [**deleteEmergencyContact**](PatientManagementApi.md#deleteemergencycontact) | **DELETE** /api/patients/emergency-contacts/{contactId} |  |
-| [**deletePatient**](PatientManagementApi.md#deletepatient) | **DELETE** /api/patients/{patientId} |  |
-| [**filter**](PatientManagementApi.md#filter) | **POST** /api/patients/filter |  |
-| [**filterAllergies**](PatientManagementApi.md#filterallergies) | **POST** /api/patients/{patientId}/allergies/filter |  |
-| [**filterEmergencyContacts**](PatientManagementApi.md#filteremergencycontacts) | **POST** /api/patients/{patientId}/emergency-contacts/filter |  |
-| [**getPatientById**](PatientManagementApi.md#getpatientbyid) | **GET** /api/patients/{patientId} |  |
-| [**updateAllergy**](PatientManagementApi.md#updateallergy) | **PUT** /api/patients/allergies/{allergyId} |  |
-| [**updateEmergencyContact**](PatientManagementApi.md#updateemergencycontact) | **PUT** /api/patients/emergency-contacts/{contactId} |  |
-| [**updatePatient**](PatientManagementApi.md#updatepatient) | **PUT** /api/patients/{patientId} |  |
+|[**checkPatientExistence**](#checkpatientexistence) | **GET** /api/patients/check | |
+|[**createAllergy**](#createallergy) | **POST** /api/patients/{patientId}/allergies | |
+|[**createEmergencyContact**](#createemergencycontact) | **POST** /api/patients/{patientId}/emergency-contacts | |
+|[**createPatient**](#createpatient) | **POST** /api/patients | |
+|[**deleteAllergy**](#deleteallergy) | **DELETE** /api/patients/allergies/{allergyId} | |
+|[**deleteEmergencyContact**](#deleteemergencycontact) | **DELETE** /api/patients/emergency-contacts/{contactId} | |
+|[**deletePatient**](#deletepatient) | **DELETE** /api/patients/{patientId} | |
+|[**filter**](#filter) | **POST** /api/patients/filter | |
+|[**filterAllergies**](#filterallergies) | **POST** /api/patients/{patientId}/allergies/filter | |
+|[**filterEmergencyContacts**](#filteremergencycontacts) | **POST** /api/patients/{patientId}/emergency-contacts/filter | |
+|[**getPatientById**](#getpatientbyid) | **GET** /api/patients/{patientId} | |
+|[**updateAllergy**](#updateallergy) | **PUT** /api/patients/allergies/{allergyId} | |
+|[**updateEmergencyContact**](#updateemergencycontact) | **PUT** /api/patients/emergency-contacts/{contactId} | |
+|[**updatePatient**](#updatepatient) | **PUT** /api/patients/{patientId} | |
 
-
-
-## checkPatientExistence
-
-> CustomApiResponseBoolean checkPatientExistence(phone, email)
-
+# **checkPatientExistence**
+> CustomApiResponseBoolean checkPatientExistence()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { CheckPatientExistenceRequest } from '';
+    PatientManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string (optional)
-    phone: phone_example,
-    // string (optional)
-    email: email_example,
-  } satisfies CheckPatientExistenceRequest;
+let phone: string; // (optional) (default to undefined)
+let email: string; // (optional) (default to undefined)
 
-  try {
-    const data = await api.checkPatientExistence(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.checkPatientExistence(
+    phone,
+    email
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **phone** | `string` |  | [Optional] [Defaults to `undefined`] |
-| **email** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **phone** | [**string**] |  | (optional) defaults to undefined|
+| **email** | [**string**] |  | (optional) defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseBoolean**](CustomApiResponseBoolean.md)
+**CustomApiResponseBoolean**
 
 ### Authorization
 
@@ -81,73 +61,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## createAllergy
-
-> CustomApiResponseAllergyResponse createAllergy(patientId, allergyRequest)
-
+# **createAllergy**
+> CustomApiResponseAllergyResponse createAllergy(allergyRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { CreateAllergyRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    AllergyRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // AllergyRequest
-    allergyRequest: ...,
-  } satisfies CreateAllergyRequest;
+let patientId: string; // (default to undefined)
+let allergyRequest: AllergyRequest; //
 
-  try {
-    const data = await api.createAllergy(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.createAllergy(
+    patientId,
+    allergyRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
-| **allergyRequest** | [AllergyRequest](AllergyRequest.md) |  | |
+| **allergyRequest** | **AllergyRequest**|  | |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseAllergyResponse**](CustomApiResponseAllergyResponse.md)
+**CustomApiResponseAllergyResponse**
 
 ### Authorization
 
@@ -155,73 +117,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## createEmergencyContact
-
-> CustomApiResponseEmergencyContactResponse createEmergencyContact(patientId, emergencyContactRequest)
-
+# **createEmergencyContact**
+> CustomApiResponseEmergencyContactResponse createEmergencyContact(emergencyContactRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { CreateEmergencyContactRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    EmergencyContactRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // EmergencyContactRequest
-    emergencyContactRequest: ...,
-  } satisfies CreateEmergencyContactRequest;
+let patientId: string; // (default to undefined)
+let emergencyContactRequest: EmergencyContactRequest; //
 
-  try {
-    const data = await api.createEmergencyContact(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.createEmergencyContact(
+    patientId,
+    emergencyContactRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
-| **emergencyContactRequest** | [EmergencyContactRequest](EmergencyContactRequest.md) |  | |
+| **emergencyContactRequest** | **EmergencyContactRequest**|  | |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseEmergencyContactResponse**](CustomApiResponseEmergencyContactResponse.md)
+**CustomApiResponseEmergencyContactResponse**
 
 ### Authorization
 
@@ -229,70 +173,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## createPatient
-
+# **createPatient**
 > CustomApiResponsePatientResponse createPatient(patientRequest)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { CreatePatientRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    PatientRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // PatientRequest
-    patientRequest: ...,
-  } satisfies CreatePatientRequest;
+let patientRequest: PatientRequest; //
 
-  try {
-    const data = await api.createPatient(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.createPatient(
+    patientRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientRequest** | [PatientRequest](PatientRequest.md) |  | |
+| **patientRequest** | **PatientRequest**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePatientResponse**](CustomApiResponsePatientResponse.md)
+**CustomApiResponsePatientResponse**
 
 ### Authorization
 
@@ -300,70 +226,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## deleteAllergy
-
-> CustomApiResponseVoid deleteAllergy(allergyId)
-
+# **deleteAllergy**
+> CustomApiResponseVoid deleteAllergy()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { DeleteAllergyRequest } from '';
+    PatientManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    allergyId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies DeleteAllergyRequest;
+let allergyId: string; // (default to undefined)
 
-  try {
-    const data = await api.deleteAllergy(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.deleteAllergy(
+    allergyId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **allergyId** | `string` |  | [Defaults to `undefined`] |
+| **allergyId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -371,70 +278,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## deleteEmergencyContact
-
-> CustomApiResponseVoid deleteEmergencyContact(contactId)
-
+# **deleteEmergencyContact**
+> CustomApiResponseVoid deleteEmergencyContact()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { DeleteEmergencyContactRequest } from '';
+    PatientManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    contactId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies DeleteEmergencyContactRequest;
+let contactId: string; // (default to undefined)
 
-  try {
-    const data = await api.deleteEmergencyContact(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.deleteEmergencyContact(
+    contactId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **contactId** | `string` |  | [Defaults to `undefined`] |
+| **contactId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -442,70 +330,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## deletePatient
-
-> CustomApiResponseVoid deletePatient(patientId)
-
+# **deletePatient**
+> CustomApiResponseVoid deletePatient()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { DeletePatientRequest } from '';
+    PatientManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies DeletePatientRequest;
+let patientId: string; // (default to undefined)
 
-  try {
-    const data = await api.deletePatient(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.deletePatient(
+    patientId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseVoid**](CustomApiResponseVoid.md)
+**CustomApiResponseVoid**
 
 ### Authorization
 
@@ -513,70 +382,52 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filter
-
+# **filter**
 > CustomApiResponsePagePatientResponse filter(searchFilter)
 
 
-
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { FilterRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies FilterRequest;
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filter(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filter(
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+
 
 ### Return type
 
-[**CustomApiResponsePagePatientResponse**](CustomApiResponsePagePatientResponse.md)
+**CustomApiResponsePagePatientResponse**
 
 ### Authorization
 
@@ -584,73 +435,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filterAllergies
-
-> CustomApiResponsePageAllergyResponse filterAllergies(patientId, searchFilter)
-
+# **filterAllergies**
+> CustomApiResponsePageAllergyResponse filterAllergies(searchFilter)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { FilterAllergiesRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies FilterAllergiesRequest;
+let patientId: string; // (default to undefined)
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filterAllergies(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filterAllergies(
+    patientId,
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePageAllergyResponse**](CustomApiResponsePageAllergyResponse.md)
+**CustomApiResponsePageAllergyResponse**
 
 ### Authorization
 
@@ -658,73 +491,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## filterEmergencyContacts
-
-> CustomApiResponsePageEmergencyContactResponse filterEmergencyContacts(patientId, searchFilter)
-
+# **filterEmergencyContacts**
+> CustomApiResponsePageEmergencyContactResponse filterEmergencyContacts(searchFilter)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { FilterEmergencyContactsRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    SearchFilter
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // SearchFilter
-    searchFilter: ...,
-  } satisfies FilterEmergencyContactsRequest;
+let patientId: string; // (default to undefined)
+let searchFilter: SearchFilter; //
 
-  try {
-    const data = await api.filterEmergencyContacts(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.filterEmergencyContacts(
+    patientId,
+    searchFilter
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
-| **searchFilter** | [SearchFilter](SearchFilter.md) |  | |
+| **searchFilter** | **SearchFilter**|  | |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePageEmergencyContactResponse**](CustomApiResponsePageEmergencyContactResponse.md)
+**CustomApiResponsePageEmergencyContactResponse**
 
 ### Authorization
 
@@ -732,70 +547,51 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## getPatientById
-
-> CustomApiResponsePatientResponse getPatientById(patientId)
-
+# **getPatientById**
+> CustomApiResponsePatientResponse getPatientById()
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { GetPatientByIdRequest } from '';
+    PatientManagementApi,
+    Configuration
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies GetPatientByIdRequest;
+let patientId: string; // (default to undefined)
 
-  try {
-    const data = await api.getPatientById(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.getPatientById(
+    patientId
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePatientResponse**](CustomApiResponsePatientResponse.md)
+**CustomApiResponsePatientResponse**
 
 ### Authorization
 
@@ -803,73 +599,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: `*/*`
+ - **Content-Type**: Not defined
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## updateAllergy
-
-> CustomApiResponseAllergyResponse updateAllergy(allergyId, allergyRequest)
-
+# **updateAllergy**
+> CustomApiResponseAllergyResponse updateAllergy(allergyRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { UpdateAllergyRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    AllergyRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    allergyId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // AllergyRequest
-    allergyRequest: ...,
-  } satisfies UpdateAllergyRequest;
+let allergyId: string; // (default to undefined)
+let allergyRequest: AllergyRequest; //
 
-  try {
-    const data = await api.updateAllergy(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.updateAllergy(
+    allergyId,
+    allergyRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **allergyId** | `string` |  | [Defaults to `undefined`] |
-| **allergyRequest** | [AllergyRequest](AllergyRequest.md) |  | |
+| **allergyRequest** | **AllergyRequest**|  | |
+| **allergyId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseAllergyResponse**](CustomApiResponseAllergyResponse.md)
+**CustomApiResponseAllergyResponse**
 
 ### Authorization
 
@@ -877,73 +655,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## updateEmergencyContact
-
-> CustomApiResponseEmergencyContactResponse updateEmergencyContact(contactId, emergencyContactRequest)
-
+# **updateEmergencyContact**
+> CustomApiResponseEmergencyContactResponse updateEmergencyContact(emergencyContactRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { UpdateEmergencyContactRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    EmergencyContactRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    contactId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // EmergencyContactRequest
-    emergencyContactRequest: ...,
-  } satisfies UpdateEmergencyContactRequest;
+let contactId: string; // (default to undefined)
+let emergencyContactRequest: EmergencyContactRequest; //
 
-  try {
-    const data = await api.updateEmergencyContact(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.updateEmergencyContact(
+    contactId,
+    emergencyContactRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **contactId** | `string` |  | [Defaults to `undefined`] |
-| **emergencyContactRequest** | [EmergencyContactRequest](EmergencyContactRequest.md) |  | |
+| **emergencyContactRequest** | **EmergencyContactRequest**|  | |
+| **contactId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponseEmergencyContactResponse**](CustomApiResponseEmergencyContactResponse.md)
+**CustomApiResponseEmergencyContactResponse**
 
 ### Authorization
 
@@ -951,73 +711,55 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## updatePatient
-
-> CustomApiResponsePatientResponse updatePatient(patientId, patientRequest)
-
+# **updatePatient**
+> CustomApiResponsePatientResponse updatePatient(patientRequest)
 
 
 ### Example
 
-```ts
+```typescript
 import {
-  Configuration,
-  PatientManagementApi,
-} from '';
-import type { UpdatePatientRequest } from '';
+    PatientManagementApi,
+    Configuration,
+    PatientRequest
+} from './api';
 
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new PatientManagementApi(config);
+const configuration = new Configuration();
+const apiInstance = new PatientManagementApi(configuration);
 
-  const body = {
-    // string
-    patientId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // PatientRequest
-    patientRequest: ...,
-  } satisfies UpdatePatientRequest;
+let patientId: string; // (default to undefined)
+let patientRequest: PatientRequest; //
 
-  try {
-    const data = await api.updatePatient(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
+const { status, data } = await apiInstance.updatePatient(
+    patientId,
+    patientRequest
+);
 ```
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
+|Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patientId** | `string` |  | [Defaults to `undefined`] |
-| **patientRequest** | [PatientRequest](PatientRequest.md) |  | |
+| **patientRequest** | **PatientRequest**|  | |
+| **patientId** | [**string**] |  | defaults to undefined|
+
 
 ### Return type
 
-[**CustomApiResponsePatientResponse**](CustomApiResponsePatientResponse.md)
+**CustomApiResponsePatientResponse**
 
 ### Authorization
 
@@ -1025,16 +767,16 @@ example().catch(console.error);
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
-- **Accept**: `*/*`
+ - **Content-Type**: application/json
+ - **Accept**: */*
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Bad Request |  -  |
-| **401** | Unauthorized |  -  |
-| **200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**200** | OK |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

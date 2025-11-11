@@ -20,8 +20,7 @@ import { useNavigate } from "react-router-dom";
 export default function DispenseRecordHistoryPage() {
   const tableRef = React.useRef<any>(null);
   const navigate = useNavigate();
-
-  // ✅ fetch API lịch sử phát thuốc
+  
   const fetchRecords = async (
     page: number,
     size: number,

@@ -1,50 +1,36 @@
-
 # LabTestResultRequest
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`labOrderId` | string
-`labTestId` | string
-`status` | string
-`resultValue` | string
-`unit` | string
-`referenceRange` | string
-`remark` | string
-`verifiedById` | string
-`verifiedAt` | Date
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**labOrderId** | **string** |  | [optional] [default to undefined]
+**labTestId** | **string** |  | [optional] [default to undefined]
+**status** | **string** |  | [optional] [default to undefined]
+**resultValue** | **string** |  | [optional] [default to undefined]
+**unit** | **string** |  | [optional] [default to undefined]
+**referenceRange** | **string** |  | [optional] [default to undefined]
+**remark** | **string** |  | [optional] [default to undefined]
+**verifiedById** | **string** |  | [optional] [default to undefined]
+**verifiedAt** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { LabTestResultRequest } from ''
+import { LabTestResultRequest } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "labOrderId": null,
-  "labTestId": null,
-  "status": null,
-  "resultValue": null,
-  "unit": null,
-  "referenceRange": null,
-  "remark": null,
-  "verifiedById": null,
-  "verifiedAt": null,
-} satisfies LabTestResultRequest
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as LabTestResultRequest
-console.log(exampleParsed)
+const instance: LabTestResultRequest = {
+    labOrderId,
+    labTestId,
+    status,
+    resultValue,
+    unit,
+    referenceRange,
+    remark,
+    verifiedById,
+    verifiedAt,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

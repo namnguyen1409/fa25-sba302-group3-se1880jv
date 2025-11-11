@@ -1,40 +1,26 @@
-
 # AddressResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`street` | string
-`wardName` | string
-`districtName` | string
-`city` | string
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**street** | **string** |  | [optional] [default to undefined]
+**wardName** | **string** |  | [optional] [default to undefined]
+**districtName** | **string** |  | [optional] [default to undefined]
+**city** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { AddressResponse } from ''
+import { AddressResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "street": null,
-  "wardName": null,
-  "districtName": null,
-  "city": null,
-} satisfies AddressResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as AddressResponse
-console.log(exampleParsed)
+const instance: AddressResponse = {
+    street,
+    wardName,
+    districtName,
+    city,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import sba.group3.backendmvc.entity.BaseEntity;
-import sba.group3.backendmvc.entity.appointment.Appointment;
 import sba.group3.backendmvc.entity.appointment.QueueTicket;
 import sba.group3.backendmvc.entity.laboratory.LabOrder;
 import sba.group3.backendmvc.entity.patient.Patient;

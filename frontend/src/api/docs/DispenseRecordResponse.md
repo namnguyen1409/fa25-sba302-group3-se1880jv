@@ -1,50 +1,36 @@
-
 # DispenseRecordResponse
 
 
 ## Properties
 
-Name | Type
------------- | -------------
-`id` | string
-`prescription` | [PrescriptionResponse](PrescriptionResponse.md)
-`dispensedBy` | [StaffResponse](StaffResponse.md)
-`status` | string
-`dispensedAt` | Date
-`totalCost` | number
-`note` | string
-`patient` | [PatientResponse](PatientResponse.md)
-`room` | [RoomResponse](RoomResponse.md)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [optional] [default to undefined]
+**prescription** | [**PrescriptionResponse**](PrescriptionResponse.md) |  | [optional] [default to undefined]
+**dispensedBy** | [**StaffResponse**](StaffResponse.md) |  | [optional] [default to undefined]
+**status** | **string** |  | [optional] [default to undefined]
+**dispensedAt** | **string** |  | [optional] [default to undefined]
+**totalCost** | **number** |  | [optional] [default to undefined]
+**note** | **string** |  | [optional] [default to undefined]
+**patient** | [**PatientResponse**](PatientResponse.md) |  | [optional] [default to undefined]
+**room** | [**RoomResponse**](RoomResponse.md) |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import type { DispenseRecordResponse } from ''
+import { DispenseRecordResponse } from './api';
 
-// TODO: Update the object below with actual values
-const example = {
-  "id": null,
-  "prescription": null,
-  "dispensedBy": null,
-  "status": null,
-  "dispensedAt": null,
-  "totalCost": null,
-  "note": null,
-  "patient": null,
-  "room": null,
-} satisfies DispenseRecordResponse
-
-console.log(example)
-
-// Convert the instance to a JSON string
-const exampleJSON: string = JSON.stringify(example)
-console.log(exampleJSON)
-
-// Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as DispenseRecordResponse
-console.log(exampleParsed)
+const instance: DispenseRecordResponse = {
+    id,
+    prescription,
+    dispensedBy,
+    status,
+    dispensedAt,
+    totalCost,
+    note,
+    patient,
+    room,
+};
 ```
 
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

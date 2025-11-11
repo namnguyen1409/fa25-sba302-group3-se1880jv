@@ -67,7 +67,7 @@ import {
     StaffScheduleTemplateRequestToJSON,
 } from '../models/index';
 
-export interface Create10Request {
+export interface Create11Request {
     staffRequest: StaffRequest;
 }
 
@@ -85,7 +85,7 @@ export interface DayOffRequest {
     staffScheduleDayOffRequest: StaffScheduleDayOffRequest;
 }
 
-export interface Delete10Request {
+export interface Delete11Request {
     id: string;
 }
 
@@ -97,7 +97,7 @@ export interface DeleteStaffScheduleTemplateRequest {
     templateId: string;
 }
 
-export interface Filter12Request {
+export interface Filter13Request {
     searchFilter: SearchFilter;
 }
 
@@ -106,7 +106,7 @@ export interface GenerateRequest {
     staffScheduleGenerateRequest?: StaffScheduleGenerateRequest;
 }
 
-export interface GetById6Request {
+export interface GetById7Request {
     id: string;
 }
 
@@ -141,7 +141,7 @@ export interface RangeRequest {
     to: Date;
 }
 
-export interface Update10Request {
+export interface Update11Request {
     id: string;
     staffRequest: StaffRequest;
 }
@@ -163,11 +163,11 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create10Raw(requestParameters: Create10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseStaffResponse>> {
+    async create11Raw(requestParameters: Create11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseStaffResponse>> {
         if (requestParameters['staffRequest'] == null) {
             throw new runtime.RequiredError(
                 'staffRequest',
-                'Required parameter "staffRequest" was null or undefined when calling create10().'
+                'Required parameter "staffRequest" was null or undefined when calling create11().'
             );
         }
 
@@ -201,8 +201,8 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async create10(requestParameters: Create10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffResponse> {
-        const response = await this.create10Raw(requestParameters, initOverrides);
+    async create11(requestParameters: Create11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffResponse> {
+        const response = await this.create11Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -359,11 +359,11 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async delete10Raw(requestParameters: Delete10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
+    async delete11Raw(requestParameters: Delete11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseVoid>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling delete10().'
+                'Required parameter "id" was null or undefined when calling delete11().'
             );
         }
 
@@ -395,8 +395,8 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async delete10(requestParameters: Delete10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
-        const response = await this.delete10Raw(requestParameters, initOverrides);
+    async delete11(requestParameters: Delete11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseVoid> {
+        const response = await this.delete11Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -488,11 +488,11 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter12Raw(requestParameters: Filter12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageStaffResponse>> {
+    async filter13Raw(requestParameters: Filter13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponsePageStaffResponse>> {
         if (requestParameters['searchFilter'] == null) {
             throw new runtime.RequiredError(
                 'searchFilter',
-                'Required parameter "searchFilter" was null or undefined when calling filter12().'
+                'Required parameter "searchFilter" was null or undefined when calling filter13().'
             );
         }
 
@@ -526,8 +526,8 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async filter12(requestParameters: Filter12Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageStaffResponse> {
-        const response = await this.filter12Raw(requestParameters, initOverrides);
+    async filter13(requestParameters: Filter13Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponsePageStaffResponse> {
+        const response = await this.filter13Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -579,11 +579,11 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async getById6Raw(requestParameters: GetById6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseStaffResponse>> {
+    async getById7Raw(requestParameters: GetById7Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseStaffResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling getById6().'
+                'Required parameter "id" was null or undefined when calling getById7().'
             );
         }
 
@@ -615,8 +615,8 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async getById6(requestParameters: GetById6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffResponse> {
-        const response = await this.getById6Raw(requestParameters, initOverrides);
+    async getById7(requestParameters: GetById7Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffResponse> {
+        const response = await this.getById7Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -953,18 +953,18 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async update10Raw(requestParameters: Update10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseStaffResponse>> {
+    async update11Raw(requestParameters: Update11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomApiResponseStaffResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling update10().'
+                'Required parameter "id" was null or undefined when calling update11().'
             );
         }
 
         if (requestParameters['staffRequest'] == null) {
             throw new runtime.RequiredError(
                 'staffRequest',
-                'Required parameter "staffRequest" was null or undefined when calling update10().'
+                'Required parameter "staffRequest" was null or undefined when calling update11().'
             );
         }
 
@@ -999,8 +999,8 @@ export class StaffManagementApi extends runtime.BaseAPI {
 
     /**
      */
-    async update10(requestParameters: Update10Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffResponse> {
-        const response = await this.update10Raw(requestParameters, initOverrides);
+    async update11(requestParameters: Update11Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomApiResponseStaffResponse> {
+        const response = await this.update11Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
