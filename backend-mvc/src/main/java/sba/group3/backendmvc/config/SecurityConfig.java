@@ -42,6 +42,7 @@ public class SecurityConfig {
             "/api/organization/clinics",
             "/api/cms/contents/slug/**",
             "/api/admin/staffs/filter",
+            ".well-known/jwks.json"
     };
 
     @Bean

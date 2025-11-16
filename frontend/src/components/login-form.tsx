@@ -23,6 +23,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import { Github, Lock, FacebookIcon, KeyRound, Mail, Phone, RefreshCcw } from "lucide-react";
 import { startAuthentication } from "@simplewebauthn/browser";
+import { useSsoRedirect } from "@/hooks/useSsoRedirect";
 
 interface LoginFormValues {
   username: string;
@@ -37,6 +38,7 @@ const schema = yup.object({
 type MfaType = "EMAIL" | "SMS" | "TOTP" | "PASSKEY";
 
 export function LoginForm({ className }: { className?: string }) {
+  useSsoRedirect();
   const { loginSuccess } = useAuth();
   const [loadingType, setLoadingType] = useState<
     "login" | "oauth" | "passkey" | "mfa" | "switch" | "resend" | null

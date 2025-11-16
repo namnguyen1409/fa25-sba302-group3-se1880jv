@@ -1,11 +1,9 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 
-# copy file build trước cho cache tốt hơn
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-
 COPY src src
 
 RUN ./mvnw -DskipTests clean package
@@ -15,8 +13,13 @@ WORKDIR /app
 
 COPY --from=builder /app/target/*.jar app.jar
 
-ENV SPRING_PROFILES_ACTIVE=docker
+# ---- 👇 add this section ----
+ENV TZ=Asia/Ho_Chi_Minh
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV JAVA_OPTS="-Duser.timezone=Asia/Ho_Chi_Minh"
+# -----------------------------
 
+ENV SPRING_PROFILES_ACTIVE=docker
 EXPOSE 9999
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]

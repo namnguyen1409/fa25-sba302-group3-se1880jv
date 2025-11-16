@@ -1,0 +1,57 @@
+server:
+  port: 9888
+spring:
+  rsocket:
+    server:
+      transport: websocket
+      mapping-path: /rsocket
+  application:
+    name: chat-backend
+  docker:
+    compose:
+      enabled: false
+  data:
+    mongodb:
+      uri: mongodb://admin:1409@chat_mongodb:27017/clinic-chat?authSource=admin
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  security:
+    oauth2:
+      authorizationserver:
+        endpoint:
+          jwk-set-uri: https://backend.sba301.io.vn/.well-known/jwks.json
+app:
+  chat:
+    max-message-length: 1000
+    max-profiles-per-user: 10
+  file:
+    max-file-size: 100MB
+    upload-dir: "uploads"
+  security:
+    allowed-origins:
+      - "https://chat.sba301.io.vn"
+      - "http://localhost:5000"
+    allowed-methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+      - "OPTIONS"
+    allowed-headers:
+      - "*"
+    allowed-credentials: true
+minio:
+  endpoint: http://minio:9000
+  access-key: admin
+  secret-key: admin123
+  bucket: chat-files
+logging:
+  level:
+    springframework.security: DEBUG
+    springframework.messaging: DEBUG
+    io.rsocket.FrameLogger: DEBUG
+    org.springframework.messaging.rsocket: DEBUG
+    org.springframework.security.rsocket: DEBUG
+    io.rsocket: DEBUG

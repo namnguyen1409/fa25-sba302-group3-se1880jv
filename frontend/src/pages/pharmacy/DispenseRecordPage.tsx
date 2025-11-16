@@ -22,10 +22,8 @@ export default function DispenseRecordPage() {
   const [records, setRecords] = useState<DispenseRecordResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Detail dialog
   const navigate = useNavigate();
 
-  // ---- Initial load ----
   useEffect(() => {
     async function load() {
       try {
@@ -39,7 +37,6 @@ export default function DispenseRecordPage() {
     load();
   }, []);
 
-  // ---- Mark as dispensed ----
   const markDispensed = async (record: DispenseRecordResponse) => {
     try {
       await PharmacyApi.markAsDispensed(record.id!);
@@ -49,15 +46,12 @@ export default function DispenseRecordPage() {
     }
   };
 
-  // ---- WebSocket realtime (optional) ----
   useEffect(() => {
     const handler = (e: any) => {
       const updated = e.detail as DispenseRecordResponse;
 
       setRecords((prev) => {
         const exists = prev.some((x) => x.id === updated.id);
-
-        // Nếu status COMPLETED thì ẩn khỏi danh sách
         if (updated.status === "DISPENSED") {
           return prev.filter((x) => x.id !== updated.id);
         }
@@ -72,7 +66,6 @@ export default function DispenseRecordPage() {
     return () => window.removeEventListener("pharmacy-dispense", handler);
   }, []);
 
-  // ---- Loading UI ----
   if (loading)
     return (
       <div className="flex justify-center py-20">
@@ -82,7 +75,6 @@ export default function DispenseRecordPage() {
 
   return (
     <Card className="p-4 max-h-[85vh] overflow-y-auto shadow-lg rounded-lg">
-      {/* Header */}
 
       <div className="flex justify-between items-center mb-4">
         <Badge
@@ -111,14 +103,12 @@ export default function DispenseRecordPage() {
         </div>
       </div>
 
-      {/* Empty state */}
       {records.length === 0 && (
         <div className="text-center py-8 text-muted-foreground">
           Không có phiếu phát thuốc nào đang chờ.
         </div>
       )}
 
-      {/* List */}
       <div className="space-y-3">
         {records.map((rec) => (
           <div
@@ -129,7 +119,6 @@ export default function DispenseRecordPage() {
               rec.status !== "DISPENSED" && "border-blue-400"
             )}
           >
-            {/* Left Info */}
             <div>
               <div className="font-bold text-lg">
                 {rec.patient?.patientCode}
@@ -146,8 +135,6 @@ export default function DispenseRecordPage() {
                 {rec.status}
               </Badge>
             </div>
-
-            {/* Right actions */}
             <div className="flex gap-2">
               <Button
                 size="sm"
@@ -156,8 +143,6 @@ export default function DispenseRecordPage() {
               >
                 <Eye className="w-4 h-4" /> Xem
               </Button>
-
-              {/* Nút xác nhận phát thuốc (nếu muốn) */}
               {rec.status !== "DISPENSED" && (
                 <Button
                   size="sm"

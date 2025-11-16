@@ -25,7 +25,7 @@ import java.util.Set;
 )
 public class Department extends BaseEntity {
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100, unique = true)
     String name;
 
     @Column(name = "description", columnDefinition = "TEXT")

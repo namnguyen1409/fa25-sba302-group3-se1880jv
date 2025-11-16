@@ -2,6 +2,7 @@ package sba.group3.backendmvc.service.appointment.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
@@ -66,7 +68,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         // 2) Auto pick bác sĩ đúng chuyên khoa + còn ca làm
         var doctorDto = staffService.autoPickDoctor(appointmentRequest.specialtyId());
+        log.info("Auto picked doctor: {}", doctorDto);
         var doctor = staffRepository.getReferenceById(doctorDto.id());
+
+        log.info("Finding active room for doctor id: {} on date: {} at time: {}", doctor.getId(), today, now);
 
         // 3) Tìm phòng bác sĩ đang trực NGAY HÔM NAY, đúng giờ hiện tại
         var room = staffScheduleRepository.findActiveRoomForDoctor(doctor.getId(), today, now)

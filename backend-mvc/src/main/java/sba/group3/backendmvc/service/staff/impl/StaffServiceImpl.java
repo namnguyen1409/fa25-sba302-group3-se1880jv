@@ -254,12 +254,14 @@ public class StaffServiceImpl implements StaffService {
         List<Staff> candidates;
 
         if (!activeSchedules.isEmpty()) {
+            log.info("Found {} active schedules for specialty {}", activeSchedules.size(), specialtyId);
             candidates = activeSchedules.stream()
                     .map(StaffSchedule::getStaff)
                     .distinct()
                     .toList();
         } else {
             // 2) Không có ai đang trực → lấy bác sĩ có lịch hôm nay
+            log.info("No active schedules found for specialty {}. Looking for today's schedules.", specialtyId);
             var todaySchedules = staffScheduleRepository.findAllByStaff_Specialty_IdAndDate(
                     specialtyId, today
             );
@@ -288,6 +290,7 @@ public class StaffServiceImpl implements StaffService {
                         queueTicketRepository.countWaitingTodayByDoctor(doc.getId())
                 ))
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+        log.info("Auto-picked doctor: {} for specialty {}", selected.getId(), specialtyId);
 
         return staffMapper.toDto1(selected);
     }

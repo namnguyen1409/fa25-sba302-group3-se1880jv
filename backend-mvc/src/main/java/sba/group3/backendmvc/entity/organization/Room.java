@@ -18,7 +18,7 @@ import sba.group3.backendmvc.entity.BaseEntity;
 @Table(name = "room", schema = "organization")
 public class Room extends BaseEntity {
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100, unique = true)
     String name;
 
     @Enumerated(EnumType.STRING)

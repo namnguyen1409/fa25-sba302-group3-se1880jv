@@ -87,6 +87,16 @@ public class JwtConfig {
     }
 
     @Bean
+    public JWKSet jwkSet() {
+        RSAPublicKey publicKey = loadPublicKey();
+        RSAKey rsaKey = new RSAKey.Builder(publicKey)
+                .keyID("clinic-main-key")
+                .build();
+
+        return new JWKSet(rsaKey);
+    }
+
+    @Bean
     public JwtDecoder jwtDecoder(JwtBlacklistValidator jwtBlacklistValidator) throws Exception {
         var decoder = NimbusJwtDecoder.withPublicKey(loadPublicKey()).build();
         decoder.setJwtValidator(jwtBlacklistValidator);

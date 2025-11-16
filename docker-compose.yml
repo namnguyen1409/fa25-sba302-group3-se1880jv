@@ -56,8 +56,42 @@ services:
     ports:
       - "5173:80"
 
+  chat_mongodb:
+    image: mongo:7
+    container_name: chat_mongodb
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 1409
+    volumes:
+      - mongo_data:/data/db
+
+  chatbackend:
+    build: ./chat-backend
+    container_name: cms_chat_backend
+    depends_on:
+      - chat_mongodb
+      - minio
+    ports:
+      - "9888:9888"
+  
+  chatfrontend:
+    build: ./chat-frontend
+    container_name: cms_chat_frontend
+    depends_on:
+      - chatbackend
+    ports:
+      - "5000:80"
 
 volumes:
   pg_data:
   minio_data:
   lucene_data:
+  mongo_data:
+
+
+# To start the services, run: docker compose up -d
+# To stop the services, run: docker compose down
+# To recomplile the backend or frontend, use: docker compose build <service_name>
